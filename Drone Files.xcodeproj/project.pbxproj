@@ -14,6 +14,9 @@
 		18B001D71EA69C92003C3214 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B001D51EA69C92003C3214 /* Main.storyboard */; };
 		18B001E21EA69C92003C3214 /* Drone_FilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001E11EA69C92003C3214 /* Drone_FilesTests.swift */; };
 		18B001ED1EA69C92003C3214 /* Drone_FilesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001EC1EA69C92003C3214 /* Drone_FilesUITests.swift */; };
+		18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FA1EA6A09D003C3214 /* WindowController.swift */; };
+		18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FC1EA6A0A8003C3214 /* Directory.swift */; };
+		18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		18B001E81EA69C92003C3214 /* Drone FilesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Drone FilesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B001EC1EA69C92003C3214 /* Drone_FilesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drone_FilesUITests.swift; sourceTree = "<group>"; };
 		18B001EE1EA69C92003C3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18B001FA1EA6A09D003C3214 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		18B001FC1EA6A0A8003C3214 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +104,12 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
+				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
 				18B001CE1EA69C92003C3214 /* ViewController.swift */,
+				18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */,
 				18B001D31EA69C92003C3214 /* Assets.xcassets */,
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
+				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
 				18B001D81EA69C92003C3214 /* Info.plist */,
 				18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */,
 			);
@@ -259,8 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18B001CF1EA69C92003C3214 /* ViewController.swift in Sources */,
+				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
+				18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
+				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
