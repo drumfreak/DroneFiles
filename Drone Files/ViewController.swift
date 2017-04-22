@@ -18,7 +18,7 @@ class ViewController: NSViewController {
     @IBOutlet var topView: NSView!
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var screenShotViewController: ScreenShotViewController!
+    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
     // @IBOutlet weak var editorViewController: EditorViewController!
     @IBOutlet weak var editorTabViewController: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
@@ -45,6 +45,14 @@ class ViewController: NSViewController {
     let sizeFormatter = ByteCountFormatter()
     
     
+    var sourceFolder = "file:///Volumes/NO%20NAME/DCIM/100MEDIA"
+    var projectFolder = "My Project"
+    var screenShotFolder = " - Screenshots"
+    var videoFolder = " - Videos"
+    var jpgFolder = " - JPG"
+    var dngFolder = " - RAW"
+    var rawFolder = " - RAW"
+    var videoClipsFolder = " - Video Clips"
     
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
@@ -123,7 +131,7 @@ class ViewController: NSViewController {
             print ("Editor Tab View Controller Loaded");
             
             
-            self.screenShotViewController = self.editorTabViewController.childViewControllers[1] as! ScreenShotViewController
+            self.screenshotViewController = self.editorTabViewController.childViewControllers[1] as! ScreenshotViewController
             
             self.imageEditorViewController = self.editorTabViewController.childViewControllers[2] as! ImageEditorViewController
             
@@ -134,6 +142,13 @@ class ViewController: NSViewController {
             self.imageEditorViewController.flightName = self.flightName
             self.imageEditorViewController.dateField = self.dateField
             
+            
+            self.screenshotViewController.mainViewController = self
+            self.videoPlayerViewController.mainViewController = self
+            self.videoPlayerViewController.editorTabViewContrller = self.editorTabViewController
+//            self.screenshotViewController.editorTabViewController = self.editorTabViewController
+            
+            self.videoPlayerViewController.screenshotViewController = self.screenshotViewController
         }
         
         
@@ -154,8 +169,11 @@ class ViewController: NSViewController {
             }
             self.representedObject = openPanel.url
             
+            self.sourceFolder = (openPanel.url?.absoluteString)!
+            
             let tmp = openPanel.url?.absoluteString.replacingOccurrences(of: "file://", with: "")
             self.folderURLDisplay.stringValue = (tmp!.replacingOccurrences(of: "%20", with: " "))
+            
         })
     }
     
@@ -165,20 +183,43 @@ class ViewController: NSViewController {
         self.dateNameVar = self.dateField.stringValue
         self.newFileNamePath.stringValue = dateField.stringValue + " - " + flightName.stringValue
         self.saveDirectoryName =  self.newFileNamePath.stringValue
+        
+        self.projectFolder = (self.startingDirectory?.absoluteString)! + "/" + self.saveDirectoryName
+        self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
+        self.videoClipsFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Video Clips"
+        self.jpgFolder = self.projectFolder + "/" + self.saveDirectoryName + " - JPG"
+        self.screenShotFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Frames"
+        self.rawFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
+        self.dngFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
+        
+        self.projectFolder = self.projectFolder.replacingOccurrences(of: " ", with: "%20")
+        self.videoFolder = self.videoFolder.replacingOccurrences(of: " ", with: "%20")
+        self.videoClipsFolder = self.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
+        self.jpgFolder = self.jpgFolder.replacingOccurrences(of: " ", with: "%20")
+        self.screenShotFolder = self.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
+        self.rawFolder = self.rawFolder.replacingOccurrences(of: " ", with: "%20")
+        self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
+        
+        
+        print("Project Folder:" + self.projectFolder)
+        print("Video Folder:" + self.videoFolder)
+        print("Video Clips Folder:" + self.videoClipsFolder)
+        print("JPG Folder:" + self.jpgFolder)
+        print("PNG Folder:" + self.screenShotFolder)
+        print("RAW Folder:" + self.rawFolder)
+        print("DNG Folder:" + self.dngFolder)
+
+
+        
     }
     
     // Button and Input Text Actions
     @IBAction func flightNameChanged(sender: AnyObject) {
-        // print("Flight Name Changed!");
-        //print("Sender " + self.flightName.stringValue)
         setupProjectDirectory()
     }
     
     @IBAction func dateNameChanged(swnder: AnyObject) {
-        // print("Date Name Changed!");
-        // print("Sender " + self.dateField.stringValue)
         setupProjectDirectory()
-        
     }
     
     
@@ -294,14 +335,15 @@ class ViewController: NSViewController {
                 print("~~~~~~~~~~~~~~~~~~~~~~~ NOW SHOWING IMAGE: " + itemUrl)
                 
                 // self.imageEditorViewController.VideoEditView.isHidden = false;
+
                 
+                // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
+                self.editorTabViewController.selectedTabViewItemIndex = 2
+
                 self.imageEditorViewController.nowPlayingURL = (item.url as URL)
                 self.imageEditorViewController.nowPlayingFile?.stringValue = item.name
                 self.imageEditorViewController.nowPlayingURLString = itemUrl
                 self.imageEditorViewController.loadImage(_url: item.url as URL)
-                
-                // self.videoPlayerViewController.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
-                
                 
             } else {
                 // self.videoPlayerViewController.VideoEditView.isHidden = true;
@@ -335,32 +377,21 @@ class ViewController: NSViewController {
     }
     
     func tableViewDoubleClick(_ sender:AnyObject) {
-            
-            // NSWorkspace.shared().open(item.url as URL)
-        // }
+        // 1
+        guard tableView.selectedRow >= 0,
+            let item = directoryItems?[tableView.selectedRow] else {
+                return
+        }
+        
+        if item.isFolder {
+            // 2
+            self.representedObject = item.url as Any
+        }
+        else {
+            // 3
+            NSWorkspace.shared().open(item.url as URL)
+        }
     }
-    
-    
-    //    fileprivate func generateThumnail(url : URL, fromTime:Float64) -> NSImage? {
-    //        let asset :AVAsset = AVAsset(url: url)
-    //        let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
-    //        assetImgGenerate.appliesPreferredTrackTransform = true
-    //        assetImgGenerate.requestedTimeToleranceAfter = kCMTimeZero;
-    //        assetImgGenerate.requestedTimeToleranceBefore = kCMTimeZero;
-    //        let time        : CMTime = CMTimeMakeWithSeconds(fromTime, 600)
-    //        var img: CGImage?
-    //        do {
-    //            img = try assetImgGenerate.copyCGImage(at:time, actualTime: nil)
-    //        } catch {
-    //        }
-    //        if img != nil {
-    //            let frameImg    : NSImage = NSImage(cgImage: img!)
-    //            return frameImg
-    //        } else {
-    //            return nil
-    //        }
-    //    }
-    
 }
 
 extension ViewController: NSTableViewDataSource {

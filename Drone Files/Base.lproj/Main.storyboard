@@ -719,13 +719,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="1400" height="800"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6W-04-1UX" userLabel="File List">
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6W-04-1UX" userLabel="File List">
                                 <rect key="frame" x="20" y="181" width="606" height="523"/>
                                 <clipView key="contentView" id="sl2-Ve-uBa">
                                     <rect key="frame" x="1" y="0.0" width="604" height="522"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="2tX-04-VGc" viewBased="YES" id="NV0-1c-9tH">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" headerView="2tX-04-VGc" viewBased="YES" id="NV0-1c-9tH">
                                             <rect key="frame" x="0.0" y="0.0" width="604" height="499"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -831,11 +831,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="SizeCellID" id="QNk-GO-dMj">
-                                                            <rect key="frame" x="477" y="1" width="100" height="40"/>
+                                                            <rect key="frame" x="477" y="1" width="125" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-iI-wqd">
-                                                                    <rect key="frame" x="0.0" y="12" width="100" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="12" width="125" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bpQ-c0-qLP">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1014,8 +1014,8 @@
                                     <segue destination="fa8-kS-UDX" kind="embed" identifier="editorTabViewSegue" id="5H5-hH-4j7"/>
                                 </connections>
                             </containerView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQa-pa-2J3">
-                                <rect key="frame" x="18" y="156" width="610" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQa-pa-2J3">
+                                <rect key="frame" x="296.5" y="156" width="53" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0 Items" id="Lk2-Kp-mRO">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1079,7 +1079,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="759" height="691"/>
                                 <subviews>
                                     <avPlayerView fixedFrame="YES" controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="Wwg-vP-poZ">
-                                        <rect key="frame" x="0.0" y="258" width="759" height="433"/>
+                                        <rect key="frame" x="0.0" y="262" width="759" height="429"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </avPlayerView>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b9e-3I-9B5">
@@ -1177,7 +1177,7 @@ Gw
                                                 <rect key="frame" x="6" y="72" width="554" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" sendsActionOnEndEditing="YES" title="New Clip Name" usesSingleLineMode="YES" id="05J-YJ-RCx">
-                                                    <font key="font" metaFont="system" size="9"/>
+                                                    <font key="font" metaFont="miniSystem"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -1253,6 +1253,17 @@ Gw
                                             <action selector="takeScreenshot:" target="MAv-UR-Xgu" id="axT-sv-oEC"/>
                                         </connections>
                                     </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uNe-ry-Da7">
+                                        <rect key="frame" x="436" y="205" width="70" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Preview" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="04b-n1-TAg">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="setPreviewScreenshot:" target="MAv-UR-Xgu" id="Itq-tP-e3c"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>
@@ -1273,6 +1284,7 @@ Gw
                         <outlet property="saveClipLoadNewItemCheckbox" destination="j0N-wg-cV2" id="snc-4A-5cW"/>
                         <outlet property="saveTrimmedClipView" destination="pUq-Lf-E8h" id="4Dl-RD-xEu"/>
                         <outlet property="saveTrimmedVideoButton" destination="JVZ-f4-A7h" id="sG1-6W-C12"/>
+                        <outlet property="screenShotPreviewButton" destination="uNe-ry-Da7" id="bNQ-N0-DM7"/>
                         <outlet property="trimmedClipNewLabel" destination="ejD-8C-MdS" id="Zrm-Zl-djx"/>
                         <outlet property="trimmedClipNewPathLabel" destination="ERv-ua-fTs" id="lB8-Mb-pHk"/>
                         <outlet property="videoLengthLabel" destination="47Q-w9-sn6" id="ceV-Kb-VVu"/>
@@ -1310,60 +1322,70 @@ Gw
         <!--Screen Shots-->
         <scene sceneID="ln6-1L-vYC">
             <objects>
-                <viewController title="Screen Shots" id="JWN-ZO-nFL" userLabel="Screen Shots" customClass="ScreenShotViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Screen Shots" id="JWN-ZO-nFL" userLabel="Screen Shots" customClass="ScreenshotViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="G4K-14-047">
-                        <rect key="frame" x="0.0" y="0.0" width="688" height="697"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
+                        <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2a-NG-kIk">
-                                <rect key="frame" x="153" y="569" width="119" height="17"/>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjh-Vv-k2E">
+                                <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Screen Shot maker" id="q0b-Bz-I1O">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="screenShotView" destination="G4K-14-047" id="a9R-h2-oaT"/>
-                    </connections>
-                </viewController>
-                <customObject id="BvN-Lu-pzm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1558" y="1361"/>
-        </scene>
-        <!--Image Editor-->
-        <scene sceneID="qsw-uA-ZE1">
-            <objects>
-                <viewController title="Image Editor" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="PlS-k6-tw1">
-                        <rect key="frame" x="0.0" y="0.0" width="759" height="691"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7">
-                                <rect key="frame" x="0.0" y="0.0" width="759" height="691"/>
                                 <subviews>
-                                    <ikImageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQv-b5-Bs9">
-                                        <rect key="frame" x="0.0" y="200" width="759" height="491"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <color key="backgroundColor" red="0.50002289" green="0.50002289" blue="0.50002289" alpha="1" colorSpace="deviceRGB"/>
+                                    <ikImageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NvN-rI-eSn">
+                                        <rect key="frame" x="0.0" y="268" width="759" height="429"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </ikImageView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhv-gu-RjS">
-                                        <rect key="frame" x="392" y="173" width="349" height="19"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Loaded File" id="2Gj-bf-dhH">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7e-Qa-sAG">
+                                        <rect key="frame" x="0.0" y="236" width="283" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Screen Shot Name" id="vkb-In-HCO">
                                             <font key="font" metaFont="systemBold" size="16"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="759" id="I6c-Sw-313"/>
-                                    <constraint firstAttribute="height" constant="691" id="vD8-eH-SxT"/>
-                                </constraints>
+                            </customView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="imageEditorView" destination="Sjh-Vv-k2E" id="7si-sn-Tyt"/>
+                        <outlet property="imageView" destination="NvN-rI-eSn" id="aZm-12-MCQ"/>
+                        <outlet property="nowPlayingFile" destination="s7e-Qa-sAG" id="CBv-3c-IVS"/>
+                    </connections>
+                </viewController>
+                <customObject id="BvN-Lu-pzm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1642" y="1364"/>
+        </scene>
+        <!--Image Editor-->
+        <scene sceneID="qsw-uA-ZE1">
+            <objects>
+                <viewController title="Image Editor" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="PlS-k6-tw1">
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7">
+                                <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="fQv-b5-Bs9">
+                                        <rect key="frame" x="0.0" y="268" width="759" height="429"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="0.50002289" green="0.50002289" blue="0.50002289" alpha="1" colorSpace="deviceRGB"/>
+                                    </ikImageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhv-gu-RjS">
+                                        <rect key="frame" x="0.0" y="236" width="283" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loaded File" id="2Gj-bf-dhH">
+                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
                             </customView>
                         </subviews>
                     </view>
@@ -1375,7 +1397,7 @@ Gw
                 </viewController>
                 <customObject id="DHx-x3-09M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2349.5" y="1363.5"/>
+            <point key="canvasLocation" x="2471.5" y="1363.5"/>
         </scene>
     </scenes>
     <resources>

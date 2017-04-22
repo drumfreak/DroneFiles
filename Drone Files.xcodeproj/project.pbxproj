@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		181426771EA990CE004CA3E5 /* ScreenShotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181426761EA990CE004CA3E5 /* ScreenShotViewController.swift */; };
 		181426791EA99BF7004CA3E5 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181426781EA99BF7004CA3E5 /* MainContainerViewController.swift */; };
 		1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267A1EA9B450004CA3E5 /* EditorViewController.swift */; };
 		1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */; };
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
+		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001CC1EA69C92003C3214 /* AppDelegate.swift */; };
 		18B001CF1EA69C92003C3214 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001CE1EA69C92003C3214 /* ViewController.swift */; };
 		18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */; };
@@ -42,11 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		181426761EA990CE004CA3E5 /* ScreenShotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotViewController.swift; sourceTree = "<group>"; };
 		181426781EA99BF7004CA3E5 /* MainContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		18B001C91EA69C92003C3214 /* Drone Files.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Files.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B001CC1EA69C92003C3214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18B001CE1EA69C92003C3214 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,8 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
-				181426761EA990CE004CA3E5 /* ScreenShotViewController.swift */,
 				181426781EA99BF7004CA3E5 /* MainContainerViewController.swift */,
+				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
 				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
 				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				18B001CE1EA69C92003C3214 /* ViewController.swift */,
@@ -286,8 +286,8 @@
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
 				181426791EA99BF7004CA3E5 /* MainContainerViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
+				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
-				181426771EA990CE004CA3E5 /* ScreenShotViewController.swift in Sources */,
 				18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
