@@ -22,7 +22,7 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
     @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
     @IBOutlet weak var mainViewController: ViewController!
-
+    
     
     // Video Trimming
     @IBOutlet var saveNewItemPreserveDate: NSButton!
@@ -30,6 +30,7 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet var saveTrimmedClipView: NSView!
     // @IBOutlet weak var exportSession: AVAssetExportSession!
     @IBOutlet weak var clipTrimTimer: Timer!
+    @IBOutlet weak var playerTimer: Timer!
     @IBOutlet weak var saveTrimmedVideoButton: NSButton!
     @IBOutlet weak var cancelTrimmedVideoButton: NSButton!
     @IBOutlet weak var clipFileSizeLabel: NSTextField!
@@ -46,7 +47,7 @@ class VideoPlayerViewController: NSViewController {
     var trimOffset = 0.00
     
     @IBOutlet var screenShotPreviewButton: NSButton!
-   
+    
     
     // Video Player Stuff
     @IBOutlet var playerItem: AVPlayerItem!
@@ -81,8 +82,14 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     
+    @IBOutlet var playerTimerLabel: NSTextField!
     var playerItemContext = 0
     @IBOutlet var clipTrimProgressBar: NSProgressIndicator!
+    
+    @IBOutlet var savingScreenShotSpinner: NSProgressIndicator!
+    @IBOutlet var savingScreenShotMessageBox: NSView!
+    
+    var playerViewControllerKVOContext = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +100,13 @@ class VideoPlayerViewController: NSViewController {
         self.saveTrimmedClipView.isHidden = true
         self.saveTrimmedVideoButton.isHidden = true
         self.screenShotPreviewButton.isEnabled = self.screenShotPreview
+        // self.savingScreenShotMessageBox.isHidden = true
+        self.savingScreenShotSpinner.isHidden = true
+//        
+        addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        
     }
     
     
@@ -125,7 +139,7 @@ class VideoPlayerViewController: NSViewController {
         self.clippedVideoName = self.mainViewController.saveDirectoryName + " - Clip " + increment + ".MOV"
         self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
         self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
-    
+        
         if FileManager.default.fileExists(atPath: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: "")) {
             print("Fuck that file exists..")
             let incrementer = "00000"
@@ -279,7 +293,7 @@ class VideoPlayerViewController: NSViewController {
         }
         
         if(self.playerView.player == nil) {
-            print("player is nil")
+            // print("player is nil")
             
             let player = AVPlayer(playerItem: playerItem)
             
@@ -287,11 +301,16 @@ class VideoPlayerViewController: NSViewController {
             
             // Register as an observer of the player item's status property
             self.playerView.player?.addObserver(self,
-                                                forKeyPath: "status",
+                                                forKeyPath: #keyPath(AVPlayerItem.status),
                                                 options: [.old, .new],
-                                                context: &playerItemContext)
+                                                context: &playerViewControllerKVOContext)
+            
+            self.playerView.player?.addObserver(self,
+                                                forKeyPath: #keyPath(AVPlayer.rate),
+                                                options: [.old, .new],
+                                                context: &playerViewControllerKVOContext)
         } else {
-            print("player IS NOT nil")
+            // print("player IS NOT nil")
             // self.deallocObservers(player: (self.playerView.player?.currentItem!)!)
             
             let player = AVPlayer(playerItem: playerItem)
@@ -299,81 +318,33 @@ class VideoPlayerViewController: NSViewController {
             // self.playerView.player? = nil
             self.playerView.player? = player
             self.playerView.player?.addObserver(self,
-                                                forKeyPath: "status",
+                                                forKeyPath: #keyPath(AVPlayerItem.status),
                                                 options: [.old, .new],
-                                                context: &playerItemContext)
+                                                context: &playerViewControllerKVOContext)
             
-            
+            self.playerView.player?.addObserver(self,
+                                                forKeyPath: #keyPath(AVPlayer.rate),
+                                                options: [.old, .new],
+                                                context: &playerViewControllerKVOContext)
+//
+//            
             // self.playerView.player?.replaceCurrentItem(with: playerItem)
         }
+        
+        
         
         self.calculateClipLength()
         
         return self.playerView.player!
     }
     
-    //observer for av play
-    
-    override func observeValue(forKeyPath keyPath: String?,
-                               of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
-                               context: UnsafeMutableRawPointer?) {
-        // Only handle observations for the playerItemContext
-        guard context == &playerItemContext else {
-            super.observeValue(forKeyPath: keyPath,
-                               of: object,
-                               change: change,
-                               context: context)
-            return
-        }
-        
-        if keyPath == #keyPath(AVPlayerItem.status) {
-            let status: AVPlayerItemStatus
-            
-            // Get the status change from the change dictionary
-            if let statusNumber = change?[.newKey] as? NSNumber {
-                status = AVPlayerItemStatus(rawValue: statusNumber.intValue)!
-            } else {
-                status = .unknown
-            }
-            
-            // Switch over the status
-            switch status {
-            case .readyToPlay:
-                // print("Player Ready")
-                self.playerIsReady = true
-                self.calculateClipLength()
-                
-                if(self.startPlayingVideo) {
-                    self.playerView.player?.play()
-                    self.startPlayingVideo = false
-                }
-                
-                break
-            // Player item is ready to play.
-            case .failed:
-                print("Player Failed")
-                self.playerIsReady = false
-                break
-                
-            // Player item failed. See error.
-            case .unknown:
-                print("Player Unkown");
-                self.playerIsReady = false
-                
-                break
-                // Player item is not yet ready.
-            }
-        }
-    }
-    
-    private func deallocObservers(playerItem: AVPlayer) {
+    func deallocObservers(playerItem: AVPlayer) {
         if(self.playerIsReady) {
             self.playerIsReady = false
             print("Deallocating Observers from playerItem")
             self.playerView.player?.pause()
             // self.playerItem.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
-            self.playerView.player?.removeObserver(self, forKeyPath: "status", context: &playerItemContext)
+            self.playerView.player?.removeObserver(self, forKeyPath: "status", context: &playerViewControllerKVOContext)
             // self.playerView.player?.replaceCurrentItem(with: nil)
         }
     }
@@ -395,7 +366,7 @@ class VideoPlayerViewController: NSViewController {
         self.screenShotPreview = !self.screenShotPreview
     }
     
-
+    
     @IBAction func cancelTrimmedClip(_ sender: AnyObject?) {
         //print("Canceling Save Trimmed Clip");
         // let currentVideoTime = self.playerItem.currentTime()
@@ -449,7 +420,7 @@ class VideoPlayerViewController: NSViewController {
         
         self.exportSession.timeRange = timeRange
         
-        print("Export Length... \(self.exportSession.estimatedOutputFileLength)")
+        // print("Export Length... \(self.exportSession.estimatedOutputFileLength)")
         
         self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
         self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
@@ -495,6 +466,7 @@ class VideoPlayerViewController: NSViewController {
             self.saveTrimmedClipView.isHidden = true
             
             print("Claaned up session");
+            self.mainViewController.reloadFileList()
             
         }
         
@@ -575,6 +547,8 @@ class VideoPlayerViewController: NSViewController {
     
     func getScreenShotDate(originalFile: String) -> Date {
         
+        print("TRIM OFFSET \(self.trimOffset)")
+        
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
         let date = Date()
@@ -584,18 +558,21 @@ class VideoPlayerViewController: NSViewController {
             
             let newDate = Calendar.current.date(byAdding: .second, value: Int(self.trimOffset), to: modificationDate)
             
-            
             print("Modification date: ", newDate!)
             return newDate!
             
         } catch let error {
             print("Error getting file modification attribute date: \(error.localizedDescription)")
+            return date
         }
-        return date
+        // return date
     }
     
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
+        self.savingScreenShotMessageBox.isHidden = true
+        self.savingScreenShotSpinner.isHidden = false
+        self.savingScreenShotSpinner.startAnimation(nil)
         
         let playerTime = self.playerView.player?.currentTime()
         
@@ -605,11 +582,15 @@ class VideoPlayerViewController: NSViewController {
             playerWasPlaying = true
         }
         
+        self.trimOffset = CMTimeGetSeconds((self.playerView.player?.currentTime())!)
         
         let newDate = getScreenShotDate(originalFile: self.nowPlayingURLString)
         
+        
         if(self.screenShotPreview) {
             // THIS MUST HAPPEN FIRST
+            self.savingScreenShotSpinner.stopAnimation(self)
+            self.savingScreenShotSpinner.isHidden = true
             self.editorTabViewContrller.selectedTabViewItemIndex = 1
             print("Screen shot at: \(String(describing: playerTime))")
             self.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: true, modificationDate: newDate)
@@ -617,13 +598,14 @@ class VideoPlayerViewController: NSViewController {
             print("Screen shot at: \(String(describing: playerTime))")
             self.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: false, modificationDate: newDate)
             if(playerWasPlaying) {
+                self.savingScreenShotSpinner.stopAnimation(self)
+                self.savingScreenShotSpinner.isHidden = true
                 self.playerView.player?.play()
             }
         }
-       
     }
     
-
+    
     
     func showNotification(messageType: String, customMessage: String) -> Void {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -650,5 +632,225 @@ class VideoPlayerViewController: NSViewController {
     }
     
     
+    // Player stuff
+    
+    
+    let timeRemainingFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.minute, .second]
+        
+        return formatter
+    }()
+    
+    
+    func handleErrorWithMessage(_ message: String?, error: Error? = nil) {
+       //  print("Error occured with message: \(message), error: \(error).")
+       //  print("Error occured with message: \(message?)")
+
+//        let alertTitle = NSLocalizedString("alert.error.title", comment: "Alert title for errors")
+//        let defaultAlertMessage = NSLocalizedString("error.default.description", comment: "Default error message when no NSError provided")
+//        
+//        let alert = UIAlertController(title: alertTitle, message: message == nil ? defaultAlertMessage : message, preferredStyle: UIAlertControllerStyle.alert)
+//        
+//        let alertActionTitle = NSLocalizedString("alert.error.actions.OK", comment: "OK on error alert")
+//        
+//        let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
+//        
+//        alert.addAction(alertAction)
+//        
+//        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Convenience
+    
+    func createTimeString(time: Float) -> String {
+        let components = NSDateComponents()
+        components.second = Int(max(0.0, time))
+        
+        return timeRemainingFormatter.string(from: components as DateComponents)!
+    }
+    
+    
+    
+    
+    //observer for av play
+    
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        
+        
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~ OBSERVING " + keyPath!)
+        // Only handle observations for the playerItemContext
+        guard context == &playerViewControllerKVOContext else {
+            super.observeValue(forKeyPath: keyPath,
+                               of: object,
+                               change: change,
+                               context: context)
+            return
+        }
+        
+        if keyPath == #keyPath(AVPlayerItem.status) {
+            let status: AVPlayerItemStatus
+            
+            // Get the status change from the change dictionary
+            if let statusNumber = change?[.newKey] as? NSNumber {
+                status = AVPlayerItemStatus(rawValue: statusNumber.intValue)!
+            } else {
+                status = .unknown
+            }
+            
+            // Switch over the status
+            switch status {
+            case .readyToPlay:
+                print("Player Ready")
+                self.playerIsReady = true
+                self.calculateClipLength()
+                
+                if(self.startPlayingVideo) {
+                    self.playerView.player?.play()
+                    self.startPlayingVideo = false
+                }
+                
+                break
+            // Player item is ready to play.
+            case .failed:
+                print("Player Failed")
+                self.playerIsReady = false
+                break
+                
+            // Player item failed. See error.
+            case .unknown:
+                print("Player Unkown");
+                self.playerIsReady = false
+                
+                break
+                // Player item is not yet ready.
+            }
+        }
+        
+        
+        
+        if keyPath == #keyPath(AVPlayerItem.duration) {
+            // Update timeSlider and enable/disable controls when duration > 0.0
+            
+            /*
+             Handle `NSNull` value for `NSKeyValueChangeNewKey`, i.e. when
+             `player.currentItem` is nil.
+             */
+            let newDuration: CMTime
+            if let newDurationAsValue = change?[NSKeyValueChangeKey.newKey] as? NSValue {
+                newDuration = newDurationAsValue.timeValue
+            }
+            else {
+                newDuration = kCMTimeZero
+            }
+            
+            let hasValidDuration = newDuration.isNumeric && newDuration.value != 0
+//            let newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0
+//            let currentTime = hasValidDuration ? Float(CMTimeGetSeconds(player.currentTime())) : 0.0
+//            
+            //            timeSlider.maximumValue = Float(newDurationSeconds)
+            //
+            //            timeSlider.value = currentTime
+            //
+            //            rewindButton.isEnabled = hasValidDuration
+            //
+            //            playPauseButton.isEnabled = hasValidDuration
+            //
+            //            fastForwardButton.isEnabled = hasValidDuration
+            //
+            //            timeSlider.isEnabled = hasValidDuration
+            
+            //startTimeLabel.isEnabled = hasValidDuration
+            //startTimeLabel.text = createTimeString(time: currentTime)
+            
+            //durationLabel.isEnabled = hasValidDuration
+            //durationLabel.text = createTimeString(time: Float(newDurationSeconds))
+        }
+        else if keyPath == #keyPath(AVPlayer.rate) {
+            // Update `playPauseButton` image.
+            print("Hey rate is changing!");
+            
+            
+            let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
+            
+            print("Rate is now...\(newRate)")
+            
+            
+            
+            //            let buttonImageName = newRate == 1.0 ? "PauseButton" : "PlayButton"
+            //
+            //            let buttonImage = UIImage(named: buttonImageName)
+            
+            //            playPauseButton.setImage(buttonImage, for: UIControlState())
+        }
+        else if keyPath == #keyPath(AVPlayerItem.status) {
+            // Display an error if status becomes `.Failed`.
+            
+            /*
+             Handle `NSNull` value for `NSKeyValueChangeNewKey`, i.e. when
+             `player.currentItem` is nil.
+             */
+            let newStatus: AVPlayerItemStatus
+            
+            if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
+                newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
+            }
+            else {
+                newStatus = .unknown
+            }
+            
+            if newStatus == .failed {
+                handleErrorWithMessage(self.playerView.player?.currentItem?.error?.localizedDescription, error:player.currentItem?.error)
+            }
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+//    // Update our UI when player or `player.currentItem` changes.
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+//        // Make sure the this KVO callback was intended for this view controller.
+//        guard context == &playerViewControllerKVOContext else {
+//            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+//            return
+//        }
+//        
+//    }
+//    
+    // Trigger KVO for anyone observing our properties affected by player and player.currentItem
+    override class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
+        let affectedKeyPathsMappingByKey: [String: Set<String>] = [
+            "duration":     [#keyPath(AVPlayerItem.duration)],
+            "rate":         [#keyPath(AVPlayer.rate)]
+        ]
+        
+        return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
+    }
     
 }
+
+
+
+//- (void)addPeriodicTimeObserver {
+//    // Invoke callback every half second
+//    CMTime interval = CMTimeMakeWithSeconds(0.5, NSEC_PER_SEC);
+//    // Queue on which to invoke the callback
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    // Add time observer
+//    self.timeObserverToken =
+//        [self.player addPeriodicTimeObserverForInterval:interval
+//            queue:mainQueue
+//            usingBlock:^(CMTime time) {
+//            // Use weak reference to self
+//            // Update player transport UI
+//            }];
+//}
+

@@ -48,7 +48,7 @@ class ScreenshotViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded Screen Shot Editor")
+        // print("Loaded Screen Shot Editor")
         imageView.autoresizes = true
         imageView.supportsDragAndDrop = true
         imageView.editable = true
@@ -63,19 +63,20 @@ class ScreenshotViewController: NSViewController {
     }
     
     func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
+        
+        self.modificationDate = modificationDate
+        
         print("Taking Screenshot");
         print("Screen shot at: \(String(describing: currentTime))")
         do {
-            let _: String! =  self.generateThumnail(asset: asset, fromTime: currentTime)!
+            let _: String! =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
             
             let url = URL(string: self.screenshotNameFullURL)
             
-            self.modificationDate = modificationDate
             
             //self.editorTabViewController.selectedTabViewItemIndex = 1
             if(preview == true) {
-                print("SCREEN SHOT PREVIEWING : \(String(describing: url))")
-                
+               // print("SCREEN SHOT PREVIEWING : \(String(describing: url))")
                 self.imageView.setImageWith(url)
             }
         }
@@ -93,7 +94,7 @@ class ScreenshotViewController: NSViewController {
             let newDate = self.modificationDate
             // let newDate = Calendar.current.date(byAdding: .second, value: Int(self.trimOffset), to: modificationDate)
             
-            print("Modification date: ", self.modificationDate)
+            // print("Modification date: ", self.modificationDate)
             
             let attributes = [
                 FileAttributeKey.creationDate: newDate,
@@ -102,6 +103,9 @@ class ScreenshotViewController: NSViewController {
             
             do {
                 // THIS IS BROKEN!!
+                //print("ORIGINAL PATH : \(original)")
+                //print("ATTRIBUTES: \(attributes)")
+                
                 try FileManager.default.setAttributes(attributes, ofItemAtPath: original)
             } catch {
                 print(error)
@@ -110,7 +114,7 @@ class ScreenshotViewController: NSViewController {
     }
     
     // Screen shot stuff
-    func generateThumnail(asset: AVAsset, fromTime:CMTime) -> String? {
+    func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> String? {
         let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
         assetImgGenerate.appliesPreferredTrackTransform = true
         assetImgGenerate.requestedTimeToleranceAfter = kCMTimeZero;
@@ -187,7 +191,7 @@ class ScreenshotViewController: NSViewController {
             self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
             
         } else {
-            print("That screenshot does not exist..")
+            // print("That screenshot does not exist..")
         }
         
         return self.screenshotPath
@@ -238,16 +242,12 @@ class ScreenshotViewController: NSViewController {
             if(self.screenshotItemPreserveFileDates) {
                 self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
             }
+            self.mainViewController.reloadFileList()
+
             
             return stringURL
         }
     }
-    
-    
-    
-    
-    
-    
 }
 
 extension NSImage {

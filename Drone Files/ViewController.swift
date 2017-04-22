@@ -170,10 +170,12 @@ class ViewController: NSViewController {
             self.representedObject = openPanel.url
             
             self.sourceFolder = (openPanel.url?.absoluteString)!
+            self.startingDirectory = openPanel.url
+            self.sourceFolder = (openPanel.url?.absoluteString)!
             
             let tmp = openPanel.url?.absoluteString.replacingOccurrences(of: "file://", with: "")
             self.folderURLDisplay.stringValue = (tmp!.replacingOccurrences(of: "%20", with: " "))
-            
+            self.setupProjectDirectory()
         })
     }
     
@@ -201,13 +203,13 @@ class ViewController: NSViewController {
         self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
         
         
-        print("Project Folder:" + self.projectFolder)
-        print("Video Folder:" + self.videoFolder)
-        print("Video Clips Folder:" + self.videoClipsFolder)
-        print("JPG Folder:" + self.jpgFolder)
-        print("PNG Folder:" + self.screenShotFolder)
-        print("RAW Folder:" + self.rawFolder)
-        print("DNG Folder:" + self.dngFolder)
+//        print("Project Folder:" + self.projectFolder)
+//        print("Video Folder:" + self.videoFolder)
+//        print("Video Clips Folder:" + self.videoClipsFolder)
+//        print("JPG Folder:" + self.jpgFolder)
+//        print("PNG Folder:" + self.screenShotFolder)
+//        print("RAW Folder:" + self.rawFolder)
+//        print("DNG Folder:" + self.dngFolder)
 
 
         
