@@ -343,8 +343,13 @@ class VideoPlayerViewController: NSViewController {
             self.playerIsReady = false
             print("Deallocating Observers from playerItem")
             self.playerView.player?.pause()
+            
             // self.playerItem.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
-            self.playerView.player?.removeObserver(self, forKeyPath: "status", context: &playerViewControllerKVOContext)
+            
+            self.playerView.player?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: &playerViewControllerKVOContext)
+            
+            self.playerView.player?.removeObserver(self, forKeyPath: #keyPath(AVPlayer.rate), context: &playerViewControllerKVOContext)
+            
             // self.playerView.player?.replaceCurrentItem(with: nil)
         }
     }
@@ -571,7 +576,7 @@ class VideoPlayerViewController: NSViewController {
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
         self.savingScreenShotMessageBox.isHidden = true
-        self.savingScreenShotSpinner.isHidden = false
+        //self.savingScreenShotSpinner.isHidden = false
         self.savingScreenShotSpinner.startAnimation(nil)
         
         let playerTime = self.playerView.player?.currentTime()
@@ -590,7 +595,7 @@ class VideoPlayerViewController: NSViewController {
         if(self.screenShotPreview) {
             // THIS MUST HAPPEN FIRST
             self.savingScreenShotSpinner.stopAnimation(self)
-            self.savingScreenShotSpinner.isHidden = true
+            //self.savingScreenShotSpinner.isHidden = true
             self.editorTabViewContrller.selectedTabViewItemIndex = 1
             print("Screen shot at: \(String(describing: playerTime))")
             self.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: true, modificationDate: newDate)
@@ -599,7 +604,7 @@ class VideoPlayerViewController: NSViewController {
             self.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: false, modificationDate: newDate)
             if(playerWasPlaying) {
                 self.savingScreenShotSpinner.stopAnimation(self)
-                self.savingScreenShotSpinner.isHidden = true
+               // self.savingScreenShotSpinner.isHidden = true
                 self.playerView.player?.play()
             }
         }
@@ -748,7 +753,7 @@ class VideoPlayerViewController: NSViewController {
                 newDuration = kCMTimeZero
             }
             
-            let hasValidDuration = newDuration.isNumeric && newDuration.value != 0
+            // let hasValidDuration = newDuration.isNumeric && newDuration.value != 0
 //            let newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0
 //            let currentTime = hasValidDuration ? Float(CMTimeGetSeconds(player.currentTime())) : 0.0
 //            

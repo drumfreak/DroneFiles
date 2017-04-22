@@ -22,7 +22,7 @@ class ViewController: NSViewController {
     // @IBOutlet weak var editorViewController: EditorViewController!
     @IBOutlet weak var editorTabViewController: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
-
+    
     // View controllers
     
     @IBOutlet var editingContainerView: NSView!
@@ -31,6 +31,7 @@ class ViewController: NSViewController {
     // Directories!
     var directory: Directory?
     var startingDirectory = URL(string: "file:///Volumes/NO%20NAME/DCIM/100MEDIA")
+    var currentDir: URL!
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
     
@@ -44,6 +45,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var folderURLDisplay: NSTextField!
     let sizeFormatter = ByteCountFormatter()
     
+    @IBOutlet var fileBrowserHomeButton: NSButton!
     
     var sourceFolder = "file:///Volumes/NO%20NAME/DCIM/100MEDIA"
     var projectFolder = "My Project"
@@ -53,6 +55,7 @@ class ViewController: NSViewController {
     var dngFolder = " - RAW"
     var rawFolder = " - RAW"
     var videoClipsFolder = " - Video Clips"
+    var previousUrlString = "file://"
     
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
@@ -72,7 +75,6 @@ class ViewController: NSViewController {
         statusLabel.stringValue = ""
         tableView.target = self
         tableView.doubleAction = #selector(tableViewDoubleClick(_:))
-        // tableView.
         let dateformatter = DateFormatter()
         
         dateformatter.dateFormat = "MM-dd-YYYY"
@@ -94,6 +96,8 @@ class ViewController: NSViewController {
         //videoView.
         self.showNotification(messageType: "default", customMessage: "");
         
+        self.currentDir = self.startingDirectory
+        
         setupProjectDirectory()
         
         let descriptorName = NSSortDescriptor(key: Directory.FileOrder.Name.rawValue, ascending: true)
@@ -113,12 +117,12 @@ class ViewController: NSViewController {
         
     }
     
-
+    
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "editorTabViewSegue" {
             self.editorTabViewController = segue.destinationController as! EditorTabViewController
-           
+            
             self.videoPlayerViewController = self.editorTabViewController.childViewControllers[0] as! VideoPlayerViewController
             
             self.videoPlayerViewController.folderURL = self.folderURL
@@ -146,7 +150,7 @@ class ViewController: NSViewController {
             self.screenshotViewController.mainViewController = self
             self.videoPlayerViewController.mainViewController = self
             self.videoPlayerViewController.editorTabViewContrller = self.editorTabViewController
-//            self.screenshotViewController.editorTabViewController = self.editorTabViewController
+            //            self.screenshotViewController.editorTabViewController = self.editorTabViewController
             
             self.videoPlayerViewController.screenshotViewController = self.screenshotViewController
         }
@@ -154,6 +158,62 @@ class ViewController: NSViewController {
         
     }
     
+    @IBAction func fileBrowserHomeButtonClicked(_ sender: AnyObject?) {
+        print ("Clicked home button")
+        
+        let paths = getPathsFromURL(url: self.currentDir)
+        print("Paths: \(paths)")
+        let tmp = paths["paths"] as! NSArray
+        var counter = Int(0)
+        
+        let previousIndex = paths["parentIndex"] as! Int
+        
+        print("previousIndex \(String(describing: previousIndex))")
+        self.previousUrlString = "file://"
+        
+        tmp.forEach { thisPath in
+            print(thisPath)
+         counter = counter + Int(1)
+            if(counter <= previousIndex) {
+                
+                self.previousUrlString = self.previousUrlString + "/" + (thisPath as! String)
+                
+                print("counter \(counter)")
+
+            
+            }
+           
+            
+        }
+        
+        self.representedObject = URL(string: self.previousUrlString)
+        reloadFileList()
+        
+        // var lastName: String? = pathsArray.count > 1 ? fullNameArr[1] : nil
+        
+    }
+    
+    func getPathsFromURL(url: URL!) -> NSMutableDictionary {
+
+        let startingDir = url.absoluteString.replacingOccurrences(of: "file:///", with: "")
+        // startingDir = String(startingDir.characters.dropLast())
+        
+        let pathsArray = startingDir.components(separatedBy: "/")
+        let arrayCount = pathsArray.endIndex + Int(1),
+            previousElement = arrayCount - Int(3),
+            currentElement = arrayCount - Int(2)
+
+        let currentPath = pathsArray[currentElement]
+        
+        var keyArray = NSMutableArray(), objectArray = NSMutableArray()
+        keyArray = ["paths","currentPath", "currentIndex", "rootPath", "parentDirectory", "parentIndex"]
+       
+        let parentDirectory = pathsArray[previousElement]
+        objectArray = [pathsArray, currentPath, currentElement, "Volumes", parentDirectory, previousElement] as [Any] as! NSMutableArray
+        
+        let dictionary = NSMutableDictionary(objects: objectArray as! [Any], forKeys: keyArray as! [NSCopying])
+        return dictionary
+    }
     
     // Open directory for tableview
     @IBAction func openDocument(_ sender: AnyObject?) {
@@ -203,15 +263,14 @@ class ViewController: NSViewController {
         self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
         
         
-//        print("Project Folder:" + self.projectFolder)
-//        print("Video Folder:" + self.videoFolder)
-//        print("Video Clips Folder:" + self.videoClipsFolder)
-//        print("JPG Folder:" + self.jpgFolder)
-//        print("PNG Folder:" + self.screenShotFolder)
-//        print("RAW Folder:" + self.rawFolder)
-//        print("DNG Folder:" + self.dngFolder)
-
-
+        //        print("Project Folder:" + self.projectFolder)
+        //        print("Video Folder:" + self.videoFolder)
+        //        print("Video Clips Folder:" + self.videoClipsFolder)
+        //        print("JPG Folder:" + self.jpgFolder)
+        //        print("PNG Folder:" + self.screenShotFolder)
+        //        print("RAW Folder:" + self.rawFolder)
+        //        print("DNG Folder:" + self.dngFolder)
+        
         
     }
     
@@ -237,7 +296,7 @@ class ViewController: NSViewController {
     override var representedObject: Any? {
         didSet {
             if let url = representedObject as? URL {
-                // print("Represented object: \(url)")
+                print("Represented object: \(url)")
                 directory = Directory(folderURL: url)
                 reloadFileList()
                 self.folderURL = url.absoluteString
@@ -253,23 +312,31 @@ class ViewController: NSViewController {
         
         DispatchQueue.global(qos: .userInitiated).async {
             if(messageType == "VideoTrimComplete") {
-                // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
-                let notification = NSUserNotification()
-                notification.title = "Video Trimming Complete"
-                notification.informativeText = "Your clip has been saved. " + customMessage.replacingOccurrences(of: "%20", with: " ")
+                DispatchQueue.main.async {
+                    // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
+                    let notification = NSUserNotification()
+                    notification.title = "Video Trimming Complete"
+                    notification.informativeText = "Your clip has been saved. " + customMessage.replacingOccurrences(of: "%20", with: " ")
+                    
+                    notification.soundName = NSUserNotificationDefaultSoundName
+                    // NSUserNotificationCenter.default.deliver(notification)
+                    NSUserNotificationCenter.default.deliver(notification);
+                }
                 
-                notification.soundName = NSUserNotificationDefaultSoundName
-                // NSUserNotificationCenter.default.deliver(notification)
-                NSUserNotificationCenter.default.deliver(notification);
+                
             }
             
             if(messageType == "default") {
-                // print("Message Type Welcome: " + messageType);
-                let notification = NSUserNotification()
-                notification.title = "Welcome to DroneFiles!"
-                notification.informativeText = "Your life will never be the same"
-                notification.soundName = NSUserNotificationDefaultSoundName
-                NSUserNotificationCenter.default.deliver(notification)
+                DispatchQueue.main.async {
+                    
+                    // print("Message Type Welcome: " + messageType);
+                    let notification = NSUserNotification()
+                    notification.title = "Welcome to DroneFiles!"
+                    notification.informativeText = "Your life will never be the same"
+                    notification.soundName = NSUserNotificationDefaultSoundName
+                    NSUserNotificationCenter.default.deliver(notification)
+                    
+                }
             }
         }
     }
@@ -282,7 +349,7 @@ class ViewController: NSViewController {
     
     
     func loadItemFromTable() {
-    
+        
         print("SELECTED ROW \(self.tableView.selectedRow)")
         
         
@@ -294,6 +361,8 @@ class ViewController: NSViewController {
         
         if item.isFolder {
             // 2
+            print("CLICKED FOLDER");
+            self.currentDir = item.url as URL
             self.representedObject = item.url as Any
         }
         else {
@@ -337,11 +406,11 @@ class ViewController: NSViewController {
                 print("~~~~~~~~~~~~~~~~~~~~~~~ NOW SHOWING IMAGE: " + itemUrl)
                 
                 // self.imageEditorViewController.VideoEditView.isHidden = false;
-
+                
                 
                 // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
                 self.editorTabViewController.selectedTabViewItemIndex = 2
-
+                
                 self.imageEditorViewController.nowPlayingURL = (item.url as URL)
                 self.imageEditorViewController.nowPlayingFile?.stringValue = item.name
                 self.imageEditorViewController.nowPlayingURLString = itemUrl
@@ -351,7 +420,7 @@ class ViewController: NSViewController {
                 // self.videoPlayerViewController.VideoEditView.isHidden = true;
             }
         }
-    
+        
     }
     
     func updateStatus() {
@@ -379,20 +448,22 @@ class ViewController: NSViewController {
     }
     
     func tableViewDoubleClick(_ sender:AnyObject) {
-        // 1
-        guard tableView.selectedRow >= 0,
-            let item = directoryItems?[tableView.selectedRow] else {
-                return
-        }
-        
-        if item.isFolder {
-            // 2
-            self.representedObject = item.url as Any
-        }
-        else {
-            // 3
-            NSWorkspace.shared().open(item.url as URL)
-        }
+//        // 1
+//        guard tableView.selectedRow >= 0,
+//            let item = directoryItems?[tableView.selectedRow] else {
+//                return
+//        }
+//        
+//        if item.isFolder {
+//            // 2
+//            print("CLICKED FOLDER");
+//            self.representedObject = item.url as Any
+//            self.currentDir = item.url as URL
+//        }
+//        else {
+//            // 3
+//            NSWorkspace.shared().open(item.url as URL)
+//        }
     }
 }
 
@@ -477,4 +548,5 @@ extension AVPlayer {
         return rate != 0 && error == nil
     }
 }
+
 

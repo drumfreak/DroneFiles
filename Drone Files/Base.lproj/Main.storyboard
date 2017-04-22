@@ -955,6 +955,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="fileBrowserHomeButtonClicked:" target="JFc-NU-FBv" id="bWV-x2-1nn"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lu7-Os-jyX">
                                 <rect key="frame" x="68" y="681" width="175" height="32"/>
@@ -1005,6 +1008,7 @@
                     </view>
                     <connections>
                         <outlet property="dateField" destination="lDW-Qg-eP7" id="x32-Ib-izX"/>
+                        <outlet property="fileBrowserHomeButton" destination="rQy-l2-Dro" id="dbQ-dq-xVt"/>
                         <outlet property="flightName" destination="x8M-FG-2u2" id="lhr-1q-zOP"/>
                         <outlet property="folderURLDisplay" destination="eXG-U6-TpE" id="r1U-9c-V5e"/>
                         <outlet property="newFileNamePath" destination="VtW-bH-z5Z" id="0Eh-iF-Vzv"/>
@@ -1228,8 +1232,8 @@ Gw
                                             <action selector="setPreviewScreenshot:" target="MAv-UR-Xgu" id="Itq-tP-e3c"/>
                                         </connections>
                                     </button>
-                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="feI-Zk-GeQ">
-                                        <rect key="frame" x="290" y="307" width="32" height="32"/>
+                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="feI-Zk-GeQ">
+                                        <rect key="frame" x="291" y="306" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </progressIndicator>
                                 </subviews>
