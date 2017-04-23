@@ -859,7 +859,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lyG-qR-Jf6">
-                                    <rect key="frame" x="1" y="506" width="604" height="16"/>
+                                    <rect key="frame" x="1" y="-16" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ADM-LC-XuU">
@@ -1202,10 +1202,10 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8S-sc-kSg">
-                                        <rect key="frame" x="313" y="337" width="134" height="31"/>
+                                        <rect key="frame" x="328" y="337" width="133" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" id="L9Y-aX-3Zf">
-                                            <font key="font" metaFont="system" size="26"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00:00:00" id="L9Y-aX-3Zf">
+                                            <font key="font" metaFont="system" size="23"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -1222,7 +1222,7 @@ Gw
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uNe-ry-Da7">
-                                        <rect key="frame" x="436" y="314" width="70" height="18"/>
+                                        <rect key="frame" x="436" y="313" width="70" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Preview" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="04b-n1-TAg">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1236,6 +1236,45 @@ Gw
                                         <rect key="frame" x="291" y="306" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </progressIndicator>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4tC-4h-V3r">
+                                        <rect key="frame" x="461" y="335" width="49" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VmX-en-H1G">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="frameIncrement:" target="MAv-UR-Xgu" id="oq5-d9-WiH"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FLo-AL-5lD">
+                                        <rect key="frame" x="254" y="335" width="47" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Txm-VJ-MuH">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="frameDecrement:" target="MAv-UR-Xgu" id="hfd-6n-cRq"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nrM-vh-x7H">
+                                        <rect key="frame" x="510" y="313" width="58" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title=" Burst" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5EJ-sB-9im">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7J-sP-JKw">
+                                        <rect key="frame" x="578" y="313" width="83" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frame" id="rhp-26-GS4">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="77b-qO-cvW" firstAttribute="centerY" secondItem="w3f-NZ-8Jp" secondAttribute="centerY" id="AXs-vA-lFl"/>
@@ -1257,7 +1296,11 @@ Gw
                         <outlet property="cancelTrimmedVideoButton" destination="hOl-OM-SmM" id="Tgh-7v-vMK"/>
                         <outlet property="clipFileSizeLabel" destination="8KU-0E-a5z" id="9W1-Ry-uD0"/>
                         <outlet property="clipTrimProgressBar" destination="JVA-5i-ghm" id="4Mp-IO-3H1"/>
+                        <outlet property="currentFrameLabel" destination="o7J-sP-JKw" id="c9R-zz-d1n"/>
                         <outlet property="nowPlayingFile" destination="G6t-nq-K1R" id="zca-MD-JKS"/>
+                        <outlet property="playerFrameDecrement" destination="FLo-AL-5lD" id="Qwi-jl-6bn"/>
+                        <outlet property="playerFrameDecrementButton" destination="FLo-AL-5lD" id="l2q-Bh-bFu"/>
+                        <outlet property="playerFrameIncrementButton" destination="4tC-4h-V3r" id="neG-mh-E8Y"/>
                         <outlet property="playerTimerLabel" destination="P8S-sc-kSg" id="VW2-p8-jzD"/>
                         <outlet property="playerView" destination="Wwg-vP-poZ" id="1a0-PH-SPa"/>
                         <outlet property="saveClipLoadNewItemCheckbox" destination="j0N-wg-cV2" id="snc-4A-5cW"/>
@@ -1273,7 +1316,7 @@ Gw
                 </viewController>
                 <customObject id="PWZ-uy-RXA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823.5" y="1360.5"/>
+            <point key="canvasLocation" x="823.5" y="1360"/>
         </scene>
         <!--Editor Tab View Controller-->
         <scene sceneID="L4k-hf-rra">

@@ -30,7 +30,7 @@ class ViewController: NSViewController {
     
     // Directories!
     var directory: Directory?
-    var startingDirectory = URL(string: "file:///Volumes/NO%20NAME/DCIM/100MEDIA")
+    var startingDirectory = URL(string: "file:///Volumes/Untitled/DCIM/101MEDIA")
     var currentDir: URL!
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
@@ -47,7 +47,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
     
-    var sourceFolder = "file:///Volumes/NO%20NAME/DCIM/100MEDIA"
+    var sourceFolder = "file:///Volumes/Untitled/DCIM/101MEDIA"
     var projectFolder = "My Project"
     var screenShotFolder = " - Screenshots"
     var videoFolder = " - Videos"
@@ -173,17 +173,14 @@ class ViewController: NSViewController {
         
         tmp.forEach { thisPath in
             print(thisPath)
-         counter = counter + Int(1)
-            if(counter <= previousIndex) {
-                
-                self.previousUrlString = self.previousUrlString + "/" + (thisPath as! String)
-                
-                print("counter \(counter)")
-
             
-            }
            
+            if(counter < previousIndex) {
+                self.previousUrlString = self.previousUrlString + "/" + (thisPath as! String)
+                print("counter \(counter)")
+            }
             
+            counter = counter + Int(1)
         }
         
         self.representedObject = URL(string: self.previousUrlString)

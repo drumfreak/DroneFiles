@@ -66,7 +66,9 @@ class ScreenshotViewController: NSViewController {
         
         self.modificationDate = modificationDate
         
-        print("Taking Screenshot");
+        print("Taking Screenshot")
+        self.playShutterSound()
+        
         print("Screen shot at: \(String(describing: currentTime))")
         do {
             let _: String! =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
@@ -243,9 +245,25 @@ class ScreenshotViewController: NSViewController {
                 self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
             }
             self.mainViewController.reloadFileList()
-
             
             return stringURL
+        }
+    }
+    
+    
+    var audioPlayer: AVAudioPlayer?
+    
+    func playShutterSound() {
+        let url = Bundle.main.url(forResource: "Submarine", withExtension: "aiff")!
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let audioPlayer = audioPlayer else { return }
+            
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
 }

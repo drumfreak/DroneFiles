@@ -50,7 +50,7 @@ class VideoPlayerViewController: NSViewController {
     
     
     // Video Player Stuff
-    @IBOutlet var playerItem: AVPlayerItem!
+    var playerItem: AVPlayerItem!
     var currentVideoURL: URL!
     @IBOutlet var originalPlayerItem: AVPlayerItem!
     @IBOutlet var player: AVPlayer!
@@ -62,6 +62,7 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet weak var trimmedClipNewLabel: NSTextField!
     @IBOutlet weak var trimmedClipNewPathLabel: NSTextField!
     @IBOutlet weak var videoLengthLabel: NSTextField!
+    @IBOutlet var currentFrameLabel: NSTextField!
     
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
@@ -89,24 +90,100 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet var savingScreenShotSpinner: NSProgressIndicator!
     @IBOutlet var savingScreenShotMessageBox: NSView!
     
+    // Player Increment Buttons
+    @IBOutlet var playerFrameDecrementButton: NSButton!
+    @IBOutlet var playerFrameIncrementButton: NSButton!
+    
+    
+  
     var playerViewControllerKVOContext = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Video Player Controller Loaded")
         
-        self.VideoEditView.isHidden = true
+        self.VideoEditView.isHidden = false
         self.clipTrimProgressBar.isHidden = true
         self.saveTrimmedClipView.isHidden = true
         self.saveTrimmedVideoButton.isHidden = true
         self.screenShotPreviewButton.isEnabled = self.screenShotPreview
         // self.savingScreenShotMessageBox.isHidden = true
         self.savingScreenShotSpinner.isHidden = true
-//        
+       
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
         
+        let tapGesture = NSClickGestureRecognizer(target: self, action: #selector(handlePlayerLabelClick))
+        self.playerTimerLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupPlayer() {
+        self.playerView.showsFrameSteppingButtons = true
+        self.playerView.showsSharingServiceButton = true
+        self.playerView.showsFullScreenToggleButton = true
+        self.playerView.player = AVPlayer(playerItem: self.playerItem)
+        
+        self.playerView.player?.addObserver(self,
+                                            forKeyPath: #keyPath(AVPlayerItem.status),
+                                            options: [.old, .new],
+                                            context: &playerViewControllerKVOContext)
+        
+        self.playerView.player?.addObserver(self,
+                                            forKeyPath: #keyPath(AVPlayer.rate),
+                                            options: [.old, .new],
+                                            context: &playerViewControllerKVOContext)
+        
+    }
+    
+    func updateTimerLabel() {
+            let cur = self.playerView.player?.currentTime()
+            
+            let durationSeconds = CMTimeGetSeconds((cur)!)
+             print(durationSeconds)
+            let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
+            self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
+                // + ":" + String(format: "%02d", ms)
+            
+            self.currentFrameLabel.stringValue = String(format: "%010f", durationSeconds)
+    }
+    
+    // Play / Pause / Increment / Decrement
+    
+    @IBAction func frameDecrement(_ sender: AnyObject?) {
+        //print("Frame Decrement")
+        self.playerView.player?.pause()
+        let currentTime = self.playerView.player?.currentTime()
+        let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
+        // let nextFrame = CMTimeAdd(currentTime!, oneFrame);
+        let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
+        self.playerView.player?.seek(to: previousFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+            // print("Seeked to previous frame")
+            self.updateTimerLabel()
+        })
+        
+    }
+    
+    @IBAction func frameIncrement(_ sender: AnyObject?) {
+        // print("Frame Increment")
+        self.playerView.player?.pause()
+        let currentTime = self.playerView.player?.currentTime()
+        let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
+        let nextFrame = CMTimeAdd(currentTime!, oneFrame);
+        // let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
+        self.playerView.player?.seek(to: nextFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+             self.updateTimerLabel()
+            // print("Seeked to previous frame")
+        })
+    }
+    
+    func handlePlayerLabelClick() {
+        print("Play Pause")
+        if(self.playerView.player?.isPlaying)! {
+            self.playerView.player?.pause()
+        } else {
+            self.playerView.player?.play()
+        }
     }
     
     
@@ -131,8 +208,6 @@ class VideoPlayerViewController: NSViewController {
     func getClippedVideoPath(_videoPath : String) -> String {
         self.clippedVideoPathFull = self.mainViewController.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
         self.clippedVideoPath = self.clippedVideoPathFull.replacingOccurrences(of: "file://", with: "")
-        
-        
         
         let increment = getClippedVideosIncrement(_folder: self.mainViewController.videoClipsFolder)
         
@@ -210,8 +285,8 @@ class VideoPlayerViewController: NSViewController {
         self.setupAvExportTrimmedClip()
     }
     
-    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
-        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60, (seconds % 36000) % 60)
     }
     
     func calculateClipLength() {
@@ -228,8 +303,9 @@ class VideoPlayerViewController: NSViewController {
         let durationSeconds = CMTimeGetSeconds(difference);
         
         if(durationSeconds > 0) {
-            let (h,m,s) = self.secondsToHoursMinutesSeconds(seconds: Int(round(durationSeconds)))
+            let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int(round(durationSeconds)))
             self.videoLengthLabel.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
+                // + String(format: "%02d", ms) + ":ms"
         } else {
             self.videoLengthLabel.stringValue = "00:00:0000"
         }
@@ -260,14 +336,14 @@ class VideoPlayerViewController: NSViewController {
             self.startPlayingVideo = true // passes off to after player is ready.
         }
         
-        self.playerView.player = prepareToPlay(_url: _url, startTime: frame)
+        prepareToPlay(_url: _url, startTime: frame)
         // self.playerView.player?.seek(to: frame)
-        // print("Play Video function")
+        print("Play Video function")
         
     }
     
     // Video Player Setup and Play
-    func prepareToPlay(_url: URL, startTime: CMTime) -> AVPlayer {
+    func prepareToPlay(_url: URL, startTime: CMTime) {
         
         let url = _url
         self.currentVideoURL = url
@@ -277,65 +353,31 @@ class VideoPlayerViewController: NSViewController {
             "hasProtectedContent"
         ]
         self.currentAsset = asset
-        self.playerView.showsFrameSteppingButtons = true
-        self.playerView.showsSharingServiceButton = true
-        self.playerView.showsFullScreenToggleButton = true
+
         //self.playerView.showCon
         
         let playerItem = AVPlayerItem(asset: asset,
                                       automaticallyLoadedAssetKeys: assetKeys)
         playerItem.reversePlaybackEndTime = kCMTimeZero
         playerItem.forwardPlaybackEndTime = playerItem.duration
-        
-        if(self.playerView.player?.currentItem! != nil) {
-            //let previousItem = self.playerView.player?.currentItem!
-            self.deallocObservers(playerItem: self.playerView.player!)
-        }
-        
-        if(self.playerView.player == nil) {
-            // print("player is nil")
-            
-            let player = AVPlayer(playerItem: playerItem)
-            
-            self.playerView.player = player
-            
-            // Register as an observer of the player item's status property
-            self.playerView.player?.addObserver(self,
-                                                forKeyPath: #keyPath(AVPlayerItem.status),
-                                                options: [.old, .new],
-                                                context: &playerViewControllerKVOContext)
-            
-            self.playerView.player?.addObserver(self,
-                                                forKeyPath: #keyPath(AVPlayer.rate),
-                                                options: [.old, .new],
-                                                context: &playerViewControllerKVOContext)
+
+        if(self.playerView.player?.currentItem == nil) {
+            self.playerItem = playerItem
+            self.setupPlayer()
         } else {
-            // print("player IS NOT nil")
-            // self.deallocObservers(player: (self.playerView.player?.currentItem!)!)
-            
-            let player = AVPlayer(playerItem: playerItem)
-            
-            // self.playerView.player? = nil
-            self.playerView.player? = player
-            self.playerView.player?.addObserver(self,
-                                                forKeyPath: #keyPath(AVPlayerItem.status),
-                                                options: [.old, .new],
-                                                context: &playerViewControllerKVOContext)
-            
-            self.playerView.player?.addObserver(self,
-                                                forKeyPath: #keyPath(AVPlayer.rate),
-                                                options: [.old, .new],
-                                                context: &playerViewControllerKVOContext)
-//
-//            
-            // self.playerView.player?.replaceCurrentItem(with: playerItem)
+            self.playerView.player?.replaceCurrentItem(with: playerItem)
         }
+        //self.playerView.player?.play()
         
-        
-        
+        // print(playerItem)
         self.calculateClipLength()
         
-        return self.playerView.player!
+        
+        
+        // }
+        
+        
+        
     }
     
     func deallocObservers(playerItem: AVPlayer) {
@@ -345,6 +387,7 @@ class VideoPlayerViewController: NSViewController {
             self.playerView.player?.pause()
             
             // self.playerItem.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
+            // self.playerView.player!.removeTimeObserver(<#T##observer: Any##Any#>)
             
             self.playerView.player?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: &playerViewControllerKVOContext)
             
@@ -576,7 +619,7 @@ class VideoPlayerViewController: NSViewController {
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
         self.savingScreenShotMessageBox.isHidden = true
-        //self.savingScreenShotSpinner.isHidden = false
+        self.savingScreenShotSpinner.isHidden = false
         self.savingScreenShotSpinner.startAnimation(nil)
         
         let playerTime = self.playerView.player?.currentTime()
@@ -739,19 +782,20 @@ class VideoPlayerViewController: NSViewController {
         
         
         if keyPath == #keyPath(AVPlayerItem.duration) {
+            print("Duration... key")
             // Update timeSlider and enable/disable controls when duration > 0.0
             
             /*
              Handle `NSNull` value for `NSKeyValueChangeNewKey`, i.e. when
              `player.currentItem` is nil.
              */
-            let newDuration: CMTime
-            if let newDurationAsValue = change?[NSKeyValueChangeKey.newKey] as? NSValue {
-                newDuration = newDurationAsValue.timeValue
-            }
-            else {
-                newDuration = kCMTimeZero
-            }
+            // let newDuration: CMTime
+//            if let newDurationAsValue = change?[NSKeyValueChangeKey.newKey] as? NSValue {
+//                let newDuration = newDurationAsValue.timeValue
+//            }
+//            else {
+//                let newDuration = kCMTimeZero
+//            }
             
             // let hasValidDuration = newDuration.isNumeric && newDuration.value != 0
 //            let newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0
@@ -779,18 +823,24 @@ class VideoPlayerViewController: NSViewController {
             // Update `playPauseButton` image.
             print("Hey rate is changing!");
             
-            
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
-            
-            print("Rate is now...\(newRate)")
-            
-            
-            
-            //            let buttonImageName = newRate == 1.0 ? "PauseButton" : "PlayButton"
-            //
-            //            let buttonImage = UIImage(named: buttonImageName)
-            
-            //            playPauseButton.setImage(buttonImage, for: UIControlState())
+            if(newRate != 0.0) {
+                
+                    DispatchQueue.main.async {
+                        if(self.playerTimer == nil) {
+                        print("Launching timer");
+                        self.playerTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector:#selector(self.updateTimerLabel), userInfo:nil, repeats: true)
+                        }
+                    }
+            } else {
+                DispatchQueue.main.async {
+                    print("Killing Timer")
+                    if(self.playerTimer != nil) {
+                         self.playerTimer.invalidate()
+                    }
+                   
+                }
+            }
         }
         else if keyPath == #keyPath(AVPlayerItem.status) {
             // Display an error if status becomes `.Failed`.
@@ -812,10 +862,6 @@ class VideoPlayerViewController: NSViewController {
                 handleErrorWithMessage(self.playerView.player?.currentItem?.error?.localizedDescription, error:player.currentItem?.error)
             }
         }
-        
-        
-        
-        
     }
     
     
