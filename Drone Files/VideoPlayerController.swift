@@ -140,7 +140,7 @@ class VideoPlayerViewController: NSViewController {
             let cur = self.playerView.player?.currentTime()
             
             let durationSeconds = CMTimeGetSeconds((cur)!)
-             print(durationSeconds)
+            // print(durationSeconds)
             let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
             self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
                 // + ":" + String(format: "%02d", ms)

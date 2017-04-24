@@ -30,6 +30,8 @@ class FileBrowserViewController: NSViewController {
     // Directories!
     var directory: Directory?
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA"
+    var fileSequenceName = ""
+    var fileBaseFolder = ""
     
     var startingDirectory: URL!
     
@@ -37,12 +39,9 @@ class FileBrowserViewController: NSViewController {
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
     
-    @IBOutlet weak var dateField: NSTextField!
-    @IBOutlet weak var flightName: NSTextField!
     @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
-    @IBOutlet var flightNameVar: String!
-    @IBOutlet var dateNameVar: String!
+    @IBOutlet weak var fileSequenceNameTextField: NSTextField!
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     let sizeFormatter = ByteCountFormatter()
@@ -58,10 +57,11 @@ class FileBrowserViewController: NSViewController {
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
     
+    
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
-    var sortOrder = Directory.FileOrder.Name
-    var sortAscending = true
+    var sortOrder = Directory.FileOrder.Date
+    var sortAscending = false
     
     // Other Views
     @IBOutlet var VideoEditView: NSView!
@@ -84,22 +84,18 @@ class FileBrowserViewController: NSViewController {
         
         let now = dateformatter.string(from: NSDate() as Date)
         
-        dateField.stringValue = now
         
-        self.flightName.stringValue = "Drone Flight"
-        self.flightNameVar = flightName.stringValue
-        self.dateNameVar = dateField.stringValue
+        self.fileSequenceName = now + "- Flight"
         
-        self.saveDirectoryName = self.dateNameVar + " - " + self.flightNameVar
+        self.fileSequenceNameTextField.stringValue = self.fileSequenceName
         
-        // Find the view
-        // let videoView = self.editingContainerView.subviews[0]! as videoPlayerViewController
-        
+        self.saveDirectoryName = self.fileSequenceName
         
         //videoView.
         self.showNotification(messageType: "default", customMessage: "");
         
         self.currentDir = self.startingDirectory
+        
         
         setupProjectDirectory()
         
@@ -241,10 +237,8 @@ class FileBrowserViewController: NSViewController {
     
     // Helper Functions
     func setupProjectDirectory() {
-        self.flightNameVar = self.flightName.stringValue
-        self.dateNameVar = self.dateField.stringValue
-        self.newFileNamePath.stringValue = dateField.stringValue + " - " + flightName.stringValue
-        self.saveDirectoryName =  self.newFileNamePath.stringValue
+       
+        self.saveDirectoryName =  self.fileSequenceName
         
         self.projectFolder = (self.startingDirectory?.absoluteString)! + "/" + self.saveDirectoryName
         self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
@@ -275,14 +269,13 @@ class FileBrowserViewController: NSViewController {
     }
     
     // Button and Input Text Actions
-    @IBAction func flightNameChanged(sender: AnyObject) {
+    @IBAction func fileSequenceLabelChanged(sender: AnyObject) {
+        self.fileSequenceName = self.fileSequenceNameTextField.stringValue
+        self.newFileNamePath.stringValue = self.fileSequenceName
+        print("New Sequence Name \( self.fileSequenceName)")
+        
         setupProjectDirectory()
     }
-    
-    @IBAction func dateNameChanged(swnder: AnyObject) {
-        setupProjectDirectory()
-    }
-    
     
     // Overrides
     
@@ -322,8 +315,6 @@ class FileBrowserViewController: NSViewController {
                     // NSUserNotificationCenter.default.deliver(notification)
                     NSUserNotificationCenter.default.deliver(notification);
                 }
-                
-                
             }
             
             if(messageType == "default") {

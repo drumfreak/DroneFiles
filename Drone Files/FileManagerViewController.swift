@@ -84,13 +84,13 @@ class FileManagerViewController: NSViewController {
         
         let now = dateformatter.string(from: NSDate() as Date)
         
-        dateField.stringValue = now
+        // dateField.stringValue = now
         
-        self.flightName.stringValue = "Drone Flight"
-        self.flightNameVar = flightName.stringValue
-        self.dateNameVar = dateField.stringValue
+       // self.flightName.stringValue = "Drone Flight"
+        //self.flightNameVar = flightName.stringValue
+        //self.dateNameVar = dateField.stringValue
         
-        self.saveDirectoryName = self.dateNameVar + " - " + self.flightNameVar
+        // self.saveDirectoryName = self.dateNameVar + " - " + self.flightNameVar
         
         // Find the view
         // let videoView = self.editingContainerView.subviews[0]! as videoPlayerViewController
@@ -101,10 +101,10 @@ class FileManagerViewController: NSViewController {
         
         self.currentDir = self.startingDirectory
         
-        setupProjectDirectory()
+        // setupProjectDirectory()
         
         let descriptorName = NSSortDescriptor(key: Directory.FileOrder.Name.rawValue, ascending: true)
-        let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: true)
+        let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: false)
         let descriptorSize = NSSortDescriptor(key: Directory.FileOrder.Size.rawValue, ascending: true)
         
         tableView.tableColumns[0].sortDescriptorPrototype = descriptorName
@@ -113,7 +113,7 @@ class FileManagerViewController: NSViewController {
         
         self.representedObject = self.startingDirectory
         self.folderURL = self.startingDirectory?.absoluteString
-        let tmp = self.folderURL.replacingOccurrences(of: "file://", with: "")
+        // let tmp = self.folderURL.replacingOccurrences(of: "file://", with: "")
         // self.folderURLDisplay.stringValue = tmp.replacingOccurrences(of: "%20", with: " ")
         
         reloadFileList()
@@ -235,53 +235,45 @@ class FileManagerViewController: NSViewController {
             
             let tmp = openPanel.url?.absoluteString.replacingOccurrences(of: "file://", with: "")
             self.folderURLDisplay.stringValue = (tmp!.replacingOccurrences(of: "%20", with: " "))
-            self.setupProjectDirectory()
+            // self.setupProjectDirectory()
         })
     }
     
-    // Helper Functions
-    func setupProjectDirectory() {
-        self.flightNameVar = self.flightName.stringValue
-        self.dateNameVar = self.dateField.stringValue
-        self.newFileNamePath.stringValue = dateField.stringValue + " - " + flightName.stringValue
-        self.saveDirectoryName =  self.newFileNamePath.stringValue
-        
-        self.projectFolder = (self.startingDirectory?.absoluteString)! + "/" + self.saveDirectoryName
-        self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
-        self.videoClipsFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Video Clips"
-        self.jpgFolder = self.projectFolder + "/" + self.saveDirectoryName + " - JPG"
-        self.screenShotFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Frames"
-        self.rawFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
-        self.dngFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
-        
-        self.projectFolder = self.projectFolder.replacingOccurrences(of: " ", with: "%20")
-        self.videoFolder = self.videoFolder.replacingOccurrences(of: " ", with: "%20")
-        self.videoClipsFolder = self.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
-        self.jpgFolder = self.jpgFolder.replacingOccurrences(of: " ", with: "%20")
-        self.screenShotFolder = self.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
-        self.rawFolder = self.rawFolder.replacingOccurrences(of: " ", with: "%20")
-        self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
-        
-        
-        //        print("Project Folder:" + self.projectFolder)
-        //        print("Video Folder:" + self.videoFolder)
-        //        print("Video Clips Folder:" + self.videoClipsFolder)
-        //        print("JPG Folder:" + self.jpgFolder)
-        //        print("PNG Folder:" + self.screenShotFolder)
-        //        print("RAW Folder:" + self.rawFolder)
-        //        print("DNG Folder:" + self.dngFolder)
-        
-        
-    }
-    
-    // Button and Input Text Actions
-    @IBAction func flightNameChanged(sender: AnyObject) {
-        setupProjectDirectory()
-    }
-    
-    @IBAction func dateNameChanged(swnder: AnyObject) {
-        setupProjectDirectory()
-    }
+//    // Helper Functions
+//    func setupProjectDirectory() {
+//        self.flightNameVar = self.flightName.stringValue
+//        self.dateNameVar = self.dateField.stringValue
+//        self.newFileNamePath.stringValue = dateField.stringValue + " - " + flightName.stringValue
+//        self.saveDirectoryName =  self.newFileNamePath.stringValue
+//        
+//        self.projectFolder = (self.startingDirectory?.absoluteString)! + "/" + self.saveDirectoryName
+//        self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
+//        self.videoClipsFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Video Clips"
+//        self.jpgFolder = self.projectFolder + "/" + self.saveDirectoryName + " - JPG"
+//        self.screenShotFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Frames"
+//        self.rawFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
+//        self.dngFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
+//        
+//        self.projectFolder = self.projectFolder.replacingOccurrences(of: " ", with: "%20")
+//        self.videoFolder = self.videoFolder.replacingOccurrences(of: " ", with: "%20")
+//        self.videoClipsFolder = self.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
+//        self.jpgFolder = self.jpgFolder.replacingOccurrences(of: " ", with: "%20")
+//        self.screenShotFolder = self.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
+//        self.rawFolder = self.rawFolder.replacingOccurrences(of: " ", with: "%20")
+//        self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
+//        
+//        
+//        //        print("Project Folder:" + self.projectFolder)
+//        //        print("Video Folder:" + self.videoFolder)
+//        //        print("Video Clips Folder:" + self.videoClipsFolder)
+//        //        print("JPG Folder:" + self.jpgFolder)
+//        //        print("PNG Folder:" + self.screenShotFolder)
+//        //        print("RAW Folder:" + self.rawFolder)
+//        //        print("DNG Folder:" + self.dngFolder)
+//        
+//        
+//    }
+
     
     
     // Overrides
@@ -300,7 +292,7 @@ class FileManagerViewController: NSViewController {
                 directory = Directory(folderURL: url)
                 reloadFileList()
                 self.folderURL = url.absoluteString
-                let tmp = url.absoluteString.replacingOccurrences(of: "file://", with: "")
+                // let tmp = url.absoluteString.replacingOccurrences(of: "file://", with: "")
                 // print("TMP" + tmp)
                 // self.folderURLDisplay.stringValue = tmp.replacingOccurrences(of: "%20", with: " ")
             }
