@@ -14,6 +14,13 @@ import AVFoundation
 import Quartz
 
 class ImageEditorViewController: NSViewController {
+    
+    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
+    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
+    @IBOutlet weak var editorTabViewController: EditorTabViewController!
+    @IBOutlet weak var mainViewController: FileBrowserViewController!
+    
+    
     @IBOutlet var imageView: IKImageView!
     @IBOutlet var imageName: NSTextField!
     @IBOutlet var imageEditorView: NSView!

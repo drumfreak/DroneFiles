@@ -16,6 +16,8 @@ import AVFoundation
 
 class EditorViewController: NSViewController {
     
+    
+    
     @IBOutlet var mainContainerView: NSView!
     
     @IBOutlet weak var screenShotViewController: ScreenshotViewController!

@@ -15,4 +15,23 @@ import Quartz
 
 class EditorTabViewController: NSTabViewController {
 
+    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
+    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
+    @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
+    @IBOutlet weak var mainViewController: FileBrowserViewController!
+    @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.videoPlayerViewController = self.childViewControllers[0] as! VideoPlayerViewController
+        
+        self.screenshotViewController = self.childViewControllers[1] as! ScreenshotViewController
+        
+        
+        self.imageEditorViewController = self.childViewControllers[2] as! ImageEditorViewController
+        
+    }
+    
 }

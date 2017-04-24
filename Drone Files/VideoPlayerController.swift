@@ -20,8 +20,8 @@ class VideoPlayerViewController: NSViewController {
     
     @IBOutlet weak var screenshotViewController: ScreenshotViewController!
     @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
-    @IBOutlet weak var mainViewController: ViewController!
+    @IBOutlet weak var editorTabViewController: EditorTabViewController!
+    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
     
     
     // Video Trimming
@@ -119,7 +119,7 @@ class VideoPlayerViewController: NSViewController {
     }
     
     func setupPlayer() {
-        self.playerView.showsFrameSteppingButtons = true
+        // self.playerView.showsFrameSteppingButtons = true
         self.playerView.showsSharingServiceButton = true
         self.playerView.showsFullScreenToggleButton = true
         self.playerView.player = AVPlayer(playerItem: self.playerItem)
@@ -194,7 +194,7 @@ class VideoPlayerViewController: NSViewController {
             // print("url is a folder url")
             // lets get the folder files
             do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.mainViewController.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.fileBrowserViewController.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
                 
                 incrementer = String(format: "%02d", files.count)
             } catch let error as NSError {
@@ -206,19 +206,19 @@ class VideoPlayerViewController: NSViewController {
     }
     
     func getClippedVideoPath(_videoPath : String) -> String {
-        self.clippedVideoPathFull = self.mainViewController.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
+        self.clippedVideoPathFull = self.fileBrowserViewController.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
         self.clippedVideoPath = self.clippedVideoPathFull.replacingOccurrences(of: "file://", with: "")
         
-        let increment = getClippedVideosIncrement(_folder: self.mainViewController.videoClipsFolder)
+        let increment = getClippedVideosIncrement(_folder: self.fileBrowserViewController.videoClipsFolder)
         
-        self.clippedVideoName = self.mainViewController.saveDirectoryName + " - Clip " + increment + ".MOV"
+        self.clippedVideoName = self.fileBrowserViewController.saveDirectoryName + " - Clip " + increment + ".MOV"
         self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
         self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
         
         if FileManager.default.fileExists(atPath: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: "")) {
             print("Fuck that file exists..")
             let incrementer = "00000"
-            self.clippedVideoName = self.mainViewController.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
+            self.clippedVideoName = self.fileBrowserViewController.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
             self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
             self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
             
@@ -452,9 +452,7 @@ class VideoPlayerViewController: NSViewController {
         self.clipTrimProgressBar.isHidden = true
         self.saveTrimmedVideoButton.isEnabled = true
         self.cancelTrimmedVideoButton.isEnabled = true
-        self.flightNameVar = self.flightName.stringValue
-        self.dateNameVar = self.dateField.stringValue
-        
+
         self.exportSession = AVAssetExportSession(asset: (self.playerView.player?.currentItem?.asset)!, presetName: AVAssetExportPresetHighestQuality)!
         
         self.exportSession.outputFileType = AVFileTypeQuickTimeMovie
@@ -514,7 +512,7 @@ class VideoPlayerViewController: NSViewController {
             self.saveTrimmedClipView.isHidden = true
             
             print("Claaned up session");
-            self.mainViewController.reloadFileList()
+            self.fileBrowserViewController.reloadFileList()
             
         }
         
@@ -639,12 +637,12 @@ class VideoPlayerViewController: NSViewController {
             // THIS MUST HAPPEN FIRST
             self.savingScreenShotSpinner.stopAnimation(self)
             //self.savingScreenShotSpinner.isHidden = true
-            self.editorTabViewContrller.selectedTabViewItemIndex = 1
+            self.editorTabViewController.selectedTabViewItemIndex = 1
             print("Screen shot at: \(String(describing: playerTime))")
-            self.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: true, modificationDate: newDate)
+            self.editorTabViewController.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: true, modificationDate: newDate)
         } else {
             print("Screen shot at: \(String(describing: playerTime))")
-            self.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: false, modificationDate: newDate)
+            self.editorTabViewController.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: false, modificationDate: newDate)
             if(playerWasPlaying) {
                 self.savingScreenShotSpinner.stopAnimation(self)
                // self.savingScreenShotSpinner.isHidden = true

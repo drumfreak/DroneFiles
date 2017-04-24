@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		181426791EA99BF7004CA3E5 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181426781EA99BF7004CA3E5 /* MainContainerViewController.swift */; };
 		1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267A1EA9B450004CA3E5 /* EditorViewController.swift */; };
 		1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */; };
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001CC1EA69C92003C3214 /* AppDelegate.swift */; };
-		18B001CF1EA69C92003C3214 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001CE1EA69C92003C3214 /* ViewController.swift */; };
 		18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */; };
 		18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B001D31EA69C92003C3214 /* Assets.xcassets */; };
 		18B001D71EA69C92003C3214 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B001D51EA69C92003C3214 /* Main.storyboard */; };
@@ -23,6 +21,11 @@
 		18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FA1EA6A09D003C3214 /* WindowController.swift */; };
 		18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FC1EA6A0A8003C3214 /* Directory.swift */; };
 		18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */; };
+		18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */; };
+		18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */; };
+		18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */ = {isa = PBXBuildFile; fileRef = 18BAABA61EADA2CB00EE5434 /* Shutter.aif */; };
+		18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */; };
+		18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +46,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		181426781EA99BF7004CA3E5 /* MainContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +53,6 @@
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		18B001C91EA69C92003C3214 /* Drone Files.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Files.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B001CC1EA69C92003C3214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18B001CE1EA69C92003C3214 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		18B001D11EA69C92003C3214 /* Drone_Files.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drone_Files.xcdatamodel; sourceTree = "<group>"; };
 		18B001D31EA69C92003C3214 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18B001D61EA69C92003C3214 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,6 +66,11 @@
 		18B001FA1EA6A09D003C3214 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		18B001FC1EA6A0A8003C3214 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
 		18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
+		18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
+		18BAABA61EADA2CB00EE5434 /* Shutter.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shutter.aif; sourceTree = "<group>"; };
+		18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewRightViewController.swift; sourceTree = "<group>"; };
+		18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,18 +122,21 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
-				181426781EA99BF7004CA3E5 /* MainContainerViewController.swift */,
-				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
 				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
-				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
-				18B001CE1EA69C92003C3214 /* ViewController.swift */,
-				18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
-				1883B15C1EAC445D00D722D5 /* Submarine.aiff */,
-				18B001D31EA69C92003C3214 /* Assets.xcassets */,
+				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
+				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
+				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
+				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
+				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
+				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
+				18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */,
 				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
+				1883B15C1EAC445D00D722D5 /* Submarine.aiff */,
+				18BAABA61EADA2CB00EE5434 /* Shutter.aif */,
+				18B001D31EA69C92003C3214 /* Assets.xcassets */,
 				18B001D81EA69C92003C3214 /* Info.plist */,
 				18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */,
 			);
@@ -259,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
@@ -286,14 +296,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18B001CF1EA69C92003C3214 /* ViewController.swift in Sources */,
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
-				181426791EA99BF7004CA3E5 /* MainContainerViewController.swift in Sources */,
+				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
+				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
+				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
 				18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
+				18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
