@@ -939,18 +939,9 @@ class VideoPlayerViewController: NSViewController {
 
 
 
-//- (void)addPeriodicTimeObserver {
-//    // Invoke callback every half second
-//    CMTime interval = CMTimeMakeWithSeconds(0.5, NSEC_PER_SEC);
-//    // Queue on which to invoke the callback
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    // Add time observer
-//    self.timeObserverToken =
-//        [self.player addPeriodicTimeObserverForInterval:interval
-//            queue:mainQueue
-//            usingBlock:^(CMTime time) {
-//            // Use weak reference to self
-//            // Update player transport UI
-//            }];
-//}
+extension AVPlayer {
+    var isPlaying: Bool {
+        return rate != 0 && error == nil
+    }
+}
 

@@ -171,11 +171,10 @@ class ScreenshotViewController: NSViewController {
        //  self.screenshotPathFullURL = URL(string: self.mainViewController.screenShotFolder)
         
         let increment = getScreenShotIncrement(_folder: self.fileBrowserViewController.screenShotFolder)
-        
-        
+    
         let dateformatter = DateFormatter()
         
-        dateformatter.dateFormat = "MM-dd-YYYY-hhmmss"
+        dateformatter.dateFormat = "hhmmss"
         
         let now = dateformatter.string(from: NSDate() as Date)
         
@@ -187,7 +186,7 @@ class ScreenshotViewController: NSViewController {
         if FileManager.default.fileExists(atPath: self.screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
             print("Fuck that file screenshot exists..")
             let incrementer = "00000"
-            self.screenshotName = self.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer + ".MOV"
+            self.screenshotName = self.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer + ".png"
             
             self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
             self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
@@ -230,7 +229,6 @@ class ScreenshotViewController: NSViewController {
             } catch _ as NSError {
                 print("Error while creating a folder.")
             }
-
         
             let stringURL =  self.getScreenshotPath(_screenshotPath: " ")
 
@@ -244,7 +242,7 @@ class ScreenshotViewController: NSViewController {
             if(self.screenshotItemPreserveFileDates) {
                 self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
             }
-            self.fileBrowserViewController.reloadFileList()
+            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
             
             return stringURL
         }

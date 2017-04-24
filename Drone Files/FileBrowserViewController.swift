@@ -33,8 +33,6 @@ class FileBrowserViewController: NSViewController {
     var outputDirectory = ""
     var createProjectDirectory = true
     var createProjectSubDirectories = true
-    // var sourceFolderOpened = ""
-    
     
     var sourceFolderOpened: Any? {
         didSet {
@@ -88,8 +86,15 @@ class FileBrowserViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        let defaults = UserDefaults.standard
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "MM-dd-YYYY"
+        let now = dateformatter.string(from: NSDate() as Date)
+        
+        self.fileSequenceName = now + " - " + self.fileSequenceNameTag
 
+        let defaults = UserDefaults.standard
+        
         if(defaults.value(forKey: "sourceDirectory") == nil) {
             defaults.setValue("file:///Volumes/", forKey: "sourceDirectory")
             defaults.setValue("file:///Volumes/", forKey: "outputDirectory")
@@ -100,13 +105,13 @@ class FileBrowserViewController: NSViewController {
             defaults.setValue(1, forKey: "createProjectSubDirectories")
         }
         
-      
-        
         self.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
         self.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
         self.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
         self.startingDirectory = URL(string: self.sourceFolder)
         self.sourceFolderOpened = self.startingDirectory
+        self.fileSequenceName = self.fileSequenceNameTag
+
         
         self.createProjectSubDirectoriesButton.state = (defaults.value(forKey: "createProjectSubDirectories") as! Int)
         self.createProjectDirectoryButton.state = (defaults.value(forKey: "createProjectDirectory") as! Int)
@@ -125,13 +130,6 @@ class FileBrowserViewController: NSViewController {
         statusLabel.stringValue = ""
         tableView.target = self
         tableView.doubleAction = #selector(tableViewDoubleClick(_:))
-        let dateformatter = DateFormatter()
-        
-        dateformatter.dateFormat = "MM-dd-YYYY"
-        
-        let now = dateformatter.string(from: NSDate() as Date)
-        
-        self.fileSequenceName = now + " - " + self.fileSequenceNameTag
         
         self.fileSequenceNameTextField.stringValue = self.fileSequenceName
         
@@ -231,15 +229,12 @@ class FileBrowserViewController: NSViewController {
                 //print(openPanel.urls)
             }
             self.sourceFolderOpened = openPanel.url
-            
             self.sourceFolder = (openPanel.url?.absoluteString)!
             self.startingDirectory = openPanel.url
             self.sourceFolder = (openPanel.url?.absoluteString)!
             
             UserDefaults.standard.setValue(self.sourceFolder, forKey: "sourceDirectory")
-            
             self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
-        
             self.setupProjectDirectory()
         })
     }
@@ -382,6 +377,12 @@ class FileBrowserViewController: NSViewController {
             }
         }
     }
+    
+    
+    func reloadFilesWithSelected(fileName: String) {
+        self.sourceFolderOpened = URL(string: self.folderURL)
+    }
+    
     
     
     func reloadFileList() {
