@@ -26,7 +26,7 @@ class SplitViewRightViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("Subview Loded")
-        print("SplitViewRightViewController")
+        // print("SplitViewRightViewController")
         
         //  self.performSegue(withIdentifier: "videoPlayerSegue", sender: self)
     }

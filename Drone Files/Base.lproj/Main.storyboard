@@ -870,7 +870,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDW-Qg-eP7">
-                                        <rect key="frame" x="182" y="121" width="215" height="22"/>
+                                        <rect key="frame" x="182" y="78" width="215" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="File Sequence Name" drawsBackground="YES" id="gw5-o7-HpH">
                                             <font key="font" metaFont="system"/>
@@ -882,7 +882,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kww-RO-J8F">
-                                        <rect key="frame" x="26" y="126" width="104" height="17"/>
+                                        <rect key="frame" x="26" y="81" width="104" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sequence Name" id="GHo-0s-M2Q">
                                             <font key="font" metaFont="system"/>
@@ -921,17 +921,8 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQa-pa-2J3">
-                                        <rect key="frame" x="299" y="199" width="53" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0 Items" id="Lk2-Kp-mRO">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtW-bH-z5Z">
-                                        <rect key="frame" x="180" y="91" width="207" height="17"/>
+                                        <rect key="frame" x="180" y="49" width="207" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="04-18-2017 - Mavic Flight - 01.xx" id="67C-Mh-TF5">
                                             <font key="font" metaFont="system"/>
@@ -940,10 +931,70 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5g-DG-57E">
-                                        <rect key="frame" x="26" y="158" width="111" height="17"/>
+                                        <rect key="frame" x="26" y="140" width="110" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project Directory:" id="dyG-Wh-NkC">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output Directory:" id="dyG-Wh-NkC">
                                             <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twi-He-kqs">
+                                        <rect key="frame" x="176" y="129" width="87" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Choose" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NQm-AG-5MO">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="chooseOutputDirectory:" target="JFc-NU-FBv" id="D3u-Km-SX9"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oF1-rv-ooh">
+                                        <rect key="frame" x="267" y="138" width="345" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project Directory" id="4Ho-fz-oOQ">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AVI-pt-X2d">
+                                        <rect key="frame" x="180" y="106" width="152" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Use Project Directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Gpi-oa-WpU">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="createProjectDirectoryCheckbox:" target="JFc-NU-FBv" id="mxh-3b-9eH"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b3e-tJ-bGt">
+                                        <rect key="frame" x="359" y="106" width="143" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Use Sub Directories" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jeR-py-fEl">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="createProjectSubDirectoriesCheckbox:" target="JFc-NU-FBv" id="xDa-vW-Gzr"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQa-pa-2J3">
+                                        <rect key="frame" x="184" y="199" width="282" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0 Items" id="Lk2-Kp-mRO">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLX-8z-vfs">
+                                        <rect key="frame" x="18" y="165" width="166" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output Setup" id="eiX-PH-Ess">
+                                            <font key="font" metaFont="systemBold" size="24"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -953,10 +1004,13 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="createProjectDirectoryButton" destination="AVI-pt-X2d" id="O3V-NB-frU"/>
+                        <outlet property="createProjectSubDirectoriesButton" destination="b3e-tJ-bGt" id="A2J-LD-RzA"/>
                         <outlet property="fileBrowserHomeButton" destination="rQy-l2-Dro" id="dbQ-dq-xVt"/>
                         <outlet property="fileSequenceNameTextField" destination="lDW-Qg-eP7" id="4Kg-NL-iV5"/>
                         <outlet property="folderURLDisplay" destination="eXG-U6-TpE" id="r1U-9c-V5e"/>
                         <outlet property="newFileNamePath" destination="VtW-bH-z5Z" id="0Eh-iF-Vzv"/>
+                        <outlet property="outputDirectoryLabel" destination="oF1-rv-ooh" id="sVd-l4-0eM"/>
                         <outlet property="statusLabel" destination="EQa-pa-2J3" id="9Kt-2Y-eOp"/>
                         <outlet property="tableView" destination="NV0-1c-9tH" id="GrO-Zk-FtG"/>
                     </connections>
@@ -1235,6 +1289,9 @@ Gw
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="setScreenShotBurstEnable:" target="MAv-UR-Xgu" id="aLo-U8-9RE"/>
+                                        </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7J-sP-JKw">
                                         <rect key="frame" x="578" y="313" width="83" height="17"/>
@@ -1268,16 +1325,17 @@ Gw
                         <outlet property="clipTrimProgressBar" destination="JVA-5i-ghm" id="4Mp-IO-3H1"/>
                         <outlet property="currentFrameLabel" destination="o7J-sP-JKw" id="c9R-zz-d1n"/>
                         <outlet property="nowPlayingFile" destination="G6t-nq-K1R" id="zca-MD-JKS"/>
-                        <outlet property="playerFrameDecrement" destination="FLo-AL-5lD" id="Qwi-jl-6bn"/>
                         <outlet property="playerFrameDecrementButton" destination="FLo-AL-5lD" id="l2q-Bh-bFu"/>
                         <outlet property="playerFrameIncrementButton" destination="4tC-4h-V3r" id="neG-mh-E8Y"/>
                         <outlet property="playerTimerLabel" destination="P8S-sc-kSg" id="VW2-p8-jzD"/>
                         <outlet property="playerView" destination="Wwg-vP-poZ" id="1a0-PH-SPa"/>
                         <outlet property="saveClipLoadNewItemCheckbox" destination="j0N-wg-cV2" id="snc-4A-5cW"/>
+                        <outlet property="saveNewItemPreserveDate" destination="Bkc-y1-snq" id="Joc-3a-UTh"/>
                         <outlet property="saveTrimmedClipView" destination="pUq-Lf-E8h" id="4Dl-RD-xEu"/>
                         <outlet property="saveTrimmedVideoButton" destination="JVZ-f4-A7h" id="sG1-6W-C12"/>
                         <outlet property="savingScreenShotMessageBox" destination="77b-qO-cvW" id="ehB-bI-Oqd"/>
                         <outlet property="savingScreenShotSpinner" destination="feI-Zk-GeQ" id="b7O-qP-VVu"/>
+                        <outlet property="screenShotBurstEnabledButton" destination="nrM-vh-x7H" id="bVO-FA-9co"/>
                         <outlet property="screenShotPreviewButton" destination="uNe-ry-Da7" id="bNQ-N0-DM7"/>
                         <outlet property="trimmedClipNewLabel" destination="ejD-8C-MdS" id="Zrm-Zl-djx"/>
                         <outlet property="trimmedClipNewPathLabel" destination="ERv-ua-fTs" id="lB8-Mb-pHk"/>
@@ -1313,7 +1371,7 @@ Gw
                 </tabViewController>
                 <customObject id="1vV-02-af2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1015" y="1182"/>
+            <point key="canvasLocation" x="1050" y="1182"/>
         </scene>
         <!--Screen Shots-->
         <scene sceneID="ln6-1L-vYC">

@@ -24,7 +24,7 @@ class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        print("Split View Loaded")
+        // print("Split View Loaded")
         
         mySplitView.adjustSubviews();
         

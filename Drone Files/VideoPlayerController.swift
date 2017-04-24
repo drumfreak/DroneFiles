@@ -44,10 +44,11 @@ class VideoPlayerViewController: NSViewController {
     var playerIsReady = false
     // Screenshotting
     var screenShotPreview = true
+    var screenShotBurstEnabled = false
     var trimOffset = 0.00
     
     @IBOutlet var screenShotPreviewButton: NSButton!
-    
+    @IBOutlet var screenShotBurstEnabledButton: NSButton!
     
     // Video Player Stuff
     var playerItem: AVPlayerItem!
@@ -87,29 +88,55 @@ class VideoPlayerViewController: NSViewController {
     var playerItemContext = 0
     @IBOutlet var clipTrimProgressBar: NSProgressIndicator!
     
+    @IBOutlet var saveFilePreserveDatesButton: NSButton!
+    
     @IBOutlet var savingScreenShotSpinner: NSProgressIndicator!
     @IBOutlet var savingScreenShotMessageBox: NSView!
     
     // Player Increment Buttons
     @IBOutlet var playerFrameDecrementButton: NSButton!
     @IBOutlet var playerFrameIncrementButton: NSButton!
-    
-    
-  
+
     var playerViewControllerKVOContext = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Video Player Controller Loaded")
+        // print("Video Player Controller Loaded")
         
         self.VideoEditView.isHidden = false
         self.clipTrimProgressBar.isHidden = true
         self.saveTrimmedClipView.isHidden = true
         self.saveTrimmedVideoButton.isHidden = true
-        self.screenShotPreviewButton.isEnabled = self.screenShotPreview
         // self.savingScreenShotMessageBox.isHidden = true
         self.savingScreenShotSpinner.isHidden = true
+        
+        let defaults = UserDefaults.standard
+
+        if(defaults.value(forKey: "previewScreenshot") == nil) {
+            defaults.setValue(1, forKey: "previewScreenshot")
+            defaults.setValue(0, forKey: "screenShotBurstEnabled")
+            defaults.setValue(1, forKey: "clippedItemPreserveFileDates")
+            defaults.setValue(0, forKey: "loadNewClip")
+            defaults.setValue(3, forKey: "burstFrames")
+        }
+        
+        self.screenShotBurstEnabledButton.state = (defaults.value(forKey: "screenShotBurstEnabled") as! Int)
+        self.screenShotPreviewButton.state = (defaults.value(forKey: "previewScreenshot") as! Int)
+        self.saveNewItemPreserveDate.state = (defaults.value(forKey: "clippedItemPreserveFileDates") as! Int)
+        
+        if(self.screenShotBurstEnabledButton.state == 0) {
+            self.screenShotBurstEnabled = false
+        }
+        
+        if(self.screenShotPreviewButton.state == 0) {
+            self.screenShotPreview = false
+        }
        
+        if(self.saveNewItemPreserveDate.state == 0) {
+            self.clippedItemPreserveFileDates = false
+        }
+        
+        
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
@@ -402,16 +429,40 @@ class VideoPlayerViewController: NSViewController {
         self.clippedItemPreserveFileDates = !self.clippedItemPreserveFileDates
         //print("Preserve Original Dates Clicked")
         //print("Preserve Original Dates Clicked \(self.clippedItemPreserveFileDates)")
+        if(self.clippedItemPreserveFileDates) {
+            UserDefaults.standard.setValue(1, forKey: "clippedItemPreserveFileDates")
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "clippedItemPreserveFileDates")
+        }
+    }
+    
+    @IBAction func setScreenShotBurstEnable(_ sender: AnyObject) {
+        self.screenShotBurstEnabled = !self.screenShotBurstEnabled
+         if(self.screenShotBurstEnabled) {
+            UserDefaults.standard.setValue(1, forKey: "screenShotBurstEnabled")
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "screenShotBurstEnabled")
+        }
     }
     
     @IBAction func setLoadNewClipItem(_ sender: AnyObject) {
         self.clippedItemLoadNewItem = !self.clippedItemLoadNewItem
         //print("Load New Clip Clicked \(self.clippedItemLoadNewItem)")
+        if(self.clippedItemLoadNewItem) {
+            UserDefaults.standard.setValue(1, forKey: "clippedItemLoadNewItem")
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "clippedItemLoadNewItem")
+        }
     }
     
     
     @IBAction func setPreviewScreenshot(_ sender: AnyObject) {
         self.screenShotPreview = !self.screenShotPreview
+        if(self.screenShotPreview) {
+            UserDefaults.standard.setValue(1, forKey: "previewScreenshot")
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "previewScreenshot")
+        }
     }
     
     
