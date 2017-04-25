@@ -48,6 +48,8 @@ class SplitViewRightViewController: NSViewController {
             
             self.imageEditorViewController.editorTabViewController = self.editorTabViewController
             
+            // self.editorTabViewController.fileBrowserViewController = self.childViewControllers[0] as! FileBrowserViewController
+            
         }
     }
 }

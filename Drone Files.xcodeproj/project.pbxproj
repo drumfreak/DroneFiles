@@ -26,6 +26,7 @@
 		18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */ = {isa = PBXBuildFile; fileRef = 18BAABA61EADA2CB00EE5434 /* Shutter.aif */; };
 		18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */; };
 		18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */; };
+		18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		18BAABA61EADA2CB00EE5434 /* Shutter.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shutter.aif; sourceTree = "<group>"; };
 		18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewRightViewController.swift; sourceTree = "<group>"; };
 		18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
+		18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
 				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
+				18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
 				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
@@ -307,6 +310,7 @@
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
+				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 			);

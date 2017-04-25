@@ -15,7 +15,8 @@ import AVFoundation
 
 class FileManagerViewController: NSViewController {
     
-    @IBOutlet var topView: NSView!
+    // View controllers
+    
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
     @IBOutlet weak var screenshotViewController: ScreenshotViewController!
@@ -23,136 +24,91 @@ class FileManagerViewController: NSViewController {
     @IBOutlet weak var editorTabViewController: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet weak var splitViewController: SplitViewController!
+    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
     
-    // View controllers
+    var fileList: FileManagerList?
     
-    
-    // Directories!
-    var directory: Directory?
-    var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA"
-    
-    var startingDirectory: URL!
-    
-    var currentDir: URL!
-    var clippedDirectory: Directory?
-    var directoryItems: [Metadata]?
-    
-    @IBOutlet var saveDirectoryName: String!
-    @IBOutlet var folderURL: String!
-    @IBOutlet weak var folderURLDisplay: NSTextField!
-    let sizeFormatter = ByteCountFormatter()
-    
-    @IBOutlet var fileBrowserHomeButton: NSButton!
-    
-    var projectFolder = "My Project"
-    var screenShotFolder = " - Screenshots"
-    var videoFolder = " - Videos"
-    var jpgFolder = " - JPG"
-    var dngFolder = " - RAW"
-    var rawFolder = " - RAW"
-    var videoClipsFolder = " - Video Clips"
-    var previousUrlString = "file://"
-    
-    // Tableviews - File List
+    @IBOutlet var organizeButton: NSButton!
+    @IBOutlet var renameButton: NSButton!
+    @IBOutlet var copyButton: NSButton!
+    @IBOutlet var deleteButton: NSButton!
+    @IBOutlet var moveButton: NSButton!
     @IBOutlet var tableView: NSTableView!
-    var sortOrder = Directory.FileOrder.Name
+    
+    var viewIsLoaded = false
+    
+    var fileItems: [FileListMetadata]?
+    let sizeFormatter = ByteCountFormatter()
+    var sortOrder = FileManagerList.FileOrder.Name
     var sortAscending = true
-
+    
+    var fileURLs: Any? {
+        didSet {
+            if let files = fileURLs as? NSMutableArray {
+                print("File List Updated")
+                self.fileList = FileManagerList(fileArray: files)
+                self.reloadFileList()
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ViewController Loaded")
-        self.startingDirectory = URL(string: self.sourceFolder)
-        self.representedObject = self.startingDirectory
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        print("~~~~~~~ Showing Table View")
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         statusLabel.stringValue = ""
         tableView.target = self
         tableView.doubleAction = #selector(tableViewDoubleClick(_:))
-
-        //videoView.
-       //  self.showNotification(messageType: "default", customMessage: "");
         
-        self.currentDir = self.startingDirectory
-        
-        // setupProjectDirectory()
-        
-        let descriptorName = NSSortDescriptor(key: Directory.FileOrder.Name.rawValue, ascending: true)
-        let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: false)
-        let descriptorSize = NSSortDescriptor(key: Directory.FileOrder.Size.rawValue, ascending: true)
+        let descriptorName = NSSortDescriptor(key: FileManagerList.FileOrder.Name.rawValue, ascending: true)
+        let descriptorDate = NSSortDescriptor(key: FileManagerList.FileOrder.Date.rawValue, ascending: false)
+        let descriptorSize = NSSortDescriptor(key: FileManagerList.FileOrder.Size.rawValue, ascending: true)
         
         tableView.tableColumns[0].sortDescriptorPrototype = descriptorName
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
         tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
         
-        self.representedObject = self.startingDirectory
-        self.folderURL = self.startingDirectory?.absoluteString
-  
+        // print("File URLS \(self.fileURLs)")
         reloadFileList()
         
+        // tableView.reloadData()
     }
     
-    
-    
-    // Open directory for tableview
-    @IBAction func openDocument(_ sender: AnyObject?) {
-        let openPanel = NSOpenPanel()
-        openPanel.showsHiddenFiles = false
-        openPanel.canChooseFiles = false
-        openPanel.canChooseDirectories = true
-        openPanel.allowsMultipleSelection = true
-        openPanel.resolvesAliases = true
-        openPanel.begin(completionHandler: {(result:Int) in
-            if(result == NSFileHandlingPanelOKButton) {
-                //print(openPanel.urls)
-            }
-            self.representedObject = openPanel.url
-            
-            self.sourceFolder = (openPanel.url?.absoluteString)!
-            self.startingDirectory = openPanel.url
-            self.sourceFolder = (openPanel.url?.absoluteString)!
-            
-            let tmp = openPanel.url?.absoluteString.replacingOccurrences(of: "file://", with: "")
-            self.folderURLDisplay.stringValue = (tmp!.replacingOccurrences(of: "%20", with: " "))
-            // self.setupProjectDirectory()
-        })
+    override func viewWillAppear() {
+        self.viewIsLoaded = true
+        print ("~ View is about to appear")
     }
     
-    override var representedObject: Any? {
-        didSet {
-            if let url = representedObject as? URL {
-                print("Represented object: \(url)")
-                directory = Directory(folderURL: url)
-                reloadFileList()
-                self.folderURL = url.absoluteString
-                // let tmp = url.absoluteString.replacingOccurrences(of: "file://", with: "")
-                // print("TMP" + tmp)
-                // self.folderURLDisplay.stringValue = tmp.replacingOccurrences(of: "%20", with: " ")
-            }
-        }
+    override func viewDidDisappear() {
+        self.viewIsLoaded = false
+        print ("~~~~~~~~~~~~ View Disappeared")
     }
     
     func reloadFileList() {
-        directoryItems = directory?.contentsOrderedBy(sortOrder, ascending: sortAscending)
-        tableView.reloadData()
+        self.fileItems = fileList?.contentsOrderedBy(sortOrder, ascending: sortAscending)
+        if(self.viewIsLoaded) {
+            tableView.reloadData()
+        }
     }
     
-    
     func loadItemFromTable() {
-        print("SELECTED ROW \(self.tableView.selectedRow)")
+        // print("SELECTED ROW \(self.tableView.selectedRow)")
         // 1
         guard tableView.selectedRow >= 0,
-            let item = directoryItems?[tableView.selectedRow] else {
+            let item = fileItems?[tableView.selectedRow] else {
                 return
         }
         
         if item.isFolder {
             // 2
-            print("CLICKED FOLDER");
+            // print("CLICKED FOLDER");
             // self.currentDir = item.url as URL
             // self.representedObject = item.url as Any
-        }
-        else {
+        } else {
             
             // print("SELECTED ITEM IS \(item)");
             // 3
@@ -169,7 +125,6 @@ class FileManagerViewController: NSViewController {
                 
             }
         }
-        
     }
     
     func updateStatus() {
@@ -180,45 +135,305 @@ class FileManagerViewController: NSViewController {
         let itemsSelected = tableView.selectedRowIndexes.count
         
         // 2
-        if (directoryItems == nil) {
+        if (fileItems == nil) {
             text = "No Items"
         }
         else if(itemsSelected == 0) {
-            text = "\(directoryItems!.count) items"
+            text = "\(fileItems!.count) items"
         }
         else {
-            text = "\(itemsSelected) of \(directoryItems!.count) selected"
+            text = "\(itemsSelected) of \(fileItems!.count) selected"
         }
         loadItemFromTable()
         
         // 3
         statusLabel.stringValue = text
-        // print("Selected Text : \(text)");
     }
     
     func tableViewDoubleClick(_ sender:AnyObject) {
-        //        // 1
-        //        guard tableView.selectedRow >= 0,
-        //            let item = directoryItems?[tableView.selectedRow] else {
-        //                return
-        //        }
-        //
-        //        if item.isFolder {
-        //            // 2
-        //            print("CLICKED FOLDER");
-        //            self.representedObject = item.url as Any
-        //            self.currentDir = item.url as URL
-        //        }
-        //        else {
-        //            // 3
-        //            NSWorkspace.shared().open(item.url as URL)
-        //        }
+        // 1
+        guard tableView.selectedRow >= 0,
+            let item = fileItems?[tableView.selectedRow] else {
+                return
+        }
+        
+        if item.isFolder {
+            // 2
+            print("CLICKED FOLDER");
+            NSWorkspace.shared().open(item.url as URL)
+            //self.representedObject = item.url as Any
+            // self.currentDir = item.url as URL
+        }
+        else {
+            // 3
+            NSWorkspace.shared().open(item.url as URL)
+        }
     }
+    
+
+    
+    @IBAction func organizeFiles(_ sender: AnyObject) {
+        print("Organize Files Button Clicked")
+        
+        
+        let manageFileURLS: NSMutableArray = []
+        let manageFileMovies: NSMutableArray = []
+        let manageFileScreenshots: NSMutableArray = []
+        let manageFileJPG: NSMutableArray = []
+        let manageFileRAW: NSMutableArray = []
+        let manageFileOther: NSMutableArray = []
+        
+        if(tableView.selectedRowIndexes.count > 0) {
+        
+        for (_, index) in tableView.selectedRowIndexes.enumerated() {
+            guard index >= 0,
+                let item = fileItems?[index] else {
+                    return
+            }
+            print("SELECTED ITEMS \(item.url)")
+            manageFileURLS.add(item.url)
+            
+            let url = NSURL(fileURLWithPath: item.url.absoluteString)
+            
+            let _extension = url.pathExtension
+            var skip = false
+            
+            if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
+                manageFileMovies.add(item)
+                skip = true
+            }
+            
+            if(_extension == "JPG" || _extension == "jpg" ) {
+                manageFileJPG.add(item)
+                skip = true
+            }
+            
+            if(_extension == "DNG" || _extension == "dng" ||  _extension == "RAW" ||  _extension == "raw") {
+                manageFileJPG.add(item)
+                skip = true
+            }
+            
+            if(_extension == "png" || _extension == "PNG") {
+                manageFileScreenshots.add(item)
+                skip = true
+            }
+            
+            if(!skip) {
+                manageFileOther.add(item)
+            }
+        }
+        
+        
+        if(manageFileMovies.count > 0) {
+            if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.videoFolder)) {
+                print("VIDEOS FOLDER: \(self.fileBrowserViewController.videoFolder)")
+                manageFileMovies.forEach({ m in
+                    let movie = (m as! FileListMetadata)
+                    //print(movie)
+                    self.organizeMovieFile(url: (movie.url))
+                })
+                
+                
+            }
+        }
+        
+        if(manageFileJPG.count > 0) {
+            if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.jpgFolder)) {
+                manageFileJPG.forEach({ m in
+                    let file = (m as! FileListMetadata)
+                    self.organizeJPGFile(url: (file.url))
+                })
+            }
+        }
+        
+        if(manageFileScreenshots.count > 0) {
+            if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.screenShotFolder)) {
+                manageFileScreenshots.forEach({ m in
+                    let file = (m as! FileListMetadata)
+                    self.organizeScreenShotFile(url: (file.url))
+                })
+            }
+        }
+        
+        if(manageFileRAW.count > 0) {
+            if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.rawFolder)) {
+                manageFileRAW.forEach({ m in
+                    let file = (m as! FileListMetadata)
+                    self.organizeRawFile(url: (file.url))
+                })
+            }
+        }
+        
+        
+        showNotification(messageType: "OrganizeFiles", customMessage: self.fileBrowserViewController.videoFolder)
+        } else {
+            showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
+        }
+    }
+    
+    @IBAction func renameFiles(_ sender: AnyObject) {
+        // print("Rename Button Clicked")
+    }
+    
+    @IBAction func copyFiles(_ sender: AnyObject) {
+        // print("Copy Files Button Clicked")
+    }
+    
+    @IBAction func moveFiles(_ sender: AnyObject) {
+        // print("Moved Button Clicked")
+    }
+    
+    @IBAction func deleteFiles(_ sender: AnyObject) {
+        // print("Delete Button Clicked")
+    }
+    
+    
+    func organizeMovieFile(url: URL) {
+        print("Organizing MOVIE ... \(url)")
+        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.videoFolder)
+        
+        var newMovieFile = self.fileBrowserViewController.videoFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".MOV" // for now
+        
+        newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
+        if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {
+            print("Succes... file moved");
+            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        }
+        
+    }
+    
+    func organizeJPGFile(url: URL) {
+        print("Organizing JPG ... \(url)")
+        
+        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.jpgFolder)
+        
+        var newJPGFile = self.fileBrowserViewController.jpgFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".jpg" // for now
+        
+        newJPGFile = newJPGFile.replacingOccurrences(of: " ", with: "%20")
+        if(self.moveFile(from: url, toUrl: URL(string: newJPGFile)!)) {
+            print("Succes... file moved");
+            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        }
+    }
+    
+    func organizeScreenShotFile(url: URL) {
+        print("Organizing Screenshot ... \(url)")
+        
+        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.screenShotFolder)
+        
+        var newScreenshotFile = self.fileBrowserViewController.screenShotFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".png" // for now
+        
+        newScreenshotFile = newScreenshotFile.replacingOccurrences(of: " ", with: "%20")
+        if(self.moveFile(from: url, toUrl: URL(string: newScreenshotFile)!)) {
+            print("Succes... file moved");
+            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        }
+    }
+    
+    func organizeRawFile(url: URL) {
+        print("Organizing RAW ... \(url)")
+        
+        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.screenShotFolder)
+        
+        var newRawFile = self.fileBrowserViewController.screenShotFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".dng" // for now
+        
+        newRawFile = newRawFile.replacingOccurrences(of: " ", with: "%20")
+        if(self.moveFile(from: url, toUrl: URL(string: newRawFile)!)) {
+            print("Succes... file moved");
+            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        }
+    }
+    
+    
+    func organizeOtherFile(url: URL) {
+        print("Organizing Other ... \(url)")
+        
+    }
+    
+    func moveFile(from: URL, toUrl: URL) -> Bool {
+        // print ("Moving file : \(from) to \(toUrl)")
+        
+        do {
+            try FileManager.default.moveItem(at: from, to: toUrl)
+            return true
+        }
+        catch let error as NSError {
+            // print ("Error while moving file : \(from) to \(toUrl)")
+            print("Ooops! Something went wrong: \(error)")
+            return false
+        }
+    }
+    
+    func checkFolderAndCreate(folderPath: String) -> Bool {
+        do {
+            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
+            print("Created Directory... " + folderPath)
+            return true
+        } catch _ as NSError {
+            print("Error while creating a folder.")
+            return false
+        }
+    }
+    
+    func getFileIncrementAtPath(path: String) -> String {
+        var incrementer = "00"
+        let Urlpath = path
+        let path = getPathFromURL(path: path)
+        
+        if FileManager.default.fileExists(atPath: path) {
+            do {
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: Urlpath)!, includingPropertiesForKeys: nil, options: [])
+                
+                incrementer = String(format: "%02d", files.count)
+                
+            } catch let error as NSError {
+                print(error.localizedDescription + "ok")
+            }
+        }
+        return incrementer
+    }
+    
+    func getPathFromURL(path: String) -> String {
+        var path = path.replacingOccurrences(of: "file://", with: "")
+        path = path.replacingOccurrences(of: "%20" , with: " ")
+        return path
+    }
+    
+    func showNotification(messageType: String, customMessage: String) -> Void {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if(messageType == "OrganizeFiles") {
+                // DispatchQueue.main.async {
+                // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
+                let notification = NSUserNotification()
+                notification.title = "Organization Complete"
+                notification.informativeText = customMessage.replacingOccurrences(of: "%20", with: " ")
+                
+                notification.soundName = NSUserNotificationDefaultSoundName
+                // NSUserNotificationCenter.default.deliver(notification)
+                NSUserNotificationCenter.default.deliver(notification);
+                // }
+            }
+            
+            if(messageType == "default") {
+                // DispatchQueue.main.async {
+                
+                // print("Message Type Welcome: " + messageType);
+                let notification = NSUserNotification()
+                notification.title = "Welcome to DroneFiles!"
+                notification.informativeText = "Your life will never be the same"
+                notification.soundName = NSUserNotificationDefaultSoundName
+                NSUserNotificationCenter.default.deliver(notification)
+                
+                //  }
+            }
+        }
+    }
+    
 }
 
 extension FileManagerViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return directoryItems?.count ?? 0
+        return fileItems?.count ?? 0
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
@@ -226,7 +441,7 @@ extension FileManagerViewController: NSTableViewDataSource {
         guard let sortDescriptor = tableView.sortDescriptors.first else {
             return
         }
-        if let order = Directory.FileOrder(rawValue: sortDescriptor.key!) {
+        if let order = FileManagerList.FileOrder(rawValue: sortDescriptor.key!) {
             // 2
             sortOrder = order
             sortAscending = sortDescriptor.ascending
@@ -254,7 +469,7 @@ extension FileManagerViewController: NSTableViewDelegate {
         
         
         // 1
-        guard let item = directoryItems?[row] else {
+        guard let item = fileItems?[row] else {
             return nil
         }
         

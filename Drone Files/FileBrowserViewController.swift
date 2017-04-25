@@ -22,7 +22,8 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet weak var editorTabViewController: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet weak var splitViewController: SplitViewController!
-    
+    @IBOutlet weak var fileManagerViewController: FileManagerViewController!
+
     
     // Directories!
     var directory: Directory?
@@ -37,13 +38,13 @@ class FileBrowserViewController: NSViewController {
     var sourceFolderOpened: Any? {
         didSet {
             if let url = sourceFolderOpened as? URL {
-                print("Source Folder Opened: \(url)")
+                // print("Source Folder Opened: \(url)")
                 directory = Directory(folderURL: url)
                 self.reloadFileList()
+                self.currentDir = url
                 self.folderURL = url.absoluteString
                 self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: self.folderURL)
                 UserDefaults.standard.setValue(self.folderURL, forKey: "sourceDirectory")
-
             }
         }
     }
@@ -179,30 +180,32 @@ class FileBrowserViewController: NSViewController {
         
         tmp.forEach { thisPath in
             print(thisPath)
-            
-            
-            if(counter < previousIndex) {
+            if(counter <= previousIndex) {
                 self.previousUrlString = self.previousUrlString + "/" + (thisPath as! String)
-                // print("counter \(counter)")
             }
             
+            if(counter == previousIndex) {
+                // print("SHOULD OPEN " + self.previousUrlString)
+
+                self.sourceFolderOpened = URL(string: self.previousUrlString)
+                reloadFileList()
+            }
             counter = counter + Int(1)
         }
-        
-        self.sourceFolderOpened = URL(string: self.previousUrlString)
-        
-        reloadFileList()
-        
     }
     
     func getPathsFromURL(url: URL!) -> NSMutableDictionary {
         let startingDir = url.absoluteString.replacingOccurrences(of: "file:///", with: "")
         // startingDir = String(startingDir.characters.dropLast())
         
-        let pathsArray = startingDir.components(separatedBy: "/")
-        let arrayCount = pathsArray.endIndex + Int(1),
-        previousElement = arrayCount - Int(3),
-        currentElement = arrayCount - Int(2)
+        let truncated = startingDir.substring(to: startingDir.index(before: startingDir.endIndex))
+        
+        var pathsArray = truncated.components(separatedBy: "/")
+        
+        let arrayCount = pathsArray.count
+        
+        let previousElement = arrayCount - Int(2),
+        currentElement = arrayCount - Int(1)
         
         let currentPath = pathsArray[currentElement]
         
@@ -317,13 +320,13 @@ class FileBrowserViewController: NSViewController {
         self.rawFolder = self.rawFolder.replacingOccurrences(of: " ", with: "%20")
         self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
         
-        print("Project Folder: " + self.urlStringToDisplayURLString(input: self.projectFolder))
-        print("Video Folder: " + self.urlStringToDisplayURLString(input:self.videoFolder))
-        print("Video Clips Folder: " + self.urlStringToDisplayURLString(input:self.videoClipsFolder))
-        print("JPG Folder: " + self.urlStringToDisplayURLString(input:self.jpgFolder))
-        print("PNG Folder: " + self.urlStringToDisplayURLString(input:self.screenShotFolder))
-        print("RAW Folder: " + self.urlStringToDisplayURLString(input:self.rawFolder))
-        print("DNG Folder: " + self.urlStringToDisplayURLString(input:self.dngFolder))
+//        print("Project Folder: " + self.urlStringToDisplayURLString(input: self.projectFolder))
+//        print("Video Folder: " + self.urlStringToDisplayURLString(input:self.videoFolder))
+//        print("Video Clips Folder: " + self.urlStringToDisplayURLString(input:self.videoClipsFolder))
+//        print("JPG Folder: " + self.urlStringToDisplayURLString(input:self.jpgFolder))
+//        print("PNG Folder: " + self.urlStringToDisplayURLString(input:self.screenShotFolder))
+//        print("RAW Folder: " + self.urlStringToDisplayURLString(input:self.rawFolder))
+//        print("DNG Folder: " + self.urlStringToDisplayURLString(input:self.dngFolder))
 
     }
     
@@ -393,7 +396,7 @@ class FileBrowserViewController: NSViewController {
     
     func loadItemFromTable() {
         
-        print("SELECTED ROW \(self.tableView.selectedRow)")
+        // print("SELECTED ROW \(self.tableView.selectedRow)")
         
         // 1
         guard tableView.selectedRow >= 0,
@@ -403,7 +406,7 @@ class FileBrowserViewController: NSViewController {
         
         if item.isFolder {
             // 2
-            print("CLICKED FOLDER");
+            // print("CLICKED FOLDER");
             // self.currentDir = item.url as URL
             // self.representedObject = item.url as Any
         }
@@ -423,7 +426,7 @@ class FileBrowserViewController: NSViewController {
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = (item.url as URL).absoluteString
                 itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
-                print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
+                // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
                 self.editorTabViewController.videoPlayerViewController.VideoEditView.isHidden = false;
                 self.editorTabViewController.videoPlayerViewController.nowPlayingFile.stringValue = item.name
@@ -435,7 +438,7 @@ class FileBrowserViewController: NSViewController {
                 
                 
             } else {
-                self.editorTabViewController.videoPlayerViewController.VideoEditView.isHidden = true;
+                // self.editorTabViewController.videoPlayerViewController.VideoEditView.isHidden = true;
             }
             
             if(_extension == "JPG" || _extension == "jpg" || _extension == "DNG" || _extension == "dng" || _extension == "png" || _extension == "PNG") {
@@ -445,7 +448,7 @@ class FileBrowserViewController: NSViewController {
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = (item.url as URL).absoluteString
                 itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
-                print("~~~~~~~~~~~~~~~~~~~~~~~ NOW SHOWING IMAGE: " + itemUrl)
+                // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW SHOWING IMAGE: " + itemUrl)
                 
                 // self.imageEditorViewController.VideoEditView.isHidden = false;
                 
@@ -465,6 +468,31 @@ class FileBrowserViewController: NSViewController {
         
     }
     
+    func sendItemsToFileManager (showTab: Bool) {
+        let selectedFileURLS: NSMutableArray = []
+        for (_, index) in tableView.selectedRowIndexes.enumerated() {
+            guard index >= 0,
+                let item = directoryItems?[index] else {
+                    return
+            }
+            
+            print("SELECTED ITEMS \(item.url)")
+            
+            selectedFileURLS.add(item.url)
+            
+        }
+       
+        self.editorTabViewController.fileManagerViewController.fileBrowserViewController = self
+        
+        if(showTab) {
+            self.editorTabViewController.selectedTabViewItemIndex = 3
+
+        }
+
+        self.editorTabViewController.fileManagerViewController.fileURLs = selectedFileURLS
+
+    }
+    
     func updateStatus() {
         
         let text: String
@@ -482,11 +510,17 @@ class FileBrowserViewController: NSViewController {
         else {
             text = "\(itemsSelected) of \(directoryItems!.count) selected"
         }
-        loadItemFromTable()
         
         // 3
         statusLabel.stringValue = text
         // print("Selected Text : \(text)");
+        
+        if(itemsSelected > 1) {
+            self.sendItemsToFileManager(showTab: true)
+        } else {
+            self.sendItemsToFileManager(showTab: false)
+            loadItemFromTable()
+        }
     }
     
     func tableViewDoubleClick(_ sender:AnyObject) {
@@ -498,7 +532,7 @@ class FileBrowserViewController: NSViewController {
         
         if item.isFolder {
             // 2
-            print("CLICKED FOLDER");
+            //print("CLICKED FOLDER");
             self.sourceFolderOpened = item.url as Any
             self.currentDir = item.url as URL
         }
