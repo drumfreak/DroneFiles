@@ -66,6 +66,7 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var createProjectDirectoryButton: NSButton!
     @IBOutlet var createProjectSubDirectoriesButton: NSButton!
     
+    @IBOutlet var sequenceNameSetButton: NSButton!
     let sizeFormatter = ByteCountFormatter()
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
@@ -332,14 +333,31 @@ class FileBrowserViewController: NSViewController {
     
     // Button and Input Text Actions
     @IBAction func fileSequenceLabelChanged(sender: AnyObject) {
+//        self.fileSequenceName = self.fileSequenceNameTextField.stringValue
+//        self.newFileNamePath.stringValue = self.fileSequenceName
+//        print("New Sequence Name \( self.fileSequenceName)")
+//        
+//        UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
+//
+//        setupProjectDirectory()
+    }
+    
+    @IBAction func fileSequenceNameSetButtonClicked(sender: AnyObject) {
+        
+        self.fileSequenceNameTextField.resignFirstResponder()
+        
         self.fileSequenceName = self.fileSequenceNameTextField.stringValue
         self.newFileNamePath.stringValue = self.fileSequenceName
         print("New Sequence Name \( self.fileSequenceName)")
         
         UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
-
+        
         setupProjectDirectory()
+        
+        
     }
+    
+    
     
     // Overrides
     
@@ -476,7 +494,7 @@ class FileBrowserViewController: NSViewController {
                     return
             }
             
-            print("SELECTED ITEMS \(item.url)")
+            // print("SELECTED ITEMS \(item.url)")
             
             selectedFileURLS.add(item.url)
             

@@ -890,19 +890,8 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQy-l2-Dro">
-                                        <rect key="frame" x="28" y="760" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSHomeTemplate" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Zge-mc-FV5">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="fileBrowserHomeButtonClicked:" target="JFc-NU-FBv" id="bWV-x2-1nn"/>
-                                        </connections>
-                                    </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lu7-Os-jyX">
-                                        <rect key="frame" x="60" y="752" width="175" height="32"/>
+                                        <rect key="frame" x="49" y="753" width="175" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Choose Source Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xvL-qi-uzl">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -913,7 +902,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXG-U6-TpE">
-                                        <rect key="frame" x="244" y="761" width="388" height="17"/>
+                                        <rect key="frame" x="224" y="763" width="408" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Folder Path" id="P4h-Hv-7nh">
                                             <font key="font" metaFont="system"/>
@@ -999,6 +988,28 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SD-NG-isH">
+                                        <rect key="frame" x="20" y="761" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSLeftFacingTriangleTemplate" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Xey-nK-mPu">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="fileBrowserHomeButtonClicked:" target="JFc-NU-FBv" id="vIe-s2-61F"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uxg-ec-Ym4">
+                                        <rect key="frame" x="398" y="71" width="61" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Set" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ybg-Bs-ZCt">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="fileSequenceNameSetButtonClickedWithSender:" target="JFc-NU-FBv" id="vUP-ZV-Xx4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>
@@ -1006,11 +1017,11 @@
                     <connections>
                         <outlet property="createProjectDirectoryButton" destination="AVI-pt-X2d" id="O3V-NB-frU"/>
                         <outlet property="createProjectSubDirectoriesButton" destination="b3e-tJ-bGt" id="A2J-LD-RzA"/>
-                        <outlet property="fileBrowserHomeButton" destination="rQy-l2-Dro" id="dbQ-dq-xVt"/>
                         <outlet property="fileSequenceNameTextField" destination="lDW-Qg-eP7" id="4Kg-NL-iV5"/>
                         <outlet property="folderURLDisplay" destination="eXG-U6-TpE" id="r1U-9c-V5e"/>
                         <outlet property="newFileNamePath" destination="VtW-bH-z5Z" id="0Eh-iF-Vzv"/>
                         <outlet property="outputDirectoryLabel" destination="oF1-rv-ooh" id="sVd-l4-0eM"/>
+                        <outlet property="sequenceNameSetButton" destination="Uxg-ec-Ym4" id="5gH-xu-pAj"/>
                         <outlet property="statusLabel" destination="EQa-pa-2J3" id="9Kt-2Y-eOp"/>
                         <outlet property="tableView" destination="NV0-1c-9tH" id="GrO-Zk-FtG"/>
                     </connections>
@@ -1726,6 +1737,6 @@ AAAAAAEGA
     </scenes>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSHomeTemplate" width="14" height="14"/>
+        <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
     </resources>
 </document>
