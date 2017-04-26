@@ -17,35 +17,111 @@ class FileManagerOptionsCopyController: NSViewController {
     @IBOutlet weak var fileManagerViewController: FileManagerViewController!
     @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
     
-    var copyToFolder = "/Volumes/"
-    var viewIsLoaded = false
     
     @IBOutlet var numberofFilesLabel: NSTextField!
+    @IBOutlet var chooseCopyDestinationButton1: NSButton!
+    @IBOutlet var copyDirectoryLabel1: NSTextField!
+    
+    @IBOutlet var chooseCopyDestination2Button: NSButton!
+    @IBOutlet var copyDirectoryLabel2: NSTextField!
+    
+    @IBOutlet var chooseCopyDestination3Button: NSButton!
+    @IBOutlet var copyDirectoryLabel3: NSTextField!
+
+    @IBOutlet var chooseCopyDestination4Button: NSButton!
+    @IBOutlet var copyDirectoryLabel4: NSTextField!
+
+    @IBOutlet var chooseCopyDestination5Button: NSButton!
+    @IBOutlet var copyDirectoryLabel5: NSTextField!
+
+    var copyToFolder1 = "/Volumes/"
+    var copyToFolder2 = "/Volumes/"
+    var copyToFolder3 = "/Volumes/"
+    var copyToFolder4 = "/Volumes/"
+    var copyToFolder5 = "/Volumes/"
+    
+    var viewIsLoaded = false
     
     var receivedFiles = NSMutableArray() {
         didSet {
             //  print("Received Files on COPY Controller \(receivedFiles)")
             if(self.viewIsLoaded) {
-                let count = String(format: "%02d", receivedFiles.count)
+                let count = String(format: "%2d", receivedFiles.count)
                 self.numberofFilesLabel.stringValue = "(" + count  + ")"
             }
         }
     }
     
-    @IBOutlet var copyDirectoryLabel: NSTextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("FileManagerOptionsCopyController loaded")
-        self.copyToFolder = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+        // print("FileManagerOptionsCopyController loaded")
         
-        self.copyDirectoryLabel.stringValue = self.copyToFolder
+        
+        
+        // Folders
+        
+        if(UserDefaults.standard.value(forKey: "copyToFolder1") == nil) {
+            self.copyToFolder1 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+            UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder1")
+        } else {
+            self.copyToFolder1 = UserDefaults.standard.value(forKey: "copyToFolder1") as! String
+        }
+    
+        self.copyDirectoryLabel1.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder1)
+        
+        
+        
+        
+        
+        if(UserDefaults.standard.value(forKey: "copyToFolder2") == nil) {
+            self.copyToFolder2 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+            UserDefaults.standard.setValue(self.copyToFolder2, forKey: "copyToFolder2")
+        } else {
+            self.copyToFolder2 = UserDefaults.standard.value(forKey: "copyToFolder2") as! String
+        }
+        
+        self.copyDirectoryLabel2.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder2)
+        
+        
+        
+        
+        
+        if(UserDefaults.standard.value(forKey: "copyToFolder3") == nil) {
+            self.copyToFolder3 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+            UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder3")
+        } else {
+            self.copyToFolder3 = UserDefaults.standard.value(forKey: "copyToFolder3") as! String
+        }
+        
+        self.copyDirectoryLabel3.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder3)
+        
+        
+        
+        
+        
+        if(UserDefaults.standard.value(forKey: "copyToFolder4") == nil) {
+            self.copyToFolder4 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+            UserDefaults.standard.setValue(self.copyToFolder4, forKey: "copyToFolder4")
+        } else {
+            self.copyToFolder4 = UserDefaults.standard.value(forKey: "copyToFolder4") as! String
+        }
+        
+        self.copyDirectoryLabel4.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder4)
+        
+        if(UserDefaults.standard.value(forKey: "copyToFolder5") == nil) {
+            self.copyToFolder5 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+            UserDefaults.standard.setValue(self.copyToFolder5, forKey: "copyToFolder5")
+        } else {
+            self.copyToFolder5 = UserDefaults.standard.value(forKey: "copyToFolder5") as! String
+        }
+        
+        self.copyDirectoryLabel5.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder5)
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        let count = String(format: "%02d", receivedFiles.count)
+        let count = String(format: "%1d", receivedFiles.count)
         self.numberofFilesLabel.stringValue = "(" + count  + ")"
     }
     
@@ -58,6 +134,116 @@ class FileManagerOptionsCopyController: NSViewController {
         let str = inputString.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
         return str
     }
+    
+    @IBAction func chooseCopyDestinationFolder1(_ sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.resolvesAliases = true
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                //print(openPanel.urls)
+                
+                self.copyToFolder1 = (openPanel.url?.absoluteString)!
+                
+                UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder1")
+                
+                self.copyDirectoryLabel1.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                
+            }
+        })
+    }
+    
+    
+    @IBAction func chooseCopyDestinationFolder2(_ sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.resolvesAliases = true
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                //print(openPanel.urls)
+                
+                self.copyToFolder2 = (openPanel.url?.absoluteString)!
+                
+                UserDefaults.standard.setValue(self.copyToFolder2, forKey: "copyToFolder2")
+                
+                self.copyDirectoryLabel2.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                
+            }
+        })
+    }
+
+    
+    @IBAction func chooseCopyDestinationFolder3(_ sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.resolvesAliases = true
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                //print(openPanel.urls)
+                
+                self.copyToFolder3 = (openPanel.url?.absoluteString)!
+                
+                UserDefaults.standard.setValue(self.copyToFolder3, forKey: "copyToFolder3")
+                
+                self.copyDirectoryLabel3.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                
+            }
+        })
+    }
+    
+    
+    @IBAction func chooseCopyDestinationFolder4(_ sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.resolvesAliases = true
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                //print(openPanel.urls)
+                
+                self.copyToFolder4 = (openPanel.url?.absoluteString)!
+                
+                UserDefaults.standard.setValue(self.copyToFolder4, forKey: "copyToFolder4")
+                
+                self.copyDirectoryLabel4.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                
+            }
+        })
+    }
+    
+    
+    @IBAction func chooseCopyDestinationFolder5(_ sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.resolvesAliases = true
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                //print(openPanel.urls)
+                
+                self.copyToFolder5 = (openPanel.url?.absoluteString)!
+                
+                UserDefaults.standard.setValue(self.copyToFolder5, forKey: "copyToFolder5")
+                
+                self.copyDirectoryLabel5.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                
+            }
+        })
+    }
+    
     
     
     @IBAction func copyFiles(_ sender: AnyObject) {
@@ -94,7 +280,7 @@ class FileManagerOptionsCopyController: NSViewController {
         print("Copy FROM filename: \(fileName)")
         
         var copyDestination = ""
-        copyDestination = self.copyToFolder + fileName
+        copyDestination = self.copyToFolder1 + fileName
         
         //  copyDestination = getPathFromURL(path: copyDestination)
         copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
@@ -176,6 +362,14 @@ class FileManagerOptionsCopyController: NSViewController {
             myPopup.addButton(withTitle: "Cancel")
         }
         myPopup.runModal()
+    }
+    
+    func urlStringToDisplayURLString(input: String) -> String {
+        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
+    }
+    
+    func urlStringToDisplayPath(input: String) -> String {
+        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
     }
     
     

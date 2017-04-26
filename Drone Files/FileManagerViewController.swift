@@ -102,6 +102,7 @@ class FileManagerViewController: NSViewController {
                 //  tableView.selectAll(self)
                 tableView.reloadData()
                 tableView.selectAll(self)
+                self.updateStatus()
             }
         }
     }
@@ -191,7 +192,7 @@ class FileManagerViewController: NSViewController {
         
         if item.isFolder {
             // 2
-            print("CLICKED FOLDER");
+            // print("CLICKED FOLDER");
             NSWorkspace.shared().open(item.url as URL)
             //self.representedObject = item.url as Any
             // self.currentDir = item.url as URL
@@ -273,12 +274,9 @@ class FileManagerViewController: NSViewController {
         }
     }
     
-    
-    
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "fileOptionsTabSegue" {
-            print("Hayyyy seeeeegwaaaayyyy")
-            
+            // print("Hayyyy seeeeegwaaaayyyy")
             self.fileManagerOptionsTabViewController = segue.destinationController as! FileManagerOptionsTabViewController
             
             self.fileManagerOptionsTabViewController.fileBrowserViewController = self.fileBrowserViewController
@@ -348,7 +346,6 @@ extension FileManagerViewController: NSTableViewDelegate {
         if let cell = tableView.make(withIdentifier: cellIdentifier, owner: nil) as? NSTableCellView {
             cell.textField?.stringValue = text
             cell.imageView?.image = image ?? nil
-            // cell.selectAll(<#T##sender: Any?##Any?#>)
             return cell
         }
         return nil
@@ -360,5 +357,17 @@ extension FileManagerViewController: NSTableViewDelegate {
     
 }
 
+
+extension NSOpenPanel {
+    var selectUrl: URL? {
+        title = "Select File"
+        allowsMultipleSelection = false
+        canChooseDirectories = true
+        canChooseFiles = false
+        canCreateDirectories = false
+        //allowedFileTypes = ["jpg","png","pdf","pct", "bmp", "tiff"]  // to allow only images, just comment out this line to allow any file type to be selected
+        return runModal() == NSFileHandlingPanelOKButton ? urls.first : nil
+    }
+}
 
 

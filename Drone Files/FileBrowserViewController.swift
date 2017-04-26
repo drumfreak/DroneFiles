@@ -230,16 +230,16 @@ class FileBrowserViewController: NSViewController {
         openPanel.resolvesAliases = true
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
-                //print(openPanel.urls)
+                self.sourceFolderOpened = openPanel.url
+                self.sourceFolder = (openPanel.url?.absoluteString)!
+                self.startingDirectory = openPanel.url
+                self.sourceFolder = (openPanel.url?.absoluteString)!
+                
+                UserDefaults.standard.setValue(self.sourceFolder, forKey: "sourceDirectory")
+                self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                self.setupProjectDirectory()
+
             }
-            self.sourceFolderOpened = openPanel.url
-            self.sourceFolder = (openPanel.url?.absoluteString)!
-            self.startingDirectory = openPanel.url
-            self.sourceFolder = (openPanel.url?.absoluteString)!
-            
-            UserDefaults.standard.setValue(self.sourceFolder, forKey: "sourceDirectory")
-            self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
-            self.setupProjectDirectory()
         })
     }
     
@@ -255,13 +255,13 @@ class FileBrowserViewController: NSViewController {
         
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
-                //print(openPanel.urls)
+                self.outputDirectory = (openPanel.url?.absoluteString)!
+                self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
+                UserDefaults.standard.setValue(self.outputDirectory, forKey: "outputDirectory")
+                
+                self.setupProjectDirectory()
             }
-            self.outputDirectory = (openPanel.url?.absoluteString)!
-            self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
-            UserDefaults.standard.setValue(self.outputDirectory, forKey: "outputDirectory")
-
-            self.setupProjectDirectory()
+            
         })
     }
     
