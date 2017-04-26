@@ -29,11 +29,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     var receivedFiles = NSMutableArray() {
         didSet {
-            print("Received Files on Organize Controller \(receivedFiles)")
-            
+            // print("Received Files on Organize Controller \(receivedFiles)"
             let count = String(format: "%02d", receivedFiles.count)
             self.numberofFilesLabel.stringValue = "(" + count  + ")"
-
         }
     }
     
@@ -269,7 +267,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func checkFolderAndCreate(folderPath: String) -> Bool {
         do {
             try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
-            print("Created Directory... " + folderPath)
+            // print("Created Directory... " + folderPath)
             return true
         } catch _ as NSError {
             print("Error while creating a folder.")

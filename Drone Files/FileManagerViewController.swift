@@ -174,11 +174,7 @@ class FileManagerViewController: NSViewController {
                 }
                 
                 self.fileManagerOptionsTabViewController.receivedFiles = sendFilesToControllers
-                
             }
-
-            
-            
         }
         loadItemFromTable()
         
@@ -205,21 +201,6 @@ class FileManagerViewController: NSViewController {
             NSWorkspace.shared().open(item.url as URL)
         }
     }
-    
-    
-    
-//    @IBAction func organizeFiles(_ sender: AnyObject) {
-//               
-////        if(tableView.selectedRowIndexes.count > 0) {
-////            for (_, index) in tableView.selectedRowIndexes.enumerated() {
-////                guard index >= 0,
-////                    let item = fileItems?[index] else {
-////                        return
-////                }
-////            }
-////        }
-//        
-//    }
     
     func resetTableAfterFileOperation(fileArray: NSMutableArray) {
         var f = self.fileURLs as! Array<Any>?

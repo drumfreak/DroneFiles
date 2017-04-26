@@ -17,20 +17,20 @@ class FileManagerOptionsCopyController: NSViewController {
     @IBOutlet weak var fileManagerViewController: FileManagerViewController!
     @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
     
-    var copyToFolder = ""
-    
+    var copyToFolder = "/Volumes/"
+    var viewIsLoaded = false
     
     @IBOutlet var numberofFilesLabel: NSTextField!
     
     var receivedFiles = NSMutableArray() {
         didSet {
-            print("Received Files on COPY Controller \(receivedFiles)")
-            let count = String(format: "%02d", receivedFiles.count)
-            self.numberofFilesLabel.stringValue = "(" + count  + ")"
+            //  print("Received Files on COPY Controller \(receivedFiles)")
+            if(self.viewIsLoaded) {
+                let count = String(format: "%02d", receivedFiles.count)
+                self.numberofFilesLabel.stringValue = "(" + count  + ")"
+            }
         }
     }
-    
-    
     
     @IBOutlet var copyDirectoryLabel: NSTextField!
     
@@ -40,6 +40,17 @@ class FileManagerOptionsCopyController: NSViewController {
         self.copyToFolder = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
         
         self.copyDirectoryLabel.stringValue = self.copyToFolder
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        let count = String(format: "%02d", receivedFiles.count)
+        self.numberofFilesLabel.stringValue = "(" + count  + ")"
+    }
+    
+    override func viewDidDisappear() {
+        self.viewIsLoaded = false
     }
     
     
@@ -53,56 +64,67 @@ class FileManagerOptionsCopyController: NSViewController {
         let manageFileURLS: NSMutableArray = []
         let fileUrls = self.receivedFiles as! Array<Any>
         
-        // print("SELECTED ITEMS \(item.url)")
         if(fileUrls.count > 0) {
             fileUrls.forEach({ m in
                 
                 let urlPath = m as! String
-                let url = NSURL(fileURLWithPath: urlPath)
+                let url = URL(string: urlPath)
                 
-                if(self.copyFile(url: url as URL)) {
-                    manageFileURLS.add(url)
+                if(self.copyFile(url: url!)) {
+                    manageFileURLS.add(url!)
                 }
                 
             })
             
             self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
-            
-            //showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
+
             showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "warning")
-            
-            // showNotification(messageType: "OrganizeFiles", customMessage: self.fileBrowserViewController.videoFolder)
-            
+    
         } else {
-            //showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
         }
     }
     
     func copyFile(url: URL) -> Bool {
         print("Copying File! ... \(url)")
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.videoFolder)
         
-        var newMovieFile = self.fileBrowserViewController.videoFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".MOV" // for now
+        // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
+        let fileName = url.lastPathComponent
         
-        newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
-        if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {
-            print("Succes... file moved")
+        print("Copy FROM filename: \(fileName)")
+        
+        var copyDestination = ""
+        copyDestination = self.copyToFolder + fileName
+        
+        //  copyDestination = getPathFromURL(path: copyDestination)
+        copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
+        
+        print("Copy DESTINATION: \(copyDestination)")
+        
+        
+        let destinationURL = URL(string: copyDestination)!
+        
+        if(self.doCopyFile(from: url, toUrl: destinationURL)) {
+            print("Succes... file copied")
             return true
         } else {
-            print("File Move Failed")
+            print("File Copy Failed")
             return false
         }
     }
     
-    func moveFile(from: URL, toUrl: URL) -> Bool {
+    func doCopyFile(from: URL, toUrl: URL) -> Bool {
+        
+        print("FROM: \(from)")
+        print("TO: \(toUrl)")
+        
         do {
-            try FileManager.default.moveItem(at: from, to: toUrl)
+            try FileManager.default.copyItem(at: from, to: toUrl)
             return true
         }
-        catch let error as NSError {
+        catch _ as NSError {
             // print ("Error while moving file : \(from) to \(toUrl)")
-            print("Ooops! Something went wrong: \(error)")
+            print("Ooops! Something went wrong: ")
             showAlert(text: "Could not copy file", body:("This file " + from.absoluteString + " could not be moved"), showCancel: false, messageType: "warning")
             
             return false
