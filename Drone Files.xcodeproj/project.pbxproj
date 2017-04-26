@@ -12,6 +12,12 @@
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
+		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
+		18A483071EAFFEC9007F735B /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483061EAFFEC9007F735B /* FileManagerOptionsOrganizeController.swift */; };
+		18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */; };
+		18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */; };
+		18A4830D1EAFFEFB007F735B /* FileManagerOptionsDeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A4830C1EAFFEFB007F735B /* FileManagerOptionsDeleteController.swift */; };
+		18A4830F1EAFFF0A007F735B /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A4830E1EAFFF0A007F735B /* FileManagerOptionsCopyController.swift */; };
 		18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001CC1EA69C92003C3214 /* AppDelegate.swift */; };
 		18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */; };
 		18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B001D31EA69C92003C3214 /* Assets.xcassets */; };
@@ -52,6 +58,12 @@
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
 		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
+		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
+		18A483061EAFFEC9007F735B /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
+		18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsMoveController.swift; sourceTree = "<group>"; };
+		18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsRenameController.swift; sourceTree = "<group>"; };
+		18A4830C1EAFFEFB007F735B /* FileManagerOptionsDeleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsDeleteController.swift; sourceTree = "<group>"; };
+		18A4830E1EAFFF0A007F735B /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		18B001C91EA69C92003C3214 /* Drone Files.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Files.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B001CC1EA69C92003C3214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18B001D11EA69C92003C3214 /* Drone_Files.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drone_Files.xcdatamodel; sourceTree = "<group>"; };
@@ -100,6 +112,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18A483031EAFFE8B007F735B /* File Manager */ = {
+			isa = PBXGroup;
+			children = (
+				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
+				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
+				18A483061EAFFEC9007F735B /* FileManagerOptionsOrganizeController.swift */,
+				18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */,
+				18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */,
+				18A4830C1EAFFEFB007F735B /* FileManagerOptionsDeleteController.swift */,
+				18A4830E1EAFFF0A007F735B /* FileManagerOptionsCopyController.swift */,
+			);
+			name = "File Manager";
+			sourceTree = "<group>";
+		};
 		18B001C01EA69C92003C3214 = {
 			isa = PBXGroup;
 			children = (
@@ -124,12 +150,12 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
+				18A483031EAFFE8B007F735B /* File Manager */,
 				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
 				18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
 				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
-				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
 				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
@@ -309,10 +335,16 @@
 				18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */,
+				18A4830D1EAFFEFB007F735B /* FileManagerOptionsDeleteController.swift in Sources */,
+				18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
+				18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */,
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
+				18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
+				18A483071EAFFEC9007F735B /* FileManagerOptionsOrganizeController.swift in Sources */,
+				18A4830F1EAFFF0A007F735B /* FileManagerOptionsCopyController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

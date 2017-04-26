@@ -26,6 +26,8 @@ class FileManagerViewController: NSViewController {
     @IBOutlet weak var splitViewController: SplitViewController!
     @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
     
+    @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
+    
     var fileList: FileManagerList?
     
     @IBOutlet var organizeButton: NSButton!
@@ -34,6 +36,8 @@ class FileManagerViewController: NSViewController {
     @IBOutlet var deleteButton: NSButton!
     @IBOutlet var moveButton: NSButton!
     @IBOutlet var tableView: NSTableView!
+    
+    @IBOutlet var organizeOptionsView: NSTextField!
     
     var viewIsLoaded = false
     
@@ -44,7 +48,7 @@ class FileManagerViewController: NSViewController {
     
     var fileURLs: Any? {
         didSet {
-                self.reloadFileList()
+            self.reloadFileList()
         }
     }
     
@@ -90,29 +94,23 @@ class FileManagerViewController: NSViewController {
     }
     
     func reloadFileList() {
-        
         if let files = fileURLs as? NSMutableArray {
-            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~File List Updated")
+            // print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~File List Updated")
             self.fileList = FileManagerList(fileArray: files)
             self.fileItems = fileList?.contentsOrderedBy(sortOrder, ascending: sortAscending)
             if(self.viewIsLoaded) {
-               //  tableView.selectAll(self)
-                
+                //  tableView.selectAll(self)
                 tableView.reloadData()
                 tableView.selectAll(self)
-                
             }
-
         }
-
-        
     }
     
     func loadItemFromTable() {
         // print("SELECTED ROW \(self.tableView.selectedRow)")
         // 1
         let f = fileItems!.count
-
+        
         if(tableView.selectedRow > f) {
             return
         }
@@ -162,6 +160,25 @@ class FileManagerViewController: NSViewController {
         }
         else {
             text = "\(itemsSelected) of \(fileItems!.count) selected"
+            let sendFilesToControllers = NSMutableArray()
+            
+            if(tableView.selectedRowIndexes.count > 0) {
+                for (_, index) in tableView.selectedRowIndexes.enumerated() {
+                    guard index >= 0,
+                        let item = fileItems?[index] else {
+                            return
+                    }
+                    
+                    sendFilesToControllers.add(item.url.absoluteString)
+                    
+                }
+                
+                self.fileManagerOptionsTabViewController.receivedFiles = sendFilesToControllers
+                
+            }
+
+            
+            
         }
         loadItemFromTable()
         
@@ -191,122 +208,41 @@ class FileManagerViewController: NSViewController {
     
     
     
-    @IBAction func organizeFiles(_ sender: AnyObject) {
-        print("Organize Files Button Clicked")
-        let manageFileURLS: NSMutableArray = []
-        let manageFileMovies: NSMutableArray = []
-        let manageFileScreenshots: NSMutableArray = []
-        let manageFileJPG: NSMutableArray = []
-        let manageFileRAW: NSMutableArray = []
-        let manageFileOther: NSMutableArray = []
+//    @IBAction func organizeFiles(_ sender: AnyObject) {
+//               
+////        if(tableView.selectedRowIndexes.count > 0) {
+////            for (_, index) in tableView.selectedRowIndexes.enumerated() {
+////                guard index >= 0,
+////                    let item = fileItems?[index] else {
+////                        return
+////                }
+////            }
+////        }
+//        
+//    }
+    
+    func resetTableAfterFileOperation(fileArray: NSMutableArray) {
+        var f = self.fileURLs as! Array<Any>?
+        print("Hey reloading!!!!!!!!!!!!!!!!!!!!!");
         
-        if(tableView.selectedRowIndexes.count > 0) {
-            for (_, index) in tableView.selectedRowIndexes.enumerated() {
-                guard index >= 0,
-                    let item = fileItems?[index] else {
-                        return
-                }
-                print("SELECTED ITEMS \(item.url)")
-                manageFileURLS.add(item.url)
-                
-                let url = NSURL(fileURLWithPath: item.url.absoluteString)
-                
-                let _extension = url.pathExtension
-                var skip = false
-                
-                // item.index = index
-                
-                if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
-                    manageFileMovies.add(item)
-                    skip = true
-                }
-                
-                if(_extension == "JPG" || _extension == "jpg" ) {
-                    manageFileJPG.add(item)
-                    skip = true
-                }
-                
-                if(_extension == "DNG" || _extension == "dng" ||  _extension == "RAW" ||  _extension == "raw") {
-                    manageFileJPG.add(item)
-                    skip = true
-                }
-                
-                if(_extension == "png" || _extension == "PNG") {
-                    manageFileScreenshots.add(item)
-                    skip = true
-                }
-                
-                if(!skip) {
-                    manageFileOther.add(item)
-                }
+        
+        fileArray.forEach({ m in
+            let foo2 = m as! URL
+            f = f?.filter() {
+                let foo = $0 as! URL
+                return foo.absoluteString != foo2.absoluteString
             }
-            
-            
-            if(manageFileMovies.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.videoFolder)) {
-                    print("VIDEOS FOLDER: \(self.fileBrowserViewController.videoFolder)")
-                    manageFileMovies.forEach({ m in
-                        let movie = (m as! FileListMetadata)
-                        //print(movie)
-                        self.organizeMovieFile(url: (movie.url))
-                        self.reloadFileList()
-                    })
-                }
-            }
-            
-            if(manageFileJPG.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.jpgFolder)) {
-                    manageFileJPG.forEach({ m in
-                        let file = (m as! FileListMetadata)
-                        self.organizeJPGFile(url: (file.url))
-                    })
-                }
-            }
-            
-            if(manageFileScreenshots.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.screenShotFolder)) {
-                    manageFileScreenshots.forEach({ m in
-                        let file = (m as! FileListMetadata)
-                        self.organizeScreenShotFile(url: (file.url))
-                    })
-                }
-            }
-            
-            if(manageFileRAW.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.rawFolder)) {
-                    manageFileRAW.forEach({ m in
-                        let file = (m as! FileListMetadata)
-                        self.organizeRawFile(url: (file.url))
-                    })
-                }
-            }
-            
-            //showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
-            showAlert(text: "Files Organized!", body: "The files have been organized!", showCancel: false, messageType: "warning")
-            
-            showNotification(messageType: "OrganizeFiles", customMessage: self.fileBrowserViewController.videoFolder)
-            var f = self.fileURLs as! Array<Any>?
-            
-            manageFileURLS.forEach({ m in
-                let foo2 = m as! URL
-                f = f?.filter() {
-                    let foo = $0 as! URL
-                    return foo.absoluteString != foo2.absoluteString
-                }
-            })
-            
-            let newArray = NSMutableArray()
-            
-            f?.forEach({ m in
-                newArray.add(m)
-            })
-            
-            self.fileURLs = newArray
-            
-        } else {
-            //showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
-            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
-        }
+        })
+        
+        let newArray = NSMutableArray()
+        
+        f?.forEach({ m in
+            newArray.add(m)
+        })
+        
+        self.fileURLs = newArray
+        self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        
     }
     
     @IBAction func renameFiles(_ sender: AnyObject) {
@@ -325,165 +261,52 @@ class FileManagerViewController: NSViewController {
         // print("Delete Button Clicked")
     }
     
-    func organizeMovieFile(url: URL) {
-        print("Organizing MOVIE ... \(url)")
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.videoFolder)
-        
-        var newMovieFile = self.fileBrowserViewController.videoFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".MOV" // for now
-        
-        newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
-        if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {
-            print("Succes... file moved");
-            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
-        }
-        
-    }
     
-    func organizeJPGFile(url: URL) {
-        print("Organizing JPG ... \(url)")
-        
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.jpgFolder)
-        
-        var newJPGFile = self.fileBrowserViewController.jpgFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".jpg" // for now
-        
-        newJPGFile = newJPGFile.replacingOccurrences(of: " ", with: "%20")
-        if(self.moveFile(from: url, toUrl: URL(string: newJPGFile)!)) {
-            print("Succes... file moved");
-            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
-        }
-    }
-    
-    func organizeScreenShotFile(url: URL) {
-        print("Organizing Screenshot ... \(url)")
-        
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.screenShotFolder)
-        
-        var newScreenshotFile = self.fileBrowserViewController.screenShotFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".png" // for now
-        
-        newScreenshotFile = newScreenshotFile.replacingOccurrences(of: " ", with: "%20")
-        if(self.moveFile(from: url, toUrl: URL(string: newScreenshotFile)!)) {
-            print("Succes... file moved");
-            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
-        }
-    }
-    
-    func organizeRawFile(url: URL) {
-        print("Organizing RAW ... \(url)")
-        
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.screenShotFolder)
-        
-        var newRawFile = self.fileBrowserViewController.screenShotFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".dng" // for now
-        
-        newRawFile = newRawFile.replacingOccurrences(of: " ", with: "%20")
-        if(self.moveFile(from: url, toUrl: URL(string: newRawFile)!)) {
-            print("Succes... file moved");
-            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
-        }
-    }
-    
-    
-    func organizeOtherFile(url: URL) {
-        print("Organizing Other ... \(url)")
-        
-    }
-    
-    func moveFile(from: URL, toUrl: URL) -> Bool {
-        // print ("Moving file : \(from) to \(toUrl)")
-        
-        do {
-            try FileManager.default.moveItem(at: from, to: toUrl)
-            return true
-        }
-        catch let error as NSError {
-            // print ("Error while moving file : \(from) to \(toUrl)")
-            print("Ooops! Something went wrong: \(error)")
-            
-            showAlert(text: "Could not move file", body:("This file " + from.absoluteString + " could not be moved"), showCancel: false, messageType: "warning")
-            
-            return false
-        }
-    }
-    
-    func checkFolderAndCreate(folderPath: String) -> Bool {
-        do {
-            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
-            print("Created Directory... " + folderPath)
-            return true
-        } catch _ as NSError {
-            print("Error while creating a folder.")
-            return false
-        }
-    }
-    
-    func getFileIncrementAtPath(path: String) -> String {
-        var incrementer = "00"
-        let Urlpath = path
-        let path = getPathFromURL(path: path)
-        
-        if FileManager.default.fileExists(atPath: path) {
-            do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: Urlpath)!, includingPropertiesForKeys: nil, options: [])
+    func showNotification(messageType: String, customMessage: String) -> Void {
+        DispatchQueue.global(qos: .userInitiated).async {
+            if(messageType == "OrganizeFiles") {
+                // DispatchQueue.main.async {
+                // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
+                let notification = NSUserNotification()
+                notification.title = "Organization Complete"
+                notification.informativeText = customMessage.replacingOccurrences(of: "%20", with: " ")
                 
-                incrementer = String(format: "%02d", files.count)
+                notification.soundName = NSUserNotificationDefaultSoundName
+                // NSUserNotificationCenter.default.deliver(notification)
+                NSUserNotificationCenter.default.deliver(notification);
+                // }
+            }
+            
+            if(messageType == "default") {
+                // DispatchQueue.main.async {
                 
-            } catch let error as NSError {
-                print(error.localizedDescription + "ok")
+                // print("Message Type Welcome: " + messageType);
+                let notification = NSUserNotification()
+                notification.title = "Welcome to DroneFiles!"
+                notification.informativeText = "Your life will never be the same"
+                notification.soundName = NSUserNotificationDefaultSoundName
+                NSUserNotificationCenter.default.deliver(notification)
+                
+                //  }
             }
         }
-        return incrementer
-    }
-    
-    func getPathFromURL(path: String) -> String {
-        var path = path.replacingOccurrences(of: "file://", with: "")
-        path = path.replacingOccurrences(of: "%20" , with: " ")
-        return path
-    }
-    
-    func showAlert(text: String, body: String, showCancel: Bool, messageType: String) {
-        let myPopup: NSAlert = NSAlert()
-        myPopup.messageText = text
-        myPopup.informativeText = body
-        myPopup.alertStyle = NSAlertStyle.warning
-        myPopup.addButton(withTitle: "OK")
-        if(showCancel) {
-            myPopup.addButton(withTitle: "Cancel")
-        }
-        myPopup.runModal()
     }
     
     
-}
-func showNotification(messageType: String, customMessage: String) -> Void {
-    DispatchQueue.global(qos: .userInitiated).async {
-        if(messageType == "OrganizeFiles") {
-            // DispatchQueue.main.async {
-            // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
-            let notification = NSUserNotification()
-            notification.title = "Organization Complete"
-            notification.informativeText = customMessage.replacingOccurrences(of: "%20", with: " ")
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fileOptionsTabSegue" {
+            print("Hayyyy seeeeegwaaaayyyy")
             
-            notification.soundName = NSUserNotificationDefaultSoundName
-            // NSUserNotificationCenter.default.deliver(notification)
-            NSUserNotificationCenter.default.deliver(notification);
-            // }
-        }
-        
-        if(messageType == "default") {
-            // DispatchQueue.main.async {
+            self.fileManagerOptionsTabViewController = segue.destinationController as! FileManagerOptionsTabViewController
             
-            // print("Message Type Welcome: " + messageType);
-            let notification = NSUserNotification()
-            notification.title = "Welcome to DroneFiles!"
-            notification.informativeText = "Your life will never be the same"
-            notification.soundName = NSUserNotificationDefaultSoundName
-            NSUserNotificationCenter.default.deliver(notification)
+            self.fileManagerOptionsTabViewController.fileBrowserViewController = self.fileBrowserViewController
             
-            //  }
+            self.fileManagerOptionsTabViewController.fileManagerViewController = self
         }
     }
-    
-}
 
+}
 extension FileManagerViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return fileItems?.count ?? 0
@@ -519,7 +342,7 @@ extension FileManagerViewController: NSTableViewDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
-
+        
         // 1
         guard let item = fileItems?[row] else {
             return nil

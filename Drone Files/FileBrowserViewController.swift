@@ -88,7 +88,6 @@ class FileBrowserViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM-dd-YYYY"
         let now = dateformatter.string(from: NSDate() as Date)
@@ -163,6 +162,7 @@ class FileBrowserViewController: NSViewController {
         
         reloadFileList()
         
+        // writeProjectFile(projectPath: self.outputDirectory)
     }
     
     @IBAction func fileBrowserHomeButtonClicked(_ sender: AnyObject?) {
@@ -568,6 +568,69 @@ class FileBrowserViewController: NSViewController {
     
     func urlStringToDisplayPath(input: String) -> String {
         return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
+    }
+    
+    func writeProjectFile (projectPath: String) {
+        
+        let documentsDirectoryPath = NSURL(string: projectPath)!
+        
+        let jsonFilePath = documentsDirectoryPath.appendingPathComponent(".dronefiles")
+        
+        print("jsonFilePath \(String(describing: jsonFilePath))")
+        
+        let fileManager = FileManager.default
+        
+        var isDirectory: ObjCBool = false
+        
+        // creating a .json file in the Documents folder
+        var foo = jsonFilePath?.absoluteString.replacingOccurrences(of: "file://", with: "")
+        foo = foo?.replacingOccurrences(of: "%20", with: " ")
+        
+        if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
+            let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
+            if created {
+                print("File created ")
+            } else {
+                print("Couldn't create file for some reason")
+            }
+        } else {
+            print("File already exists")
+        }
+        
+        // creating an array of test data
+        var numbers = [String]()
+        for i in 0 ..< 100 {
+            numbers.append("Test\(i)")
+        }
+        
+        // creating JSON out of the above array
+        var jsonData: NSData!
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: numbers, options: JSONSerialization.WritingOptions()) as NSData
+            let jsonString = String(data: jsonData as Data, encoding: String.Encoding.utf8)
+            print("\(String(describing: jsonString))")
+        } catch let error as NSError {
+            print("Array to JSON conversion failed: \(error.localizedDescription)")
+        }
+        
+        // Write that JSON to the file created earlier
+        // let jsonFilePath = documentsDirectoryPath.appendingPathComponent("test.json")
+        do {
+            // let file = try FileHandle(forWritingToURL: jsonFilePath!)
+            
+            let file = try FileHandle.init(forWritingTo: jsonFilePath!)
+            file.write(jsonData as Data)
+
+            
+            print("JSON data was written to teh file successfully!")
+        } catch let error as NSError {
+            print("Couldn't write to file: \(error.localizedDescription)")
+        }
+        
+        
+        
+        
+        
     }
 }
 
