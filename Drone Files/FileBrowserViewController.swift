@@ -347,7 +347,7 @@ class FileBrowserViewController: NSViewController {
         self.fileSequenceNameTextField.resignFirstResponder()
         
         self.fileSequenceName = self.fileSequenceNameTextField.stringValue
-        self.newFileNamePath.stringValue = self.fileSequenceName
+        // self.newFileNamePath.stringValue = self.fileSequenceName
         print("New Sequence Name \( self.fileSequenceName)")
         
         UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")

@@ -25,19 +25,24 @@ class FileManagerOptionsOrganizeController: NSViewController {
     @IBOutlet var rawDirectoryLabel: NSTextField!
     @IBOutlet var screenshotDirectoryLabel: NSTextField!
 
-    @IBOutlet var numberofFilesLabel: NSTextField!
+    @IBOutlet var numberofFilesLabel: NSButton!
     
     var receivedFiles = NSMutableArray() {
         didSet {
             // print("Received Files on Organize Controller \(receivedFiles)"
-            let count = String(format: "%02d", receivedFiles.count)
-            self.numberofFilesLabel.stringValue = "(" + count  + ")"
+            let count = String(format: "%2d", receivedFiles.count)
+            self.numberofFilesLabel.title = count
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("FileManagerOptionsOrganizeController loaded")
+        
+        
+        
+        
+        
     }
     
     override func viewDidAppear() {
@@ -54,6 +59,37 @@ class FileManagerOptionsOrganizeController: NSViewController {
         self.rawDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.rawFolder).replacingOccurrences(of: projectPath, with: "")
         
         self.screenshotDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
+        
+        
+        // Click Gestures
+        
+        let tapGestureFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
+        
+        self.projectDirectoryLabel.addGestureRecognizer(tapGestureFolder1)
+        
+        let tapGestureFolder2 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath2))
+        
+        self.videosDirectoryLabel.addGestureRecognizer(tapGestureFolder2)
+        
+        
+        let tapGestureFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
+        
+        self.jpgDirectoryLabel.addGestureRecognizer(tapGestureFolder3)
+        
+        
+        let tapGestureFolder4 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath4))
+        
+        self.screenshotDirectoryLabel.addGestureRecognizer(tapGestureFolder4)
+        
+        let tapGestureFolder5 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath5))
+    
+        self.rawDirectoryLabel.addGestureRecognizer(tapGestureFolder5)
+        
+        
+//        let tapGestureFolder6 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath6))
+//        
+
+
     }
     
     func pathOutputFromURL(inputString: String) -> String {
@@ -312,6 +348,35 @@ class FileManagerOptionsOrganizeController: NSViewController {
     }
     
     
+    func setOpenPath1() {
+        doOpenFinder(urlString:self.fileBrowserViewController.projectFolder)
+    }
     
+    func setOpenPath2() {
+        doOpenFinder(urlString:self.fileBrowserViewController.videoFolder)
+    }
     
+    func setOpenPath3() {
+        doOpenFinder(urlString:self.fileBrowserViewController.jpgFolder)
+    }
+    
+    func setOpenPath4() {
+        doOpenFinder(urlString:self.fileBrowserViewController.screenShotFolder)
+    }
+    
+    func setOpenPath5() {
+        doOpenFinder(urlString:self.fileBrowserViewController.rawFolder)
+    }
+    
+    func doOpenFinder(urlString: String) {
+        let path = pathOutputFromURL(inputString: urlString)
+        
+        if FileManager.default.fileExists(atPath: path) {
+            let url = URL(string: urlString)!
+            
+            NSWorkspace.shared().open(url)
+        } else {
+            showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
+        }
+    }
 }

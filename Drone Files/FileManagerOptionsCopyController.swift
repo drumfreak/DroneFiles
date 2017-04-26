@@ -18,7 +18,7 @@ class FileManagerOptionsCopyController: NSViewController {
     @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
     
     
-    @IBOutlet var numberofFilesLabel: NSTextField!
+    @IBOutlet var numberofFilesLabel: NSButton!
     @IBOutlet var chooseCopyDestinationButton1: NSButton!
     @IBOutlet var copyDirectoryLabel1: NSTextField!
     
@@ -46,8 +46,8 @@ class FileManagerOptionsCopyController: NSViewController {
         didSet {
             //  print("Received Files on COPY Controller \(receivedFiles)")
             if(self.viewIsLoaded) {
-                let count = String(format: "%2d", receivedFiles.count)
-                self.numberofFilesLabel.stringValue = "(" + count  + ")"
+                let count = String(format: "%", receivedFiles.count)
+                self.numberofFilesLabel.title = count
             }
         }
     }
@@ -55,11 +55,10 @@ class FileManagerOptionsCopyController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("FileManagerOptionsCopyController loaded")
-        
-        
-        
+    
         // Folders
         
+        // 1
         if(UserDefaults.standard.value(forKey: "copyToFolder1") == nil) {
             self.copyToFolder1 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder1")
@@ -71,8 +70,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         
         
-        
-        
+        // 2
         if(UserDefaults.standard.value(forKey: "copyToFolder2") == nil) {
             self.copyToFolder2 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder2, forKey: "copyToFolder2")
@@ -82,10 +80,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         self.copyDirectoryLabel2.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder2)
         
-        
-        
-        
-        
+        // 3
         if(UserDefaults.standard.value(forKey: "copyToFolder3") == nil) {
             self.copyToFolder3 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder3")
@@ -95,16 +90,15 @@ class FileManagerOptionsCopyController: NSViewController {
         
         self.copyDirectoryLabel3.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder3)
         
-        
-        
-        
-        
+        // 4
         if(UserDefaults.standard.value(forKey: "copyToFolder4") == nil) {
             self.copyToFolder4 = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder4, forKey: "copyToFolder4")
         } else {
             self.copyToFolder4 = UserDefaults.standard.value(forKey: "copyToFolder4") as! String
         }
+        
+        // 5
         
         self.copyDirectoryLabel4.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder4)
         
@@ -116,16 +110,47 @@ class FileManagerOptionsCopyController: NSViewController {
         }
         
         self.copyDirectoryLabel5.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder5)
+        
+        
+        
+        
+        // Click Gestures
+        
+        let tapGestureCopyFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
+        
+        
+        self.copyDirectoryLabel1.addGestureRecognizer(tapGestureCopyFolder1)
+        
+        let tapGestureCopyFolder2 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath2))
+        
+        self.copyDirectoryLabel2.addGestureRecognizer(tapGestureCopyFolder2)
+        
+        
+        let tapGestureCopyFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
+        
+        self.copyDirectoryLabel3.addGestureRecognizer(tapGestureCopyFolder3)
+        
+        
+        let tapGestureCopyFolder4 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath4))
+        
+        self.copyDirectoryLabel4.addGestureRecognizer(tapGestureCopyFolder4)
+        
+        let tapGestureCopyFolder5 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath5))
+        
+        self.copyDirectoryLabel5.addGestureRecognizer(tapGestureCopyFolder5)
+        
+
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
+        self.viewIsLoaded = true
         let count = String(format: "%1d", receivedFiles.count)
-        self.numberofFilesLabel.stringValue = "(" + count  + ")"
+        self.numberofFilesLabel.title = count
     }
     
     override func viewDidDisappear() {
+        super.viewDidDisappear()
         self.viewIsLoaded = false
     }
     
@@ -245,33 +270,135 @@ class FileManagerOptionsCopyController: NSViewController {
     }
     
     
-    
-    @IBAction func copyFiles(_ sender: AnyObject) {
+    @IBAction func copyFilesFolder1(_ sender: AnyObject) {
         let manageFileURLS: NSMutableArray = []
         let fileUrls = self.receivedFiles as! Array<Any>
         
         if(fileUrls.count > 0) {
             fileUrls.forEach({ m in
-                
                 let urlPath = m as! String
                 let url = URL(string: urlPath)
                 
-                if(self.copyFile(url: url!)) {
+                if(self.copyFileFolder1(url: url!)) {
                     manageFileURLS.add(url!)
                 }
-                
             })
             
-            self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
-
+            //self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+            
             showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "warning")
-    
+            
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
         }
     }
     
-    func copyFile(url: URL) -> Bool {
+    
+    
+    @IBAction func copyFilesFolder2(_ sender: AnyObject) {
+        let manageFileURLS: NSMutableArray = []
+        let fileUrls = self.receivedFiles as! Array<Any>
+        
+        if(fileUrls.count > 0) {
+            fileUrls.forEach({ m in
+                let urlPath = m as! String
+                let url = URL(string: urlPath)
+                
+                if(self.copyFileFolder2(url: url!)) {
+                    manageFileURLS.add(url!)
+                }
+            })
+            
+            // self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+            
+            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "warning")
+            
+        } else {
+            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
+        }
+    }
+    
+    
+    
+    @IBAction func copyFilesFolder3(_ sender: AnyObject) {
+        let manageFileURLS: NSMutableArray = []
+        let fileUrls = self.receivedFiles as! Array<Any>
+        
+        if(fileUrls.count > 0) {
+            fileUrls.forEach({ m in
+                let urlPath = m as! String
+                let url = URL(string: urlPath)
+                
+                if(self.copyFileFolder3(url: url!)) {
+                    manageFileURLS.add(url!)
+                }
+            })
+            
+           // self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+            
+            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "warning")
+            
+        } else {
+            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
+        }
+    }
+    
+    
+    
+    
+    @IBAction func copyFilesFolder4(_ sender: AnyObject) {
+        let manageFileURLS: NSMutableArray = []
+        let fileUrls = self.receivedFiles as! Array<Any>
+        
+        if(fileUrls.count > 0) {
+            fileUrls.forEach({ m in
+                let urlPath = m as! String
+                let url = URL(string: urlPath)
+                
+                if(self.copyFileFolder4(url: url!)) {
+                    manageFileURLS.add(url!)
+                }
+            })
+            
+           // self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+            
+            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "warning")
+            
+        } else {
+            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
+        }
+    }
+    
+    
+    
+    
+    @IBAction func copyFilesFolder5(_ sender: AnyObject) {
+        let manageFileURLS: NSMutableArray = []
+        let fileUrls = self.receivedFiles as! Array<Any>
+        
+        if(fileUrls.count > 0) {
+            fileUrls.forEach({ m in
+                let urlPath = m as! String
+                let url = URL(string: urlPath)
+                
+                if(self.copyFileFolder5(url: url!)) {
+                    manageFileURLS.add(url!)
+                }
+            })
+            
+            // self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+            
+            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "warning")
+            
+        } else {
+            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
+        }
+    }
+    
+    
+    
+    
+    func copyFileFolder1(url: URL) -> Bool {
         print("Copying File! ... \(url)")
         
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
@@ -299,6 +426,122 @@ class FileManagerOptionsCopyController: NSViewController {
         }
     }
     
+
+    
+    func copyFileFolder2(url: URL) -> Bool {
+        print("Copying File! ... \(url)")
+        
+        // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
+        let fileName = url.lastPathComponent
+        
+        print("Copy FROM filename: \(fileName)")
+        
+        var copyDestination = ""
+        copyDestination = self.copyToFolder2 + fileName
+        
+        //  copyDestination = getPathFromURL(path: copyDestination)
+        copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
+        
+        print("Copy DESTINATION: \(copyDestination)")
+        
+        
+        let destinationURL = URL(string: copyDestination)!
+        
+        if(self.doCopyFile(from: url, toUrl: destinationURL)) {
+            print("Succes... file copied")
+            return true
+        } else {
+            print("File Copy Failed")
+            return false
+        }
+    }
+    
+    
+    func copyFileFolder3(url: URL) -> Bool {
+        print("Copying File! ... \(url)")
+        
+        // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
+        let fileName = url.lastPathComponent
+        
+        print("Copy FROM filename: \(fileName)")
+        
+        var copyDestination = ""
+        copyDestination = self.copyToFolder3 + fileName
+        
+        //  copyDestination = getPathFromURL(path: copyDestination)
+        copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
+        
+        print("Copy DESTINATION: \(copyDestination)")
+        
+        
+        let destinationURL = URL(string: copyDestination)!
+        
+        if(self.doCopyFile(from: url, toUrl: destinationURL)) {
+            print("Succes... file copied")
+            return true
+        } else {
+            print("File Copy Failed")
+            return false
+        }
+    }
+    
+    func copyFileFolder4(url: URL) -> Bool {
+        print("Copying File! ... \(url)")
+        
+        // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
+        let fileName = url.lastPathComponent
+        
+        print("Copy FROM filename: \(fileName)")
+        
+        var copyDestination = ""
+        copyDestination = self.copyToFolder4 + fileName
+        
+        //  copyDestination = getPathFromURL(path: copyDestination)
+        copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
+        
+        print("Copy DESTINATION: \(copyDestination)")
+        
+        
+        let destinationURL = URL(string: copyDestination)!
+        
+        if(self.doCopyFile(from: url, toUrl: destinationURL)) {
+            print("Succes... file copied")
+            return true
+        } else {
+            print("File Copy Failed")
+            return false
+        }
+    }
+    
+    
+    func copyFileFolder5(url: URL) -> Bool {
+        print("Copying File! ... \(url)")
+        
+        // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
+        let fileName = url.lastPathComponent
+        
+        print("Copy FROM filename: \(fileName)")
+        
+        var copyDestination = ""
+        copyDestination = self.copyToFolder5 + fileName
+        
+        //  copyDestination = getPathFromURL(path: copyDestination)
+        copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
+        
+        print("Copy DESTINATION: \(copyDestination)")
+        
+        
+        let destinationURL = URL(string: copyDestination)!
+        
+        if(self.doCopyFile(from: url, toUrl: destinationURL)) {
+            print("Succes... file copied")
+            return true
+        } else {
+            print("File Copy Failed")
+            return false
+        }
+    }
+
     func doCopyFile(from: URL, toUrl: URL) -> Bool {
         
         print("FROM: \(from)")
@@ -372,5 +615,36 @@ class FileManagerOptionsCopyController: NSViewController {
         return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
     }
     
+    func setOpenPath1() {
+        doOpenFinder(urlString:self.copyToFolder1)
+        
+    }
     
+    func setOpenPath2() {
+        doOpenFinder(urlString:self.copyToFolder2)
+    }
+    
+    func setOpenPath3() {
+         doOpenFinder(urlString:self.copyToFolder3)
+    }
+    
+    func setOpenPath4() {
+         doOpenFinder(urlString:self.copyToFolder4)
+    }
+    
+    func setOpenPath5() {
+         doOpenFinder(urlString:self.copyToFolder5)
+    }
+    
+    func doOpenFinder(urlString: String) {
+        let path = pathOutputFromURL(inputString: urlString)
+    
+        if FileManager.default.fileExists(atPath: path) {
+                let url = URL(string: urlString)!
+
+                NSWorkspace.shared().open(url)
+        } else {
+            showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
+        }
+    }
 }

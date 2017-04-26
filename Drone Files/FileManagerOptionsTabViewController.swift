@@ -36,6 +36,7 @@ class FileManagerOptionsTabViewController: NSTabViewController {
             if (receivedFiles.count > 0) {
                 self.fileManagerOptionsOrganizeController.receivedFiles = receivedFiles
                 self.fileManagerOptionsCopyController.receivedFiles = receivedFiles
+                self.fileManagerOptionsMoveController.receivedFiles = receivedFiles
             }
         }
     }
@@ -62,6 +63,8 @@ class FileManagerOptionsTabViewController: NSTabViewController {
         self.fileManagerOptionsOrganizeController.fileManagerOptionsTabViewController = self
         
         self.fileManagerOptionsCopyController.fileManagerOptionsTabViewController = self
+        
+        self.fileManagerOptionsMoveController.fileManagerOptionsTabViewController = self
         
 //  self.fileManagerViewController = self.childViewControllers[3] as! FileManagerViewController
 

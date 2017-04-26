@@ -24,20 +24,11 @@
 import Cocoa
 
 class WindowController: NSWindowController {
-
-  @IBAction func openDocument(_ sender: AnyObject?) {
-
-    let openPanel = NSOpenPanel()
-    openPanel.showsHiddenFiles = false
-    openPanel.canChooseFiles = false
-    openPanel.canChooseDirectories = true
-
-    openPanel.beginSheetModal(for: self.window!) { response in
-      guard response == NSFileHandlingPanelOKButton else {
-        return
-      }
-      self.contentViewController?.representedObject = openPanel.url
-    }
-  }
+    @IBOutlet weak var keyWindow: KeyCaptureWindow!
+    
+//override func keyDown(with event: NSEvent) {
+//        super.keyDown(with: event)
+//        print("Caught a key down: \(event.keyCode)!")
+//    }
 
 }

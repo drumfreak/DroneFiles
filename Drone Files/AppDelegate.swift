@@ -11,9 +11,11 @@ import AVFoundation
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    var keyWindow: NSWindow = KeyCaptureWindow()
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-    
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -121,6 +123,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension Array {
     mutating func delete(element: String) {
         self = self.filter() { $0 as! String != element }
+    }
+}
+
+extension NSViewController {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
     }
 }
 

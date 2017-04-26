@@ -136,13 +136,30 @@ class VideoPlayerViewController: NSViewController {
             self.clippedItemPreserveFileDates = false
         }
         
+        let tapGesture = NSClickGestureRecognizer(target: self, action: #selector(handlePlayerLabelClick))
+        self.playerTimerLabel.addGestureRecognizer(tapGesture)
+        
+        // let window = self.appDelegate.keyWindow as! KeyCaptureWindow
+        
+        
+        // window.addKeyEventCallback(callback: handleKeyEvent())
+        
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
         
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        
-        let tapGesture = NSClickGestureRecognizer(target: self, action: #selector(handlePlayerLabelClick))
-        self.playerTimerLabel.addGestureRecognizer(tapGesture)
+
+    }
+
+   
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        // self.deallocObservers(playerItem: (self.playerView?.player)!)
     }
     
     func setupPlayer() {
@@ -932,6 +949,10 @@ class VideoPlayerViewController: NSViewController {
         return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
     
+    // Keyboard Keys
+    
+    // Overrides
+ 
 }
 
 
