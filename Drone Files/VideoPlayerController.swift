@@ -93,6 +93,22 @@ class VideoPlayerViewController: NSViewController {
     
     var playerViewControllerKVOContext = 0
     
+    
+    // Allow view to receive keypress (remove the purr sound)
+    override var acceptsFirstResponder : Bool {
+        return true
+    }
+    
+    // Override the NSView keydown func to read keycode of pressed key
+//    override func keyDown(with theEvent: NSEvent) {
+//        super.keyDown(with: theEvent)
+//        
+//        print("Hey what the fuck?")
+//        print(theEvent.keyCode)
+//        return
+//        
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("Video Player Controller Loaded")
@@ -274,6 +290,8 @@ class VideoPlayerViewController: NSViewController {
     
     
     @IBAction func setTrimPointIn(_ sender: AnyObject) {
+        print("Setting Trim Point IN")
+        
         if(!self.isTrimming) {
             doTheTrim()
         }
@@ -672,6 +690,27 @@ class VideoPlayerViewController: NSViewController {
         }
         // return date
     }
+    
+    
+    func takeScreenShotFromKeyboard() {
+        //if(self.playerIsReady) {
+            self.takeScreenshot("" as AnyObject)
+        //}
+    }
+    
+    func setTrimInFromKeyboard() {
+        // if(self.playerIsReady) {
+            self.setTrimPointIn("" as AnyObject)
+        //  }
+    }
+    
+    
+    func setTrimOutFromKeyboard() {
+        //if(self.playerIsReady) {
+            self.setTrimPointOut("" as AnyObject)
+        //}
+    }
+    
     
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
