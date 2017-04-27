@@ -14,6 +14,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var keyWindow: NSWindow = KeyCaptureWindow()
     
+    @IBOutlet var editorTabViewController: EditorTabViewController!
+    @IBOutlet var splitViewController: SplitViewController!
+    @IBOutlet var fileBrowserViewController: FileBrowserViewController!
+    @IBOutlet var fileManagerViewController: FileManagerViewController!
+
+    @IBOutlet var screenshotViewController: ScreenshotViewController!
+    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
+    @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
+    @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
+    
+    @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
+    
+    @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
+    @IBOutlet weak var fileManagerOptionsOrganizeController: FileManagerOptionsOrganizeController!
+    @IBOutlet weak var fileManagerOptionsMoveController: FileManagerOptionsMoveController!
+    @IBOutlet weak var fileManagerOptionsRenameController: FileManagerOptionsRenameController!
+    @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
+    
+    
+    
+    
+   // @IBOutlet weak var editorTabViewController: EditorTabViewController!
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }

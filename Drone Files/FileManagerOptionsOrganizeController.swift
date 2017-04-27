@@ -14,11 +14,7 @@ import AppKit
 import AVFoundation
 
 
-class FileManagerOptionsOrganizeController: NSViewController {
-    @IBOutlet  var fileBrowserViewController: FileBrowserViewController!
-    @IBOutlet  var fileManagerViewController: FileManagerViewController!
-    @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
-    
+class FileManagerOptionsOrganizeController: NSViewController {    
     @IBOutlet var projectDirectoryLabel: NSTextField!
     @IBOutlet var videosDirectoryLabel: NSTextField!
     @IBOutlet var jpgDirectoryLabel: NSTextField!
@@ -43,17 +39,17 @@ class FileManagerOptionsOrganizeController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        let projectPath = pathOutputFromURL(inputString: self.fileBrowserViewController.projectFolder)
+        let projectPath = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.projectFolder)
         
-        self.projectDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.projectFolder)
+        self.projectDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.projectFolder)
         
-        self.videosDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.videoFolder).replacingOccurrences(of: projectPath, with: "")
+        self.videosDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.videoFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.jpgDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.jpgFolder).replacingOccurrences(of: projectPath, with: "")
+        self.jpgDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.jpgFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.rawDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.rawFolder).replacingOccurrences(of: projectPath, with: "")
+        self.rawDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.rawFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.screenshotDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.fileBrowserViewController.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
+        self.screenshotDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
         
         
         // Click Gestures
@@ -95,9 +91,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
-        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+        self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
         if(!errors) {
             showAlert(text: "Files Organized!", body: "The files have been organized!", showCancel: false, messageType: "notice")
         }
@@ -154,8 +150,8 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 
                 
                 if(manageFileMovies.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.videoFolder)) {
-                        print("VIDEOS FOLDER: \(self.fileBrowserViewController.videoFolder)")
+                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.fileBrowserViewController.videoFolder)) {
+                        print("VIDEOS FOLDER: \(self.appDelegate.fileBrowserViewController.videoFolder)")
                         manageFileMovies.forEach({ m in
                             let url = (m as! URL)
                             //print(movie)
@@ -169,7 +165,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 }
                 
                 if(manageFileJPG.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.jpgFolder)) {
+                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.fileBrowserViewController.jpgFolder)) {
                         manageFileJPG.forEach({ m in
                             let url = (m as! URL)
                             if(self.organizeJPGFile(url: url)) {
@@ -182,7 +178,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 }
                 
                 if(manageFileScreenshots.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.screenShotFolder)) {
+                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.fileBrowserViewController.screenShotFolder)) {
                         manageFileScreenshots.forEach({ m in
                             let url = (m as! URL)
                             
@@ -197,7 +193,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 }
                 
                 if(manageFileRAW.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.rawFolder)) {
+                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.fileBrowserViewController.rawFolder)) {
                         manageFileRAW.forEach({ m in
                             let url = (m as! URL)
                             if(self.organizeRawFile(url: (url))) {
@@ -223,9 +219,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     func organizeMovieFile(url: URL) -> Bool {
         print("Organizing MOVIE ... \(url)")
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.videoFolder)
+        let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.videoFolder)
         
-        var newMovieFile = self.fileBrowserViewController.videoFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".MOV" // for now
+        var newMovieFile = self.appDelegate.fileBrowserViewController.videoFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".MOV" // for now
         
         newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {
@@ -241,9 +237,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func organizeJPGFile(url: URL) -> Bool  {
         print("Organizing JPG ... \(url)")
         
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.jpgFolder)
+        let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.jpgFolder)
         
-        var newJPGFile = self.fileBrowserViewController.jpgFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".jpg" // for now
+        var newJPGFile = self.appDelegate.fileBrowserViewController.jpgFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".jpg" // for now
         
         newJPGFile = newJPGFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newJPGFile)!)) {
@@ -259,9 +255,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func organizeScreenShotFile(url: URL) -> Bool {
         print("Organizing Screenshot ... \(url)")
         
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.screenShotFolder)
+        let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.screenShotFolder)
         
-        var newScreenshotFile = self.fileBrowserViewController.screenShotFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".png" // for now
+        var newScreenshotFile = self.appDelegate.fileBrowserViewController.screenShotFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".png" // for now
         
         newScreenshotFile = newScreenshotFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newScreenshotFile)!)) {
@@ -277,9 +273,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func organizeRawFile(url: URL) -> Bool {
         print("Organizing RAW ... \(url)")
         
-        let increment =  getFileIncrementAtPath(path: self.fileBrowserViewController.screenShotFolder)
+        let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.screenShotFolder)
         
-        var newRawFile = self.fileBrowserViewController.screenShotFolder + "/" + self.fileBrowserViewController.fileSequenceName + " - " + increment + ".dng" // for now
+        var newRawFile = self.appDelegate.fileBrowserViewController.screenShotFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".dng" // for now
         
         newRawFile = newRawFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newRawFile)!)) {
@@ -364,23 +360,23 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     
     func setOpenPath1() {
-        doOpenFinder(urlString:self.fileBrowserViewController.projectFolder)
+        doOpenFinder(urlString:self.appDelegate.fileBrowserViewController.projectFolder)
     }
     
     func setOpenPath2() {
-        doOpenFinder(urlString:self.fileBrowserViewController.videoFolder)
+        doOpenFinder(urlString:self.appDelegate.fileBrowserViewController.videoFolder)
     }
     
     func setOpenPath3() {
-        doOpenFinder(urlString:self.fileBrowserViewController.jpgFolder)
+        doOpenFinder(urlString:self.appDelegate.fileBrowserViewController.jpgFolder)
     }
     
     func setOpenPath4() {
-        doOpenFinder(urlString:self.fileBrowserViewController.screenShotFolder)
+        doOpenFinder(urlString:self.appDelegate.fileBrowserViewController.screenShotFolder)
     }
     
     func setOpenPath5() {
-        doOpenFinder(urlString:self.fileBrowserViewController.rawFolder)
+        doOpenFinder(urlString:self.appDelegate.fileBrowserViewController.rawFolder)
     }
     
     func doOpenFinder(urlString: String) {

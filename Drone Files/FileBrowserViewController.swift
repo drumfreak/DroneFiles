@@ -17,12 +17,7 @@ class FileBrowserViewController: NSViewController {
     // View controllers
     @IBOutlet var topView: NSView!
     @IBOutlet weak var statusLabel: NSTextField!
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
-    @IBOutlet weak var editorTabViewController: EditorTabViewController!
-    @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet weak var splitViewController: SplitViewController!
-    @IBOutlet weak var fileManagerViewController: FileManagerViewController!
 
     
     // Directories!
@@ -161,6 +156,8 @@ class FileBrowserViewController: NSViewController {
         self.folderURLDisplay.stringValue = urlStringToDisplayPath(input:self.folderURL)
         
         reloadFileList()
+        
+        self.appDelegate.fileBrowserViewController = self
         
         // writeProjectFile(projectPath: self.outputDirectory)
     }
@@ -439,20 +436,20 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
                 
-                self.editorTabViewController.selectedTabViewItemIndex = 0
+                self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 0
                 
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = (item.url as URL).absoluteString
                 itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
-                self.editorTabViewController.videoPlayerViewController.VideoEditView.isHidden = false;
-                self.editorTabViewController.videoPlayerViewController.nowPlayingFile.stringValue = item.name
-                self.editorTabViewController.videoPlayerViewController.nowPlayingURL = (item.url as URL)
+                self.appDelegate.videoPlayerViewController.VideoEditView.isHidden = false;
+                self.appDelegate.videoPlayerViewController.nowPlayingFile.stringValue = item.name
+                self.appDelegate.videoPlayerViewController.nowPlayingURL = (item.url as URL)
                 
-                self.editorTabViewController.videoPlayerViewController.nowPlayingURLString = itemUrl
+                self.appDelegate.videoPlayerViewController.nowPlayingURLString = itemUrl
                 
-                self.editorTabViewController.videoPlayerViewController.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
+                self.appDelegate.videoPlayerViewController.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
                 
                 
             } else {
@@ -461,7 +458,7 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "JPG" || _extension == "jpg" || _extension == "DNG" || _extension == "dng" || _extension == "png" || _extension == "PNG") {
                 
-                self.editorTabViewController.selectedTabViewItemIndex = 2
+                self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 2
                 
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = (item.url as URL).absoluteString
@@ -472,12 +469,12 @@ class FileBrowserViewController: NSViewController {
                 
                 
                 // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
-                self.editorTabViewController.selectedTabViewItemIndex = 2
+                self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 2
                 
-                self.editorTabViewController.imageEditorViewController.nowPlayingURL = (item.url as URL)
-                self.editorTabViewController.imageEditorViewController.nowPlayingFile?.stringValue = item.name
-                self.editorTabViewController.imageEditorViewController.nowPlayingURLString = itemUrl
-                self.editorTabViewController.imageEditorViewController.loadImage(_url: item.url as URL)
+                self.appDelegate.imageEditorViewController.nowPlayingURL = (item.url as URL)
+                self.appDelegate.imageEditorViewController.nowPlayingFile?.stringValue = item.name
+                self.appDelegate.imageEditorViewController.nowPlayingURLString = itemUrl
+                self.appDelegate.imageEditorViewController.loadImage(_url: item.url as URL)
                 
             } else {
                 // self.videoPlayerViewController.VideoEditView.isHidden = true;
@@ -499,15 +496,13 @@ class FileBrowserViewController: NSViewController {
             selectedFileURLS.add(item.url)
             
         }
-       
-        self.editorTabViewController.fileManagerViewController.fileBrowserViewController = self
-        
+    
         if(showTab) {
-            self.editorTabViewController.selectedTabViewItemIndex = 3
+            self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 3
 
         }
 
-        self.editorTabViewController.fileManagerViewController.fileURLs = selectedFileURLS
+        self.appDelegate.fileManagerViewController?.fileURLs = selectedFileURLS
 
     }
     

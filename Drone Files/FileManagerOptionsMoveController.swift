@@ -14,11 +14,6 @@ import AVFoundation
 
 
 class FileManagerOptionsMoveController: NSViewController {
-    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
-    @IBOutlet weak var fileManagerViewController: FileManagerViewController!
-    @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
-    
-    
     @IBOutlet var numberofFilesLabel: NSButton!
     @IBOutlet var chooseMoveDestinationButton1: NSButton!
     @IBOutlet var moveDirectoryLabel: NSTextField!
@@ -43,7 +38,7 @@ class FileManagerOptionsMoveController: NSViewController {
         // print("FileManagerOptionsMoveController loaded")
         
         if(UserDefaults.standard.value(forKey: "moveToFolder") == nil) {
-            self.moveToFolder = self.fileManagerOptionsTabViewController.fileBrowserViewController.outputDirectory
+            self.moveToFolder = self.appDelegate.fileBrowserViewController.outputDirectory
             UserDefaults.standard.setValue(self.moveToFolder, forKey: "copyToFolder1")
         } else {
             self.moveToFolder = UserDefaults.standard.value(forKey: "moveToFolder") as! String
@@ -98,9 +93,9 @@ class FileManagerOptionsMoveController: NSViewController {
     
     
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
-        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+        self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
         if(!errors) {
             showAlert(text: "Files Moved!", body: "The files have been moved!", showCancel: false, messageType: "notice")
         }

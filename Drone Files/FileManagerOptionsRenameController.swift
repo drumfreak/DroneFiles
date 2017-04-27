@@ -14,12 +14,6 @@ import AVFoundation
 
 
 class FileManagerOptionsRenameController: NSViewController {
-    
-    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
-    @IBOutlet weak var fileManagerViewController: FileManagerViewController!
-    @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
-    
-    
     @IBOutlet var numberofFilesLabel: NSButton!
     @IBOutlet var renameSequenceLabel: NSTextField!
     @IBOutlet var organizeFilesButton: NSButton!
@@ -55,7 +49,7 @@ class FileManagerOptionsRenameController: NSViewController {
         self.numberofFilesLabel.title = count
         
         if(UserDefaults.standard.value(forKey: "renameSequenceName") == nil) {
-            self.renameSequenceName = self.fileManagerOptionsTabViewController.fileBrowserViewController.fileSequenceName
+            self.renameSequenceName = self.appDelegate.fileBrowserViewController.fileSequenceName
             // UserDefaults.standard.setValue(self.renameSequenceName, forKey: "renameSequenceName")
         } else {
             self.renameSequenceName = UserDefaults.standard.value(forKey: "renameSequenceName") as! String
@@ -104,9 +98,9 @@ class FileManagerOptionsRenameController: NSViewController {
     
     
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
-        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+        self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
         if(!errors) {
             showAlert(text: "Files Renamed!", body: "The files have been renamed!", showCancel: false, messageType: "notice")
         }
@@ -176,7 +170,7 @@ class FileManagerOptionsRenameController: NSViewController {
             var folderPath = thisPath?.absoluteString
             
             let newName = self.renameSequenceName
-            let fileExtension = url?.pathExtension
+            var fileExtension = url?.pathExtension
             
             // IS IT GOING INTO A DIRECTORY?
             if(self.organizeFilesToFolder) {
@@ -192,7 +186,8 @@ class FileManagerOptionsRenameController: NSViewController {
                     fileUrls.forEach({ m in
                         let urlPath = m as! String
                         let url = URL(string: urlPath)
-                        
+                        fileExtension = url?.pathExtension
+
                        incrementer = String(format: "%02d", i)
 
                         var newFilePath = folderPath! + newName + " - " + incrementer + "." + fileExtension!

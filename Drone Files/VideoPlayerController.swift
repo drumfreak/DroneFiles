@@ -18,12 +18,6 @@ class VideoPlayerViewController: NSViewController {
     
     @IBOutlet var VideoEditView: NSView!
     
-    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var editorTabViewController: EditorTabViewController!
-    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
-    
-    
     // Video Trimming
     @IBOutlet var saveNewItemPreserveDate: NSButton!
     @IBOutlet var saveClipLoadNewItemCheckbox: NSButton!
@@ -238,7 +232,7 @@ class VideoPlayerViewController: NSViewController {
             // print("url is a folder url")
             // lets get the folder files
             do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.fileBrowserViewController.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.fileBrowserViewController.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
                 
                 incrementer = String(format: "%02d", files.count)
             } catch let error as NSError {
@@ -250,19 +244,19 @@ class VideoPlayerViewController: NSViewController {
     }
     
     func getClippedVideoPath(_videoPath : String) -> String {
-        self.clippedVideoPathFull = self.fileBrowserViewController.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
+        self.clippedVideoPathFull = self.appDelegate.fileBrowserViewController.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
         self.clippedVideoPath = self.clippedVideoPathFull.replacingOccurrences(of: "file://", with: "")
         
-        let increment = getClippedVideosIncrement(_folder: self.fileBrowserViewController.videoClipsFolder)
+        let increment = getClippedVideosIncrement(_folder: self.appDelegate.fileBrowserViewController.videoClipsFolder)
         
-        self.clippedVideoName = self.fileBrowserViewController.saveDirectoryName + " - Clip " + increment + ".MOV"
+        self.clippedVideoName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - Clip " + increment + ".MOV"
         self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
         self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
         
         if FileManager.default.fileExists(atPath: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: "")) {
             print("Fuck that file exists..")
             let incrementer = "00000"
-            self.clippedVideoName = self.fileBrowserViewController.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
+            self.clippedVideoName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
             self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
             self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
             
@@ -577,7 +571,7 @@ class VideoPlayerViewController: NSViewController {
             self.saveTrimmedClipView.isHidden = true
             
             // print("Claaned up session");
-            self.fileBrowserViewController.reloadFileList()
+            self.appDelegate.fileBrowserViewController.reloadFileList()
             
         }
         
@@ -702,12 +696,12 @@ class VideoPlayerViewController: NSViewController {
             // THIS MUST HAPPEN FIRST
             self.savingScreenShotSpinner.stopAnimation(self)
             //self.savingScreenShotSpinner.isHidden = true
-            self.editorTabViewController.selectedTabViewItemIndex = 1
+            self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 1
             print("Screen shot at: \(String(describing: playerTime))")
-            self.editorTabViewController.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: true, modificationDate: newDate)
+            self.appDelegate.screenshotViewController?.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: true, modificationDate: newDate)
         } else {
             print("Screen shot at: \(String(describing: playerTime))")
-            self.editorTabViewController.screenshotViewController.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: false, modificationDate: newDate)
+            self.appDelegate.screenshotViewController?.takeScreenshot(asset: self.currentAsset, currentTime: playerTime!, preview: false, modificationDate: newDate)
             if(playerWasPlaying) {
                 self.savingScreenShotSpinner.stopAnimation(self)
                 // self.savingScreenShotSpinner.isHidden = true

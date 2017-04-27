@@ -14,30 +14,14 @@ import Quartz
 
 class FileManagerOptionsTabViewController: NSTabViewController {
     
-    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
-    
-    @IBOutlet weak var fileManagerViewController: FileManagerViewController!
-    
-    @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
-    
-    @IBOutlet weak var fileManagerOptionsOrganizeController: FileManagerOptionsOrganizeController!
-    
-    @IBOutlet weak var fileManagerOptionsMoveController: FileManagerOptionsMoveController!
-    
-    @IBOutlet weak var fileManagerOptionsRenameController: FileManagerOptionsRenameController!
-    
-    @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
-    
-   // var receivedFiles = NSMutableArray()
-    
-    
     var receivedFiles = NSMutableArray() {
         didSet {
             if (receivedFiles.count > 0) {
-                self.fileManagerOptionsOrganizeController.receivedFiles = receivedFiles
-                self.fileManagerOptionsCopyController.receivedFiles = receivedFiles
-                self.fileManagerOptionsMoveController.receivedFiles = receivedFiles
-                self.fileManagerOptionsRenameController.receivedFiles = receivedFiles
+                self.appDelegate.fileManagerOptionsOrganizeController.receivedFiles = receivedFiles
+                self.appDelegate.fileManagerOptionsCopyController.receivedFiles = receivedFiles
+                self.appDelegate.fileManagerOptionsMoveController.receivedFiles = receivedFiles
+                self.appDelegate.fileManagerOptionsRenameController.receivedFiles = receivedFiles
+                self.appDelegate.fileManagerOptionsDeleteController.receivedFiles = receivedFiles
             }
         }
     }
@@ -47,31 +31,17 @@ class FileManagerOptionsTabViewController: NSTabViewController {
         super.viewDidLoad()
         
        //  self.tabView.
-        print("FileManagerOptionsTabViewController loaded")
+        // print("FileManagerOptionsTabViewController loaded")
         
-        self.fileManagerOptionsOrganizeController = self.childViewControllers[0] as! FileManagerOptionsOrganizeController
+        self.appDelegate.fileManagerOptionsOrganizeController = self.childViewControllers[0] as! FileManagerOptionsOrganizeController
         
-        self.fileManagerOptionsOrganizeController.fileBrowserViewController = self.fileBrowserViewController
-      
-        self.fileManagerOptionsMoveController = self.childViewControllers[1] as! FileManagerOptionsMoveController
+        self.appDelegate.fileManagerOptionsMoveController = self.childViewControllers[1] as! FileManagerOptionsMoveController
         
-        self.fileManagerOptionsCopyController = self.childViewControllers[2] as! FileManagerOptionsCopyController
+        self.appDelegate.fileManagerOptionsCopyController = self.childViewControllers[2] as! FileManagerOptionsCopyController
         
-        self.fileManagerOptionsRenameController = self.childViewControllers[3] as! FileManagerOptionsRenameController
+        self.appDelegate.fileManagerOptionsRenameController = self.childViewControllers[3] as! FileManagerOptionsRenameController
         
-        self.fileManagerOptionsDeleteController = self.childViewControllers[4] as! FileManagerOptionsDeleteController
-        
-        self.fileManagerOptionsOrganizeController.fileManagerOptionsTabViewController = self
-        
-        self.fileManagerOptionsCopyController.fileManagerOptionsTabViewController = self
-        
-        self.fileManagerOptionsMoveController.fileManagerOptionsTabViewController = self
-        
-        self.fileManagerOptionsRenameController.fileManagerOptionsTabViewController = self
-        
-//  self.fileManagerViewController = self.childViewControllers[3] as! FileManagerViewController
-
-        
+        self.appDelegate.fileManagerOptionsDeleteController = self.childViewControllers[4] as! FileManagerOptionsDeleteController
     }
     
 }

@@ -14,12 +14,6 @@ import AVFoundation
 import Quartz
 
 class ScreenshotViewController: NSViewController {
-    
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var editorTabViewController: EditorTabViewController!
-    //@IBOutlet weak var imageEditorViewController: ImageEditorViewController!
-    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
-    
     @IBOutlet var imageView: IKImageView!
     @IBOutlet var imageName: NSTextField!
     @IBOutlet var imageEditorView: NSView!
@@ -154,7 +148,7 @@ class ScreenshotViewController: NSViewController {
             // print("url is a folder url")
             // lets get the folder files
             do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.fileBrowserViewController.screenShotFolder)!, includingPropertiesForKeys: nil, options: [])
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.fileBrowserViewController.screenShotFolder)!, includingPropertiesForKeys: nil, options: [])
                 
                 incrementer = String(format: "%02d", files.count)
             } catch let error as NSError {
@@ -166,11 +160,11 @@ class ScreenshotViewController: NSViewController {
     }
     
     func getScreenshotPath(_screenshotPath : String) -> String {
-        self.screenshotPathFull = self.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+        self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
         self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
        //  self.screenshotPathFullURL = URL(string: self.mainViewController.screenShotFolder)
         
-        let increment = getScreenShotIncrement(_folder: self.fileBrowserViewController.screenShotFolder)
+        let increment = getScreenShotIncrement(_folder: self.appDelegate.fileBrowserViewController.screenShotFolder)
     
         let dateformatter = DateFormatter()
         
@@ -178,7 +172,7 @@ class ScreenshotViewController: NSViewController {
         
         let now = dateformatter.string(from: NSDate() as Date)
         
-        self.screenshotName = self.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + ".png"
+        self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + ".png"
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
         
         self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
@@ -186,7 +180,7 @@ class ScreenshotViewController: NSViewController {
         if FileManager.default.fileExists(atPath: self.screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
             print("Fuck that file screenshot exists..")
             let incrementer = "00000"
-            self.screenshotName = self.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer + ".png"
+            self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer + ".png"
             
             self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
             self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
@@ -221,7 +215,7 @@ class ScreenshotViewController: NSViewController {
             
             dateformatter.dateFormat = " HH-mm-ss"
             
-            self.screenshotPathFull = self.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+            self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
             self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
             
             do {
@@ -238,11 +232,10 @@ class ScreenshotViewController: NSViewController {
                 print("File saved")
             }
             
-            
             if(self.screenshotItemPreserveFileDates) {
                 self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
             }
-            self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
             
             return stringURL
         }

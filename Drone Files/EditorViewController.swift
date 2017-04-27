@@ -19,9 +19,6 @@ class EditorViewController: NSViewController {
     
     
     @IBOutlet var mainContainerView: NSView!
-    
-    @IBOutlet weak var screenShotViewController: ScreenshotViewController!
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +32,7 @@ class EditorViewController: NSViewController {
         print("SEGUE");
         print(segue.identifier!)
         if segue.identifier == "videoPlayerSegue" {
-            self.videoPlayerViewController = segue.destinationController as! VideoPlayerViewController
+            self.appDelegate.videoPlayerViewController = segue.destinationController as! VideoPlayerViewController
             print ("Videos Loaded by segue");
         }
         

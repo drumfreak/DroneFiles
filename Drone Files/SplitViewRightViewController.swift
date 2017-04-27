@@ -14,12 +14,6 @@ import AVFoundation
 
 
 class SplitViewRightViewController: NSViewController {
-    
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
-    // @IBOutlet weak var editorViewController: EditorViewController!
-    @IBOutlet weak var editorTabViewController: EditorTabViewController!
-    @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet weak var splitViewController: SplitViewController!
 
     
@@ -34,21 +28,21 @@ class SplitViewRightViewController: NSViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "editorTabViewSegue" {
-            self.editorTabViewController = segue.destinationController as! EditorTabViewController
             
-            self.videoPlayerViewController = self.editorTabViewController.childViewControllers[0] as! VideoPlayerViewController
-            
-            self.videoPlayerViewController.editorTabViewController = self.editorTabViewController
-    
-            self.screenshotViewController = self.editorTabViewController.childViewControllers[1] as! ScreenshotViewController
-            
-            self.screenshotViewController.editorTabViewController = self.editorTabViewController
-            
-            self.imageEditorViewController = self.editorTabViewController.childViewControllers[2] as! ImageEditorViewController
-            
-            self.imageEditorViewController.editorTabViewController = self.editorTabViewController
-            
-            // self.editorTabViewController.fileBrowserViewController = self.childViewControllers[0] as! FileBrowserViewController
+           //  self.appDelegate.editorTabViewController =  segue.destinationController as! EditorTabViewController
+
+//            self.appDelegate.videoPlayerViewController = self.appDelegate.editorTabViewController?.childViewControllers[0] as! VideoPlayerViewController
+//            
+//            // self.videoPlayerViewController.editorTabViewController = self.editorTabViewController
+//    
+//            self.appDelegate.screenshotViewController = self.appDelegate.editorTabViewController?.childViewControllers[1] as! ScreenshotViewController
+//            
+//            // self.screenshotViewController.editorTabViewController = self.editorTabViewController
+//            
+//            self.appDelegate.imageEditorViewController = self.appDelegate.editorTabViewController?.childViewControllers[2] as! ImageEditorViewController
+//            
+//            // self.imageEditorViewController.editorTabViewController = self.editorTabViewController
+//     
             
         }
     }

@@ -18,15 +18,7 @@ class FileManagerViewController: NSViewController {
     // View controllers
     
     @IBOutlet weak var statusLabel: NSTextField!
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
-    @IBOutlet weak var screenshotViewController: ScreenshotViewController!
-    // @IBOutlet weak var editorViewController: EditorViewController!
-    @IBOutlet weak var editorTabViewController: EditorTabViewController!
-    @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
-    @IBOutlet weak var splitViewController: SplitViewController!
-    @IBOutlet weak var fileBrowserViewController: FileBrowserViewController!
     
-    @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
     
     var fileList: FileManagerList?
     
@@ -72,14 +64,9 @@ class FileManagerViewController: NSViewController {
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
         tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
         
-        // print("File URLS \(self.fileURLs)")
         reloadFileList()
         
-        
-        // print("Selecting All")
-        
-        
-        // tableView.reloadData()
+        self.appDelegate.fileManagerViewController = self
     }
     
     override func viewWillAppear() {
@@ -174,7 +161,7 @@ class FileManagerViewController: NSViewController {
                     
                 }
                 
-                self.fileManagerOptionsTabViewController.receivedFiles = sendFilesToControllers
+                self.appDelegate.fileManagerOptionsTabViewController?.receivedFiles = sendFilesToControllers
             }
         }
         loadItemFromTable()
@@ -223,7 +210,7 @@ class FileManagerViewController: NSViewController {
         })
         
         self.fileURLs = newArray
-        self.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
         
     }
     
@@ -277,11 +264,9 @@ class FileManagerViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "fileOptionsTabSegue" {
             // print("Hayyyy seeeeegwaaaayyyy")
-            self.fileManagerOptionsTabViewController = segue.destinationController as! FileManagerOptionsTabViewController
+            self.appDelegate.fileManagerOptionsTabViewController = segue.destinationController as! FileManagerOptionsTabViewController
             
-            self.fileManagerOptionsTabViewController.fileBrowserViewController = self.fileBrowserViewController
-            
-            self.fileManagerOptionsTabViewController.fileManagerViewController = self
+            self.appDelegate.fileManagerViewController = self
         }
     }
 
