@@ -38,11 +38,6 @@ class FileManagerOptionsOrganizeController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("FileManagerOptionsOrganizeController loaded")
-        
-        
-        
-        
-        
     }
     
     override func viewDidAppear() {

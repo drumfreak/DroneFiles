@@ -48,13 +48,12 @@ class FileManagerOptionsMoveController: NSViewController {
         } else {
             self.moveToFolder = UserDefaults.standard.value(forKey: "moveToFolder") as! String
         }
-
+        
         self.moveDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.moveToFolder)
         
         // Click Gestures
         
         let tapGestureCopyFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
-        
         self.moveDirectoryLabel.addGestureRecognizer(tapGestureCopyFolder1)
     }
     
@@ -98,25 +97,41 @@ class FileManagerOptionsMoveController: NSViewController {
     }
     
     
+    func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
+        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+        
+        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        if(!errors) {
+            showAlert(text: "Files Moved!", body: "The files have been moved!", showCancel: false, messageType: "notice")
+        }
+    }
+    
+    
     @IBAction func moveFilesFolder1(_ sender: AnyObject) {
         let manageFileURLS: NSMutableArray = []
         let fileUrls = self.receivedFiles as! Array<Any>
         
         if(fileUrls.count > 0) {
-            fileUrls.forEach({ m in
-                let urlPath = m as! String
-                let url = URL(string: urlPath)
-                
-                if(self.copyFileFolder1(url: url!)) {
-                    manageFileURLS.add(url!)
+            var errors = false
+            if(fileUrls.count > 0) {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    fileUrls.forEach({ m in
+                        fileUrls.forEach({ m in
+                            let urlPath = m as! String
+                            let url = URL(string: urlPath)
+                            
+                            if(self.moveFilesFolder1(url: url!)) {
+                                manageFileURLS.add(url!)
+                            } else {
+                                errors = true
+                            }
+                        })
+                        DispatchQueue.main.async {
+                            self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                        }
+                    })
                 }
-            })
-            
-            self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
-            
-            self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
-            
-            showAlert(text: "Files Moved!", body: "The files have been moved!", showCancel: false, messageType: "notice")
+            }
             
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
@@ -126,7 +141,7 @@ class FileManagerOptionsMoveController: NSViewController {
     
     
     
-    func copyFileFolder1(url: URL) -> Bool {
+    func moveFilesFolder1(url: URL) -> Bool {
         print("Moving File! ... \(url)")
         
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
@@ -141,7 +156,6 @@ class FileManagerOptionsMoveController: NSViewController {
         moveDestination = moveDestination.replacingOccurrences(of: " ", with: "%20")
         
         print("Move DESTINATION: \(moveDestination)")
-        
         
         let destinationURL = URL(string: moveDestination)!
         
@@ -230,7 +244,7 @@ class FileManagerOptionsMoveController: NSViewController {
     func setOpenPath1() {
         doOpenFinder(urlString:self.moveToFolder)
     }
-
+    
     
     func doOpenFinder(urlString: String) {
         let path = pathOutputFromURL(inputString: urlString)
@@ -243,8 +257,4 @@ class FileManagerOptionsMoveController: NSViewController {
             showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
         }
     }
-
-    
-    
-    
 }

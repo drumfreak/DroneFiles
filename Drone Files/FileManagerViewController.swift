@@ -322,6 +322,9 @@ extension FileManagerViewController: NSTableViewDelegate {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
         
+        if(fileItems?.count == 0) {
+            return nil
+        }
         // 1
         guard let item = fileItems?[row] else {
             return nil

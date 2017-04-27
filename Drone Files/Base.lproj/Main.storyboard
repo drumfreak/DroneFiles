@@ -1933,7 +1933,7 @@ AAAAAAEGA
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LvK-Qr-kDE">
-                                        <rect key="frame" x="664" y="230" width="112" height="32"/>
+                                        <rect key="frame" x="648" y="230" width="112" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Move" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XHV-va-eiw">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2204,15 +2204,15 @@ AAAAAAEGA
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="II8-im-JON">
-                                        <rect key="frame" x="337" y="134" width="118" height="32"/>
+                                        <rect key="frame" x="336" y="150" width="118" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Yes, Rename" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mbT-QW-cob">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <action selector="renameFiles:" target="Kvz-7t-JNd" id="Eeb-Mb-HYF"/>
+                                            </connections>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="organizeFiles:" target="NjL-Wo-Kn8" id="g1s-Xl-I2r"/>
-                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRU-RB-bbd">
                                         <rect key="frame" x="160" y="294" width="27" height="17"/>
@@ -2223,16 +2223,16 @@ AAAAAAEGA
                                         </buttonCell>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LuW-Jr-Mpj">
-                                        <rect key="frame" x="181" y="170" width="429" height="25"/>
+                                        <rect key="frame" x="181" y="223" width="429" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Are you sure you want to RENAME  These Files?" id="gCn-fo-HME">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Are you sure you want to RENAME These Files?" id="gCn-fo-HME">
                                             <font key="font" metaFont="systemHeavy" size="18"/>
                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0s-XK-EmS">
-                                        <rect key="frame" x="183" y="214" width="425" height="22"/>
+                                        <rect key="frame" x="183" y="256" width="368" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="6dF-Dl-pvN">
                                             <font key="font" metaFont="system"/>
@@ -2240,10 +2240,46 @@ AAAAAAEGA
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74H-V1-p8c">
+                                        <rect key="frame" x="32" y="258" width="134" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="New Sequence Name" id="xWa-4A-ipw">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWL-1Q-gmj">
+                                        <rect key="frame" x="323" y="188" width="145" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Organize Into Folder" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="pzx-aN-1us">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="organizeButtonClicked:" target="Kvz-7t-JNd" id="kb3-hI-XEF"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ybm-gf-DcF">
+                                        <rect key="frame" x="550" y="249" width="61" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Set" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Rc-4H-xkX">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="setRenameSequence:" target="Kvz-7t-JNd" id="Q4C-Ok-NWl"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="numberofFilesLabel" destination="PRU-RB-bbd" id="f16-nx-jBm"/>
+                        <outlet property="organizeFilesButton" destination="GWL-1Q-gmj" id="DTd-mo-S2Y"/>
+                        <outlet property="renameSequenceLabel" destination="c0s-XK-EmS" id="nqP-GV-agn"/>
+                    </connections>
                 </viewController>
                 <customObject id="S7g-Yv-I4s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2292,7 +2328,7 @@ AAAAAAEGA
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HtC-dE-Rx6">
                                         <rect key="frame" x="186" y="246" width="419" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Are you sure you want to DELETE  These Files?" id="d3g-JI-qpZ">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Are you sure you want to DELETE These Files?" id="d3g-JI-qpZ">
                                             <font key="font" metaFont="systemHeavy" size="18"/>
                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
