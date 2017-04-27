@@ -113,25 +113,22 @@ class FileManagerOptionsMoveController: NSViewController {
         
         if(fileUrls.count > 0) {
             var errors = false
-            if(fileUrls.count > 0) {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    fileUrls.forEach({ m in
-                        fileUrls.forEach({ m in
-                            let urlPath = m as! String
-                            let url = URL(string: urlPath)
-                            
-                            if(self.moveFilesFolder1(url: url!)) {
-                                manageFileURLS.add(url!)
-                            } else {
-                                errors = true
-                            }
-                        })
-                        DispatchQueue.main.async {
-                            self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
-                        }
-                    })
+            DispatchQueue.global(qos: .userInitiated).async {
+                fileUrls.forEach({ m in
+                    let urlPath = m as! String
+                    let url = URL(string: urlPath)
+                    
+                    if(self.moveFilesFolder1(url: url!)) {
+                        manageFileURLS.add(url!)
+                    } else {
+                        errors = true
+                    }
+                })
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
                 }
             }
+            
             
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
@@ -180,7 +177,9 @@ class FileManagerOptionsMoveController: NSViewController {
         catch _ as NSError {
             // print ("Error while moving file : \(from) to \(toUrl)")
             print("Ooops! Something went wrong: ")
-            showAlert(text: "Could not move file", body:("This file " + from.absoluteString + " could not be moved"), showCancel: false, messageType: "warning")
+            DispatchQueue.main.async {
+                self.showAlert(text: "Could not move file", body:("This file " + from.absoluteString + " could not be moved"), showCancel: false, messageType: "warning")
+            }
             
             return false
         }

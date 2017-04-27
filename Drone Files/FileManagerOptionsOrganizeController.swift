@@ -18,13 +18,13 @@ class FileManagerOptionsOrganizeController: NSViewController {
     @IBOutlet  var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet  var fileManagerViewController: FileManagerViewController!
     @IBOutlet  var fileManagerOptionsTabViewController: FileManagerOptionsTabViewController!
-
+    
     @IBOutlet var projectDirectoryLabel: NSTextField!
     @IBOutlet var videosDirectoryLabel: NSTextField!
     @IBOutlet var jpgDirectoryLabel: NSTextField!
     @IBOutlet var rawDirectoryLabel: NSTextField!
     @IBOutlet var screenshotDirectoryLabel: NSTextField!
-
+    
     @IBOutlet var numberofFilesLabel: NSButton!
     
     var receivedFiles = NSMutableArray() {
@@ -77,19 +77,30 @@ class FileManagerOptionsOrganizeController: NSViewController {
         self.screenshotDirectoryLabel.addGestureRecognizer(tapGestureFolder4)
         
         let tapGestureFolder5 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath5))
-    
+        
         self.rawDirectoryLabel.addGestureRecognizer(tapGestureFolder5)
         
         
-//        let tapGestureFolder6 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath6))
-//        
-
-
+        //        let tapGestureFolder6 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath6))
+        //
+        
+        
     }
     
     func pathOutputFromURL(inputString: String) -> String {
         let str = inputString.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
         return str
+    }
+    
+    
+    
+    func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
+        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+        
+        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        if(!errors) {
+            showAlert(text: "Files Organized!", body: "The files have been organized!", showCancel: false, messageType: "notice")
+        }
     }
     
     
@@ -105,95 +116,104 @@ class FileManagerOptionsOrganizeController: NSViewController {
         
         // print("SELECTED ITEMS \(item.url)")
         if(fileUrls.count > 0) {
-            fileUrls.forEach({ m in
-    
-                let urlPath = m as! String
-                let url = NSURL(fileURLWithPath: urlPath)
-                let _extension = url.pathExtension
-                var skip = false
+            var errors = false
+            DispatchQueue.global(qos: .userInitiated).async {
                 
-                // item.index = index
+                fileUrls.forEach({ m in
+                    let urlPath = m as! String
+                    let url = NSURL(fileURLWithPath: urlPath)
+                    let _extension = url.pathExtension
+                    var skip = false
+                    
+                    // item.index = index
+                    
+                    if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
+                        manageFileMovies.add(URL(string: urlPath)!)
+                        skip = true
+                    }
+                    
+                    if(_extension == "JPG" || _extension == "jpg" || _extension == "jpeg" || _extension == "JPEG") {
+                        manageFileJPG.add(URL(string: urlPath)!)
+                        skip = true
+                    }
+                    
+                    if(_extension == "DNG" || _extension == "dng" ||  _extension == "RAW" ||  _extension == "raw") {
+                        manageFileJPG.add(URL(string: urlPath)!)
+                        skip = true
+                    }
+                    
+                    if(_extension == "png" || _extension == "PNG") {
+                        manageFileScreenshots.add(URL(string: urlPath)!)
+                        skip = true
+                    }
+                    
+                    if(!skip) {
+                        manageFileOther.add(URL(string: urlPath)!)
+                    }
+                })
                 
-                if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
-                    manageFileMovies.add(URL(string: urlPath)!)
-                    skip = true
+                
+                if(manageFileMovies.count > 0) {
+                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.videoFolder)) {
+                        print("VIDEOS FOLDER: \(self.fileBrowserViewController.videoFolder)")
+                        manageFileMovies.forEach({ m in
+                            let url = (m as! URL)
+                            //print(movie)
+                            if(self.organizeMovieFile(url: url)) {
+                                manageFileURLS.add(url)
+                            } else {
+                                errors = true
+                            }
+                        })
+                    }
                 }
                 
-                if(_extension == "JPG" || _extension == "jpg" || _extension == "jpeg" || _extension == "JPEG") {
-                    manageFileJPG.add(URL(string: urlPath)!)
-                    skip = true
+                if(manageFileJPG.count > 0) {
+                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.jpgFolder)) {
+                        manageFileJPG.forEach({ m in
+                            let url = (m as! URL)
+                            if(self.organizeJPGFile(url: url)) {
+                                manageFileURLS.add(url)
+                            } else {
+                                errors = true
+                            }
+                        })
+                    }
                 }
                 
-                if(_extension == "DNG" || _extension == "dng" ||  _extension == "RAW" ||  _extension == "raw") {
-                    manageFileJPG.add(URL(string: urlPath)!)
-                    skip = true
+                if(manageFileScreenshots.count > 0) {
+                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.screenShotFolder)) {
+                        manageFileScreenshots.forEach({ m in
+                            let url = (m as! URL)
+                            
+                            
+                            if(self.organizeScreenShotFile(url: (url))) {
+                                manageFileURLS.add(url)
+                            } else {
+                                errors = true
+                            }
+                        })
+                    }
                 }
                 
-                if(_extension == "png" || _extension == "PNG") {
-                    manageFileScreenshots.add(URL(string: urlPath)!)
-                    skip = true
+                if(manageFileRAW.count > 0) {
+                    if(self.checkFolderAndCreate(folderPath: self.fileBrowserViewController.rawFolder)) {
+                        manageFileRAW.forEach({ m in
+                            let url = (m as! URL)
+                            if(self.organizeRawFile(url: (url))) {
+                                manageFileURLS.add(url)
+                            }else {
+                                errors = true
+                            }
+                        })
+                    }
                 }
                 
-                if(!skip) {
-                    manageFileOther.add(URL(string: urlPath)!)
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
                 }
-            })
-            
-            
-            if(manageFileMovies.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.videoFolder)) {
-                    print("VIDEOS FOLDER: \(self.fileBrowserViewController.videoFolder)")
-                    manageFileMovies.forEach({ m in
-                        let url = (m as! URL)
-                        //print(movie)
-                        if(self.organizeMovieFile(url: url)) {
-                            manageFileURLS.add(url)
-                        }
-                    })
-                }
+                
             }
-            
-            if(manageFileJPG.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.jpgFolder)) {
-                    manageFileJPG.forEach({ m in
-                        let url = (m as! URL)
-                        if(self.organizeJPGFile(url: url)) {
-                            manageFileURLS.add(url)
-                        }
-                    })
-                }
-            }
-            
-            if(manageFileScreenshots.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.screenShotFolder)) {
-                    manageFileScreenshots.forEach({ m in
-                        let url = (m as! URL)
-
-
-                        if(self.organizeScreenShotFile(url: (url))) {
-                            manageFileURLS.add(url)
-                        }
-                    })
-                }
-            }
-            
-            if(manageFileRAW.count > 0) {
-                if(checkFolderAndCreate(folderPath: self.fileBrowserViewController.rawFolder)) {
-                    manageFileRAW.forEach({ m in
-                        let url = (m as! URL)
-                        if(self.organizeRawFile(url: (url))) {
-                            manageFileURLS.add(url)
-                        }
-                    })
-                }
-            }
-            
-           self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
-            
-            //showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
-            showAlert(text: "Files Organized!", body: "The files have been organized!", showCancel: false, messageType: "warning")
-            
-            // showNotification(messageType: "OrganizeFiles", customMessage: self.fileBrowserViewController.videoFolder)
             
         } else {
             //showNotification(messageType: "OrganizeFiles", customMessage: "No Files Selected!")
@@ -288,9 +308,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
         catch let error as NSError {
             // print ("Error while moving file : \(from) to \(toUrl)")
             print("Ooops! Something went wrong: \(error)")
-            
-            showAlert(text: "Could not move file", body:("This file " + from.absoluteString + " could not be moved"), showCancel: false, messageType: "warning")
-            
+            DispatchQueue.main.async {
+                self.showAlert(text: "Could not move file", body:("This file " + from.absoluteString + " could not be moved"), showCancel: false, messageType: "warning")
+            }
             return false
         }
     }
@@ -371,7 +391,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
             
             NSWorkspace.shared().open(url)
         } else {
-            showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
+            DispatchQueue.main.async {
+                self.showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
+            }
         }
     }
 }

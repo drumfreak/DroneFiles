@@ -56,7 +56,7 @@ class FileManagerViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("~~~~~~~ Showing Table View")
+        // print("~~~~~~~ Showing Table View")
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -76,7 +76,7 @@ class FileManagerViewController: NSViewController {
         reloadFileList()
         
         
-        print("Selecting All")
+        // print("Selecting All")
         
         
         // tableView.reloadData()
@@ -205,7 +205,7 @@ class FileManagerViewController: NSViewController {
     
     func resetTableAfterFileOperation(fileArray: NSMutableArray) {
         var f = self.fileURLs as! Array<Any>?
-        print("Hey reloading!!!!!!!!!!!!!!!!!!!!!");
+        // print("Hey reloading!!!!!!!!!!!!!!!!!!!!!");
         
         
         fileArray.forEach({ m in

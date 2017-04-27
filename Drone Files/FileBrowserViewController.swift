@@ -82,7 +82,7 @@ class FileBrowserViewController: NSViewController {
     
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
-    var sortOrder = Directory.FileOrder.Date
+    var sortOrder = Directory.FileOrder.Name
     var sortAscending = false
     
     override func viewDidLoad() {

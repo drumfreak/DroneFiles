@@ -27,13 +27,13 @@ class FileManagerOptionsCopyController: NSViewController {
     
     @IBOutlet var chooseCopyDestination3Button: NSButton!
     @IBOutlet var copyDirectoryLabel3: NSTextField!
-
+    
     @IBOutlet var chooseCopyDestination4Button: NSButton!
     @IBOutlet var copyDirectoryLabel4: NSTextField!
-
+    
     @IBOutlet var chooseCopyDestination5Button: NSButton!
     @IBOutlet var copyDirectoryLabel5: NSTextField!
-
+    
     var copyToFolder1 = "/Volumes/"
     var copyToFolder2 = "/Volumes/"
     var copyToFolder3 = "/Volumes/"
@@ -55,7 +55,7 @@ class FileManagerOptionsCopyController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("FileManagerOptionsCopyController loaded")
-    
+        
         // Folders
         
         // 1
@@ -65,7 +65,7 @@ class FileManagerOptionsCopyController: NSViewController {
         } else {
             self.copyToFolder1 = UserDefaults.standard.value(forKey: "copyToFolder1") as! String
         }
-    
+        
         self.copyDirectoryLabel1.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder1)
         
         
@@ -139,7 +139,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         self.copyDirectoryLabel5.addGestureRecognizer(tapGestureCopyFolder5)
         
-
+        
     }
     
     override func viewDidAppear() {
@@ -202,7 +202,7 @@ class FileManagerOptionsCopyController: NSViewController {
             }
         })
     }
-
+    
     
     @IBAction func chooseCopyDestinationFolder3(_ sender: AnyObject) {
         let openPanel = NSOpenPanel()
@@ -270,6 +270,16 @@ class FileManagerOptionsCopyController: NSViewController {
     }
     
     
+    func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
+        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
+        
+        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        if(!errors) {
+            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "notice")
+        }
+    }
+    
+    
     @IBAction func copyFilesFolder1(_ sender: AnyObject) {
         let manageFileURLS: NSMutableArray = []
         let fileUrls = self.receivedFiles as! Array<Any>
@@ -278,22 +288,21 @@ class FileManagerOptionsCopyController: NSViewController {
             var errors = false
             DispatchQueue.global(qos: .userInitiated).async {
                 fileUrls.forEach({ m in
-                    fileUrls.forEach({ m in
-                        let urlPath = m as! String
-                        let url = URL(string: urlPath)
-                        
-                        if(self.copyFileFolder1(url: url!)) {
-                            manageFileURLS.add(url!)
-                        } else {
-                            errors = true
-                        }
-                    })
-                    DispatchQueue.main.async {
-                        self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                    let urlPath = m as! String
+                    let url = URL(string: urlPath)
+                    
+                    if(self.copyFileFolder1(url: url!)) {
+                        manageFileURLS.add(url!)
+                    } else {
+                        errors = true
                     }
                 })
+                
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                }
             }
-
+            
             
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
@@ -310,22 +319,20 @@ class FileManagerOptionsCopyController: NSViewController {
             var errors = false
             DispatchQueue.global(qos: .userInitiated).async {
                 fileUrls.forEach({ m in
-                    fileUrls.forEach({ m in
-                        let urlPath = m as! String
-                        let url = URL(string: urlPath)
-                        
-                        if(self.copyFileFolder2(url: url!)) {
-                            manageFileURLS.add(url!)
-                        } else {
-                            errors = true
-                        }
-                    })
-                    DispatchQueue.main.async {
-                        self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                    let urlPath = m as! String
+                    let url = URL(string: urlPath)
+                    
+                    if(self.copyFileFolder2(url: url!)) {
+                        manageFileURLS.add(url!)
+                    } else {
+                        errors = true
                     }
                 })
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                }
             }
-
+            
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
         }
@@ -341,20 +348,18 @@ class FileManagerOptionsCopyController: NSViewController {
             var errors = false
             DispatchQueue.global(qos: .userInitiated).async {
                 fileUrls.forEach({ m in
-                    fileUrls.forEach({ m in
-                        let urlPath = m as! String
-                        let url = URL(string: urlPath)
-                        
-                        if(self.copyFileFolder3(url: url!)) {
-                            manageFileURLS.add(url!)
-                        } else {
-                            errors = true
-                        }
-                    })
-                    DispatchQueue.main.async {
-                        self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                    let urlPath = m as! String
+                    let url = URL(string: urlPath)
+                    
+                    if(self.copyFileFolder3(url: url!)) {
+                        manageFileURLS.add(url!)
+                    } else {
+                        errors = true
                     }
                 })
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                }
             }
             
         } else {
@@ -363,14 +368,7 @@ class FileManagerOptionsCopyController: NSViewController {
     }
     
     
-    func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
-        self.fileManagerOptionsTabViewController?.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
-        
-        self.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
-        if(!errors) {
-            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "notice")
-        }
-    }
+    
     
     @IBAction func copyFilesFolder4(_ sender: AnyObject) {
         let manageFileURLS: NSMutableArray = []
@@ -380,22 +378,20 @@ class FileManagerOptionsCopyController: NSViewController {
             var errors = false
             DispatchQueue.global(qos: .userInitiated).async {
                 fileUrls.forEach({ m in
-                    fileUrls.forEach({ m in
-                        let urlPath = m as! String
-                        let url = URL(string: urlPath)
-                        
-                        if(self.copyFileFolder4(url: url!)) {
-                            manageFileURLS.add(url!)
-                        } else {
-                            errors = true
-                        }
-                    })
-                    DispatchQueue.main.async {
-                        self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                    let urlPath = m as! String
+                    let url = URL(string: urlPath)
+                    
+                    if(self.copyFileFolder4(url: url!)) {
+                        manageFileURLS.add(url!)
+                    } else {
+                        errors = true
                     }
                 })
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                }
             }
-
+            
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
         }
@@ -412,20 +408,18 @@ class FileManagerOptionsCopyController: NSViewController {
             var errors = false
             DispatchQueue.global(qos: .userInitiated).async {
                 fileUrls.forEach({ m in
-                    fileUrls.forEach({ m in
-                        let urlPath = m as! String
-                        let url = URL(string: urlPath)
-                        
-                        if(self.copyFileFolder5(url: url!)) {
-                            manageFileURLS.add(url!)
-                        } else {
-                            errors = true
-                        }
-                    })
-                    DispatchQueue.main.async {
-                        self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                    let urlPath = m as! String
+                    let url = URL(string: urlPath)
+                    
+                    if(self.copyFileFolder5(url: url!)) {
+                        manageFileURLS.add(url!)
+                    } else {
+                        errors = true
                     }
                 })
+                DispatchQueue.main.async {
+                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
+                }
             }
             
         } else {
@@ -462,7 +456,7 @@ class FileManagerOptionsCopyController: NSViewController {
         }
     }
     
-
+    
     
     func copyFileFolder2(url: URL) -> Bool {
         print("Copying File! ... \(url)")
@@ -577,7 +571,7 @@ class FileManagerOptionsCopyController: NSViewController {
             return false
         }
     }
-
+    
     func doCopyFile(from: URL, toUrl: URL) -> Bool {
         
         print("FROM: \(from)")
@@ -661,24 +655,24 @@ class FileManagerOptionsCopyController: NSViewController {
     }
     
     func setOpenPath3() {
-         doOpenFinder(urlString:self.copyToFolder3)
+        doOpenFinder(urlString:self.copyToFolder3)
     }
     
     func setOpenPath4() {
-         doOpenFinder(urlString:self.copyToFolder4)
+        doOpenFinder(urlString:self.copyToFolder4)
     }
     
     func setOpenPath5() {
-         doOpenFinder(urlString:self.copyToFolder5)
+        doOpenFinder(urlString:self.copyToFolder5)
     }
     
     func doOpenFinder(urlString: String) {
         let path = pathOutputFromURL(inputString: urlString)
-    
+        
         if FileManager.default.fileExists(atPath: path) {
-                let url = URL(string: urlString)!
-
-                NSWorkspace.shared().open(url)
+            let url = URL(string: urlString)!
+            
+            NSWorkspace.shared().open(url)
         } else {
             showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
         }
