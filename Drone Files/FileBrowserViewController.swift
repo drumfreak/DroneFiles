@@ -121,11 +121,11 @@ class FileBrowserViewController: NSViewController {
         }
 
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        statusLabel.stringValue = ""
-        tableView.target = self
-        tableView.doubleAction = #selector(tableViewDoubleClick(_:))
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.statusLabel.stringValue = "0 Items Selected"
+        self.tableView.target = self
+        self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
         self.fileSequenceNameTextField.stringValue = self.fileSequenceName
         
@@ -146,9 +146,9 @@ class FileBrowserViewController: NSViewController {
         let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: true)
         let descriptorSize = NSSortDescriptor(key: Directory.FileOrder.Size.rawValue, ascending: true)
         
-        tableView.tableColumns[0].sortDescriptorPrototype = descriptorName
-        tableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
-        tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
+        self.tableView.tableColumns[0].sortDescriptorPrototype = descriptorName
+        self.tableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
+        self.tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
         
         self.sourceFolderOpened = self.startingDirectory
         self.folderURL = self.startingDirectory?.absoluteString
@@ -405,7 +405,7 @@ class FileBrowserViewController: NSViewController {
     
     func reloadFileList() {
         directoryItems = directory?.contentsOrderedBy(sortOrder, ascending: sortAscending)
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     
@@ -414,8 +414,8 @@ class FileBrowserViewController: NSViewController {
         // print("SELECTED ROW \(self.tableView.selectedRow)")
         
         // 1
-        guard tableView.selectedRow >= 0,
-            let item = directoryItems?[tableView.selectedRow] else {
+        guard self.tableView.selectedRow >= 0,
+            let item = directoryItems?[self.tableView.selectedRow] else {
                 return
         }
         
@@ -485,7 +485,7 @@ class FileBrowserViewController: NSViewController {
     
     func sendItemsToFileManager (showTab: Bool) {
         let selectedFileURLS: NSMutableArray = []
-        for (_, index) in tableView.selectedRowIndexes.enumerated() {
+        for (_, index) in self.tableView.selectedRowIndexes.enumerated() {
             guard index >= 0,
                 let item = directoryItems?[index] else {
                     return
@@ -511,7 +511,7 @@ class FileBrowserViewController: NSViewController {
         let text: String
         
         // 1
-        let itemsSelected = tableView.selectedRowIndexes.count
+        let itemsSelected = self.tableView.selectedRowIndexes.count
         
         // 2
         if (directoryItems == nil) {
@@ -538,8 +538,8 @@ class FileBrowserViewController: NSViewController {
     
     func tableViewDoubleClick(_ sender:AnyObject) {
         //        // 1
-        guard tableView.selectedRow >= 0,
-            let item = directoryItems?[tableView.selectedRow] else {
+        guard self.tableView.selectedRow >= 0,
+            let item = directoryItems?[self.tableView.selectedRow] else {
                 return
         }
         
