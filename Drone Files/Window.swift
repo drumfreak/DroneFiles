@@ -45,13 +45,13 @@ class KeyCaptureWindow: NSWindow {
        
         if(event.keyCode == 33) { // Trim IN
             // Swift.print("Setting TRIM IN: \(event)!")
-            appDelegate.videoPlayerViewController.setTrimInFromKeyboard()
+            appDelegate.videoPlayerControlsController.setTrimInFromKeyboard()
             return
         }
         
         if(event.keyCode == 30) { // Trim Out
             // Swift.print("Setting TRIM OUT: \(event)!")
-            appDelegate.videoPlayerViewController.setTrimOutFromKeyboard()
+            appDelegate.videoPlayerControlsController.setTrimOutFromKeyboard()
             return
         }
         
@@ -59,7 +59,7 @@ class KeyCaptureWindow: NSWindow {
         if(isCommandKeyPressed) {
             if(event.keyCode == 17) {
                 /// Swift.print("Caught a key down: \(event)!")
-                appDelegate.videoPlayerViewController.takeScreenShotFromKeyboard()
+                appDelegate.videoPlayerControlsController.takeScreenShotFromKeyboard()
                 return
             }
         }

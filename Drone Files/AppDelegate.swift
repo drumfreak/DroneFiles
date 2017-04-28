@@ -19,8 +19,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
 
-    @IBOutlet var screenshotViewController: ScreenshotViewController!
     @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
+    @IBOutlet var videoSplitViewController: VideoSplitViewController!
+    @IBOutlet var videoPlayerControlsController: VideoPlayerControllsController!
+
+    
+    @IBOutlet var screenshotViewController: ScreenshotViewController!
     @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     

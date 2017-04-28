@@ -444,10 +444,10 @@ class FileBrowserViewController: NSViewController {
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
                 self.appDelegate.videoPlayerViewController.VideoEditView.isHidden = false;
-                self.appDelegate.videoPlayerViewController.nowPlayingFile.stringValue = item.name
+                self.appDelegate.videoPlayerControlsController.nowPlayingFile.stringValue = item.name
                 self.appDelegate.videoPlayerViewController.nowPlayingURL = (item.url as URL)
                 
-                self.appDelegate.videoPlayerViewController.nowPlayingURLString = itemUrl
+                self.appDelegate.videoPlayerControlsController.nowPlayingURLString = itemUrl
                 
                 self.appDelegate.videoPlayerViewController.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
                 
