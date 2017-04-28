@@ -17,6 +17,7 @@
 		185F4C361EB124440046C452 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C351EB124440046C452 /* Window.swift */; };
 		187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */; };
 		187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */; };
+		187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A91EB3E26100BCD214 /* VideoPlayerController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
 		18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */; };
@@ -29,7 +30,6 @@
 		18B001ED1EA69C92003C3214 /* Drone_FilesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001EC1EA69C92003C3214 /* Drone_FilesUITests.swift */; };
 		18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FA1EA6A09D003C3214 /* WindowController.swift */; };
 		18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FC1EA6A0A8003C3214 /* Directory.swift */; };
-		18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */; };
 		18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */; };
 		18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */; };
 		18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */ = {isa = PBXBuildFile; fileRef = 18BAABA61EADA2CB00EE5434 /* Shutter.aif */; };
@@ -66,6 +66,7 @@
 		185F4C351EB124440046C452 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSplitViewController.swift; sourceTree = "<group>"; };
 		187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControlsController.swift; sourceTree = "<group>"; };
+		187843A91EB3E26100BCD214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
 		18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsMoveController.swift; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		18B001EE1EA69C92003C3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B001FA1EA6A09D003C3214 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		18B001FC1EA6A0A8003C3214 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
-		18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
 		18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		18BAABA61EADA2CB00EE5434 /* Shutter.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shutter.aif; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */,
-				18B001FE1EA6FCD4003C3214 /* VideoPlayerController.swift */,
 				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
+				187843A91EB3E26100BCD214 /* VideoPlayerController.swift */,
 				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
 			);
 			name = "Video Player";
@@ -351,7 +351,7 @@
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
-				18B001FF1EA6FCD4003C3214 /* VideoPlayerController.swift in Sources */,
+				187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */,
 				185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */,
 				187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
