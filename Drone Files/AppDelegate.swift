@@ -39,6 +39,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        
+        let notification = NSUserNotification()
+        notification.title = "Welcome to DroneFiles!"
+        notification.informativeText = "Your life will never be the same"
+        notification.soundName = NSUserNotificationDefaultSoundName
+        NSUserNotificationCenter.default.deliver(notification)
+
+        
     }
     
 
