@@ -71,12 +71,12 @@ class FileManagerViewController: NSViewController {
     
     override func viewWillAppear() {
         self.viewIsLoaded = true
-        print ("~ View is about to appear")
+        // print ("~ View is about to appear")
     }
     
     override func viewDidDisappear() {
         self.viewIsLoaded = false
-        print ("~~~~~~~~~~~~ View Disappeared")
+        // print ("~~~~~~~~~~~~ View Disappeared")
         
     }
     
@@ -92,6 +92,76 @@ class FileManagerViewController: NSViewController {
                 self.updateStatus()
             }
         }
+    }
+    
+
+    func calculateFileSizesFromDestination(fileUrls: Array<Any>) -> NSMutableDictionary {
+        var totalSize = 0
+        var totalFiles = 0
+        
+        let returnDetails = NSMutableDictionary()
+        
+        
+        fileUrls.forEach({ m in
+            let urlPath = m as! String
+            let url = URL(string: urlPath)
+            var attributes = NSMutableDictionary()
+            let path = getPathFromURL(path: (url?.absoluteString)!)
+            
+            do {
+                try attributes = FileManager.default.attributesOfItem(atPath: path) as! NSMutableDictionary
+                // print(attributes)
+                
+                
+                // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
+                totalSize += attributes["NSFileSize"] as! Int
+                totalFiles += Int(1)
+            } catch _ as NSError {
+                // do nothing...
+            }
+        })
+        
+        returnDetails["totalSize"] = totalSize
+        returnDetails["totalFiles"] = totalFiles
+        return returnDetails
+    }
+    
+    func calculateFileSizesToDestination(fileUrls: Array<Any>) -> NSMutableDictionary {
+        var totalSize = 0
+        var totalFiles = 0
+        
+        let returnDetails = NSMutableDictionary()
+    
+        fileUrls.forEach({ m in
+            let urlPath = m as! String
+            let url = URL(string: urlPath)
+            var attributes = NSMutableDictionary()
+            let path = getPathFromURL(path: (url?.absoluteString)!)
+            
+            do {
+                try attributes = FileManager.default.attributesOfItem(atPath: path) as! NSMutableDictionary
+                // print(attributes)
+                
+                // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
+                totalSize += attributes["NSFileSize"] as! Int
+                totalFiles += Int(1)
+            } catch _ as NSError {
+                // do nothing...
+            }
+        })
+        
+        returnDetails["totalSize"] = totalSize
+        returnDetails["totalFiles"] = totalFiles
+        return returnDetails
+    }
+    
+    
+    func bytesToHuman(size: Int64) -> String {
+        let countBytes = ByteCountFormatter()
+        countBytes.allowedUnits = [.useMB]
+        countBytes.countStyle = .file
+        let fileSize = countBytes.string(fromByteCount: Int64(size))
+        return fileSize
     }
     
     func loadItemFromTable() {
@@ -263,12 +333,19 @@ class FileManagerViewController: NSViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "fileOptionsTabSegue" {
-            // print("Hayyyy seeeeegwaaaayyyy")
             self.appDelegate.fileManagerOptionsTabViewController = segue.destinationController as! FileManagerOptionsTabViewController
             
             self.appDelegate.fileManagerViewController = self
         }
     }
+    
+    func getPathFromURL(path: String) -> String {
+        var path = path.replacingOccurrences(of: "file://", with: "")
+        path = path.replacingOccurrences(of: "%20" , with: " ")
+        return path
+    }
+    
+
 
 }
 extension FileManagerViewController: NSTableViewDataSource {

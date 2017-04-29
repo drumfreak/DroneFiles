@@ -14,8 +14,7 @@ import AVFoundation
 import Quartz
 
 class EditorTabViewController: NSTabViewController {
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

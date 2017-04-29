@@ -14,6 +14,8 @@ import Quartz
 
 class FileManagerOptionsTabViewController: NSTabViewController {
     
+    var fileSizes = NSMutableDictionary()
+    
     var receivedFiles = NSMutableArray() {
         didSet {
             if (receivedFiles.count > 0) {
@@ -22,6 +24,9 @@ class FileManagerOptionsTabViewController: NSTabViewController {
                 self.appDelegate.fileManagerOptionsMoveController.receivedFiles = receivedFiles
                 self.appDelegate.fileManagerOptionsRenameController.receivedFiles = receivedFiles
                 self.appDelegate.fileManagerOptionsDeleteController.receivedFiles = receivedFiles
+                
+                self.fileSizes = (self.appDelegate.fileManagerViewController?.calculateFileSizesToDestination(fileUrls: self.receivedFiles as! Array<Any>))!
+
             }
         }
     }

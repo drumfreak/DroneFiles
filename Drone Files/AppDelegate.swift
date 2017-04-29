@@ -36,7 +36,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileManagerOptionsRenameController: FileManagerOptionsRenameController!
     @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
     
+    // let storyboard = NSStoryboard()
     
+    let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
+    
+    
+    
+    
+    
+    // let fileCopyProgressIndicator:FileCopyProgressIndicatorController = NSStoryboard
+    
+    
+    
+    //instantiateViewControllerWithIdentifier("ViewController") as FileCopyProgressIndicatorController
+
     
     
    // @IBOutlet weak var editorTabViewController: EditorTabViewController!

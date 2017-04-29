@@ -693,6 +693,9 @@
                     <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="5pU-Fa-0yg">
                         <rect key="frame" x="0.0" y="0.0" width="1590" height="533"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </splitView>
                     <connections>
                         <outlet property="mySplitView" destination="5pU-Fa-0yg" id="qzB-D0-Zsu"/>
@@ -2211,6 +2214,15 @@ AAAAAAEGA
                                             <action selector="chooseCopyDestinationFolder5:" target="WaG-6y-KMj" id="ocO-rg-Kyt"/>
                                         </connections>
                                     </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghi-br-TIV">
+                                        <rect key="frame" x="209" y="295" width="373" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Total Size: 0MB - Total Files: 0 Files" id="dlC-TK-Hqf">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </customView>
                         </subviews>
@@ -2226,12 +2238,66 @@ AAAAAAEGA
                         <outlet property="copyDirectoryLabel3" destination="ZLA-Uh-z5x" id="zxy-FO-sz9"/>
                         <outlet property="copyDirectoryLabel4" destination="OiR-TA-WZK" id="YSf-RO-bsv"/>
                         <outlet property="copyDirectoryLabel5" destination="w4o-dF-88B" id="a8X-Xt-7BL"/>
+                        <outlet property="fileSizesLabel" destination="ghi-br-TIV" id="GDN-hL-79a"/>
                         <outlet property="numberofFilesLabel" destination="srd-yg-QMK" id="kDd-6j-ahC"/>
                     </connections>
                 </viewController>
                 <customObject id="Vu5-l1-dJi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4664" y="3313.5"/>
+        </scene>
+        <!--File Operation-->
+        <scene sceneID="eQH-0c-gru">
+            <objects>
+                <viewController title="File Operation" storyboardIdentifier="fileCopyProgressView" id="khV-Vy-SKQ" customClass="FileCopyProgressIndicatorController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="CN7-qx-pfX">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="147"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="sdx-Fb-hYN">
+                                <rect key="frame" x="20" y="86" width="410" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKS-bP-wT6">
+                                <rect key="frame" x="145" y="113" width="161" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Operation In Progress" id="soh-9o-HiG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JH-vd-lSs">
+                                <rect key="frame" x="18" y="62" width="414" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0 Files Copied / Total Size: 0mb" id="k2v-aK-V9Y">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-26-qRo">
+                                <rect key="frame" x="195" y="26" width="61" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Ok!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2cv-nq-L18">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="closeWindow:" target="khV-Vy-SKQ" id="aaN-hD-i1b"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="fileCopyProgressIndicator" destination="sdx-Fb-hYN" id="4Ab-0y-8mH"/>
+                        <outlet property="fileCopyStatusLabel" destination="5JH-vd-lSs" id="r8k-Dw-rxW"/>
+                        <outlet property="okayButton" destination="Mfp-26-qRo" id="maO-NK-3NH"/>
+                    </connections>
+                </viewController>
+                <customObject id="e37-B0-jOc" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5324" y="3310.5"/>
         </scene>
         <!--Rename-->
         <scene sceneID="GVB-ac-eqx">

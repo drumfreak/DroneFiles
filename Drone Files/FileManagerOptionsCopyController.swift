@@ -30,6 +30,9 @@ class FileManagerOptionsCopyController: NSViewController {
     @IBOutlet var chooseCopyDestination5Button: NSButton!
     @IBOutlet var copyDirectoryLabel5: NSTextField!
     
+    
+    @IBOutlet var fileSizesLabel: NSTextField!
+    
     var copyToFolder1 = "/Volumes/"
     var copyToFolder2 = "/Volumes/"
     var copyToFolder3 = "/Volumes/"
@@ -44,6 +47,9 @@ class FileManagerOptionsCopyController: NSViewController {
             if(self.viewIsLoaded) {
                 let count = String(format: "%", receivedFiles.count)
                 self.numberofFilesLabel.title = count
+                
+                print("Calculating Sizes")
+                self.updateFileSizeLabel()
             }
         }
     }
@@ -63,8 +69,6 @@ class FileManagerOptionsCopyController: NSViewController {
         }
         
         self.copyDirectoryLabel1.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder1)
-        
-        
         
         // 2
         if(UserDefaults.standard.value(forKey: "copyToFolder2") == nil) {
@@ -106,10 +110,7 @@ class FileManagerOptionsCopyController: NSViewController {
         }
         
         self.copyDirectoryLabel5.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder5)
-        
-        
-        
-        
+
         // Click Gestures
         
         let tapGestureCopyFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
@@ -120,12 +121,10 @@ class FileManagerOptionsCopyController: NSViewController {
         let tapGestureCopyFolder2 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath2))
         
         self.copyDirectoryLabel2.addGestureRecognizer(tapGestureCopyFolder2)
-        
-        
+    
         let tapGestureCopyFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
         
         self.copyDirectoryLabel3.addGestureRecognizer(tapGestureCopyFolder3)
-        
         
         let tapGestureCopyFolder4 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath4))
         
@@ -134,7 +133,7 @@ class FileManagerOptionsCopyController: NSViewController {
         let tapGestureCopyFolder5 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath5))
         
         self.copyDirectoryLabel5.addGestureRecognizer(tapGestureCopyFolder5)
-        
+        self.updateFileSizeLabel()
         
     }
     
@@ -150,6 +149,17 @@ class FileManagerOptionsCopyController: NSViewController {
         self.viewIsLoaded = false
     }
     
+    
+    
+    func updateFileSizeLabel() {
+        let size = self.appDelegate.fileManagerOptionsTabViewController?.fileSizes["totalSize"] as! Int
+        let files =  self.appDelegate.fileManagerOptionsTabViewController?.fileSizes["totalFiles"] as! Int
+        
+        //let totalSize = String(format: "%1d", fileSize)
+        let totalFiles = String(format: "%1d", files)
+        self.fileSizesLabel.stringValue = "Total Size: " + self.appDelegate.fileManagerViewController.bytesToHuman(size: Int64(size)) + " - Total Files: " + totalFiles + " Files"
+        
+    }
     
     func pathOutputFromURL(inputString: String) -> String {
         let str = inputString.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
@@ -270,9 +280,13 @@ class FileManagerOptionsCopyController: NSViewController {
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
         self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        
+        // self.dismissViewController(self.appDelegate.fileCopyProgressView);
+        
         if(!errors) {
-            showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "notice")
+            //showAlert(text: "Files Copied!", body: "The files have been copied!", showCancel: false, messageType: "notice")
         }
+        
     }
     
     
@@ -310,18 +324,39 @@ class FileManagerOptionsCopyController: NSViewController {
     @IBAction func copyFilesFolder2(_ sender: AnyObject) {
         let manageFileURLS: NSMutableArray = []
         let fileUrls = self.receivedFiles as! Array<Any>
-        
+
         if(fileUrls.count > 0) {
+            
+            self.appDelegate.fileCopyProgressView.totalNumfilesTransferred = 0
+            
+            self.appDelegate.fileCopyProgressView.currentFileNumber = 0
+            
+            let fileSizes = self.appDelegate.fileManagerViewController?.calculateFileSizesFromDestination(fileUrls: fileUrls)
+            
+            self.appDelegate.fileCopyProgressView.destinationSize = fileSizes?["totalSize"] as! Int
+            
+            self.appDelegate.fileCopyProgressView.totalNumfiles = fileSizes?["totalFiles"] as! Int
+            
+            self.presentViewControllerAsModalWindow(self.appDelegate.fileCopyProgressView)
+            
+            
             var errors = false
             DispatchQueue.global(qos: .userInitiated).async {
                 fileUrls.forEach({ m in
                     let urlPath = m as! String
                     let url = URL(string: urlPath)
                     
+                    self.appDelegate.fileCopyProgressView.destinationCurrentFile = urlPath
+                    
+                    
+                    self.appDelegate.fileCopyProgressView.currentFileNumber += Int(1)
+                    
                     if(self.copyFileFolder2(url: url!)) {
                         manageFileURLS.add(url!)
+                        self.appDelegate.fileCopyProgressView.totalNumfilesTransferred += Int(1)
                     } else {
                         errors = true
+                        self.appDelegate.fileCopyProgressView.totalNumfilesTransferred += Int(1)
                     }
                 })
                 DispatchQueue.main.async {
@@ -425,12 +460,12 @@ class FileManagerOptionsCopyController: NSViewController {
     
     
     func copyFileFolder1(url: URL) -> Bool {
-        print("Copying File! ... \(url)")
+        // print("Copying File! ... \(url)")
         
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
         let fileName = url.lastPathComponent
         
-        print("Copy FROM filename: \(fileName)")
+        // print("Copy FROM filename: \(fileName)")
         
         var copyDestination = ""
         copyDestination = self.copyToFolder1 + fileName
@@ -438,7 +473,7 @@ class FileManagerOptionsCopyController: NSViewController {
         //  copyDestination = getPathFromURL(path: copyDestination)
         copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
         
-        print("Copy DESTINATION: \(copyDestination)")
+        // print("Copy DESTINATION: \(copyDestination)")
         
         
         let destinationURL = URL(string: copyDestination)!
@@ -460,7 +495,7 @@ class FileManagerOptionsCopyController: NSViewController {
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
         let fileName = url.lastPathComponent
         
-        print("Copy FROM filename: \(fileName)")
+        // print("Copy FROM filename: \(fileName)")
         
         var copyDestination = ""
         copyDestination = self.copyToFolder2 + fileName
@@ -468,7 +503,7 @@ class FileManagerOptionsCopyController: NSViewController {
         //  copyDestination = getPathFromURL(path: copyDestination)
         copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
         
-        print("Copy DESTINATION: \(copyDestination)")
+        // print("Copy DESTINATION: \(copyDestination)")
         
         
         let destinationURL = URL(string: copyDestination)!
@@ -489,7 +524,7 @@ class FileManagerOptionsCopyController: NSViewController {
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
         let fileName = url.lastPathComponent
         
-        print("Copy FROM filename: \(fileName)")
+        // print("Copy FROM filename: \(fileName)")
         
         var copyDestination = ""
         copyDestination = self.copyToFolder3 + fileName
@@ -497,7 +532,7 @@ class FileManagerOptionsCopyController: NSViewController {
         //  copyDestination = getPathFromURL(path: copyDestination)
         copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
         
-        print("Copy DESTINATION: \(copyDestination)")
+        // print("Copy DESTINATION: \(copyDestination)")
         
         
         let destinationURL = URL(string: copyDestination)!
@@ -517,7 +552,7 @@ class FileManagerOptionsCopyController: NSViewController {
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
         let fileName = url.lastPathComponent
         
-        print("Copy FROM filename: \(fileName)")
+        // print("Copy FROM filename: \(fileName)")
         
         var copyDestination = ""
         copyDestination = self.copyToFolder4 + fileName
@@ -525,7 +560,7 @@ class FileManagerOptionsCopyController: NSViewController {
         //  copyDestination = getPathFromURL(path: copyDestination)
         copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
         
-        print("Copy DESTINATION: \(copyDestination)")
+        // print("Copy DESTINATION: \(copyDestination)")
         
         
         let destinationURL = URL(string: copyDestination)!
@@ -546,7 +581,7 @@ class FileManagerOptionsCopyController: NSViewController {
         // let tmpURL = NSURL(fileURLWithPath: url.absoluteString)
         let fileName = url.lastPathComponent
         
-        print("Copy FROM filename: \(fileName)")
+        // print("Copy FROM filename: \(fileName)")
         
         var copyDestination = ""
         copyDestination = self.copyToFolder5 + fileName
@@ -554,7 +589,7 @@ class FileManagerOptionsCopyController: NSViewController {
         //  copyDestination = getPathFromURL(path: copyDestination)
         copyDestination = copyDestination.replacingOccurrences(of: " ", with: "%20")
         
-        print("Copy DESTINATION: \(copyDestination)")
+        // print("Copy DESTINATION: \(copyDestination)")
         
         
         let destinationURL = URL(string: copyDestination)!
@@ -567,12 +602,9 @@ class FileManagerOptionsCopyController: NSViewController {
             return false
         }
     }
+
     
     func doCopyFile(from: URL, toUrl: URL) -> Bool {
-        
-        print("FROM: \(from)")
-        print("TO: \(toUrl)")
-        
         do {
             try FileManager.default.copyItem(at: from, to: toUrl)
             return true

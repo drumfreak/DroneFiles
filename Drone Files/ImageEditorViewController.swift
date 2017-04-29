@@ -32,7 +32,7 @@ class ImageEditorViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Loaded Image Editor")
+        // print("Loaded Image Editor")
         imageView.autoresizes = true
         imageView.supportsDragAndDrop = true
         imageView.editable = true
