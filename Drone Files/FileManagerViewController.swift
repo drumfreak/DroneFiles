@@ -94,7 +94,7 @@ class FileManagerViewController: NSViewController {
         }
     }
     
-
+    
     func calculateFileSizesFromDestination(fileUrls: Array<Any>) -> NSMutableDictionary {
         var totalSize = 0
         var totalFiles = 0
@@ -131,7 +131,7 @@ class FileManagerViewController: NSViewController {
         var totalFiles = 0
         
         let returnDetails = NSMutableDictionary()
-    
+        
         fileUrls.forEach({ m in
             let urlPath = m as! String
             let url = URL(string: urlPath)
@@ -154,6 +154,41 @@ class FileManagerViewController: NSViewController {
         returnDetails["totalFiles"] = totalFiles
         return returnDetails
     }
+    
+    
+    
+    func calculateSingleFileSize(fileUrl: String) -> NSMutableDictionary {
+        var totalSize = 0
+        var totalFiles = 0
+        
+        let returnDetails = NSMutableDictionary()
+        
+        let urlPath = fileUrl
+        let url = URL(string: urlPath)
+        var attributes = NSMutableDictionary()
+        let path = getPathFromURL(path: (url?.absoluteString)!)
+    
+        
+        do {
+            try attributes = FileManager.default.attributesOfItem(atPath: path) as! NSMutableDictionary
+            // print(attributes)
+            
+            // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
+            totalSize += attributes["NSFileSize"] as! Int
+            totalFiles += Int(1)
+            
+            print("Calculating size for \(String(describing: path))")
+            print("Calculating size for \(totalSize)")
+
+        } catch _ as NSError {
+            // do nothing...
+        }
+        
+        returnDetails["totalSize"] = totalSize
+        returnDetails["totalFiles"] = totalFiles
+        return returnDetails
+    }
+    
     
     
     func bytesToHuman(size: Int64) -> String {
@@ -345,8 +380,8 @@ class FileManagerViewController: NSViewController {
         return path
     }
     
-
-
+    
+    
 }
 extension FileManagerViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
