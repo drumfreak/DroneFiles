@@ -21,13 +21,14 @@ class FileCopyProgressIndicatorController: NSViewController {
     @IBOutlet weak var whatTheFucktimer: Timer!
     var copyFromUrls = NSMutableArray()
     var copyToUrls = NSMutableArray()
+    var pauseTimer = false
     var progress = 0.0  {
         didSet {
             print("Set my progress to: \(self.progress)")
         }
     }
     
-    var destinationSize = Int(0) {
+    var destinationSize = Int64(0) {
         didSet {
             print("Set my destinationSize to: \(self.destinationSize)")
             
@@ -56,19 +57,19 @@ class FileCopyProgressIndicatorController: NSViewController {
         }
     }
     
-    var destinationCurrentSize = Int(0) {
+    var destinationCurrentSize = Int64(0) {
         didSet {
             print("Set my desitnationCurrentSize to: \(self.destinationCurrentSize)")
         }
     }
     
-    var destinationCurrentFileSize  = Int(0) {
+    var destinationCurrentFileSize  = Int64(0) {
         didSet {
             print("Set my destinationCurrentFileSize to: \(self.destinationCurrentFileSize)")
         }
     }
     
-    var bytesTransferred = Int(0) {
+    var bytesTransferred = Int64(0) {
         didSet {
             print("Bytes Transferred to: \(self.bytesTransferred)")
         }
@@ -79,6 +80,8 @@ class FileCopyProgressIndicatorController: NSViewController {
             print("Set my destination File to:" + self.destinationCurrentFile)
         }
     }
+    
+    var tmpSize = Int(0)
     
     @IBOutlet var okayButton: NSButton!
     
@@ -113,13 +116,26 @@ class FileCopyProgressIndicatorController: NSViewController {
         
         let foo = self.appDelegate.fileManagerViewController?.calculateSingleFileSize(fileUrl: self.destinationCurrentFile)
         
-        self.destinationCurrentFileSize = foo?["totalSize"] as! Int
+        let tmpSize = self.destinationCurrentFileSize
+        
+        print("Tmp size: \(tmpSize)")
+        
+        let newSize = foo?["totalSize"] as! Int64
+        
+        let thisRun = (newSize - tmpSize)
+        
+        self.destinationCurrentFileSize = newSize
+        
+        if(thisRun > 0) {
+            self.bytesTransferred += thisRun
+            print("Bytes transferred... \(thisRun)")
+        }
         
         print(self.destinationCurrentSize)
         
         let destinationSizeForLabel =  self.appDelegate.fileManagerViewController.bytesToHuman(size: Int64(self.destinationSize))
         
-        let destinationCurrentSizeForLabel =  self.appDelegate.fileManagerViewController.bytesToHuman(size: Int64(self.destinationCurrentFileSize))
+        let destinationCurrentSizeForLabel =  self.appDelegate.fileManagerViewController.bytesToHuman(size: Int64(self.bytesTransferred))
         
         self.fileCopyStatusLabel.stringValue = filesTransferred + " of " + numFilestotal + " / " + destinationCurrentSizeForLabel + " of " + destinationSizeForLabel
     }
@@ -129,19 +145,23 @@ class FileCopyProgressIndicatorController: NSViewController {
         print("Incrementing")
         // }
         
-        self.progress = ceil(Double(Double(self.destinationCurrentSize) / Double(self.destinationSize))*100)
-        
-        DispatchQueue.main.async {
-            self.updateProgressLabel()
-            if(self.progress < 100.0) {
-                self.fileCopyProgressIndicator.doubleValue = Double(self.progress)
-                // self.updateProgressLabel()
-            } else {
-                self.stopTimer()
-                self.fileCopyProgressIndicator.doubleValue = 100.0
-                self.fileCopyProgressIndicator.stopAnimation(nil)
-                // self.fileCopyProgressIndicator.isHidden = true
-                self.okayButton.isHidden = false
+        if(!self.pauseTimer) {
+            
+            
+            self.progress = ceil(Double(Double(self.bytesTransferred) / Double(self.destinationSize))*100)
+            
+            DispatchQueue.main.async {
+                self.updateProgressLabel()
+                if(self.progress < 100.0) {
+                    self.fileCopyProgressIndicator.doubleValue = Double(self.progress)
+                    // self.updateProgressLabel()
+                } else {
+                    self.stopTimer()
+                    self.fileCopyProgressIndicator.doubleValue = 100.0
+                    self.fileCopyProgressIndicator.stopAnimation(nil)
+                    // self.fileCopyProgressIndicator.isHidden = true
+                    self.okayButton.isHidden = false
+                }
             }
         }
     }
@@ -162,9 +182,9 @@ class FileCopyProgressIndicatorController: NSViewController {
         
         
         // DispatchQueue.global(qos: .userInitiated).async {
-            DispatchQueue.main.async {
-                self.fileCopyProgressIndicator.startAnimation(nil)
-         }
+        DispatchQueue.main.async {
+            self.fileCopyProgressIndicator.startAnimation(nil)
+        }
         //}
     }
     

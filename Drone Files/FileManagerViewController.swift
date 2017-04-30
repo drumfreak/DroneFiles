@@ -96,7 +96,7 @@ class FileManagerViewController: NSViewController {
     
     
     func calculateFileSizesFromDestination(fileUrls: Array<Any>) -> NSMutableDictionary {
-        var totalSize = 0
+        var totalSize = Int64(0)
         var totalFiles = 0
         
         let returnDetails = NSMutableDictionary()
@@ -113,8 +113,8 @@ class FileManagerViewController: NSViewController {
                 // print(attributes)
                 
                 
-                // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
-                totalSize += attributes["NSFileSize"] as! Int
+                print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
+                totalSize += attributes["NSFileSize"] as! Int64
                 totalFiles += Int(1)
             } catch _ as NSError {
                 // do nothing...
@@ -158,8 +158,8 @@ class FileManagerViewController: NSViewController {
     
     
     func calculateSingleFileSize(fileUrl: String) -> NSMutableDictionary {
-        var totalSize = 0
-        var totalFiles = 0
+        var totalSize = Int64(0)
+        var totalFiles = Int64(0)
         
         let returnDetails = NSMutableDictionary()
         
@@ -171,11 +171,11 @@ class FileManagerViewController: NSViewController {
         
         do {
             try attributes = FileManager.default.attributesOfItem(atPath: path) as! NSMutableDictionary
-            // print(attributes)
+            print(attributes)
             
             // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
-            totalSize += attributes["NSFileSize"] as! Int
-            totalFiles += Int(1)
+            totalSize += attributes["NSFileSize"] as! Int64
+            totalFiles += Int64(1)
             
             print("Calculating size for \(String(describing: path))")
             print("Calculating size for \(totalSize)")

@@ -279,6 +279,9 @@ class FileManagerOptionsCopyController: NSViewController {
     
     
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
+        
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ fileOperationComplete")
+        
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
         self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
@@ -294,49 +297,50 @@ class FileManagerOptionsCopyController: NSViewController {
     
     
     @IBAction func copyFilesFolder1(_ sender: AnyObject) {
-        let manageFileURLS: NSMutableArray = []
-        let fileUrls = self.receivedFiles as! Array<Any>
-        
-        if(fileUrls.count > 0) {
-            var errors = false
-            DispatchQueue.global(qos: .userInitiated).async {
-                fileUrls.forEach({ m in
-                    let urlPath = m as! String
-                    let url = URL(string: urlPath)
-                    
-                    if(self.copyFileFolder1(url: url!, destination: self.copyToFolder1)) {
-                        manageFileURLS.add(url!)
-                    } else {
-                        errors = true
-                    }
-                })
-                
-                DispatchQueue.main.async {
-                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
-                }
-            }
-            
-            
-        } else {
-            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
-        }
+        let filesToCopy = self.receivedFiles
+        prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder1)
+    }
+    
+
+    @IBAction func copyFilesFolder2(_ sender: AnyObject) {
+        let filesToCopy = self.receivedFiles
+        prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder2)
+    }
+    
+
+    @IBAction func copyFilesFolder3(_ sender: AnyObject) {
+        let filesToCopy = self.receivedFiles
+        prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder3)
     }
     
     
-    
-    @IBAction func copyFilesFolder2(_ sender: AnyObject) {
-        let manageFileURLS: NSMutableArray = []
-        let fileUrls = self.receivedFiles as! Array<Any>
+    @IBAction func copyFilesFolder4(_ sender: AnyObject) {
+        let filesToCopy = self.receivedFiles
+        prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder4)
+    }
 
+    
+    @IBAction func copyFilesFolder5(_ sender: AnyObject) {
+        let filesToCopy = self.receivedFiles
+        prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder5)
+    }
+    
+    func prepareToCopy(filesToCopy: Array<Any>, copyFolder: String) {
+    
+        
+        let manageFileURLS: NSMutableArray = []
+        let fileUrls = filesToCopy
+        
         if(fileUrls.count > 0) {
             
             self.appDelegate.fileCopyProgressView.totalNumfilesTransferred = 0
             
             self.appDelegate.fileCopyProgressView.currentFileNumber = 0
+            self.appDelegate.fileCopyProgressView.bytesTransferred = 0
             
             let fileSizes = self.appDelegate.fileManagerViewController?.calculateFileSizesFromDestination(fileUrls: fileUrls)
             
-            self.appDelegate.fileCopyProgressView.destinationSize = fileSizes?["totalSize"] as! Int
+            self.appDelegate.fileCopyProgressView.destinationSize = fileSizes?["totalSize"] as! Int64
             
             self.appDelegate.fileCopyProgressView.totalNumfiles = fileSizes?["totalFiles"] as! Int
             
@@ -352,8 +356,7 @@ class FileManagerOptionsCopyController: NSViewController {
                     let url = URL(string: urlPath)
                     self.appDelegate.fileCopyProgressView.currentFileNumber += Int(1)
                     
-                    
-                    if(self.copyFileFolder1(url: url!, destination: self.copyToFolder2)) {
+                    if(self.copyFileFolder1(url: url!, destination: copyFolder)) {
                         manageFileURLS.add(url!)
                         self.appDelegate.fileCopyProgressView.totalNumfilesTransferred += Int(1)
                     } else {
@@ -363,106 +366,20 @@ class FileManagerOptionsCopyController: NSViewController {
                     
                     b += Int(1)
                     if(b == fileUrls.count) {
-                       DispatchQueue.main.async {
+                        DispatchQueue.main.async {
                             self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
                         }
                     }
                 })
-               
+                
             }
             
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
         }
-    }
-    
-    
-    
-    @IBAction func copyFilesFolder3(_ sender: AnyObject) {
-        let manageFileURLS: NSMutableArray = []
-        let fileUrls = self.receivedFiles as! Array<Any>
+
         
-        if(fileUrls.count > 0) {
-            var errors = false
-            DispatchQueue.global(qos: .userInitiated).async {
-                fileUrls.forEach({ m in
-                    let urlPath = m as! String
-                    let url = URL(string: urlPath)
-                    
-                    if(self.copyFileFolder1(url: url!, destination: self.copyToFolder3)) {
-                        manageFileURLS.add(url!)
-                    } else {
-                        errors = true
-                    }
-                })
-                DispatchQueue.main.async {
-                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
-                }
-            }
-            
-        } else {
-            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
-        }
-    }
     
-    
-    
-    
-    @IBAction func copyFilesFolder4(_ sender: AnyObject) {
-        let manageFileURLS: NSMutableArray = []
-        let fileUrls = self.receivedFiles as! Array<Any>
-        
-        if(fileUrls.count > 0) {
-            var errors = false
-            DispatchQueue.global(qos: .userInitiated).async {
-                fileUrls.forEach({ m in
-                    let urlPath = m as! String
-                    let url = URL(string: urlPath)
-                    
-                    if(self.copyFileFolder1(url: url!, destination: self.copyToFolder4)) {
-                        manageFileURLS.add(url!)
-                    } else {
-                        errors = true
-                    }
-                })
-                DispatchQueue.main.async {
-                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
-                }
-            }
-            
-        } else {
-            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
-        }
-    }
-    
-    
-    
-    
-    @IBAction func copyFilesFolder5(_ sender: AnyObject) {
-        let manageFileURLS: NSMutableArray = []
-        let fileUrls = self.receivedFiles as! Array<Any>
-        
-        if(fileUrls.count > 0) {
-            var errors = false
-            DispatchQueue.global(qos: .userInitiated).async {
-                fileUrls.forEach({ m in
-                    let urlPath = m as! String
-                    let url = URL(string: urlPath)
-                    
-                    if(self.copyFileFolder1(url: url!, destination: self.copyToFolder5)) {
-                        manageFileURLS.add(url!)
-                    } else {
-                        errors = true
-                    }
-                })
-                DispatchQueue.main.async {
-                    self.fileOperationComplete(manageFileURLS: manageFileURLS, errors: errors)
-                }
-            }
-            
-        } else {
-            showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
-        }
     }
     
     
@@ -486,15 +403,29 @@ class FileManagerOptionsCopyController: NSViewController {
         let destinationURL = URL(string: copyDestination)!
         // let urlPath = getPathFromURL(path: destinationURL.absoluteString)
         
+        self.appDelegate.fileCopyProgressView.pauseTimer = true
         self.appDelegate.fileCopyProgressView.destinationCurrentFile = destinationURL.absoluteString
 
         
-        if(self.doCopyFile(from: url, toUrl: destinationURL)) {
-            print("Succes... file copied")
-            return true
+        if !FileManager.default.fileExists(atPath: getPathFromURL(path: copyDestination)) {
+            
+            self.appDelegate.fileCopyProgressView.destinationCurrentFileSize = Int64(0)
+            self.appDelegate.fileCopyProgressView.pauseTimer = false
+            if(self.doCopyFile(from: url, toUrl: destinationURL)) {
+                print("Succes... file copied")
+                return true
+            } else {
+                print("File Copy Failed")
+                return false
+            }
+            
         } else {
-            print("File Copy Failed")
-            return false
+            
+            let foo = self.appDelegate.fileManagerViewController?.calculateSingleFileSize(fileUrl: destinationURL.absoluteString)
+            self.appDelegate.fileCopyProgressView.destinationCurrentFileSize = Int64(0)
+            self.appDelegate.fileCopyProgressView.bytesTransferred += foo?["totalSize"] as! Int64
+            self.appDelegate.fileCopyProgressView.pauseTimer = false
+            return true
         }
     }
     
