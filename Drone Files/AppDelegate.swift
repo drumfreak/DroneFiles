@@ -39,20 +39,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // let storyboard = NSStoryboard()
     
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
-    
-    
-    
-    
-    
-    // let fileCopyProgressIndicator:FileCopyProgressIndicatorController = NSStoryboard
-    
-    
-    
-    //instantiateViewControllerWithIdentifier("ViewController") as FileCopyProgressIndicatorController
-
-    
-    
-   // @IBOutlet weak var editorTabViewController: EditorTabViewController!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
@@ -62,8 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         notification.informativeText = "Your life will never be the same"
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
-
-        
     }
     
 
