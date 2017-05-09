@@ -84,7 +84,6 @@ class ScreenshotViewController: NSViewController {
         
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
-
         do {
             
             let newDate = self.modificationDate
@@ -108,6 +107,7 @@ class ScreenshotViewController: NSViewController {
             }
         }
     }
+    
     
     // Screen shot stuff
     func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> String? {
@@ -143,14 +143,14 @@ class ScreenshotViewController: NSViewController {
     
     // Screen shot files
     func getScreenShotIncrement(_folder: String) -> String {
-        var incrementer = "00"
+        var incrementer = "0000"
         if FileManager.default.fileExists(atPath: self.screenshotPath) {
             // print("url is a folder url")
             // lets get the folder files
             do {
                 let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.fileBrowserViewController.screenShotFolder)!, includingPropertiesForKeys: nil, options: [])
                 
-                incrementer = String(format: "%02d", files.count)
+                incrementer = String(format: "%04d", files.count)
             } catch let error as NSError {
                 print(error.localizedDescription + "ok")
             }
@@ -168,9 +168,9 @@ class ScreenshotViewController: NSViewController {
     
         let dateformatter = DateFormatter()
         
-        dateformatter.dateFormat = "hhmmss"
+        dateformatter.dateFormat = "HHmm.ss"
         
-        let now = dateformatter.string(from: NSDate() as Date)
+        let now = dateformatter.string(from: self.modificationDate)
         
         self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + ".png"
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName

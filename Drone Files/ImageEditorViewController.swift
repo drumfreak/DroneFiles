@@ -27,6 +27,7 @@ class ImageEditorViewController: NSViewController {
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     var nowPlayingURL: URL!
+    var imageUrl: URL!
     @IBOutlet weak var nowPlayingFile: NSTextField!
     var nowPlayingURLString: String!
     
@@ -51,6 +52,7 @@ class ImageEditorViewController: NSViewController {
     
     func loadImage(_url: URL) {
         // imageView.show
+        self.imageUrl = _url
         imageView.setImageWith(_url)
     }
 }
