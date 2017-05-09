@@ -20,13 +20,14 @@ class FileManagerOptionsOrganizeController: NSViewController {
     @IBOutlet var jpgDirectoryLabel: NSTextField!
     @IBOutlet var rawDirectoryLabel: NSTextField!
     @IBOutlet var screenshotDirectoryLabel: NSTextField!
+    var viewIsLoaded = false
     
     @IBOutlet var numberofFilesLabel: NSButton!
     
     var receivedFiles = NSMutableArray() {
         didSet {
             // print("Received Files on Organize Controller \(receivedFiles)"
-            let count = String(format: "%2d", receivedFiles.count)
+            let count = String(format: "%4d", receivedFiles.count)
             self.numberofFilesLabel.title = count
         }
     }
@@ -38,7 +39,14 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
+        self.viewIsLoaded = true
+        self.setupProjectPaths()
+    }
+    
+    func setupProjectPaths() {
+        if(!self.viewIsLoaded) {
+            return
+        }
         let projectPath = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.projectFolder)
         
         self.projectDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.fileBrowserViewController.projectFolder)
@@ -75,11 +83,6 @@ class FileManagerOptionsOrganizeController: NSViewController {
         let tapGestureFolder5 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath5))
         
         self.rawDirectoryLabel.addGestureRecognizer(tapGestureFolder5)
-        
-        
-        //        let tapGestureFolder6 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath6))
-        //
-        
         
     }
     
@@ -134,7 +137,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                     }
                     
                     if(_extension == "DNG" || _extension == "dng" ||  _extension == "RAW" ||  _extension == "raw") {
-                        manageFileJPG.add(URL(string: urlPath)!)
+                        manageFileRAW.add(URL(string: urlPath)!)
                         skip = true
                     }
                     
@@ -181,8 +184,6 @@ class FileManagerOptionsOrganizeController: NSViewController {
                     if(self.checkFolderAndCreate(folderPath: self.appDelegate.fileBrowserViewController.screenShotFolder)) {
                         manageFileScreenshots.forEach({ m in
                             let url = (m as! URL)
-                            
-                            
                             if(self.organizeScreenShotFile(url: (url))) {
                                 manageFileURLS.add(url)
                             } else {
@@ -219,9 +220,17 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     func organizeMovieFile(url: URL) -> Bool {
         print("Organizing MOVIE ... \(url)")
+        
+        // let url = NSURL(fileURLWithPath: urlPath)
+        let _extension = url.pathExtension
+
+        
         let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.videoFolder)
         
-        var newMovieFile = self.appDelegate.fileBrowserViewController.videoFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".MOV" // for now
+        var newMovieFile = self.appDelegate.fileBrowserViewController.videoFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + "." + _extension
+        
+        
+        //  ".MOV" // for now
         
         newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {
@@ -237,9 +246,12 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func organizeJPGFile(url: URL) -> Bool  {
         print("Organizing JPG ... \(url)")
         
+        // let url = NSURL(fileURLWithPath: urlPath)
+        let _extension = url.pathExtension
+
         let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.jpgFolder)
         
-        var newJPGFile = self.appDelegate.fileBrowserViewController.jpgFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".jpg" // for now
+        var newJPGFile = self.appDelegate.fileBrowserViewController.jpgFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + "." + _extension
         
         newJPGFile = newJPGFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newJPGFile)!)) {
@@ -255,9 +267,11 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func organizeScreenShotFile(url: URL) -> Bool {
         print("Organizing Screenshot ... \(url)")
         
+        let _extension = url.pathExtension
+
         let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.screenShotFolder)
         
-        var newScreenshotFile = self.appDelegate.fileBrowserViewController.screenShotFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".png" // for now
+        var newScreenshotFile = self.appDelegate.fileBrowserViewController.screenShotFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + "." + _extension
         
         newScreenshotFile = newScreenshotFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newScreenshotFile)!)) {
@@ -273,9 +287,11 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func organizeRawFile(url: URL) -> Bool {
         print("Organizing RAW ... \(url)")
         
-        let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.screenShotFolder)
+        let _extension = url.pathExtension
+
+        let increment =  getFileIncrementAtPath(path: self.appDelegate.fileBrowserViewController.rawFolder)
         
-        var newRawFile = self.appDelegate.fileBrowserViewController.screenShotFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + ".dng" // for now
+        var newRawFile = self.appDelegate.fileBrowserViewController.rawFolder + "/" + self.appDelegate.fileBrowserViewController.fileSequenceName + " - " + increment + "." + _extension
         
         newRawFile = newRawFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newRawFile)!)) {
@@ -331,7 +347,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
             do {
                 let files = try FileManager.default.contentsOfDirectory(at: URL(string: Urlpath)!, includingPropertiesForKeys: nil, options: [])
                 
-                incrementer = String(format: "%02d", files.count)
+                incrementer = String(format: "%04d", files.count)
                 
             } catch let error as NSError {
                 print(error.localizedDescription + "ok")

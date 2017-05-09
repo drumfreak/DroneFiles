@@ -18,6 +18,7 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var topView: NSView!
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var splitViewController: SplitViewController!
+    @IBOutlet weak var projectDirectoryLabel: NSTextField!
 
     
     // Directories!
@@ -160,8 +161,44 @@ class FileBrowserViewController: NSViewController {
         self.appDelegate.fileBrowserViewController = self
         
         // writeProjectFile(projectPath: self.outputDirectory)
+        
+        
+        
+        // Click Gestures
+        
+        let tapGestureFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
+        
+        self.folderURLDisplay.addGestureRecognizer(tapGestureFolder1)
+    
+        
+        let tapGestureFolder2 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath2))
+        
+        self.outputDirectoryLabel.addGestureRecognizer(tapGestureFolder2)
+    
+        let tapGestureFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
+        
+        self.projectDirectoryLabel.addGestureRecognizer(tapGestureFolder3)
+        
     }
     
+    
+    
+    func setOpenPath1() {
+        // self.sourceFolderOpened =  URL(string: self.sourceFolderOpened.absoluteString)
+        
+    }
+    
+    
+    func setOpenPath2() {
+        self.sourceFolderOpened = URL(string: self.outputDirectory)
+    }
+    
+    
+    func setOpenPath3() {
+        print("RUNNING");
+        self.sourceFolderOpened = URL(string: self.projectFolder)
+    }
+
     @IBAction func fileBrowserHomeButtonClicked(_ sender: AnyObject?) {
         // print ("Clicked home button")
         
@@ -293,6 +330,10 @@ class FileBrowserViewController: NSViewController {
         } else {
             self.projectFolder = self.outputDirectory
         }
+        
+        self.projectDirectory = urlStringToDisplayPath(input: self.projectFolder)
+        self.projectDirectoryLabel.stringValue = self.projectDirectory
+
         if(self.createProjectSubDirectories) {
             self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
             self.videoClipsFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Video Clips"
@@ -308,7 +349,6 @@ class FileBrowserViewController: NSViewController {
             self.rawFolder = self.projectFolder  + "/"
             self.dngFolder = self.projectFolder  + "/"
         }
-            
         
         self.projectFolder = self.projectFolder.replacingOccurrences(of: " ", with: "%20")
         self.videoFolder = self.videoFolder.replacingOccurrences(of: " ", with: "%20")
@@ -317,6 +357,9 @@ class FileBrowserViewController: NSViewController {
         self.screenShotFolder = self.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
         self.rawFolder = self.rawFolder.replacingOccurrences(of: " ", with: "%20")
         self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
+        
+        self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
+        
         
 //        print("Project Folder: " + self.urlStringToDisplayURLString(input: self.projectFolder))
 //        print("Video Folder: " + self.urlStringToDisplayURLString(input:self.videoFolder))
@@ -353,17 +396,6 @@ class FileBrowserViewController: NSViewController {
         
         
     }
-    
-    
-    
-    // Overrides
-    
-    //    override func keyDown(with event: NSEvent) {
-    //        if (event.keyCode == 53){
-    //            print("ESC KEY hit");
-    //            //do whatever when the s key is pressed
-    //        }
-    //    }
     
     
     func showNotification(messageType: String, customMessage: String) -> Void {

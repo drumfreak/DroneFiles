@@ -1066,6 +1066,7 @@
                         <outlet property="fileSequenceNameTextField" destination="g2k-1R-Mbt" id="WcW-li-ShS"/>
                         <outlet property="folderURLDisplay" destination="OR6-ty-3ok" id="oiA-PN-69b"/>
                         <outlet property="outputDirectoryLabel" destination="1L5-pu-tNF" id="BLg-TL-jZ6"/>
+                        <outlet property="projectDirectoryLabel" destination="6ZB-mO-lG3" id="4Ve-rI-NlZ"/>
                         <outlet property="statusLabel" destination="cW6-yz-d1H" id="Bxi-d2-dqy"/>
                         <outlet property="tableView" destination="aqc-Ti-zl8" id="xxQ-ob-VLa"/>
                     </connections>

@@ -188,7 +188,7 @@ class FileManagerOptionsRenameController: NSViewController {
                         let url = URL(string: urlPath)
                         fileExtension = url?.pathExtension
 
-                       incrementer = String(format: "%02d", i)
+                       incrementer = String(format: "%3d", i)
 
                         var newFilePath = folderPath! + newName + " - " + incrementer + "." + fileExtension!
                         newFilePath = newFilePath.replacingOccurrences(of: " " , with: "%20")
@@ -233,7 +233,7 @@ class FileManagerOptionsRenameController: NSViewController {
                 var i = 1
                 while(pathExists) {
                     var incrementer = ""
-                    incrementer = String(format: "%02d", i)
+                    incrementer = String(format: "%3d", i)
                     
                     newFilePath = folderPath! + newName + " - " + incrementer + "." + fileExtension!
                     newFilePath = newFilePath.replacingOccurrences(of: " " , with: "%20")
