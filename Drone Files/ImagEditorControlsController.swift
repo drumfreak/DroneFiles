@@ -20,6 +20,8 @@ class ImageEditorControllsController: NSViewController {
     var zoomInFactor =  1.414214
     var zoomOutFactor = 0.7071068
     var rotationAngle = 0.0
+    var saveOptions: IKSaveOptions!
+    var saveUrl: URL!
     
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet var imageView: IKImageView!
@@ -45,8 +47,6 @@ class ImageEditorControllsController: NSViewController {
     @IBOutlet var appearanceButton: NSButton!
 
     @IBOutlet var moveButton: NSButton!
-    
-    
     
     @IBAction func rotateLeft(_ sender: AnyObject) {
         print("Hey rotateLeft")
@@ -83,10 +83,17 @@ class ImageEditorControllsController: NSViewController {
         savePanel.canCreateDirectories = true
         savePanel.showsTagField = true
         
-        let fileName = self.appDelegate.imageEditorViewController?.imageUrl?.lastPathComponent
+        let filePath = self.appDelegate.imageEditorViewController?.imageUrl.deletingLastPathComponent()
+        
+        
+        let fileNameNoExtension = self.appDelegate.imageEditorViewController?.imageUrl?.deletingPathExtension()
+        
+        var fileName = fileNameNoExtension?.lastPathComponent
+        
+        fileName = fileName! + " - Edited"
         
         savePanel.nameFieldStringValue = fileName!
-        
+        savePanel.directoryURL = filePath
         
         
         let imageUrl = NSURL.init(string: (self.appDelegate.imageEditorViewController?.imageUrl.absoluteString)!)
@@ -95,9 +102,9 @@ class ImageEditorControllsController: NSViewController {
         
         let imageUTType = CGImageSourceGetType(image!)
         
-        let saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
+        self.saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
         
-        saveOptions?.addAccessoryView(to: savePanel)
+        self.saveOptions?.addAccessoryView(to: savePanel)
         
         
         // [savePanel setNameFieldStringValue:[[_window representedFilename] lastPathComponent]];
@@ -107,6 +114,8 @@ class ImageEditorControllsController: NSViewController {
             if result == NSFileHandlingPanelOKButton {
                 guard let url = savePanel.url else { return }
                 print("SAVE PANEL URL: \(url)")
+                
+                self.saveUrl = url
                 self.saveFile()
             }
         }
@@ -114,6 +123,32 @@ class ImageEditorControllsController: NSViewController {
     
     func saveFile() {
         
+        // get the current image from the image view
+       //  let image = self.appDelegate.imageEditorViewController.imageView.image as! CGImage
+        
+        let image1 = self.imageView.image().takeUnretainedValue()
+        
+        // print(image1 ?? <#default value#>)
+        
+        // let image2 = image1
+        
+       // if (image)
+       // {
+            // use ImageIO to save the image in the user specified format
+   
+            let dest = CGImageDestinationCreateWithURL(self.saveUrl! as CFURL, self.saveOptions.imageUTType! as CFString, 1, nil)
+            
+        
+            if ((dest) != nil)
+            {
+                CGImageDestinationAddImage(dest!, image1, self.saveOptions.imageProperties! as CFDictionary)
+                CGImageDestinationFinalize(dest!)
+        
+               // CGImageDestinationAddImage(dest, image, (__bridge CFDictionaryRef)[_saveOptions imageProperties]);
+                //CGImageDestinationFinalize(dest);
+                // CFRelease(dest);
+            }
+       
         
     }
     
@@ -125,7 +160,7 @@ class ImageEditorControllsController: NSViewController {
     @IBAction func resetImage(_ sender: AnyObject) {
         print("Hey resetImage")
         self.imageView.currentToolMode = IKToolModeNone
-        self.imageView.setRotationAngle(0.0, center: NSPoint(x: 0, y: 0))
+        self.imageView.setRotationAngle(0.0, center: NSPoint(x: 0.0, y: 0.0))
         
         self.imageView.zoomImageToFit(nil)
         

@@ -12,6 +12,8 @@ import AVKit
 import AppKit
 import AVFoundation
 import Quartz
+import Photos
+import PhotosUI
 
 class ImageEditorViewController: NSViewController {
     @IBOutlet var imageView: IKImageView!
