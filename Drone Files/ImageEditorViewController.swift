@@ -16,6 +16,7 @@ import Photos
 import PhotosUI
 
 class ImageEditorViewController: NSViewController {
+    @IBOutlet var scrollView: NSScrollView!
     @IBOutlet var imageView: IKImageView!
     @IBOutlet var imageName: NSTextField!
     @IBOutlet var imageEditorView: NSView!
@@ -40,15 +41,10 @@ class ImageEditorViewController: NSViewController {
         imageView.supportsDragAndDrop = true
         imageView.editable = true
         
+        self.scrollView.hasVerticalScroller = false
+        self.scrollView.hasHorizontalScroller = false
+        
         let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
-        
-//        let red = 0.5;
-//        let green = 0.2;
-//        let blue = 0.4;
-//        let alpha = 0.8;
-       
-       //  let rgb = [NSColor colorWithDeviceRed:red green:green blue:blue alpha:alpha];
-        
         imageView.backgroundColor = rgb
     }
     
@@ -56,5 +52,12 @@ class ImageEditorViewController: NSViewController {
         // imageView.show
         self.imageUrl = _url
         imageView.setImageWith(_url)
+        print("Loaded Image")
+        
+        if(self.appDelegate.imageEditorControlsController.viewIsLoaded) {
+            print("Resetting..")
+            self.appDelegate.imageEditorControlsController.resetImage(self)
+        }
+
     }
 }

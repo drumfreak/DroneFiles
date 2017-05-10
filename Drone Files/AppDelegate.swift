@@ -27,7 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var screenshotViewController: ScreenshotViewController!
     @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
-    
+    // @IBOutlet weak var imageEditorControlsController: ImageEditorControllsController!
+
     @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
     
     @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
@@ -39,6 +40,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // let storyboard = NSStoryboard()
     
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
+    
+    
+    var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as! ImageEditorControllsController
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
