@@ -15,8 +15,7 @@ import AVFoundation
 import Quartz
 
 class ImageEditorControllsController: NSViewController {
-    
-    
+
     var zoomFactor =  0.0
     var rotationAngle = 0.0
     var saveUrl: URL!
@@ -27,7 +26,6 @@ class ImageEditorControllsController: NSViewController {
     
     var isCropping = false
     
-    
     var imageProperties: NSDictionary = Dictionary<String, String>() as NSDictionary
     var imageUTType: String = ""
     var saveOptions: IKSaveOptions = IKSaveOptions()
@@ -37,6 +35,7 @@ class ImageEditorControllsController: NSViewController {
     //var imageProperties;
     @IBOutlet var rotationSlider: NSSlider!
     @IBOutlet var zoomSlider: NSSlider!
+    @IBOutlet var zoomVerticalSlider: NSSlider!
 
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet var imageView: IKImageView!
@@ -95,6 +94,10 @@ class ImageEditorControllsController: NSViewController {
     @IBAction func cropImage(_ sender: AnyObject) {
         print("Hey cropImage")
         if(self.isCropping) {
+            self.imageView.crop(self)
+            self.imageView.zoomImageToFit(nil)
+            self.rotationAngle = 0.0
+            self.imageRotated(by: CGFloat(self.rotationAngle))
             self.imageView.currentToolMode = IKToolModeNone
             self.isCropping = false
         } else {
@@ -123,13 +126,28 @@ class ImageEditorControllsController: NSViewController {
     @IBAction func zoomSliderChanged(_ sender: NSSlider) {
         // let slider = sender as! NSSlider
         print(sender.doubleValue)
-        self.rotationAngle = sender.doubleValue
-        self.imageView.currentToolMode = IKToolModeRotate
-        self.imageRotated(by: CGFloat(self.rotationAngle))
+        self.zoomFactor = sender.doubleValue
+        
+        self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(self.imageView.imageSize().width / 2), y: CGFloat(self.imageView.imageSize().height / 2)))
         self.imageView.currentToolMode = IKToolModeMove
-        self.imageView.zoomImageToFit(nil)
+        self.zoomVerticalSlider.doubleValue = self.zoomFactor
+        // self.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
     }
+    
+    @IBAction func zoomVerticalSliderChanged(_ sender: NSSlider) {
+        // let slider = sender as! NSSlider
+        print(sender.doubleValue)
+        self.zoomFactor = sender.doubleValue
+        
+        self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(self.imageView.imageSize().width / 2), y: CGFloat(self.imageView.imageSize().height / 2)))
+        self.imageView.currentToolMode = IKToolModeMove
+        self.zoomSlider.doubleValue = self.zoomFactor
+
+        // self.imageView.zoomImageToFit(nil)
+        print("Setting Rotation to: \(self.rotationAngle)")
+    }
+
     
     @IBAction func saveImage(_ sender: AnyObject) {
         print("Hey saveImage")
@@ -213,11 +231,16 @@ class ImageEditorControllsController: NSViewController {
         self.imageView.currentToolMode = IKToolModeMove
         self.zoomFactor = self.zoomFactor + self.zoomInFactor
         self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(0), y: CGFloat(self.imageView.imageSize().height / 3)))
+        
+        
+        self.zoomSlider.doubleValue = self.zoomFactor
+
     }
     
     @IBAction func zoomOut(_ sender: AnyObject) {
         self.zoomFactor = self.zoomFactor - self.zoomOutFactor
         self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(self.imageView.imageSize().width / 2), y: CGFloat(self.imageView.imageSize().height / 2)))
+        self.zoomSlider.doubleValue = self.zoomFactor
     }
     
     
@@ -360,6 +383,9 @@ class ImageEditorControllsController: NSViewController {
             break
         }
         
+        self.zoomSlider.doubleValue = self.zoomFactor
+        self.zoomVerticalSlider.doubleValue = self.zoomFactor
+
     }
     
     

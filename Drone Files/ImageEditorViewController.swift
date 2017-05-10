@@ -51,8 +51,7 @@ class ImageEditorViewController: NSViewController {
         
         let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
         imageView.backgroundColor = rgb
- 
-        
+
     }
     
     func loadImage(_url: URL) {

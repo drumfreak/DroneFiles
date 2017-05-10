@@ -2732,19 +2732,11 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-zM-PyT">
-                                <rect key="frame" x="220" y="226" width="334" height="19"/>
+                                <rect key="frame" x="220" y="215" width="423" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" alignment="left" minValue="-180" maxValue="180" tickMarkPosition="above" sliderType="linear" id="gZE-II-TSV"/>
                                 <connections>
                                     <action selector="rotationSliderChanged:" target="HxO-aJ-Lgv" id="6tz-rI-K9e"/>
-                                </connections>
-                            </slider>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgu-W6-DEP">
-                                <rect key="frame" x="219" y="147" width="334" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" alignment="left" minValue="-180" maxValue="180" tickMarkPosition="above" sliderType="linear" id="EBd-L2-mRx"/>
-                                <connections>
-                                    <action selector="zoomSliderChanged:" target="HxO-aJ-Lgv" id="tZ4-DT-td9"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yF9-W9-2ch">
@@ -2800,6 +2792,22 @@ Gw
                                     <action selector="shareFacebookWithSender:" target="HxO-aJ-Lgv" id="2HT-oJ-Qvd"/>
                                 </connections>
                             </button>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgu-W6-DEP">
+                                <rect key="frame" x="220" y="143" width="423" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="EBd-L2-mRx"/>
+                                <connections>
+                                    <action selector="zoomSliderChanged:" target="HxO-aJ-Lgv" id="tZ4-DT-td9"/>
+                                </connections>
+                            </slider>
+                            <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSp-pL-wKb">
+                                <rect key="frame" x="671" y="142" width="19" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="right" sliderType="linear" id="Otv-jb-sJW"/>
+                                <connections>
+                                    <action selector="zoomVerticalSliderChanged:" target="HxO-aJ-Lgv" id="Q3R-aL-r5O"/>
+                                </connections>
+                            </slider>
                         </subviews>
                     </view>
                     <connections>
@@ -2815,7 +2823,8 @@ Gw
                         <outlet property="saveButton" destination="4RU-9X-9pV" id="gft-jq-a4Z"/>
                         <outlet property="zoomInButton" destination="sJT-zm-XOe" id="5zm-5y-6W7"/>
                         <outlet property="zoomOutButton" destination="3Dy-gz-Wnl" id="0cm-sa-yeD"/>
-                        <outlet property="zoomSlider" destination="cgu-W6-DEP" id="cXf-QW-hAc"/>
+                        <outlet property="zoomSlider" destination="cgu-W6-DEP" id="FhF-WW-DL4"/>
+                        <outlet property="zoomVerticalSlider" destination="gSp-pL-wKb" id="l3D-y6-kqg"/>
                     </connections>
                 </viewController>
                 <customObject id="dv0-9k-nOr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
