@@ -34,6 +34,11 @@ class ImageEditorViewController: NSViewController {
     @IBOutlet weak var nowPlayingFile: NSTextField!
     var nowPlayingURLString: String!
     
+    
+    var imageProperties: NSDictionary = Dictionary<String, String>() as NSDictionary
+    var imageUTType: String = ""
+    var saveOptions: IKSaveOptions = IKSaveOptions()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("Loaded Image Editor")
@@ -46,6 +51,8 @@ class ImageEditorViewController: NSViewController {
         
         let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
         imageView.backgroundColor = rgb
+ 
+        
     }
     
     func loadImage(_url: URL) {
@@ -54,10 +61,36 @@ class ImageEditorViewController: NSViewController {
         imageView.setImageWith(_url)
         print("Loaded Image")
         
-        if(self.appDelegate.imageEditorControlsController.viewIsLoaded) {
+        if(self.appDelegate.imageEditorControlsController?.viewIsLoaded)! {
             print("Resetting..")
-            self.appDelegate.imageEditorControlsController.resetImage(self)
+            self.appDelegate.imageEditorControlsController?.resetImage(self)
         }
+        
+        self.imageView.zoomImageToFit(self)
+
 
     }
+    
+    
+    
+    
+    
+//    func loadImage(_url: URL) {
+//    
+//        self.imageUrl = _url
+//        
+//        let image = CGImageSourceCreateWithURL(_url as CFURL, nil)
+//        
+//        let imageUTType = CGImageSourceGetType(image!)
+//
+//        let imageProps = CGImageSourceCopyProperties(image!, imageProperties)
+//        
+//        self.imageView.setImage(image, imageProperties: imageProps as! [AnyHashable : Any])
+//        
+//        
+//        
+//        self.saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
+//
+//    }
+
 }

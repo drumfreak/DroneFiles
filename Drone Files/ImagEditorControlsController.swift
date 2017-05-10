@@ -17,9 +17,8 @@ import Quartz
 class ImageEditorControllsController: NSViewController {
     
     
-    var zoomFactor =  0.5
+    var zoomFactor =  0.0
     var rotationAngle = 0.0
-    var saveOptions: IKSaveOptions!
     var saveUrl: URL!
     var viewIsLoaded = false
     
@@ -29,8 +28,16 @@ class ImageEditorControllsController: NSViewController {
     var isCropping = false
     
     
-    //var imageProperties;
+    var imageProperties: NSDictionary = Dictionary<String, String>() as NSDictionary
+    var imageUTType: String = ""
+    var saveOptions: IKSaveOptions = IKSaveOptions()
+
     
+    
+    //var imageProperties;
+    @IBOutlet var rotationSlider: NSSlider!
+    @IBOutlet var zoomSlider: NSSlider!
+
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
     @IBOutlet var imageView: IKImageView!
     
@@ -67,6 +74,11 @@ class ImageEditorControllsController: NSViewController {
         self.imageView = self.appDelegate.imageEditorViewController?.imageView
         self.appDelegate.imageEditorControlsController = self
         
+        
+        self.imageView.delegate = self
+        //        [_imageView zoomImageToFit: self];
+        
+        
     }
     
     override func viewDidAppear() {
@@ -96,6 +108,28 @@ class ImageEditorControllsController: NSViewController {
         self.imageView.currentToolMode = IKToolModeMove
     }
     
+    @IBAction func rotationSliderChanged(_ sender: NSSlider) {
+       // let slider = sender as! NSSlider
+        print(sender.doubleValue)
+        self.rotationAngle = sender.doubleValue
+        self.imageView.currentToolMode = IKToolModeRotate
+        self.imageRotated(by: CGFloat(self.rotationAngle))
+        self.imageView.currentToolMode = IKToolModeMove
+        self.imageView.zoomImageToFit(nil)
+        print("Setting Rotation to: \(self.rotationAngle)")
+    }
+    
+    
+    @IBAction func zoomSliderChanged(_ sender: NSSlider) {
+        // let slider = sender as! NSSlider
+        print(sender.doubleValue)
+        self.rotationAngle = sender.doubleValue
+        self.imageView.currentToolMode = IKToolModeRotate
+        self.imageRotated(by: CGFloat(self.rotationAngle))
+        self.imageView.currentToolMode = IKToolModeMove
+        self.imageView.zoomImageToFit(nil)
+        print("Setting Rotation to: \(self.rotationAngle)")
+    }
     
     @IBAction func saveImage(_ sender: AnyObject) {
         print("Hey saveImage")
@@ -127,7 +161,7 @@ class ImageEditorControllsController: NSViewController {
         
         self.saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
         
-        self.saveOptions?.addAccessoryView(to: savePanel)
+        self.saveOptions.addAccessoryView(to: savePanel)
         
         
         // [savePanel setNameFieldStringValue:[[_window representedFilename] lastPathComponent]];
@@ -143,6 +177,7 @@ class ImageEditorControllsController: NSViewController {
             }
         }
     }
+    
     
     func saveFile() {
         
@@ -207,9 +242,7 @@ class ImageEditorControllsController: NSViewController {
         self.imageRotated(by: CGFloat(self.rotationAngle))
         self.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
-        
     }
-    
     
     @IBAction func rotateLeft1(_ sender: AnyObject) {
         self.imageView.currentToolMode = IKToolModeRotate
@@ -217,7 +250,6 @@ class ImageEditorControllsController: NSViewController {
         self.imageRotated(by: CGFloat(self.rotationAngle))
         self.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
-        
     }
     
     @IBAction func rotateRight1(_ sender: AnyObject) {
@@ -226,7 +258,6 @@ class ImageEditorControllsController: NSViewController {
         self.imageRotated(by: CGFloat(self.rotationAngle))
         self.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
-        
     }
     
     
@@ -237,7 +268,6 @@ class ImageEditorControllsController: NSViewController {
         self.imageView.currentToolMode = IKToolModeMove
         self.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
-        
     }
     
     @IBAction func rotateRight90(_ sender: AnyObject) {
@@ -247,30 +277,31 @@ class ImageEditorControllsController: NSViewController {
         self.imageView.currentToolMode = IKToolModeMove
         self.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
-        
     }
     
     func imageRotated(by degrees: CGFloat){
         let angle = CGFloat(-(degrees / 180) * CGFloat(Double.pi))
         print("Setting Angle to: \(angle)")
-        
         self.imageView.rotationAngle = angle
+        self.rotationSlider.doubleValue = self.rotationAngle
     }
     
     
     
-    @IBAction func switchToolMode(_ sender: AnyObject) {
+    @IBAction func switchToolMode(sender: AnyObject) {
         
         // switch the tool mode...
         
         var newTool = Int(0)
         
         if(sender.isKind(of: NSSegmentedControl.self)) {
-            newTool = sender.selectedSegment
+            newTool = (sender.selectedSegment)!
         } else {
-            newTool = sender.tag
+            newTool = (sender.tag)!
         }
         
+        print("SWITCHING TO NEW TOOL \(newTool)")
+            
         switch newTool {
             case 0:
                 self.imageView.currentToolMode = IKToolModeMove
@@ -288,23 +319,90 @@ class ImageEditorControllsController: NSViewController {
                 self.imageView.currentToolMode = IKToolModeAnnotate
             break
             default:
-            
+                self.imageView.currentToolMode = IKToolModeNone
+
             break
     
         }
     }
     
     
-}
-//
-//extension NSImage {
-//    func imageRotated(by degrees: CGFloat) -> NSImage {
-//        let imageRotator = IKImageView()
-//        var imageRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
-//        let cgImage = self.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-//        imageRotator.setImage(cgImage, imageProperties: [:])
-//        imageRotator.rotationAngle = CGFloat(-(degrees / 180) * CGFloat(M_PI))
-//        let rotatedCGImage = imageRotator.image().takeUnretainedValue()
-//        return NSImage(cgImage: rotatedCGImage, size: NSSize.zero)
+    func windowDidResize (notification: NSNotification?) {
+        self.imageView.zoomImageToFit(self)
+    }
+    
+    
+    /* IBActions. */
+    @IBAction func doZoom (sender: AnyObject) {
+        var zoom = Int()
+        
+        if sender.isKind(of: NSSegmentedControl.self) {
+            zoom = sender.selectedSegment
+        } else {
+            zoom = (sender.tag)!
+        }
+        
+        switch zoom {
+        case 0:
+            self.zoomFactor = Double(self.imageView.zoomFactor + CGFloat(0.02))
+            self.imageView.zoomFactor = CGFloat(self.zoomFactor)
+            
+            self.imageView.zoomOut(self)
+        case 1:
+            self.zoomFactor = Double(self.imageView.zoomFactor - CGFloat(0.02))
+            self.imageView.zoomFactor = CGFloat(self.zoomFactor)
+            self.imageView.zoomIn(self)
+        case 2:
+            self.imageView.zoomImageToActualSize(self)
+        case 3:
+            self.imageView.zoomImageToFit(self)
+        default:
+            break
+        }
+        
+    }
+    
+    
+//    - (IBAction)shareOnTwitter:(id)sender
+//    {
+//    // Items to share
+//    NSAttributedString *text = [self.textView attributedString];
+//    NSImage *image = [self.imageView image];
+//    NSArray * shareItems = [NSArray arrayWithObjects:text, image, nil];
+//    
+//    NSSharingService *service = [NSSharingService sharingServiceNamed:NSSharingServiceNamePostOnTwitter];
+//    service.delegate = self;
+//    [service performWithItems:shareItems];
 //    }
-//}
+    
+    @IBAction func shareAirdrop(sender: AnyObject?) {
+        let attr = NSMutableAttributedString(string: "foo")
+        let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
+        
+        let shareItems: NSArray? = NSArray(objects: attr,image!, "")
+    
+        let service = NSSharingService(named: NSSharingServiceNameSendViaAirDrop)!
+        
+        service.perform(withItems: shareItems as! [Any])
+        
+    }
+
+    @IBAction func shareFacebook(sender: AnyObject?) {
+        
+        let fileNameNoExtension = self.appDelegate.imageEditorViewController?.imageUrl?.deletingPathExtension()
+        
+        let imageName = fileNameNoExtension?.lastPathComponent
+        
+        let attr = NSMutableAttributedString(string: imageName!)
+    
+        let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
+        
+        let shareItems: NSArray? = NSArray(objects: attr,image!, "")
+        
+        let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
+        
+        picker.show(relativeTo: sender!.bounds, of: sender as! NSView, preferredEdge: NSRectEdge.minY)
+    }
+    
+    
+}

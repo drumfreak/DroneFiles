@@ -40,7 +40,6 @@ class KeyCaptureWindow: NSWindow {
     override func keyDown(with event: NSEvent) {
         // Swift.print("HAYYYY")
         
-        Swift.print(event.keyCode)
         
        
         if(event.keyCode == 33) { // Trim IN
@@ -63,6 +62,8 @@ class KeyCaptureWindow: NSWindow {
                 return
             }
         }
+        Swift.print(event.keyCode)
+
         super.keyDown(with: event)
         
        //  appDelegate.
