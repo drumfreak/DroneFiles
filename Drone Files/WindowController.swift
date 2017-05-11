@@ -26,9 +26,6 @@ import Cocoa
 class WindowController: NSWindowController {
     @IBOutlet weak var keyWindow: KeyCaptureWindow!
     
-//override func keyDown(with event: NSEvent) {
-//        super.keyDown(with: event)
-//        print("Caught a key down: \(event.keyCode)!")
-//    }
+    
 
 }

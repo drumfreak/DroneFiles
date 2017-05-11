@@ -615,41 +615,73 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Video Editor" id="c1S-Js-uPc" userLabel="Video Editor">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Video Editor" id="bE9-R6-gBC">
+                                    <items>
+                                        <menuItem title="Take Screenshot" keyEquivalent="G" id="Edm-fs-YRA">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="takeScreenShotADWithSender:" target="Voe-Tx-rLC" id="L7D-WP-BP0"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Set Trim In" keyEquivalent="[" id="1d5-s6-akh">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setVideoTrimInADWithSender:" target="Voe-Tx-rLC" id="A0p-ae-imE"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Set Trim Out" keyEquivalent="]" id="dOZ-6F-isF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setVideoTrimOutADWithSender:" target="Voe-Tx-rLC" id="ghN-li-wdx"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Reset Trim" keyEquivalent="]" id="Phk-Yy-jLv" userLabel="Reset Trim">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Image Editor" id="lb9-Vk-Ju5" userLabel="Image Editor">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Image Editor" id="G5H-QV-4Mo" userLabel="Image Editor">
                                     <items>
-                                        <menuItem title="Hand Tool" id="myo-kx-rZY">
+                                        <menuItem title="Hand Tool" keyEquivalent="M" id="myo-kx-rZY">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="switchToolModeWithSender:" target="Ady-hI-5gd" id="kZc-Al-xPw"/>
+                                                <action selector="switchToolModeADWithSender:" target="Voe-Tx-rLC" id="1H7-im-n7A"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Selection" tag="1" id="5ii-j8-Fnv" userLabel="Selection">
+                                        <menuItem title="Selection" tag="1" keyEquivalent="S" id="5ii-j8-Fnv" userLabel="Selection">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="switchToolModeWithSender:" target="Ady-hI-5gd" id="hoZ-2X-Lqp"/>
+                                                <action selector="switchToolModeADWithSender:" target="Voe-Tx-rLC" id="zJu-NI-wCP"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Crop" tag="2" alternate="YES" id="Tjb-Wu-tEA" userLabel="Crop">
-                                            <connections>
-                                                <action selector="switchToolModeWithSender:" target="Ady-hI-5gd" id="KuX-Ah-Wef"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Item" tag="3" id="Ne3-fh-rgi" userLabel="Item">
+                                        <menuItem title="Crop" tag="2" keyEquivalent="C" id="Tjb-Wu-tEA" userLabel="Crop">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="switchToolModeWithSender:" target="Ady-hI-5gd" id="VlL-nL-bff"/>
+                                                <action selector="switchToolModeADWithSender:" target="Voe-Tx-rLC" id="lcb-jn-whz"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Rotate" tag="4" id="HvE-4E-lu4" userLabel="Rotate">
+                                        <menuItem title="Annotate" tag="3" id="Ne3-fh-rgi" userLabel="Item">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="switchToolModeWithSender:" target="Ady-hI-5gd" id="CUd-MT-tZF"/>
+                                                <action selector="switchToolModeADWithSender:" target="Voe-Tx-rLC" id="MOG-x8-33R"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Rotate" tag="4" keyEquivalent="R" id="HvE-4E-lu4" userLabel="Rotate">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="switchToolModeADWithSender:" target="Voe-Tx-rLC" id="v0f-lf-wEk"/>
                                             </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
+                                <connections>
+                                    <action selector="switchToolModeADWithSender:" target="Voe-Tx-rLC" id="2m7-1s-gHQ"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -690,7 +722,7 @@
                             </menuItem>
                         </items>
                         <connections>
-                            <outlet property="delegate" destination="hnw-xV-0zn" id="1yy-Yu-gwG"/>
+                            <outlet property="delegate" destination="Voe-Tx-rLC" id="D2D-je-tm2"/>
                         </connections>
                     </menu>
                     <connections>
@@ -699,8 +731,9 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Drone_Files" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="eHW-mk-Vk8"/>
             </objects>
-            <point key="canvasLocation" x="317" y="-1888"/>
+            <point key="canvasLocation" x="439" y="-1935"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="w3e-zM-wEa">
@@ -1184,7 +1217,7 @@
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
             <objects>
-                <viewController id="tOh-RK-Pxk" customClass="VideoPlayerControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="videoPlayerControlsController" id="tOh-RK-Pxk" customClass="VideoPlayerControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="RqY-fb-uNe">
                         <rect key="frame" x="0.0" y="0.0" width="781" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1328,6 +1361,17 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="peS-FD-obc">
+                                        <rect key="frame" x="14" y="28" width="85" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eYT-88-UhA">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="shareFacebookWithSender:" target="tOh-RK-Pxk" id="2Ng-A7-1iE"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwr-Vw-bfO">
@@ -1462,7 +1506,7 @@ Gw
         <!--Video Player-->
         <scene sceneID="NSP-20-XAr">
             <objects>
-                <viewController title="Video Editor" id="MAv-UR-Xgu" userLabel="Video Player" customClass="VideoPlayerViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Video Editor" storyboardIdentifier="videoPlayerViewController" id="MAv-UR-Xgu" userLabel="Video Player" customClass="VideoPlayerViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="e5W-hb-WNW">
                         <rect key="frame" x="0.0" y="0.0" width="759" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1583,7 +1627,7 @@ Gw
                                             <segue destination="HxO-aJ-Lgv" kind="embed" id="6lq-76-fu3"/>
                                         </connections>
                                     </containerView>
-                                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltj-hA-ODY">
+                                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="ltj-hA-ODY">
                                         <rect key="frame" x="0.0" y="268" width="759" height="429"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="i3i-75-yf5">
@@ -1591,11 +1635,11 @@ Gw
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="35o-Cx-gdG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="761" height="430"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="759" height="429"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <ikImageView wantsLayer="YES" fixedFrame="YES" autoresizes="NO" editable="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Nv-Id-8do" customClass="IKimageView">
-                                                            <rect key="frame" x="0.0" y="2" width="763" height="431"/>
+                                                        <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" autoresizes="NO" editable="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Nv-Id-8do">
+                                                            <rect key="frame" x="0.0" y="0.0" width="759" height="429"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         </ikImageView>
@@ -1603,7 +1647,9 @@ Gw
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                         </clipView>
+                                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="yfX-mR-vKx">
                                             <rect key="frame" x="-100" y="-100" width="757" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2004,10 +2050,21 @@ AAAAAAEGA
                                             <action selector="organizeFiles:" target="r52-TK-IfG" id="zMh-Wi-xSF"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tIT-zh-JEM">
-                                        <rect key="frame" x="163" y="294" width="27" height="20"/>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgd-A4-ecX">
+                                        <rect key="frame" x="210" y="287" width="85" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="inline" title="23" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="8H2-Js-V9N">
+                                        <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GR2-wX-9bq">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="shareMultipleFilesWithSender:" target="r52-TK-IfG" id="37L-Ic-iWA"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTn-2S-g50">
+                                        <rect key="frame" x="163" y="291" width="27" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="inline" title="23" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="NNC-0a-ZVX">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold"/>
                                         </buttonCell>
@@ -2018,7 +2075,7 @@ AAAAAAEGA
                     </view>
                     <connections>
                         <outlet property="jpgDirectoryLabel" destination="rpq-Kd-oHR" id="blN-0h-lBK"/>
-                        <outlet property="numberofFilesLabel" destination="tIT-zh-JEM" id="fI1-2Z-NBJ"/>
+                        <outlet property="numberofFilesLabel" destination="BTn-2S-g50" id="7W4-Sh-QnU"/>
                         <outlet property="projectDirectoryLabel" destination="n47-mn-QY9" id="7Wi-NN-jkV"/>
                         <outlet property="rawDirectoryLabel" destination="tDM-FR-aLf" id="vAT-Wb-S0Y"/>
                         <outlet property="screenshotDirectoryLabel" destination="JLY-CA-O8G" id="cTY-La-C4V"/>
@@ -2088,6 +2145,17 @@ AAAAAAEGA
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold"/>
                                         </buttonCell>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gyq-B5-cxr">
+                                        <rect key="frame" x="175" y="289" width="85" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="292-E1-Xgr">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="shareMultipleFilesWithSender:" target="8CI-46-DGo" id="Skz-lL-VZT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </customView>
@@ -2288,7 +2356,7 @@ AAAAAAEGA
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghi-br-TIV">
-                                        <rect key="frame" x="209" y="295" width="373" height="17"/>
+                                        <rect key="frame" x="413" y="304" width="373" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Total Size: 0MB - Total Files: 0 Files" id="dlC-TK-Hqf">
                                             <font key="font" metaFont="system"/>
@@ -2296,6 +2364,17 @@ AAAAAAEGA
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8V-Et-IRP">
+                                        <rect key="frame" x="164" y="287" width="85" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6DM-Yl-79F">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="shareMultipleFilesWithSender:" target="WaG-6y-KMj" id="8yH-h9-VcR"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>
@@ -2461,6 +2540,17 @@ AAAAAAEGA
                                             <action selector="setRenameSequence:" target="Kvz-7t-JNd" id="Q4C-Ok-NWl"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VGJ-at-9LN">
+                                        <rect key="frame" x="209" y="287" width="85" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wcZ-PM-b9a">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="shareMultipleFilesWithSender:" target="Kvz-7t-JNd" id="VT2-ny-xuZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>
@@ -2524,6 +2614,17 @@ AAAAAAEGA
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jZ6-Bh-Va2">
+                                        <rect key="frame" x="182" y="287" width="85" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HHy-m1-s4D">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="shareMultipleFilesWithSender:" target="DNt-FA-qsm" id="4cA-Ii-dmr"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
                         </subviews>

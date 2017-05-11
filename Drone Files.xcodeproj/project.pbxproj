@@ -10,6 +10,7 @@
 		1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267A1EA9B450004CA3E5 /* EditorViewController.swift */; };
 		1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */; };
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
+		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -61,6 +62,7 @@
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -151,7 +153,10 @@
 				185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */,
 				185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */,
 				185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */,
+				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
+				18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */,
 				18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */,
+				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
 				18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */,
 			);
 			name = "File Manager";
@@ -183,13 +188,11 @@
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
 				187843A81EB3CE8300BCD214 /* Video Player */,
 				18A483031EAFFE8B007F735B /* File Manager */,
-				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
-				18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
-				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
 				189D40BA1EC244D700E1298C /* Image Editor */,
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
+				1836DB801EC4CB250000F749 /* MenuController.swift */,
 				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
 				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
 				185F4C351EB124440046C452 /* Window.swift */,
@@ -380,6 +383,7 @@
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
+				1836DB811EC4CB250000F749 /* MenuController.swift in Sources */,
 				187843AC1EB4F78200BCD214 /* FileCopyProgressIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

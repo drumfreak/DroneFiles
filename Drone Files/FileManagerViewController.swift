@@ -228,7 +228,6 @@ class FileManagerViewController: NSViewController {
             let _extension = url.pathExtension
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
-                
             }
             
             if(_extension == "JPG" || _extension == "jpg" || _extension == "DNG" || _extension == "dng" || _extension == "png" || _extension == "PNG") {
@@ -379,6 +378,25 @@ class FileManagerViewController: NSViewController {
         path = path.replacingOccurrences(of: "%20" , with: " ")
         return path
     }
+    
+    
+    
+    
+    func shareMultipleFiles(receivedFiles: Array<Any>, s: AnyObject?) {
+        
+        let shareItems: NSMutableArray = []
+        
+        receivedFiles.forEach({ m in
+            let urlPath = m as! String
+            let url = NSURL(string: urlPath)
+            shareItems.add(url!)
+        })
+        
+        let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
+        
+        picker.show(relativeTo: s!.bounds, of: s as! NSView, preferredEdge: NSRectEdge.minY)
+    }
+
     
     
     

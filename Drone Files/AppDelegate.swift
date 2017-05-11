@@ -8,20 +8,25 @@
 
 import Cocoa
 import AVFoundation
+import Quartz
+
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var keyWindow: NSWindow = KeyCaptureWindow()
     
+    @IBOutlet var window: NSWindow!
+
+    
     @IBOutlet var editorTabViewController: EditorTabViewController!
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
 
-    @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
+    // @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
     @IBOutlet var videoSplitViewController: VideoSplitViewController!
-    @IBOutlet var videoPlayerControlsController: VideoPlayerControllsController!
+    // @IBOutlet var videoPlayerControlsController: VideoPlayerControllsController!
 
     
     @IBOutlet var screenshotViewController: ScreenshotViewController!
@@ -41,6 +46,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
+    @IBOutlet var videoPlayerControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerControlsController") as? VideoPlayerControllsController
+    
+    @IBOutlet weak var videoPlayerViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerViewController") as? VideoPlayerViewController
+
     
      @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
 
@@ -48,12 +57,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         
         let notification = NSUserNotification()
+        // notification.
         notification.title = "Welcome to DroneFiles!"
         notification.informativeText = "Your life will never be the same"
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
     }
-    
+
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
@@ -155,6 +165,66 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // If we got here, it is time to quit.
         return .terminateNow
     }
+    
+    
+    
+    
+    
+    
+    @IBAction func switchToolModeAD(sender: AnyObject) {
+        // switch the tool mode...
+        
+        var newTool = Int(0)
+        
+        if(sender.isKind(of: NSSegmentedControl.self)) {
+            newTool = (sender.selectedSegment)!
+        } else {
+            newTool = (sender.tag)!
+        }
+    
+        switch newTool {
+        case 0:
+            self.imageEditorControlsController?.imageView?.currentToolMode = IKToolModeMove
+            break
+        case 1:
+            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeSelect
+            break
+        case 2:
+            self.imageEditorControlsController?.cropImage(self)
+            
+            break
+        case 3:
+            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeRotate
+            break;
+        case 4:
+           self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeAnnotate
+            break
+        default:
+            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeNone
+            break
+            
+        }
+    }
+    
+    
+    @IBAction func takeScreenShotAD(sender: AnyObject) {
+        self.videoPlayerControlsController?.takeScreenshot(self);
+    }
+
+
+    
+    @IBAction func setVideoTrimInAD(sender: AnyObject) {
+        self.videoPlayerControlsController?.setTrimInFromKeyboard()
+
+    }
+
+    
+    
+    @IBAction func setVideoTrimOutAD(sender: AnyObject) {
+        self.videoPlayerControlsController?.setTrimOutFromKeyboard()
+    }
+
+    
 }
 
 extension Array {

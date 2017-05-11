@@ -15,7 +15,14 @@ import Quartz
 import Photos
 import PhotosUI
 
+
+
 class ImageEditorViewController: NSViewController {
+    
+    var menuItem : NSMenuItem = NSMenuItem()
+    var mainMenu = NSMenu()
+    
+    
     @IBOutlet var scrollView: NSScrollView!
     @IBOutlet var imageView: IKImageView!
     @IBOutlet var imageName: NSTextField!
@@ -51,17 +58,26 @@ class ImageEditorViewController: NSViewController {
         
         let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
         imageView.backgroundColor = rgb
+   
 
     }
+    
+        
+    func setWindowVisible(sender : AnyObject?) {
+        // self.window!.orderFront(self)
+        
+        //print("FUCK");
+    }
+    
     
     func loadImage(_url: URL) {
         // imageView.show
         self.imageUrl = _url
         imageView.setImageWith(_url)
-        print("Loaded Image")
+        //print("Loaded Image")
         
         if(self.appDelegate.imageEditorControlsController?.viewIsLoaded)! {
-            print("Resetting..")
+            //print("Resetting..")
             self.appDelegate.imageEditorControlsController?.resetImage(self)
         }
         

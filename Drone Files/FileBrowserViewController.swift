@@ -475,13 +475,16 @@ class FileBrowserViewController: NSViewController {
                 itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
-                self.appDelegate.videoPlayerViewController.VideoEditView.isHidden = false;
-                self.appDelegate.videoPlayerControlsController.nowPlayingFile.stringValue = item.name
-                self.appDelegate.videoPlayerViewController.nowPlayingURL = (item.url as URL)
+                self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false;
+                self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
                 
-                self.appDelegate.videoPlayerControlsController.nowPlayingURLString = itemUrl
+                 self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
                 
-                self.appDelegate.videoPlayerViewController.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
+                self.appDelegate.videoPlayerViewController?.nowPlayingURL = (item.url as URL)
+                
+                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = itemUrl
+                
+                self.appDelegate.videoPlayerViewController?.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
                 
                 
             } else {

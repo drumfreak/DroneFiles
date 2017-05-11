@@ -32,7 +32,7 @@ class EditorViewController: NSViewController {
         print("SEGUE");
         print(segue.identifier!)
         if segue.identifier == "videoPlayerSegue" {
-            self.appDelegate.videoPlayerViewController = segue.destinationController as! VideoPlayerViewController
+            self.appDelegate.videoPlayerViewController = segue.destinationController as? VideoPlayerViewController
             print ("Videos Loaded by segue");
         }
         

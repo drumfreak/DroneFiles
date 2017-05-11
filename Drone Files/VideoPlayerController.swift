@@ -249,9 +249,9 @@ class VideoPlayerViewController: NSViewController {
             
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             if(newRate != 0.0) {
-                self.appDelegate.videoPlayerControlsController.startTimer()
+                self.appDelegate.videoPlayerControlsController?.startTimer()
             } else {
-                self.appDelegate.videoPlayerControlsController.stopTimer()
+                self.appDelegate.videoPlayerControlsController?.stopTimer()
             }
         }
         else if keyPath == #keyPath(AVPlayerItem.status) {

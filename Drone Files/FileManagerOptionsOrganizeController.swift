@@ -27,7 +27,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
     var receivedFiles = NSMutableArray() {
         didSet {
             // print("Received Files on Organize Controller \(receivedFiles)"
-            let count = String(format: "%4d", receivedFiles.count)
+            let count = String(format: "%2d", receivedFiles.count)
             self.numberofFilesLabel.title = count
         }
     }
@@ -74,7 +74,6 @@ class FileManagerOptionsOrganizeController: NSViewController {
         let tapGestureFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
         
         self.jpgDirectoryLabel.addGestureRecognizer(tapGestureFolder3)
-        
         
         let tapGestureFolder4 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath4))
         
@@ -408,4 +407,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
             }
         }
     }
+    
+    @IBAction func shareMultipleFiles(sender: AnyObject?) {
+            self.appDelegate.fileManagerViewController.shareMultipleFiles(receivedFiles: self.receivedFiles as! Array<Any>, s: sender)
+    }
+    
 }

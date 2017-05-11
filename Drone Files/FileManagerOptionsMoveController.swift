@@ -251,4 +251,9 @@ class FileManagerOptionsMoveController: NSViewController {
             showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
         }
     }
+    
+    @IBAction func shareMultipleFiles(sender: AnyObject?) {
+        self.appDelegate.fileManagerViewController.shareMultipleFiles(receivedFiles: self.receivedFiles as! Array<Any>, s: sender)
+    }
+    
 }

@@ -54,6 +54,8 @@ class VideoPlayerControllsController: NSViewController {
     var nowPlayingURLString: String!
     var exportSession: AVAssetExportSession!
     
+    var sharingDelegate: NSSharingServiceDelegate!
+    
     @IBOutlet weak var nowPlayingFile: NSTextField!
     @IBOutlet weak var trimmedClipNewLabel: NSTextField!
     @IBOutlet weak var trimmedClipNewPathLabel: NSTextField!
@@ -185,7 +187,7 @@ class VideoPlayerControllsController: NSViewController {
     
     func handlePlayerLabelClick() {
         print("Play Pause")
-        if(self.appDelegate.videoPlayerViewController.playerView.player?.isPlaying)! {
+        if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
             self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
         } else {
             self.appDelegate.videoPlayerViewController?.playerView.player?.play()
@@ -704,6 +706,38 @@ class VideoPlayerControllsController: NSViewController {
         return timeRemainingFormatter.string(from: components as DateComponents)!
     }
     
+    
+    @IBAction func shareAirdropVideo(sender: AnyObject?) {
+        //let attr = NSMutableAttributedString(string: "foo")
+        // let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
+        let videoURL = self.currentVideoURL
+        let shareItems: NSArray? = NSArray(object: videoURL!)
+        let service = NSSharingService(named: NSSharingServiceNameSendViaAirDrop)!
+        service.perform(withItems: shareItems as! [Any])
+        service.delegate = self.sharingDelegate
+        
+    }
+    
+    @IBAction func shareFacebook(sender: AnyObject?) {
+        
+//        let fileNameNoExtension = self.appDelegate.imageEditorViewController?.imageUrl?.deletingPathExtension()
+//        
+//        let imageName = fileNameNoExtension?.lastPathComponent
+//        
+//        let attr = NSMutableAttributedString(string: imageName!)
+//        
+//        let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
+//        
+//        let shareItems: NSArray? = NSArray(objects: attr,image!, "")
+
+        let videoURL = self.currentVideoURL
+        let shareItems: NSArray? = NSArray(object: videoURL!)
+
+        
+        let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
+        
+        picker.show(relativeTo: sender!.bounds, of: sender as! NSView, preferredEdge: NSRectEdge.minY)
+    }
     
     
 }

@@ -18,56 +18,71 @@ class KeyCaptureWindow: NSWindow {
     var keyPressed = 0
     
     
-    override func flagsChanged(with event: NSEvent) {
+    
+    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
         
+        Swift.print("Calling validate")
         
-        if(event.keyCode == 55) {
-            isCommandKeyPressed = true
-            return
-        } else {
-            isCommandKeyPressed = false
-        }
-        
-        super.flagsChanged(with: event)
-        // Swift.print("HAYYYY")
-
-        //  appDelegate.
-        
+        Swift.print(anItem)
+        return true
     }
-
     
     
-    override func keyDown(with event: NSEvent) {
-        // Swift.print("HAYYYY")
-        
-        
-       
-        if(event.keyCode == 33) { // Trim IN
-            // Swift.print("Setting TRIM IN: \(event)!")
-            appDelegate.videoPlayerControlsController.setTrimInFromKeyboard()
-            return
-        }
-        
-        if(event.keyCode == 30) { // Trim Out
-            // Swift.print("Setting TRIM OUT: \(event)!")
-            appDelegate.videoPlayerControlsController.setTrimOutFromKeyboard()
-            return
-        }
-        
-        
-        if(isCommandKeyPressed) {
-            if(event.keyCode == 17) {
-                /// Swift.print("Caught a key down: \(event)!")
-                appDelegate.videoPlayerControlsController.takeScreenShotFromKeyboard()
-                return
-            }
-        }
-        Swift.print(event.keyCode)
-
-        super.keyDown(with: event)
-        
-       //  appDelegate.
-        
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        Swift.print("Calling validate 222")
+        return true
     }
+    
+
+//    
+//    override func flagsChanged(with event: NSEvent) {
+//        if(event.keyCode == 55) {
+//            isCommandKeyPressed = true
+//            return
+//        } else {
+//            isCommandKeyPressed = false
+//        }
+//        
+//        super.flagsChanged(with: event)
+//        // Swift.print("HAYYYY")
+//
+//        //  appDelegate.
+//        
+//    }
+//
+    
+//    
+//    override func keyDown(with event: NSEvent) {
+//        // Swift.print("HAYYYY")
+//        
+//        
+//       
+//        if(event.keyCode == 33) { // Trim IN
+//            // Swift.print("Setting TRIM IN: \(event)!")
+//            appDelegate.videoPlayerControlsController.setTrimInFromKeyboard()
+//            return
+//        }
+//        
+//        if(event.keyCode == 30) { // Trim Out
+//            // Swift.print("Setting TRIM OUT: \(event)!")
+//            appDelegate.videoPlayerControlsController.setTrimOutFromKeyboard()
+//            return
+//        }
+//        
+//        
+//        if(isCommandKeyPressed) {
+//            if(event.keyCode == 17) {
+//                /// Swift.print("Caught a key down: \(event)!")
+//                appDelegate.videoPlayerControlsController.takeScreenShotFromKeyboard()
+//                return
+//            }
+//        }
+//        Swift.print(event.keyCode)
+//
+//        super.keyDown(with: event)
+//        
+//       //  appDelegate.
+    
+ //    }
     
 }

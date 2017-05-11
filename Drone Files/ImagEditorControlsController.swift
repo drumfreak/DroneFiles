@@ -66,7 +66,7 @@ class ImageEditorControllsController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Controls viewDidLoad")
+        /// print("Controls viewDidLoad")
         
         //self.imageView = self.appDelegate.imageEditorViewController?.imageView
         self.viewIsLoaded = true
@@ -82,12 +82,42 @@ class ImageEditorControllsController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        print("Controls viewDidAppear")
+        // print("Controls viewDidAppear")
         
         //        self.viewIsLoaded = true
         //        self.imageView = self.appDelegate.imageEditorViewController?.imageView
     }
     
+    
+//    
+//    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
+//        
+//        print("Calling validate")
+//        
+//        print(anItem)
+//        if anItem.action == Selector("test:") {
+//            print("validating item \(anItem)")
+//            return true
+//        }
+//        return true
+//    }
+    
+//    
+//    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+//        print("Calling validate 222")
+//        
+//        print(menuItem)
+//        
+//        if(menuItem.action == Selector(("switchToolMode:"))) {
+//            NSLog("refresh!");
+//            let now = NSDate()
+//            menuItem.title = String(format:"%f", now.timeIntervalSince1970);
+//            return true;
+//        }
+//        return true;
+//    }
+//    
+
     
     
     
@@ -218,7 +248,7 @@ class ImageEditorControllsController: NSViewController {
     }
     
     @IBAction func resetImage(_ sender: AnyObject) {
-        print("Hey resetImage")
+        // print("Hey resetImage")
         self.imageView.currentToolMode = IKToolModeNone
         // self.imageView.setRotationAngle(0.0, center: NSPoint(x: 0.0, y: 0.0))
         self.rotationAngle = 0.0
@@ -299,12 +329,12 @@ class ImageEditorControllsController: NSViewController {
         self.imageRotated(by: CGFloat(self.rotationAngle))
         self.imageView.currentToolMode = IKToolModeMove
         self.imageView.zoomImageToFit(nil)
-        print("Setting Rotation to: \(self.rotationAngle)")
+        //print("Setting Rotation to: \(self.rotationAngle)")
     }
     
     func imageRotated(by degrees: CGFloat){
         let angle = CGFloat(-(degrees / 180) * CGFloat(Double.pi))
-        print("Setting Angle to: \(angle)")
+        //print("Setting Angle to: \(angle)")
         self.imageView.rotationAngle = angle
         self.rotationSlider.doubleValue = self.rotationAngle
     }

@@ -136,6 +136,9 @@ class FileManagerOptionsDeleteController: NSViewController {
     }
 
     
+    @IBAction func shareMultipleFiles(sender: AnyObject?) {
+        self.appDelegate.fileManagerViewController.shareMultipleFiles(receivedFiles: self.receivedFiles as! Array<Any>, s: sender)
+    }
     
     
     
