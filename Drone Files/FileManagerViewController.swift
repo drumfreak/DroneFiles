@@ -318,23 +318,6 @@ class FileManagerViewController: NSViewController {
         
     }
     
-    @IBAction func renameFiles(_ sender: AnyObject) {
-        // print("Rename Button Clicked")
-    }
-    
-    @IBAction func copyFiles(_ sender: AnyObject) {
-        // print("Copy Files Button Clicked")
-    }
-    
-    @IBAction func moveFiles(_ sender: AnyObject) {
-        // print("Moved Button Clicked")
-    }
-    
-    @IBAction func deleteFiles(_ sender: AnyObject) {
-        // print("Delete Button Clicked")
-    }
-    
-    
     func showNotification(messageType: String, customMessage: String) -> Void {
         DispatchQueue.global(qos: .userInitiated).async {
             if(messageType == "OrganizeFiles") {
@@ -350,18 +333,6 @@ class FileManagerViewController: NSViewController {
                 // }
             }
             
-            if(messageType == "default") {
-                // DispatchQueue.main.async {
-                
-                // print("Message Type Welcome: " + messageType);
-                let notification = NSUserNotification()
-                notification.title = "Welcome to DroneFiles!"
-                notification.informativeText = "Your life will never be the same"
-                notification.soundName = NSUserNotificationDefaultSoundName
-                NSUserNotificationCenter.default.deliver(notification)
-                
-                //  }
-            }
         }
     }
     
@@ -383,22 +354,20 @@ class FileManagerViewController: NSViewController {
     
     
     func shareMultipleFiles(receivedFiles: Array<Any>, s: AnyObject?) {
-        
         let shareItems: NSMutableArray = []
-        
         receivedFiles.forEach({ m in
             let urlPath = m as! String
             let url = NSURL(string: urlPath)
             shareItems.add(url!)
         })
         
-        let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
-        
-        picker.show(relativeTo: s!.bounds, of: s as! NSView, preferredEdge: NSRectEdge.minY)
-    }
+        if(shareItems.count > 0) {
+            let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
+            
+            picker.show(relativeTo: s!.bounds, of: s as! NSView, preferredEdge: NSRectEdge.minY)
 
-    
-    
+        }
+    }
     
 }
 extension FileManagerViewController: NSTableViewDataSource {

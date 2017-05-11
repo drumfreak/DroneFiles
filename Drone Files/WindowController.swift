@@ -24,8 +24,5 @@
 import Cocoa
 
 class WindowController: NSWindowController {
-    @IBOutlet weak var keyWindow: KeyCaptureWindow!
-    
-    
-
+    // @IBOutlet weak var keyWindow: KeyCaptureWindow!
 }

@@ -195,7 +195,7 @@ class FileBrowserViewController: NSViewController {
     
     
     func setOpenPath3() {
-        print("RUNNING");
+        // print("RUNNING");
         self.sourceFolderOpened = URL(string: self.projectFolder)
     }
 

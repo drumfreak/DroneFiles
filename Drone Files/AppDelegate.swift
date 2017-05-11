@@ -13,12 +13,7 @@ import Quartz
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    var keyWindow: NSWindow = KeyCaptureWindow()
-    
     @IBOutlet var window: NSWindow!
-
-    
     @IBOutlet var editorTabViewController: EditorTabViewController!
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
@@ -167,10 +162,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    
-    
-    
-    
     @IBAction func switchToolModeAD(sender: AnyObject) {
         // switch the tool mode...
         
@@ -223,6 +214,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func setVideoTrimOutAD(sender: AnyObject) {
         self.videoPlayerControlsController?.setTrimOutFromKeyboard()
     }
+    
+    
+    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
+        Swift.print("Calling validate")
+        Swift.print(anItem)
+        return true
+    }
+    
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        Swift.print("Calling validate 222")
+        return true
+    }
+
 
     
 }
