@@ -84,21 +84,10 @@ class ImageEditorControllsController: NSViewController {
         
     }
     
-    func catchNotification(notification:Notification) -> Void {
-        print(notification)
-        
-        print("Catch notification")
-    }
+
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        // print("Controls viewDidAppear")
-        
-        //        self.viewIsLoaded = true
-        //        self.imageView = self.appDelegate.imageEditorViewController?.imageView
-    
-        
-    
     }
     
 
@@ -106,34 +95,27 @@ class ImageEditorControllsController: NSViewController {
         
         let filterPanel = IKFilterBrowserPanel()
         
-        filterPanel.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: self, didEnd: #selector(ImageEditorControllsController.modalEnded), contextInfo: nil)
-        
+        filterPanel.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: self, didEnd: #selector(ImageEditorControllsController.modalEnded), contextInfo: nil)        
         
         let nc = NotificationCenter.default
-        nc.addObserver(forName: NSNotification.Name(rawValue: "IKFilterBrowserFilterSelected"),
-                       object:nil, queue:nil,
-                       using:catchNotification)
         
+        nc.addObserver(self, selector: #selector(self.catchNotification(notification:)), name: .IKFilterBrowserFilterSelected, object: nil)
+
+        nc.addObserver(self, selector: #selector(self.catchNotification(notification:)), name: .IKFilterBrowserFilterDoubleClick, object: nil)
         
-        nc.addObserver(forName:NSNotification.Name(rawValue: "IKFilterBrowserFilterDoubleClick") ,
-                       object:nil, queue:nil,
-                       using:catchNotification)
-        
-        
-        nc.addObserver(forName:Notification.Name(rawValue:"MyNotification"),
-                       object:nil, queue:nil,
-                       using:catchNotification)
-        
-        
-       //  nc.post(name:Notification.Name(rawValue:"MyNotification"),
-       //         object: nil,
-       //         userInfo: ["message":"Hello there!", "date":Date()])
-        
+        nc.addObserver(self, selector: #selector(self.catchNotification(notification:)), name: .IKFilterBrowserWillPreviewFilter, object: nil)
+
+    }
+    
+    func catchNotification(notification:Notification) -> Void {
+        print(notification)
+        print("Catch notification")
     }
     
     func modalEnded() {
         print("MODAL ENDED");
     }
+
     
     @IBAction func cropImage(_ sender: AnyObject) {
         print("Hey cropImage")
@@ -224,10 +206,6 @@ class ImageEditorControllsController: NSViewController {
         self.saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
         
         self.saveOptions.addAccessoryView(to: savePanel)
-        
-        
-        // [savePanel setNameFieldStringValue:[[_window representedFilename] lastPathComponent]];
-        
         
         savePanel.begin { result in
             if result == NSFileHandlingPanelOKButton {
