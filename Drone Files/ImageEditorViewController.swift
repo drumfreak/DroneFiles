@@ -82,6 +82,17 @@ class ImageEditorViewController: NSViewController {
         }
         
         self.imageView.zoomImageToFit(self)
+        
+        
+        
+        let imageSource = CGImageSourceCreateWithURL(_url as CFURL, nil)
+        let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
+        
+       // let exifDict = imageProperties["Exif"] as! Dictionary
+
+        
+        print(imageProperties)
+        
 
 
     }

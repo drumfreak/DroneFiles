@@ -18,7 +18,6 @@ class VideoSplitViewController: NSSplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mySplitView.adjustSubviews();
         self.appDelegate.videoSplitViewController = self
     }

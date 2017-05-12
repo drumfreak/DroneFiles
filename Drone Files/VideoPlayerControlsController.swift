@@ -17,15 +17,18 @@ import Quartz
 
 class VideoPlayerControllsController: NSViewController {
     
+    // Screenshotting
+    var screenShotPreview = true
+    var screenShotBurstEnabled = false
+    var trimOffset = 0.00
+    
     @IBOutlet var screenShotPreviewButton: NSButton!
     @IBOutlet var screenShotBurstEnabledButton: NSButton!
-    
     
     // Video Trimming
     @IBOutlet var saveNewItemPreserveDate: NSButton!
     @IBOutlet var saveClipLoadNewItemCheckbox: NSButton!
     @IBOutlet var saveTrimmedClipView: NSView!
-    // @IBOutlet weak var exportSession: AVAssetExportSession!
     @IBOutlet weak var clipTrimTimer: Timer!
     @IBOutlet weak var saveTrimmedVideoButton: NSButton!
     @IBOutlet weak var cancelTrimmedVideoButton: NSButton!
@@ -37,18 +40,16 @@ class VideoPlayerControllsController: NSViewController {
     var clippedItemPreserveFileDates = true
     var clippedItemLoadNewItem = true
     
-    // Screenshotting
-    var screenShotPreview = true
-    var screenShotBurstEnabled = false
-    var trimOffset = 0.00
+   
+    // Metadata
+    
+    @IBOutlet var metadataLocationLabel: NSTextField!
     
     // Video Player Stuff
     var playerItem: AVPlayerItem!
     var currentVideoURL: URL!
     
     @IBOutlet weak var playerTimer: Timer!
-    
-    
     @IBOutlet var originalPlayerItem: AVPlayerItem!
     
     var nowPlayingURLString: String!
@@ -66,12 +67,8 @@ class VideoPlayerControllsController: NSViewController {
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
     
-    @IBOutlet weak var dateField: NSTextField!
-    @IBOutlet weak var flightName: NSTextField!
     @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
-    @IBOutlet var flightNameVar: String!
-    @IBOutlet var dateNameVar: String!
     @IBOutlet var clippedVideoPath: String!
     @IBOutlet var clippedVideoPathFull: String!
     @IBOutlet var clippedVideoPathFullURL: String!
@@ -93,9 +90,7 @@ class VideoPlayerControllsController: NSViewController {
     // Player Increment Buttons
     @IBOutlet var playerFrameDecrementButton: NSButton!
     @IBOutlet var playerFrameIncrementButton: NSButton!
-    
-    
-    
+
     let timeRemainingFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.zeroFormattingBehavior = .pad
@@ -103,8 +98,6 @@ class VideoPlayerControllsController: NSViewController {
         
         return formatter
     }()
-    
-    
     
     
     override func viewDidLoad() {
@@ -170,15 +163,12 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func updateTimerLabel() {
-        // print("This is happening...")
-        
         let cur = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         
         let durationSeconds = CMTimeGetSeconds((cur)!)
-        // print(durationSeconds)
+
         let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
         self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
-        // + ":" + String(format: "%02d", ms)
         
         self.currentFrameLabel.stringValue = String(format: "%010f", durationSeconds)
     }
@@ -197,29 +187,24 @@ class VideoPlayerControllsController: NSViewController {
     // Play / Pause / Increment / Decrement
     
     @IBAction func frameDecrement(_ sender: AnyObject?) {
-        //print("Frame Decrement")
         self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
         let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
-        // let nextFrame = CMTimeAdd(currentTime!, oneFrame);
+
         let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
         self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: previousFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-            // print("Seeked to previous frame")
             self.updateTimerLabel()
         })
         
     }
     
     @IBAction func frameIncrement(_ sender: AnyObject?) {
-        // print("Frame Increment")
         let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
         let nextFrame = CMTimeAdd(currentTime!, oneFrame);
-        // let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
         self.appDelegate.videoPlayerViewController?.playerView?.player?.seek(to: nextFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
             self.updateTimerLabel()
-            // print("Seeked to previous frame")
         })
     }
     
@@ -229,8 +214,6 @@ class VideoPlayerControllsController: NSViewController {
     func getClippedVideosIncrement(_folder: String) -> String {
         var incrementer = "00"
         if FileManager.default.fileExists(atPath: self.clippedVideoPath) {
-            // print("url is a folder url")
-            // lets get the folder files
             do {
                 let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.fileBrowserViewController.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
                 
@@ -290,7 +273,6 @@ class VideoPlayerControllsController: NSViewController {
         
         self.startTrimming();
         
-        // self.playerView.player?.seek(to: currentVideoTime)
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying == false) {
             self.appDelegate.videoPlayerViewController?.playerView.player?.play()
         }
@@ -394,7 +376,7 @@ class VideoPlayerControllsController: NSViewController {
     
     @IBAction func setLoadNewClipItem(_ sender: AnyObject) {
         self.clippedItemLoadNewItem = !self.clippedItemLoadNewItem
-        //print("Load New Clip Clicked \(self.clippedItemLoadNewItem)")
+
         if(self.clippedItemLoadNewItem) {
             UserDefaults.standard.setValue(1, forKey: "clippedItemLoadNewItem")
         } else {
@@ -414,8 +396,6 @@ class VideoPlayerControllsController: NSViewController {
     
     
     @IBAction func cancelTrimmedClip(_ sender: AnyObject?) {
-        //print("Canceling Save Trimmed Clip");
-        // let currentVideoTime = self.playerItem.currentTime()
         self.isTrimming = false;
         self.saveTrimmedClipView.isHidden = true
         self.cancelTrimmedVideoButton.isHidden = true
@@ -428,14 +408,11 @@ class VideoPlayerControllsController: NSViewController {
             print("Cancelling Export!");
             self.exportSession.cancelExport();
         }
-        
-        // self.playVideo(_url:self.nowPlayingURL, frame: kCMTimeZero, startPlaying: true)
     }
     
     
     func updateProgressBar(session: Float) {
         let progress = self.exportSession.progress
-        // print("calling update progress bar..\(self.exportSession.progress)")
         if(progress < 1.0) {
             self.clipTrimProgressBar.doubleValue = Double(progress)
         } else {
@@ -464,8 +441,6 @@ class VideoPlayerControllsController: NSViewController {
         
         self.exportSession.timeRange = timeRange
         
-        // print("Export Length... \(self.exportSession.estimatedOutputFileLength)")
-        
         self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
         self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
     }
@@ -493,23 +468,18 @@ class VideoPlayerControllsController: NSViewController {
         func saveClippedFileCompleted() {
             print("Session Completed")
             self.saveTrimmedVideoButton.isHidden = true
-            //self.saveTrimmedVideoButton.isEnabled = true
             self.trimmedClipNewLabel.isHidden = true
             self.trimmedClipNewLabel.stringValue = ""
             self.cancelTrimmedVideoButton.isHidden = true
-            
-            
+
             if(self.clippedItemPreserveFileDates) {
                 self.setFileDate(originalFile: (self.nowPlayingURLString)!, newFile: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: ""))
             }
             self.clipTrimProgressBar.isHidden = true
             self.isTrimming = false
-            
-            // self.showNotification(messageType:"VideoTrimComplete", customMessage: self.clippedVideoPathFullURL)
-            
+
             self.saveTrimmedClipView.isHidden = true
             
-            // print("Claaned up session");
             self.appDelegate.fileBrowserViewController.reloadFileList()
             
         }
@@ -517,7 +487,6 @@ class VideoPlayerControllsController: NSViewController {
         func saveClippedFileFailed() {
             print("Session FAILED")
             self.saveTrimmedVideoButton.isEnabled = true
-            // print ("Error: \(String(describing: exportSession.error))")
         }
         
         func saveClippedFileUnknown() {
@@ -526,10 +495,9 @@ class VideoPlayerControllsController: NSViewController {
         
         // Move to a background thread to do some long running work
         DispatchQueue.global(qos: .userInitiated).async {
-            // print("Running queue damn! \(self.exportSession.progress)")
             self.exportSession.exportAsynchronously {
-                //  print("AVSession progress \(self.exportSession.progress)")
-                switch self.exportSession.status {
+                
+            switch self.exportSession.status {
                 case .completed:
                     DispatchQueue.main.async {
                         saveClippedFileCompleted()
@@ -571,9 +539,6 @@ class VideoPlayerControllsController: NSViewController {
             
             let newDate = Calendar.current.date(byAdding: .second, value: Int(self.trimOffset), to: modificationDate)
             
-            
-            print("Modification date: ", newDate!)
-            
             let attributes = [
                 FileAttributeKey.creationDate: newDate!,
                 FileAttributeKey.modificationDate: newDate!
@@ -590,9 +555,6 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func getScreenShotDate(originalFile: String) -> Date {
-        
-        // print("TRIM OFFSET \(self.trimOffset)")
-        
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
         let date = Date()
@@ -602,14 +564,12 @@ class VideoPlayerControllsController: NSViewController {
             
             let newDate = Calendar.current.date(byAdding: .second, value: Int(self.trimOffset), to: modificationDate)
             
-            // print("Modification date: ", newDate!)
             return newDate!
             
         } catch let error {
             print("Error getting file modification attribute date: \(error.localizedDescription)")
             return date
         }
-        // return date
     }
     
     
@@ -620,9 +580,7 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func setTrimInFromKeyboard() {
-        // if(self.playerIsReady) {
         self.setTrimPointIn("" as AnyObject)
-        //  }
     }
     
     
@@ -635,7 +593,6 @@ class VideoPlayerControllsController: NSViewController {
     
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
-        //  self.savingScreenShotMessageBox.isHidden = true
         self.savingScreenShotSpinner.isHidden = false
         self.savingScreenShotSpinner.startAnimation(nil)
         
@@ -655,10 +612,12 @@ class VideoPlayerControllsController: NSViewController {
         if(self.screenShotPreview) {
             // THIS MUST HAPPEN FIRST
             self.savingScreenShotSpinner.stopAnimation(self)
-            //self.savingScreenShotSpinner.isHidden = true
             self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 1
+            
             print("Screen shot at: \(String(describing: playerTime))")
+            
             self.appDelegate.screenshotViewController?.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: true, modificationDate: newDate)
+            
         } else {
             print("Screen shot at: \(String(describing: playerTime))")
             self.appDelegate.screenshotViewController?.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: false, modificationDate: newDate)
@@ -669,9 +628,6 @@ class VideoPlayerControllsController: NSViewController {
             }
         }
     }
-    
-    
-    
     
     func showNotification(messageType: String, customMessage: String) -> Void {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -686,14 +642,6 @@ class VideoPlayerControllsController: NSViewController {
                 NSUserNotificationCenter.default.deliver(notification);
             }
             
-            if(messageType == "default") {
-                // print("Message Type Welcome: " + messageType);
-                let notification = NSUserNotification()
-                notification.title = "Welcome to DroneFiles!"
-                notification.informativeText = "Your life will never be the same"
-                notification.soundName = NSUserNotificationDefaultSoundName
-                NSUserNotificationCenter.default.deliver(notification)
-            }
         }
     }
     
@@ -702,14 +650,11 @@ class VideoPlayerControllsController: NSViewController {
     func createTimeString(time: Float) -> String {
         let components = NSDateComponents()
         components.second = Int(max(0.0, time))
-        
         return timeRemainingFormatter.string(from: components as DateComponents)!
     }
     
     
     @IBAction func shareAirdropVideo(sender: AnyObject?) {
-        //let attr = NSMutableAttributedString(string: "foo")
-        // let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
         let videoURL = self.currentVideoURL
         let shareItems: NSArray? = NSArray(object: videoURL!)
         let service = NSSharingService(named: NSSharingServiceNameSendViaAirDrop)!
@@ -719,23 +664,9 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     @IBAction func shareFacebook(sender: AnyObject?) {
-        
-//        let fileNameNoExtension = self.appDelegate.imageEditorViewController?.imageUrl?.deletingPathExtension()
-//        
-//        let imageName = fileNameNoExtension?.lastPathComponent
-//        
-//        let attr = NSMutableAttributedString(string: imageName!)
-//        
-//        let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
-//        
-//        let shareItems: NSArray? = NSArray(objects: attr,image!, "")
-
         let videoURL = self.currentVideoURL
         let shareItems: NSArray? = NSArray(object: videoURL!)
-
-        
         let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
-        
         picker.show(relativeTo: sender!.bounds, of: sender as! NSView, preferredEdge: NSRectEdge.minY)
     }
     

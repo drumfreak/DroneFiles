@@ -1476,6 +1476,24 @@ Gw
                                     </textField>
                                 </subviews>
                             </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0G-zg-6X8">
+                                <rect key="frame" x="18" y="235" width="105" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Video Location:" id="jgp-YG-1rA">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYg-8r-pVd">
+                                <rect key="frame" x="123" y="235" width="225" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Location Label" id="oTn-UW-QPH">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
@@ -1483,6 +1501,7 @@ Gw
                         <outlet property="clipFileSizeLabel" destination="mKh-N8-mBr" id="YyV-Ky-fdh"/>
                         <outlet property="clipTrimProgressBar" destination="So1-Rg-wm8" id="Ugf-yr-q0h"/>
                         <outlet property="currentFrameLabel" destination="y7X-lr-yJn" id="4CC-RP-uUo"/>
+                        <outlet property="metadataLocationLabel" destination="EYg-8r-pVd" id="mgz-eD-y6e"/>
                         <outlet property="nowPlayingFile" destination="ADq-Qo-7cI" id="cOm-ga-d9S"/>
                         <outlet property="playerFrameDecrementButton" destination="lGa-wt-3F4" id="POJ-mC-HLU"/>
                         <outlet property="playerFrameIncrementButton" destination="mZX-At-1Px" id="CCp-qA-HeI"/>
@@ -1604,7 +1623,7 @@ Gw
             <objects>
                 <viewController title="Image Editor" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="PlS-k6-tw1">
-                        <rect key="frame" x="0.0" y="0.0" width="816" height="697"/>
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7">
@@ -1685,7 +1704,7 @@ AAAAAAEGA
                 </viewController>
                 <customObject id="DHx-x3-09M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2312" y="2286.5"/>
+            <point key="canvasLocation" x="2283.5" y="2286.5"/>
         </scene>
         <!--File Manager-->
         <scene sceneID="GYP-4x-9bJ">
@@ -2909,6 +2928,17 @@ Gw
                                     <action selector="zoomVerticalSliderChanged:" target="HxO-aJ-Lgv" id="Q3R-aL-r5O"/>
                                 </connections>
                             </slider>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UrR-xj-JZx">
+                                <rect key="frame" x="686" y="244" width="78" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Filters" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZpB-Pg-49n">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showFilterWindow:" target="HxO-aJ-Lgv" id="Awe-Zr-Akw"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

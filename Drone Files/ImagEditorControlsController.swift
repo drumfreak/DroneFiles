@@ -13,6 +13,7 @@ import AVKit
 import AppKit
 import AVFoundation
 import Quartz
+import QuartzCore
 
 class ImageEditorControllsController: NSViewController {
 
@@ -29,7 +30,6 @@ class ImageEditorControllsController: NSViewController {
     var imageProperties: NSDictionary = Dictionary<String, String>() as NSDictionary
     var imageUTType: String = ""
     var saveOptions: IKSaveOptions = IKSaveOptions()
-
     
     
     //var imageProperties;
@@ -76,8 +76,18 @@ class ImageEditorControllsController: NSViewController {
         
         self.imageView.delegate = self
         //        [_imageView zoomImageToFit: self];
+        // self.filterPanel?.filterBrowserView(options: [:])
         
+        // self.filterPanel?.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: Any!(), didEnd:Selector(("switchToolMode:")), contextInfo: nil)
         
+ 
+        
+    }
+    
+    func catchNotification(notification:Notification) -> Void {
+        print(notification)
+        
+        print("Catch notification")
     }
     
     override func viewDidAppear() {
@@ -86,40 +96,44 @@ class ImageEditorControllsController: NSViewController {
         
         //        self.viewIsLoaded = true
         //        self.imageView = self.appDelegate.imageEditorViewController?.imageView
+    
+        
+    
     }
     
-    
-//    
-//    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
-//        
-//        print("Calling validate")
-//        
-//        print(anItem)
-//        if anItem.action == Selector("test:") {
-//            print("validating item \(anItem)")
-//            return true
-//        }
-//        return true
-//    }
-    
-//    
-//    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-//        print("Calling validate 222")
-//        
-//        print(menuItem)
-//        
-//        if(menuItem.action == Selector(("switchToolMode:"))) {
-//            NSLog("refresh!");
-//            let now = NSDate()
-//            menuItem.title = String(format:"%f", now.timeIntervalSince1970);
-//            return true;
-//        }
-//        return true;
-//    }
-//    
 
+    @IBAction func showFilterWindow(_ sender: AnyObject) {
+        
+        let filterPanel = IKFilterBrowserPanel()
+        
+        filterPanel.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: self, didEnd: #selector(ImageEditorControllsController.modalEnded), contextInfo: nil)
+        
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(forName: NSNotification.Name(rawValue: "IKFilterBrowserFilterSelected"),
+                       object:nil, queue:nil,
+                       using:catchNotification)
+        
+        
+        nc.addObserver(forName:NSNotification.Name(rawValue: "IKFilterBrowserFilterDoubleClick") ,
+                       object:nil, queue:nil,
+                       using:catchNotification)
+        
+        
+        nc.addObserver(forName:Notification.Name(rawValue:"MyNotification"),
+                       object:nil, queue:nil,
+                       using:catchNotification)
+        
+        
+       //  nc.post(name:Notification.Name(rawValue:"MyNotification"),
+       //         object: nil,
+       //         userInfo: ["message":"Hello there!", "date":Date()])
+        
+    }
     
-    
+    func modalEnded() {
+        print("MODAL ENDED");
+    }
     
     @IBAction func cropImage(_ sender: AnyObject) {
         print("Hey cropImage")

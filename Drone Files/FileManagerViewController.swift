@@ -71,13 +71,10 @@ class FileManagerViewController: NSViewController {
     
     override func viewWillAppear() {
         self.viewIsLoaded = true
-        // print ("~ View is about to appear")
     }
     
     override func viewDidDisappear() {
         self.viewIsLoaded = false
-        // print ("~~~~~~~~~~~~ View Disappeared")
-        
     }
     
     func reloadFileList() {
@@ -154,8 +151,6 @@ class FileManagerViewController: NSViewController {
         returnDetails["totalFiles"] = totalFiles
         return returnDetails
     }
-    
-    
     
     func calculateSingleFileSize(fileUrl: String) -> NSMutableDictionary {
         var totalSize = Int64(0)
@@ -321,16 +316,12 @@ class FileManagerViewController: NSViewController {
     func showNotification(messageType: String, customMessage: String) -> Void {
         DispatchQueue.global(qos: .userInitiated).async {
             if(messageType == "OrganizeFiles") {
-                // DispatchQueue.main.async {
-                // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
                 let notification = NSUserNotification()
                 notification.title = "Organization Complete"
                 notification.informativeText = customMessage.replacingOccurrences(of: "%20", with: " ")
                 
                 notification.soundName = NSUserNotificationDefaultSoundName
-                // NSUserNotificationCenter.default.deliver(notification)
                 NSUserNotificationCenter.default.deliver(notification);
-                // }
             }
             
         }

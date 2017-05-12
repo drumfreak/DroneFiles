@@ -14,30 +14,23 @@ import Quartz
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var window: NSWindow!
+    
+    // TODO: Eventually load all these view controllers from storyboard
     @IBOutlet var editorTabViewController: EditorTabViewController!
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
-
-    // @IBOutlet weak var videoPlayerViewController: VideoPlayerViewController!
     @IBOutlet var videoSplitViewController: VideoSplitViewController!
-    // @IBOutlet var videoPlayerControlsController: VideoPlayerControllsController!
-
-    
     @IBOutlet var screenshotViewController: ScreenshotViewController!
     @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
     @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
-    // @IBOutlet weak var imageEditorControlsController: ImageEditorControllsController!
 
     @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
-    
     @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
     @IBOutlet weak var fileManagerOptionsOrganizeController: FileManagerOptionsOrganizeController!
     @IBOutlet weak var fileManagerOptionsMoveController: FileManagerOptionsMoveController!
     @IBOutlet weak var fileManagerOptionsRenameController: FileManagerOptionsRenameController!
     @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
-    
-    // let storyboard = NSStoryboard()
     
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
@@ -46,13 +39,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var videoPlayerViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerViewController") as? VideoPlayerViewController
 
     
-     @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
+    @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-        
         let notification = NSUserNotification()
-        // notification.
         notification.title = "Welcome to DroneFiles!"
         notification.informativeText = "Your life will never be the same"
         notification.soundName = NSUserNotificationDefaultSoundName
@@ -201,15 +191,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func takeScreenShotAD(sender: AnyObject) {
         self.videoPlayerControlsController?.takeScreenshot(self);
     }
-
-
     
     @IBAction func setVideoTrimInAD(sender: AnyObject) {
         self.videoPlayerControlsController?.setTrimInFromKeyboard()
-
     }
-
-    
     
     @IBAction func setVideoTrimOutAD(sender: AnyObject) {
         self.videoPlayerControlsController?.setTrimOutFromKeyboard()
@@ -222,13 +207,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
     
-    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         Swift.print("Calling validate 222")
         return true
     }
-
-
     
 }
 
@@ -252,8 +234,7 @@ extension NSWindow {
 }
 
 extension String {
-    func trim() -> String
-    {
+    func trim() -> String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespaces)
     }
 }

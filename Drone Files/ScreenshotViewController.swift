@@ -12,18 +12,23 @@ import AVKit
 import AppKit
 import AVFoundation
 import Quartz
+import CoreLocation
+
 
 class ScreenshotViewController: NSViewController {
     @IBOutlet var imageView: IKImageView!
     @IBOutlet var imageName: NSTextField!
     @IBOutlet var imageEditorView: NSView!
     
-    @IBOutlet weak var dateField: NSTextField!
-    @IBOutlet weak var flightName: NSTextField!
+    let geocoder = CLGeocoder()
+
+    var timestamp:NSDate?
+    var coordinate:CLLocationCoordinate2D?
+    var altitude: Double?
+
     @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
-    @IBOutlet var flightNameVar: String!
-    @IBOutlet var dateNameVar: String!
+
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     var nowPlayingURL: URL!
@@ -39,6 +44,9 @@ class ScreenshotViewController: NSViewController {
     var timeOffset = 0.00
     var screenshotItemPreserveFileDates = true
     var modificationDate = Date()
+    
+    var audioPlayer: AVAudioPlayer?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,15 +78,27 @@ class ScreenshotViewController: NSViewController {
             let url = URL(string: self.screenshotNameFullURL)
             
             
-            //self.editorTabViewController.selectedTabViewItemIndex = 1
+            
+            let imageSource = CGImageSourceCreateWithURL(url! as CFURL, nil)
+            let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
+            
+            print(imageProperties)
+            
+            // let exifDict = imageProperties["{Exif}"] as! [String:Any]
+            
+            
+            
+            // let dateTimeOriginal = exifDict["DateTimeOriginal"] as! String
+            // print ("DateTimeOriginal: \(dateTimeOriginal)")
+            
+
+
             if(preview == true) {
                // print("SCREEN SHOT PREVIEWING : \(String(describing: url))")
                 self.imageView.setImageWith(url)
             }
         }
-        
     }
-    
     
     func setFileDate(originalFile: String) {
         
@@ -87,20 +107,12 @@ class ScreenshotViewController: NSViewController {
         do {
             
             let newDate = self.modificationDate
-            // let newDate = Calendar.current.date(byAdding: .second, value: Int(self.trimOffset), to: modificationDate)
-            
-            // print("Modification date: ", self.modificationDate)
-            
             let attributes = [
                 FileAttributeKey.creationDate: newDate,
                 FileAttributeKey.modificationDate: newDate
             ]
             
             do {
-                // THIS IS BROKEN!!
-                //print("ORIGINAL PATH : \(original)")
-                //print("ATTRIBUTES: \(attributes)")
-                
                 try FileManager.default.setAttributes(attributes, ofItemAtPath: original)
             } catch {
                 print(error)
@@ -112,9 +124,13 @@ class ScreenshotViewController: NSViewController {
     // Screen shot stuff
     func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> String? {
         let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+
         assetImgGenerate.appliesPreferredTrackTransform = true
         assetImgGenerate.requestedTimeToleranceAfter = kCMTimeZero;
         assetImgGenerate.requestedTimeToleranceBefore = kCMTimeZero;
+        
+        
+        
         var img: CGImage?
         do {
             img = try assetImgGenerate.copyCGImage(at:fromTime, actualTime: nil)
@@ -126,9 +142,6 @@ class ScreenshotViewController: NSViewController {
         
         if img != nil {
             let returnUrl = saveImage(image: img!)
-            
-            //  print("IMAGE URL \(returnUrl)")
-            
             return returnUrl
         } else {
             return nil
@@ -141,12 +154,15 @@ class ScreenshotViewController: NSViewController {
     }
     
     
+    
+    
+
+
+
     // Screen shot files
     func getScreenShotIncrement(_folder: String) -> String {
         var incrementer = "0000"
         if FileManager.default.fileExists(atPath: self.screenshotPath) {
-            // print("url is a folder url")
-            // lets get the folder files
             do {
                 let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.fileBrowserViewController.screenShotFolder)!, includingPropertiesForKeys: nil, options: [])
                 
@@ -161,8 +177,8 @@ class ScreenshotViewController: NSViewController {
     
     func getScreenshotPath(_screenshotPath : String) -> String {
         self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+        
         self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
-       //  self.screenshotPathFullURL = URL(string: self.mainViewController.screenShotFolder)
         
         let increment = getScreenShotIncrement(_folder: self.appDelegate.fileBrowserViewController.screenShotFolder)
     
@@ -173,6 +189,7 @@ class ScreenshotViewController: NSViewController {
         let now = dateformatter.string(from: self.modificationDate)
         
         self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + ".png"
+        
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
         
         self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
@@ -194,10 +211,32 @@ class ScreenshotViewController: NSViewController {
 
     
     
+    func pngData(img: NSImage, metaData: NSDictionary) -> Data{
+        
+        // var m = NSImageEXIFData
+        let tiffRepresentation = img.tiffRepresentation
+        let bitmapImage = NSBitmapImageRep(data: tiffRepresentation!)
+        let bm = bitmapImage?.representation(using: .PNG, properties: metaData as! [String : Any])
+        
+        return bm!
+    }
+    
+    
+    func pngWrite(data: Data, to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
+        
+        do {
+            try data.write(to: url, options: options )
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+    
+    
+    
     func saveImage(image: CGImage) -> String! {
         let context = CIContext()
-        // let retUrl: URL!
-        // let desktopURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
         
         do {
             // guard
@@ -224,11 +263,21 @@ class ScreenshotViewController: NSViewController {
                 print("Error while creating a folder.")
             }
         
+            
+            
             let stringURL =  self.getScreenshotPath(_screenshotPath: " ")
 
-            // let destinationURL = desktopURL.appendingPathComponent("my-image.png")
+            
             let nsImage = NSImage(cgImage: cgImage!, size: (ciImage?.extent.size)!)
-            if nsImage.pngWrite(to: URL(string: self.screenshotNameFullURL)!, options: .withoutOverwriting) {
+            
+            
+            let data = self.pngData(img: nsImage, metaData: self.writeMetaData())
+            
+            if self.pngWrite(data: data , to: URL(string: self.screenshotNameFullURL)!, options: .withoutOverwriting) {
+                
+                
+                
+                
                 print("File saved")
             }
             
@@ -237,12 +286,44 @@ class ScreenshotViewController: NSViewController {
             }
             self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
             
+            
             return stringURL
         }
     }
     
     
-    var audioPlayer: AVAudioPlayer?
+    func geocode(completionHandler:@escaping (CLPlacemark?) -> Void) {
+        guard let coordinate = self.coordinate else { return }
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            print("geo code \(String(describing: error))")
+            completionHandler(placemarks?.first)
+        }
+    }
+    
+    func writeMetaData() -> NSMutableDictionary {
+        
+    
+        let longitude = +27.821788-82
+        let latitude = 831942+3.100
+        
+        let properties:[String:AnyObject] = [
+            kCGImagePropertyGPSSpeed as String : 0 as AnyObject,
+            kCGImagePropertyGPSSpeedRef as String : "K" as AnyObject,
+            kCGImagePropertyGPSAltitudeRef as String : 0 as AnyObject,
+            kCGImagePropertyGPSImgDirection as String : 0.0 as AnyObject,
+            kCGImagePropertyGPSImgDirectionRef as String : "T" as AnyObject,
+            kCGImagePropertyGPSLatitude as String : Double(latitude) as AnyObject,
+            kCGImagePropertyGPSLatitudeRef as String : latitude > 0 ? "N" as AnyObject : "S" as AnyObject,
+            
+            kCGImagePropertyGPSLongitude as String : Double(longitude) as AnyObject,
+            kCGImagePropertyGPSLongitudeRef as String : longitude > 0 ? "E" as AnyObject : "W" as AnyObject,
+            ]
+        
+       //  print("properties: \(properties)")
+        return properties as! NSMutableDictionary
+    }
+    
     
     func playShutterSound() {
         let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!
@@ -257,20 +338,5 @@ class ScreenshotViewController: NSViewController {
             print(error.localizedDescription)
         }
     }
-}
-
-extension NSImage {
-    var pngData: Data? {
-        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
-        return bitmapImage.representation(using: .PNG, properties: [:])
-    }
-    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
-        do {
-            try pngData?.write(to: url, options: options)
-            return true
-        } catch {
-            print(error.localizedDescription)
-            return false
-        }
-    }
+    
 }

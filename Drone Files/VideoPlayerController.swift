@@ -40,18 +40,10 @@ class VideoPlayerViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // print("Video Player Controller Loaded")
         
         self.VideoEditView.isHidden = false
-        
-        
+
         self.appDelegate.videoPlayerViewController = self
-        
-        // let window = self.appDelegate.keyWindow as! KeyCaptureWindow
-        
-        
-        // window.addKeyEventCallback(callback: handleKeyEvent())
-        
     }
     
     override func viewDidAppear() {
@@ -60,10 +52,7 @@ class VideoPlayerViewController: NSViewController {
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        
     }
-    
-    
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
@@ -95,6 +84,12 @@ class VideoPlayerViewController: NSViewController {
         }
         
         prepareToPlay(_url: _url, startTime: frame)
+        
+        let location = self.getLocationData(asset: self.currentAsset)
+        self.appDelegate.videoPlayerControlsController?.metadataLocationLabel.stringValue = location
+        
+        print("Location: \(location)")
+
     }
     
     // Video Player Setup and Play
@@ -103,14 +98,14 @@ class VideoPlayerViewController: NSViewController {
         let url = _url
         self.currentVideoURL = url
         let asset = AVAsset(url: url)
+        
         let assetKeys = [
             "playable",
             "hasProtectedContent"
         ]
+        
         self.currentAsset = asset
-        
-        //self.playerView.showCon
-        
+
         let playerItem = AVPlayerItem(asset: asset,
                                       automaticallyLoadedAssetKeys: assetKeys)
         playerItem.reversePlaybackEndTime = kCMTimeZero
@@ -122,16 +117,8 @@ class VideoPlayerViewController: NSViewController {
         } else {
             self.playerView.player?.replaceCurrentItem(with: playerItem)
         }
-        //self.playerView.player?.play()
-        
-        // print(playerItem)
+
         self.appDelegate.videoPlayerControlsController?.calculateClipLength()
-        
-        
-        
-        // }
-        
-        
         
     }
     
@@ -141,17 +128,29 @@ class VideoPlayerViewController: NSViewController {
             print("Deallocating Observers from playerItem")
             self.playerView.player?.pause()
             
-            // self.playerItem.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
-            // self.playerView.player!.removeTimeObserver(<#T##observer: Any##Any#>)
-            
             self.playerView.player?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: &playerViewControllerKVOContext)
             
             self.playerView.player?.removeObserver(self, forKeyPath: #keyPath(AVPlayer.rate), context: &playerViewControllerKVOContext)
-            
-            // self.playerView.player?.replaceCurrentItem(with: nil)
         }
     }
     
+    
+    func getLocationData(asset: AVAsset) -> String {
+        
+        var locationData = ""
+        
+        for metaDataItems in asset.commonMetadata {
+            if metaDataItems.commonKey == "location" {
+                print("ASSET METADATA");
+                print("Common Key: \(String(describing: metaDataItems.commonKey))")
+                locationData = (metaDataItems.value as! NSString) as String
+                print("Location Data: \(locationData)")
+            }
+        }
+        
+        return locationData
+        
+    }
     
     
     
@@ -186,9 +185,6 @@ class VideoPlayerViewController: NSViewController {
                                change: [NSKeyValueChangeKey : Any]?,
                                context: UnsafeMutableRawPointer?) {
         
-        
-        // print("~~~~~~~~~~~~~~~~~~~~~~~~~~ OBSERVING " + keyPath!)
-        // Only handle observations for the playerItemContext
         guard context == &playerViewControllerKVOContext else {
             super.observeValue(forKeyPath: keyPath,
                                of: object,
@@ -210,6 +206,7 @@ class VideoPlayerViewController: NSViewController {
             // Switch over the status
             switch status {
             case .readyToPlay:
+                // Player item is ready to play.
                 // print("Player Ready")
                 self.playerIsReady = true
                 self.appDelegate.videoPlayerControlsController?.calculateClipLength()
@@ -220,13 +217,13 @@ class VideoPlayerViewController: NSViewController {
                 }
                 
                 break
-            // Player item is ready to play.
             case .failed:
+                // Player item failed. See error.
+
                 print("Player Failed")
                 self.playerIsReady = false
                 break
                 
-            // Player item failed. See error.
             case .unknown:
                 print("Player Unkown");
                 self.playerIsReady = false
@@ -284,14 +281,7 @@ class VideoPlayerViewController: NSViewController {
         
         return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
-    
-    // Keyboard Keys
-    
-    // Overrides
-    
 }
-
-
 
 extension AVPlayer {
     var isPlaying: Bool {
