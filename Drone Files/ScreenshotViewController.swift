@@ -21,7 +21,9 @@ class ScreenshotViewController: NSViewController {
     @IBOutlet var imageEditorView: NSView!
     
     let geocoder = CLGeocoder()
-
+    var latitude: Double?, originalLatitude: Double?
+    var longitude: Double?, originalLongitude: Double?
+    
     var timestamp:NSDate?
     var coordinate:CLLocationCoordinate2D?
     var altitude: Double?
@@ -64,37 +66,77 @@ class ScreenshotViewController: NSViewController {
         self.imageView.setImageWith(_url)
     }
     
+    
+    func getLocationData(asset: AVAsset) -> String {
+        
+        var locationData = ""
+        
+        print(asset.commonMetadata)
+        // print(asset.)
+        
+        for metaDataItems in asset.commonMetadata {
+            
+            // print("Common Key: \(String(describing: metaDataItems.commonKey))")
+            // print("Value: \(metaDataItems.value)")
+
+            if metaDataItems.commonKey == "location" {
+                locationData = (metaDataItems.value as! NSString) as String
+                print("Location Data: \(locationData)")
+            }
+        }
+        
+        return locationData
+    }
+
+    
+    
     func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
+
+        let foo = self.getLocationData(asset: asset)
+
+        
+        self.playShutterSound()
         
         self.modificationDate = modificationDate
         
+        var f = foo.components(separatedBy: "-")
+        
+        print("F: \(f)")
+        
+        print("F0 \(f[0])")
+        print("F1 \(f[1])")
+
+        // f[1] = "-" + f[1] // SO FUCKING RIGGED
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        let finalNumber = numberFormatter.number(from: f[1])
+        let finalNumber2 = numberFormatter.number(from: f[0])
+
+        print(finalNumber as Any)
+        print(finalNumber2 as Any)
+
+        
+        self.longitude = Double(f[0])
+        self.latitude = Double(f[1])
+        
+        
+        print("LONG: \(String(describing: self.longitude))")
+        
+        print("LAT: \(String(describing: self.latitude))")
+
         print("Taking Screenshot")
-        self.playShutterSound()
+      
         
         print("Screen shot at: \(String(describing: currentTime))")
+        
+        
         do {
             let _: String! =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
             
             let url = URL(string: self.screenshotNameFullURL)
-            
-            
-            
-            let imageSource = CGImageSourceCreateWithURL(url! as CFURL, nil)
-            let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
-            
-            print(imageProperties)
-            
-            // let exifDict = imageProperties["{Exif}"] as! [String:Any]
-            
-            
-            
-            // let dateTimeOriginal = exifDict["DateTimeOriginal"] as! String
-            // print ("DateTimeOriginal: \(dateTimeOriginal)")
-            
-
 
             if(preview == true) {
-               // print("SCREEN SHOT PREVIEWING : \(String(describing: url))")
                 self.imageView.setImageWith(url)
             }
         }
@@ -123,18 +165,18 @@ class ScreenshotViewController: NSViewController {
     
     // Screen shot stuff
     func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> String? {
+        
         let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
 
         assetImgGenerate.appliesPreferredTrackTransform = true
         assetImgGenerate.requestedTimeToleranceAfter = kCMTimeZero;
         assetImgGenerate.requestedTimeToleranceBefore = kCMTimeZero;
-        
-        
-        
+
         var img: CGImage?
+        
         do {
             img = try assetImgGenerate.copyCGImage(at:fromTime, actualTime: nil)
-            print("Screen shot captured yeah...")
+            // print("Screen shot captured yeah...")
             
         } catch let error {
             print("*** Error generating thumbnail: \(error.localizedDescription)")
@@ -153,11 +195,6 @@ class ScreenshotViewController: NSViewController {
         return ciImage
     }
     
-    
-    
-    
-
-
 
     // Screen shot files
     func getScreenShotIncrement(_folder: String) -> String {
@@ -176,6 +213,13 @@ class ScreenshotViewController: NSViewController {
     }
     
     func getScreenshotPath(_screenshotPath : String) -> String {
+        
+        var fileExtension = "jpg"
+        
+        if(self.appDelegate.videoPlayerControlsController?.screenshotPNG)! {
+            fileExtension = "png"
+        }
+        
         self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
         
         self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
@@ -188,16 +232,16 @@ class ScreenshotViewController: NSViewController {
         
         let now = dateformatter.string(from: self.modificationDate)
         
-        self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + ".png"
+        self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + "." + fileExtension
         
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
         
         self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
         
         if FileManager.default.fileExists(atPath: self.screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
-            print("Fuck that file screenshot exists..")
+            // print("Fuck that file screenshot exists..")
             let incrementer = "00000"
-            self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer + ".png"
+            self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer  + "." + fileExtension
             
             self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
             self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
@@ -210,19 +254,7 @@ class ScreenshotViewController: NSViewController {
     }
 
     
-    
-    func pngData(img: NSImage, metaData: NSDictionary) -> Data{
-        
-        // var m = NSImageEXIFData
-        let tiffRepresentation = img.tiffRepresentation
-        let bitmapImage = NSBitmapImageRep(data: tiffRepresentation!)
-        let bm = bitmapImage?.representation(using: .PNG, properties: metaData as! [String : Any])
-        
-        return bm!
-    }
-    
-    
-    func pngWrite(data: Data, to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
+    func imageWrite(data: Data, to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
         
         do {
             try data.write(to: url, options: options )
@@ -263,27 +295,32 @@ class ScreenshotViewController: NSViewController {
                 print("Error while creating a folder.")
             }
         
-            
-            
             let stringURL =  self.getScreenshotPath(_screenshotPath: " ")
 
             
             let nsImage = NSImage(cgImage: cgImage!, size: (ciImage?.extent.size)!)
             
             
-            let data = self.pngData(img: nsImage, metaData: self.writeMetaData())
+            // let data = self.pngData(img: nsImage)
             
-            if self.pngWrite(data: data , to: URL(string: self.screenshotNameFullURL)!, options: .withoutOverwriting) {
-                
-                
-                
-                
+            var data = Data()
+            
+            if(self.appDelegate.videoPlayerControlsController?.screenshotJPG)! {
+                data = nsImage.imageJPGRepresentation()! as Data
+            } else {
+                data = nsImage.imagePNGRepresentation()! as Data
+            }
+            
+            
+            if self.imageWrite(data: data as Data , to: URL(string: self.screenshotNameFullURL)!, options: .withoutOverwriting) {
+                self.exifWriteData(path: self.screenshotNameFullURL)
                 print("File saved")
             }
             
             if(self.screenshotItemPreserveFileDates) {
                 self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
             }
+            
             self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
             
             
@@ -292,6 +329,50 @@ class ScreenshotViewController: NSViewController {
     }
     
     
+    func exifWriteData(path: String) {
+        
+        var latArg = "-GPSLatitude="
+        var latRefArg = "-GPSLatitudeRef="
+        if var lat = latitude {
+            if lat < 0 {
+                latRefArg += "S"
+                lat = -lat
+            } else {
+                latRefArg += "N"
+            }
+            latArg += "\(lat)"
+        }
+        
+        var lonArg = "-GPSLongitude="
+        var lonRefArg = "-GPSLongitudeRef="
+        
+        if var lon = longitude {
+            if lon < 0 {
+                lonRefArg += "W"
+                lon = -lon
+            } else {
+                lonRefArg += "E"
+            }
+            lonArg += "\(lon)"
+        }
+        
+        let exiftool = Process()
+        exiftool.standardOutput = FileHandle.nullDevice
+        exiftool.standardError = FileHandle.nullDevice
+        exiftool.launchPath = "/usr/local/bin/exiftool"
+        
+        exiftool.arguments = ["-q", "-m",
+                              "-DateTimeOriginal>FileModifyDate", latArg, latRefArg,
+                              lonArg, lonRefArg, getPathFromURL(path: path)]
+
+        exiftool.arguments?.insert("-overwrite_original", at: 2)
+
+        exiftool.launch()
+        exiftool.waitUntilExit()
+        
+    }
+
+
     func geocode(completionHandler:@escaping (CLPlacemark?) -> Void) {
         guard let coordinate = self.coordinate else { return }
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -301,29 +382,13 @@ class ScreenshotViewController: NSViewController {
         }
     }
     
-    func writeMetaData() -> NSMutableDictionary {
-        
     
-        let longitude = +27.821788-82
-        let latitude = 831942+3.100
-        
-        let properties:[String:AnyObject] = [
-            kCGImagePropertyGPSSpeed as String : 0 as AnyObject,
-            kCGImagePropertyGPSSpeedRef as String : "K" as AnyObject,
-            kCGImagePropertyGPSAltitudeRef as String : 0 as AnyObject,
-            kCGImagePropertyGPSImgDirection as String : 0.0 as AnyObject,
-            kCGImagePropertyGPSImgDirectionRef as String : "T" as AnyObject,
-            kCGImagePropertyGPSLatitude as String : Double(latitude) as AnyObject,
-            kCGImagePropertyGPSLatitudeRef as String : latitude > 0 ? "N" as AnyObject : "S" as AnyObject,
-            
-            kCGImagePropertyGPSLongitude as String : Double(longitude) as AnyObject,
-            kCGImagePropertyGPSLongitudeRef as String : longitude > 0 ? "E" as AnyObject : "W" as AnyObject,
-            ]
-        
-       //  print("properties: \(properties)")
-        return properties as! NSMutableDictionary
+    func getPathFromURL(path: String) -> String {
+        var path = path.replacingOccurrences(of: "file://", with: "")
+        path = path.replacingOccurrences(of: "%20" , with: " ")
+        return path
     }
-    
+
     
     func playShutterSound() {
         let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!
@@ -340,3 +405,31 @@ class ScreenshotViewController: NSViewController {
     }
     
 }
+
+
+extension NSImage {
+    func imagePNGRepresentation() -> NSData? {
+        if let imageTiffData = self.tiffRepresentation, let imageRep = NSBitmapImageRep(data: imageTiffData) {
+            // let imageProps = [NSImageCompressionFactor: 0.9] // Tiff/Jpeg
+            // let imageProps = [NSImageInterlaced: NSNumber(value: true)] // PNG
+            let imageProps: [String: Any] = [:]
+            let imageData = imageRep.representation(using: NSBitmapImageFileType.PNG, properties: imageProps) as NSData?
+            return imageData
+        }
+        return nil
+    }
+}
+
+extension NSImage {
+    func imageJPGRepresentation() -> NSData? {
+        if let imageTiffData = self.tiffRepresentation, let imageRep = NSBitmapImageRep(data: imageTiffData) {
+            let imageProps = [NSImageCompressionFactor: 1.0] // Tiff/Jpeg
+            // let imageProps = [NSImageInterlaced: NSNumber(value: true)] // PNG
+            // let imageProps: [String: Any] = [:]
+            let imageData = imageRep.representation(using: NSBitmapImageFileType.JPEG, properties: imageProps) as NSData?
+            return imageData
+        }
+        return nil
+    }
+}
+

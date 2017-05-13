@@ -42,6 +42,11 @@ class VideoPlayerControllsController: NSViewController {
     
    
     // Metadata
+    @IBOutlet var screenshotTypeJPGButton: NSButton!
+    @IBOutlet var screenshotTypePNGButton: NSButton!
+    
+    var screenshotJPG = true
+    var screenshotPNG = true
     
     @IBOutlet var metadataLocationLabel: NSTextField!
     
@@ -110,9 +115,13 @@ class VideoPlayerControllsController: NSViewController {
         // self.savingScreenShotMessageBox.isHidden = true
         self.savingScreenShotSpinner.isHidden = true
         
+        
+        
         let defaults = UserDefaults.standard
         
-        if(defaults.value(forKey: "previewScreenshot") == nil) {
+        if(defaults.value(forKey: "screenshotJPG") == nil) {
+            defaults.setValue(0, forKey: "screenshotJPG")
+            defaults.setValue(1, forKey: "screenshotPNG")
             defaults.setValue(1, forKey: "previewScreenshot")
             defaults.setValue(0, forKey: "screenShotBurstEnabled")
             defaults.setValue(1, forKey: "clippedItemPreserveFileDates")
@@ -121,8 +130,15 @@ class VideoPlayerControllsController: NSViewController {
         }
         
         self.screenShotBurstEnabledButton.state = (defaults.value(forKey: "screenShotBurstEnabled") as! Int)
+        
         self.screenShotPreviewButton.state = (defaults.value(forKey: "previewScreenshot") as! Int)
+        
         self.saveNewItemPreserveDate.state = (defaults.value(forKey: "clippedItemPreserveFileDates") as! Int)
+        
+        self.screenshotTypeJPGButton.state = (defaults.value(forKey: "screenshotJPG") as! Int)
+        
+        
+        self.screenshotTypePNGButton.state = (defaults.value(forKey: "screenshotPNG") as! Int)
         
         if(self.screenShotBurstEnabledButton.state == 0) {
             self.screenShotBurstEnabled = false
@@ -134,6 +150,15 @@ class VideoPlayerControllsController: NSViewController {
         
         if(self.saveNewItemPreserveDate.state == 0) {
             self.clippedItemPreserveFileDates = false
+        }
+        
+        
+        if(self.screenshotTypeJPGButton.state == 0) {
+            self.screenshotJPG = false
+        }
+        
+        if(self.screenshotTypePNGButton.state == 0) {
+            self.screenshotPNG = false
         }
         
         let tapGesture = NSClickGestureRecognizer(target: self, action: #selector(handlePlayerLabelClick))
@@ -391,6 +416,38 @@ class VideoPlayerControllsController: NSViewController {
             UserDefaults.standard.setValue(1, forKey: "previewScreenshot")
         } else {
             UserDefaults.standard.setValue(0, forKey: "previewScreenshot")
+        }
+    }
+    
+    
+    @IBAction func setScreenshotTypePNG(_ sender: AnyObject) {
+        self.screenshotPNG = !self.screenshotPNG
+        if(self.screenshotPNG) {
+            UserDefaults.standard.setValue(1, forKey: "screenshotPNG")
+            UserDefaults.standard.setValue(0, forKey: "screenshotJPG")
+             self.screenshotTypeJPGButton.state = 0
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "screenshotPNG")
+            UserDefaults.standard.setValue(1, forKey: "screenshotJPG")
+            self.screenshotTypeJPGButton.state = 1
+        }
+    }
+    
+    
+    @IBAction func setScreenshotTypeJPG(_ sender: AnyObject) {
+        self.screenshotJPG = !self.screenshotJPG
+        if(self.screenshotJPG) {
+            UserDefaults.standard.setValue(1, forKey: "screenshotJPG")
+            UserDefaults.standard.setValue(0, forKey: "screenshotPNG")
+
+            
+            self.screenshotTypePNGButton.state = 0
+
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "screenshotJPG")
+            UserDefaults.standard.setValue(1, forKey: "screenshotPNG")
+            self.screenshotTypePNGButton.state = 1
+
         }
     }
     

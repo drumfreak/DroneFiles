@@ -1297,10 +1297,6 @@
                                             <action selector="setPreviewScreenshot:" target="tOh-RK-Pxk" id="Q8N-hn-Nap"/>
                                         </connections>
                                     </button>
-                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="zmK-5w-SdK">
-                                        <rect key="frame" x="298" y="32" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    </progressIndicator>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZX-At-1Px">
                                         <rect key="frame" x="438" y="58" width="49" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1372,6 +1368,32 @@
                                             <action selector="shareFacebookWithSender:" target="tOh-RK-Pxk" id="2Ng-A7-1iE"/>
                                         </connections>
                                     </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ugW-7R-EJy">
+                                        <rect key="frame" x="447" y="18" width="47" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="JPG" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gdF-EU-m05">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="setScreenshotTypeJPG:" target="tOh-RK-Pxk" id="aDf-2E-dli"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uyc-T6-jwb">
+                                        <rect key="frame" x="521" y="18" width="50" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="PNG" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ama-vT-hYh">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="setScreenshotTypePNG:" target="tOh-RK-Pxk" id="0A8-bF-lKh"/>
+                                        </connections>
+                                    </button>
+                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="zmK-5w-SdK">
+                                        <rect key="frame" x="375" y="6" width="32" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </progressIndicator>
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwr-Vw-bfO">
@@ -1513,6 +1535,8 @@ Gw
                         <outlet property="savingScreenShotSpinner" destination="zmK-5w-SdK" id="NzK-2Z-hfo"/>
                         <outlet property="screenShotBurstEnabledButton" destination="Wu6-Xn-FK4" id="jQ7-Hl-vJ4"/>
                         <outlet property="screenShotPreviewButton" destination="jUL-TV-12d" id="Qe3-Ob-0cz"/>
+                        <outlet property="screenshotTypeJPGButton" destination="ugW-7R-EJy" id="kzg-2S-VBZ"/>
+                        <outlet property="screenshotTypePNGButton" destination="Uyc-T6-jwb" id="bqw-Ll-Msm"/>
                         <outlet property="trimmedClipNewLabel" destination="9wa-d8-hKV" id="HKs-LT-AjY"/>
                         <outlet property="trimmedClipNewPathLabel" destination="gHI-E4-Vmm" id="unN-93-bOO"/>
                         <outlet property="videoLengthLabel" destination="qiW-0F-jov" id="wUx-Ka-Ymi"/>
