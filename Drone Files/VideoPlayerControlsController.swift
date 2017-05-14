@@ -18,13 +18,13 @@ import Quartz
 class VideoPlayerControllsController: NSViewController {
     
     // Screenshotting
-    var screenShotPreview = true
     var screenShotBurstEnabled = false
     var trimOffset = 0.00
     
     @IBOutlet var screenShotPreviewButton: NSButton!
     @IBOutlet var screenShotBurstEnabledButton: NSButton!
-    
+    @IBOutlet var screenshotSoundButton: NSButton!
+
     // Video Trimming
     @IBOutlet var saveNewItemPreserveDate: NSButton!
     @IBOutlet var saveClipLoadNewItemCheckbox: NSButton!
@@ -45,8 +45,11 @@ class VideoPlayerControllsController: NSViewController {
     @IBOutlet var screenshotTypeJPGButton: NSButton!
     @IBOutlet var screenshotTypePNGButton: NSButton!
     
+    
+    var screenshotSound = true
     var screenshotJPG = true
     var screenshotPNG = true
+    var screenshotPreserveClipName = true
     
     @IBOutlet var metadataLocationLabel: NSTextField!
     
@@ -88,6 +91,8 @@ class VideoPlayerControllsController: NSViewController {
     @IBOutlet var clipTrimProgressBar: NSProgressIndicator!
     
     @IBOutlet var saveFilePreserveDatesButton: NSButton!
+    @IBOutlet var screenshotPreserveClipNameButton: NSButton!
+
     
     @IBOutlet var savingScreenShotSpinner: NSProgressIndicator!
     @IBOutlet var savingScreenShotMessageBox: NSView!
@@ -115,19 +120,23 @@ class VideoPlayerControllsController: NSViewController {
         // self.savingScreenShotMessageBox.isHidden = true
         self.savingScreenShotSpinner.isHidden = true
         
-        
-        
         let defaults = UserDefaults.standard
         
-        if(defaults.value(forKey: "screenshotJPG") == nil) {
-            defaults.setValue(0, forKey: "screenshotJPG")
-            defaults.setValue(1, forKey: "screenshotPNG")
+        if(defaults.value(forKey: "screenshotSound") == nil) {
+            defaults.setValue(1, forKey: "screenshotSound")
+            defaults.setValue(1, forKey: "screenshotPreserveClipName")
+            defaults.setValue(1, forKey: "screenshotJPG")
+            defaults.setValue(0, forKey: "screenshotPNG")
             defaults.setValue(1, forKey: "previewScreenshot")
             defaults.setValue(0, forKey: "screenShotBurstEnabled")
             defaults.setValue(1, forKey: "clippedItemPreserveFileDates")
             defaults.setValue(0, forKey: "loadNewClip")
             defaults.setValue(3, forKey: "burstFrames")
         }
+        
+        self.screenshotPreserveClipNameButton.state = (defaults.value(forKey: "screenshotPreserveClipName") as! Int)
+
+        self.screenshotSoundButton.state = (defaults.value(forKey: "screenshotSound") as! Int)
         
         self.screenShotBurstEnabledButton.state = (defaults.value(forKey: "screenShotBurstEnabled") as! Int)
         
@@ -136,8 +145,7 @@ class VideoPlayerControllsController: NSViewController {
         self.saveNewItemPreserveDate.state = (defaults.value(forKey: "clippedItemPreserveFileDates") as! Int)
         
         self.screenshotTypeJPGButton.state = (defaults.value(forKey: "screenshotJPG") as! Int)
-        
-        
+
         self.screenshotTypePNGButton.state = (defaults.value(forKey: "screenshotPNG") as! Int)
         
         if(self.screenShotBurstEnabledButton.state == 0) {
@@ -145,7 +153,7 @@ class VideoPlayerControllsController: NSViewController {
         }
         
         if(self.screenShotPreviewButton.state == 0) {
-            self.screenShotPreview = false
+            self.appDelegate.screenshotPreview = false
         }
         
         if(self.saveNewItemPreserveDate.state == 0) {
@@ -411,8 +419,8 @@ class VideoPlayerControllsController: NSViewController {
     
     
     @IBAction func setPreviewScreenshot(_ sender: AnyObject) {
-        self.screenShotPreview = !self.screenShotPreview
-        if(self.screenShotPreview) {
+        self.appDelegate.screenshotPreview = !self.appDelegate.screenshotPreview
+        if(self.appDelegate.screenshotPreview) {
             UserDefaults.standard.setValue(1, forKey: "previewScreenshot")
         } else {
             UserDefaults.standard.setValue(0, forKey: "previewScreenshot")
@@ -439,15 +447,30 @@ class VideoPlayerControllsController: NSViewController {
         if(self.screenshotJPG) {
             UserDefaults.standard.setValue(1, forKey: "screenshotJPG")
             UserDefaults.standard.setValue(0, forKey: "screenshotPNG")
-
-            
             self.screenshotTypePNGButton.state = 0
-
         } else {
             UserDefaults.standard.setValue(0, forKey: "screenshotJPG")
             UserDefaults.standard.setValue(1, forKey: "screenshotPNG")
             self.screenshotTypePNGButton.state = 1
-
+        }
+    }
+    
+    @IBAction func setScreenShotPreserveClipName(_ sender: AnyObject) {
+        self.screenshotPreserveClipName = !self.screenshotPreserveClipName
+        
+        if(self.screenshotPreserveClipName) {
+            UserDefaults.standard.setValue(0, forKey: "screnshotPreserveClipName")
+        } else {
+            UserDefaults.standard.setValue(1, forKey: "screnshotPreserveClipName")
+        }
+    }
+    
+    @IBAction func setScreenShotSound(_ sender: AnyObject) {
+        self.screenshotSound = !self.screenshotSound
+        if(self.screenshotSound) {
+            UserDefaults.standard.setValue(0, forKey: "screenshotSound")
+        } else {
+            UserDefaults.standard.setValue(1, forKey: "screenshotSound")
         }
     }
     
@@ -650,6 +673,7 @@ class VideoPlayerControllsController: NSViewController {
     
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
+        
         self.savingScreenShotSpinner.isHidden = false
         self.savingScreenShotSpinner.startAnimation(nil)
         
@@ -666,21 +690,21 @@ class VideoPlayerControllsController: NSViewController {
         let newDate = getScreenShotDate(originalFile: self.nowPlayingURLString)
         
         
-        if(self.screenShotPreview) {
+        if(self.appDelegate.screenshotPreview) {
             // THIS MUST HAPPEN FIRST
-            self.savingScreenShotSpinner.stopAnimation(self)
-            self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 1
+            self.savingScreenShotSpinner.stopAnimation(nil)
+           // 
             
             print("Screen shot at: \(String(describing: playerTime))")
             
-            self.appDelegate.screenshotViewController?.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: true, modificationDate: newDate)
+            self.appDelegate.screenshotViewController.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: true, modificationDate: newDate)
             
         } else {
             print("Screen shot at: \(String(describing: playerTime))")
-            self.appDelegate.screenshotViewController?.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: false, modificationDate: newDate)
+            self.appDelegate.screenshotViewController.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: false, modificationDate: newDate)
             if(playerWasPlaying) {
-                self.savingScreenShotSpinner.stopAnimation(self)
-                // self.savingScreenShotSpinner.isHidden = true
+                self.savingScreenShotSpinner.stopAnimation(nil)
+                self.savingScreenShotSpinner.isHidden = true
                 self.appDelegate.videoPlayerViewController?.playerView.player?.play()
             }
         }

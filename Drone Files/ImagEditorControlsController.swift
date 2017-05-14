@@ -74,14 +74,12 @@ class ImageEditorControllsController: NSViewController {
         self.appDelegate.imageEditorControlsController = self
         
         
-        self.imageView.delegate = self
+        //  self.appDelegate.imageEditorViewController?.imageView.delegate = self
         //        [_imageView zoomImageToFit: self];
         // self.filterPanel?.filterBrowserView(options: [:])
         
         // self.filterPanel?.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: Any!(), didEnd:Selector(("switchToolMode:")), contextInfo: nil)
-        
- 
-        
+
     }
     
 
@@ -120,31 +118,31 @@ class ImageEditorControllsController: NSViewController {
     @IBAction func cropImage(_ sender: AnyObject) {
         print("Hey cropImage")
         if(self.isCropping) {
-            self.imageView.crop(self)
-            self.imageView.zoomImageToFit(nil)
+             self.appDelegate.imageEditorViewController?.imageView.crop(self)
+             self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
             self.rotationAngle = 0.0
             self.imageRotated(by: CGFloat(self.rotationAngle))
-            self.imageView.currentToolMode = IKToolModeNone
+             self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeNone
             self.isCropping = false
         } else {
             self.isCropping = true
-            self.imageView.currentToolMode = IKToolModeCrop
+             self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeCrop
         }
     }
     
     @IBAction func moveImage(_ sender: AnyObject) {
         print("Hey moveImage")
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
     }
     
     @IBAction func rotationSliderChanged(_ sender: NSSlider) {
        // let slider = sender as! NSSlider
         print(sender.doubleValue)
         self.rotationAngle = sender.doubleValue
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
-        self.imageView.zoomImageToFit(nil)
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
     }
     
@@ -154,10 +152,10 @@ class ImageEditorControllsController: NSViewController {
         print(sender.doubleValue)
         self.zoomFactor = sender.doubleValue
         
-        self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(self.imageView.imageSize().width / 2), y: CGFloat(self.imageView.imageSize().height / 2)))
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().width)! / 2), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 2)))
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         self.zoomVerticalSlider.doubleValue = self.zoomFactor
-        // self.imageView.zoomImageToFit(nil)
+        //  self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
     }
     
@@ -166,18 +164,18 @@ class ImageEditorControllsController: NSViewController {
         print(sender.doubleValue)
         self.zoomFactor = sender.doubleValue
         
-        self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(self.imageView.imageSize().width / 2), y: CGFloat(self.imageView.imageSize().height / 2)))
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().width)! / 2), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 2)))
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         self.zoomSlider.doubleValue = self.zoomFactor
 
-        // self.imageView.zoomImageToFit(nil)
+        //  self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
     }
 
     
     @IBAction func saveImage(_ sender: AnyObject) {
         print("Hey saveImage")
-        // self.imageView.saveOptions(IKSaveOptions!, shouldShowUTType: false)
+        //  self.appDelegate.imageEditorViewController?.imageView.saveOptions(IKSaveOptions!, shouldShowUTType: false)
         
         let savePanel = NSSavePanel()
         savePanel.canSelectHiddenExtension = true
@@ -203,7 +201,7 @@ class ImageEditorControllsController: NSViewController {
         
         let imageUTType = CGImageSourceGetType(image!)
         
-        self.saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
+        self.saveOptions = IKSaveOptions.init(imageProperties:  self.appDelegate.imageEditorViewController?.imageView.imageProperties(), imageUTType: imageUTType! as String)
         
         self.saveOptions.addAccessoryView(to: savePanel)
         
@@ -211,6 +209,9 @@ class ImageEditorControllsController: NSViewController {
             if result == NSFileHandlingPanelOKButton {
                 guard let url = savePanel.url else { return }
                 print("SAVE PANEL URL: \(url)")
+                
+                
+                // self.appDelegate.fileBrowserViewController?.loadImage(_url: url)
                 
                 self.saveUrl = url
                 self.saveFile()
@@ -221,17 +222,19 @@ class ImageEditorControllsController: NSViewController {
     
     func saveFile() {
         
-        let image1 = self.imageView.image().takeUnretainedValue() // This crashes?
+        let image1 = self.appDelegate.imageEditorViewController?.imageView!.image()!.takeUnretainedValue() // This crashes?
         
         let dest = CGImageDestinationCreateWithURL(self.saveUrl! as CFURL, self.saveOptions.imageUTType! as CFString, 1, nil)
         
         
         if ((dest) != nil)
         {
-            CGImageDestinationAddImage(dest!, image1, self.saveOptions.imageProperties! as CFDictionary)
+            CGImageDestinationAddImage(dest!, image1!, self.saveOptions.imageProperties! as CFDictionary)
             CGImageDestinationFinalize(dest!)
             
             self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+            self.appDelegate.imageEditorViewController?.loadImage(_url: self.saveUrl!)
+
         }
     }
     
@@ -241,18 +244,18 @@ class ImageEditorControllsController: NSViewController {
     
     @IBAction func resetImage(_ sender: AnyObject) {
         // print("Hey resetImage")
-        self.imageView.currentToolMode = IKToolModeNone
-        // self.imageView.setRotationAngle(0.0, center: NSPoint(x: 0.0, y: 0.0))
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeNone
+        //  self.appDelegate.imageEditorViewController?.imageView.setRotationAngle(0.0, center: NSPoint(x: 0.0, y: 0.0))
         self.rotationAngle = 0.0
         self.imageRotated(by: 0)
         self.zoomFactor = 0.0
-        self.imageView.zoomImageToFit(nil)
+         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
     }
     
     @IBAction func zoomIn(_ sender: AnyObject) {
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         self.zoomFactor = self.zoomFactor + self.zoomInFactor
-        self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(0), y: CGFloat(self.imageView.imageSize().height / 3)))
+         self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(0), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 3)))
         
         
         self.zoomSlider.doubleValue = self.zoomFactor
@@ -261,73 +264,73 @@ class ImageEditorControllsController: NSViewController {
     
     @IBAction func zoomOut(_ sender: AnyObject) {
         self.zoomFactor = self.zoomFactor - self.zoomOutFactor
-        self.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(self.imageView.imageSize().width / 2), y: CGFloat(self.imageView.imageSize().height / 2)))
+         self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().width)! / 2), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 2)))
         self.zoomSlider.doubleValue = self.zoomFactor
     }
     
     
     @IBAction func showEditControls(_ sender: AnyObject) {
-        print(self.imageView.imageProperties())
-        self.imageView.editable = !self.imageView.editable
+        print(self.appDelegate.imageEditorViewController?.imageView.imageProperties()! as Any)
+         self.appDelegate.imageEditorViewController?.imageView.editable = !(self.appDelegate.imageEditorViewController?.imageView.editable)!
     }
     
     
     @IBAction func rotateLeft(_ sender: AnyObject) {
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.rotationAngle = self.rotationAngle - 0.1
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
         
     }
     
     @IBAction func rotateRight(_ sender: AnyObject) {
         self.rotationAngle = self.rotationAngle + 0.1
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
     }
     
     @IBAction func rotateLeft1(_ sender: AnyObject) {
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.rotationAngle = self.rotationAngle - 1.0
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
     }
     
     @IBAction func rotateRight1(_ sender: AnyObject) {
         self.rotationAngle = self.rotationAngle + 1.0
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         print("Setting Rotation to: \(self.rotationAngle)")
     }
     
     
     @IBAction func rotateLeft90(_ sender: AnyObject) {
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.rotationAngle = self.rotationAngle - 90.0
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
-        self.imageView.zoomImageToFit(nil)
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
         print("Setting Rotation to: \(self.rotationAngle)")
     }
     
     @IBAction func rotateRight90(_ sender: AnyObject) {
         self.rotationAngle = self.rotationAngle + 90.0
-        self.imageView.currentToolMode = IKToolModeRotate
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
         self.imageRotated(by: CGFloat(self.rotationAngle))
-        self.imageView.currentToolMode = IKToolModeMove
-        self.imageView.zoomImageToFit(nil)
+         self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
+         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
         //print("Setting Rotation to: \(self.rotationAngle)")
     }
     
     func imageRotated(by degrees: CGFloat){
         let angle = CGFloat(-(degrees / 180) * CGFloat(Double.pi))
         //print("Setting Angle to: \(angle)")
-        self.imageView.rotationAngle = angle
+         self.appDelegate.imageEditorViewController?.imageView.rotationAngle = angle
         self.rotationSlider.doubleValue = self.rotationAngle
     }
     
@@ -349,22 +352,22 @@ class ImageEditorControllsController: NSViewController {
             
         switch newTool {
             case 0:
-                self.imageView.currentToolMode = IKToolModeMove
+                 self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
             break
             case 1:
-                self.imageView.currentToolMode = IKToolModeSelect
+                 self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeSelect
             break
             case 2:
-                self.imageView.currentToolMode = IKToolModeCrop
+                 self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeCrop
             break
             case 3:
-                self.imageView.currentToolMode = IKToolModeRotate
+                 self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeRotate
             break;
             case 4:
-                self.imageView.currentToolMode = IKToolModeAnnotate
+                 self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeAnnotate
             break
             default:
-                self.imageView.currentToolMode = IKToolModeNone
+                 self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeNone
 
             break
     
@@ -373,7 +376,7 @@ class ImageEditorControllsController: NSViewController {
     
     
     func windowDidResize (notification: NSNotification?) {
-        self.imageView.zoomImageToFit(self)
+         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(self)
     }
     
     
@@ -389,18 +392,18 @@ class ImageEditorControllsController: NSViewController {
         
         switch zoom {
         case 0:
-            self.zoomFactor = Double(self.imageView.zoomFactor + CGFloat(0.02))
-            self.imageView.zoomFactor = CGFloat(self.zoomFactor)
+            self.zoomFactor = Double( (self.appDelegate.imageEditorViewController?.imageView.zoomFactor)! + CGFloat(0.02))
+             self.appDelegate.imageEditorViewController?.imageView.zoomFactor = CGFloat(self.zoomFactor)
             
-            self.imageView.zoomOut(self)
+             self.appDelegate.imageEditorViewController?.imageView.zoomOut(self)
         case 1:
-            self.zoomFactor = Double(self.imageView.zoomFactor - CGFloat(0.02))
-            self.imageView.zoomFactor = CGFloat(self.zoomFactor)
-            self.imageView.zoomIn(self)
+            self.zoomFactor = Double( (self.appDelegate.imageEditorViewController?.imageView.zoomFactor)! - CGFloat(0.02))
+             self.appDelegate.imageEditorViewController?.imageView.zoomFactor = CGFloat(self.zoomFactor)
+             self.appDelegate.imageEditorViewController?.imageView.zoomIn(self)
         case 2:
-            self.imageView.zoomImageToActualSize(self)
+             self.appDelegate.imageEditorViewController?.imageView.zoomImageToActualSize(self)
         case 3:
-            self.imageView.zoomImageToFit(self)
+             self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(self)
         default:
             break
         }
@@ -425,7 +428,7 @@ class ImageEditorControllsController: NSViewController {
     
     @IBAction func shareAirdrop(sender: AnyObject?) {
         let attr = NSMutableAttributedString(string: "foo")
-        let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
+        let image = NSImage.init(contentsOf: (self.appDelegate.imageEditorViewController?.imageUrl)!)
         
         let shareItems: NSArray? = NSArray(objects: attr,image!, "")
     
@@ -443,7 +446,7 @@ class ImageEditorControllsController: NSViewController {
         
         let attr = NSMutableAttributedString(string: imageName!)
     
-        let image = NSImage.init(contentsOf: self.appDelegate.imageEditorViewController.imageUrl)
+        let image = NSImage.init(contentsOf: (self.appDelegate.imageEditorViewController?.imageUrl)!)
         
         let shareItems: NSArray? = NSArray(objects: attr,image!, "")
         

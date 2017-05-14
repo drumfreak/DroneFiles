@@ -49,31 +49,39 @@ class ImageEditorViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("Loaded Image Editor")
-        imageView.autoresizes = true
-        imageView.supportsDragAndDrop = true
-        imageView.editable = true
+        self.imageView.autoresizes = true
+        self.imageView.supportsDragAndDrop = true
+        self.imageView.editable = true
         
         self.scrollView.hasVerticalScroller = false
         self.scrollView.hasHorizontalScroller = false
         
         let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
-        imageView.backgroundColor = rgb
-   
+        self.imageView.backgroundColor = rgb
+        
+        self.appDelegate.imageEditorViewController = self
 
     }
     
         
-    func setWindowVisible(sender : AnyObject?) {
-        // self.window!.orderFront(self)
-        
-        //print("FUCK");
-    }
+//    func setWindowVisible(sender : AnyObject?) {
+//        // self.window!.orderFront(self)
+//        //print("FUCK");
+//    }
     
     
     func loadImage(_url: URL) {
+        
+        print("Loading IMAGES: \(_url)")
+        
         // imageView.show
         self.imageUrl = _url
-        imageView.setImageWith(_url)
+        self.imageView.setImageWith(_url)
+        
+        self.nowPlayingURL = _url
+        self.nowPlayingFile?.stringValue = self.nowPlayingURL.lastPathComponent
+        self.nowPlayingURLString = _url.absoluteString.replacingOccurrences(of: "file://", with: "")
+        
         //print("Loaded Image")
         
         if(self.appDelegate.imageEditorControlsController?.viewIsLoaded)! {
@@ -86,37 +94,15 @@ class ImageEditorViewController: NSViewController {
         
         
         let imageSource = CGImageSourceCreateWithURL(_url as CFURL, nil)
-        let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
+        if((imageSource) != nil) {
+            let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
+            
+            // let exifDict = imageProperties["Exif"] as! Dictionary
+            
+            
+            print(imageProperties)
+        }
+     
         
-       // let exifDict = imageProperties["Exif"] as! Dictionary
-
-        
-        print(imageProperties)
-        
-
-
     }
-    
-    
-    
-    
-    
-//    func loadImage(_url: URL) {
-//    
-//        self.imageUrl = _url
-//        
-//        let image = CGImageSourceCreateWithURL(_url as CFURL, nil)
-//        
-//        let imageUTType = CGImageSourceGetType(image!)
-//
-//        let imageProps = CGImageSourceCopyProperties(image!, imageProperties)
-//        
-//        self.imageView.setImage(image, imageProperties: imageProps as! [AnyHashable : Any])
-//        
-//        
-//        
-//        self.saveOptions = IKSaveOptions.init(imageProperties: self.imageView.imageProperties(), imageUTType: imageUTType! as String)
-//
-//    }
-
 }

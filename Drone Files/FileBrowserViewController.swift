@@ -468,7 +468,7 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
                 
-                self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 0
+                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
                 
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = (item.url as URL).absoluteString
@@ -493,23 +493,9 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "JPG" || _extension == "jpg" || _extension == "DNG" || _extension == "dng" || _extension == "png" || _extension == "PNG") {
                 
-                self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 2
-                
-                // nowPlayingFile.stringValue = item.name;
-                var itemUrl = (item.url as URL).absoluteString
-                itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
-                // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW SHOWING IMAGE: " + itemUrl)
-                
-                // self.imageEditorViewController.VideoEditView.isHidden = false;
-                
-                
                 // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
-                self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 2
-                
-                self.appDelegate.imageEditorViewController.nowPlayingURL = (item.url as URL)
-                self.appDelegate.imageEditorViewController.nowPlayingFile?.stringValue = item.name
-                self.appDelegate.imageEditorViewController.nowPlayingURLString = itemUrl
-                self.appDelegate.imageEditorViewController.loadImage(_url: item.url as URL)
+                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                self.appDelegate.imageEditorViewController?.loadImage(_url: item.url as URL)
                 
             } else {
                 // self.videoPlayerViewController.VideoEditView.isHidden = true;
@@ -533,7 +519,7 @@ class FileBrowserViewController: NSViewController {
         }
     
         if(showTab) {
-            self.appDelegate.editorTabViewController.selectedTabViewItemIndex = 3
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 2
 
         }
 
@@ -656,10 +642,6 @@ class FileBrowserViewController: NSViewController {
         } catch let error as NSError {
             print("Couldn't write to file: \(error.localizedDescription)")
         }
-        
-        
-        
-        
         
     }
 }

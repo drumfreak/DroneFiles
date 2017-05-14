@@ -18,14 +18,8 @@ class EditorTabViewController: NSTabViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.appDelegate.videoSplitViewController = self.childViewControllers[0] as! VideoSplitViewController
-        
-        self.appDelegate.screenshotViewController = self.childViewControllers[1] as! ScreenshotViewController
-    
-        self.appDelegate.imageEditorViewController = self.childViewControllers[2] as! ImageEditorViewController
-        
         self.appDelegate.editorTabViewController = self
-    
+        
     }
     
 }

@@ -1176,7 +1176,7 @@
         <!--Video Editor-->
         <scene sceneID="y5n-du-UaX">
             <objects>
-                <splitViewController title="Video Editor" id="Ree-Ez-cKD" customClass="VideoSplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController title="Video Editor" storyboardIdentifier="videoSplitViewController" id="Ree-Ez-cKD" customClass="VideoSplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem id="qTP-gq-WBu"/>
                         <splitViewItem id="w6x-ZN-qwp"/>
@@ -1261,16 +1261,7 @@
                                         <rect key="frame" x="18" y="8" width="742" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="No Video Loaded" id="x97-u1-mbI">
-                                            <font key="font" metaFont="systemBold" size="16"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-0F-jov">
-                                        <rect key="frame" x="109" y="65" width="123" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00h:00m:00s" id="dUY-6L-dLo">
-                                            <font key="font" metaFont="systemBold"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -1297,6 +1288,10 @@
                                             <action selector="setPreviewScreenshot:" target="tOh-RK-Pxk" id="Q8N-hn-Nap"/>
                                         </connections>
                                     </button>
+                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="zmK-5w-SdK">
+                                        <rect key="frame" x="375" y="6" width="32" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </progressIndicator>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZX-At-1Px">
                                         <rect key="frame" x="438" y="58" width="49" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1331,7 +1326,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7X-lr-yJn">
-                                        <rect key="frame" x="687" y="32" width="83" height="17"/>
+                                        <rect key="frame" x="687" y="42" width="83" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Frame" id="HeG-Jb-4Dp">
                                             <font key="font" metaFont="system"/>
@@ -1340,7 +1335,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5u-xH-dAE">
-                                        <rect key="frame" x="641" y="32" width="46" height="17"/>
+                                        <rect key="frame" x="641" y="42" width="46" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frame:" id="0Hf-Ps-gnQ">
                                             <font key="font" metaFont="system"/>
@@ -1390,10 +1385,37 @@
                                             <action selector="setScreenshotTypePNG:" target="tOh-RK-Pxk" id="0A8-bF-lKh"/>
                                         </connections>
                                     </button>
-                                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="zmK-5w-SdK">
-                                        <rect key="frame" x="375" y="6" width="32" height="32"/>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eqw-oM-0LD">
+                                        <rect key="frame" x="521" y="-2" width="115" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    </progressIndicator>
+                                        <buttonCell key="cell" type="check" title="Preserve Name" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jdo-cy-30X">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="setScreenShotPreserveClipName:" target="tOh-RK-Pxk" id="Pt1-32-sna"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9T-sN-edw">
+                                        <rect key="frame" x="447" y="-2" width="61" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Sound" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="SaC-F8-gVt">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="setScreenShotSound:" target="tOh-RK-Pxk" id="0v4-K3-LIg"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-0F-jov">
+                                        <rect key="frame" x="87" y="64" width="123" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="00h:00m:00s" id="dUY-6L-dLo">
+                                            <font key="font" metaFont="systemBold"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwr-Vw-bfO">
@@ -1535,6 +1557,8 @@ Gw
                         <outlet property="savingScreenShotSpinner" destination="zmK-5w-SdK" id="NzK-2Z-hfo"/>
                         <outlet property="screenShotBurstEnabledButton" destination="Wu6-Xn-FK4" id="jQ7-Hl-vJ4"/>
                         <outlet property="screenShotPreviewButton" destination="jUL-TV-12d" id="Qe3-Ob-0cz"/>
+                        <outlet property="screenshotPreserveClipNameButton" destination="Eqw-oM-0LD" id="Q3g-Ua-dNm"/>
+                        <outlet property="screenshotSoundButton" destination="A9T-sN-edw" id="RA6-sE-Qao"/>
                         <outlet property="screenshotTypeJPGButton" destination="ugW-7R-EJy" id="kzg-2S-VBZ"/>
                         <outlet property="screenshotTypePNGButton" destination="Uyc-T6-jwb" id="bqw-Ll-Msm"/>
                         <outlet property="trimmedClipNewLabel" destination="9wa-d8-hKV" id="HKs-LT-AjY"/>
@@ -1578,10 +1602,9 @@ Gw
         <!--Editor Tab View Controller-->
         <scene sceneID="L4k-hf-rra">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="fa8-kS-UDX" customClass="EditorTabViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController storyboardIdentifier="editorTabViewController" selectedTabViewItemIndex="1" id="fa8-kS-UDX" customClass="EditorTabViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem id="7YO-L8-htw"/>
-                        <tabViewItem id="5Zl-7V-Gsl"/>
                         <tabViewItem id="dzA-8y-OAr"/>
                         <tabViewItem id="5gS-78-PU7"/>
                     </tabViewItems>
@@ -1593,7 +1616,6 @@ Gw
                     </tabView>
                     <connections>
                         <segue destination="Ree-Ez-cKD" kind="relationship" relationship="tabItems" id="DHM-Pl-5BM"/>
-                        <segue destination="JWN-ZO-nFL" kind="relationship" relationship="tabItems" id="FyV-3g-X7C"/>
                         <segue destination="9Ua-RM-M9k" kind="relationship" relationship="tabItems" id="0eE-ZU-peT"/>
                         <segue destination="NjL-Wo-Kn8" kind="relationship" relationship="tabItems" id="dXh-zT-nS7"/>
                     </connections>
@@ -1602,50 +1624,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="1050" y="1182"/>
         </scene>
-        <!--Screen Shots-->
-        <scene sceneID="ln6-1L-vYC">
-            <objects>
-                <viewController title="Screen Shots" id="JWN-ZO-nFL" userLabel="Screen Shots" customClass="ScreenshotViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="G4K-14-047">
-                        <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
-                        <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
-                        <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjh-Vv-k2E">
-                                <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="NvN-rI-eSn">
-                                        <rect key="frame" x="0.0" y="268" width="759" height="429"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </ikImageView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7e-Qa-sAG">
-                                        <rect key="frame" x="0.0" y="236" width="741" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Screen Shot Name" id="vkb-In-HCO">
-                                            <font key="font" metaFont="systemBold" size="16"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
-                            </customView>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="imageEditorView" destination="Sjh-Vv-k2E" id="7si-sn-Tyt"/>
-                        <outlet property="imageView" destination="NvN-rI-eSn" id="aZm-12-MCQ"/>
-                        <outlet property="nowPlayingFile" destination="s7e-Qa-sAG" id="CBv-3c-IVS"/>
-                    </connections>
-                </viewController>
-                <customObject id="BvN-Lu-pzm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1454" y="2287"/>
-        </scene>
         <!--Image Editor-->
         <scene sceneID="qsw-uA-ZE1">
             <objects>
-                <viewController title="Image Editor" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Image Editor" storyboardIdentifier="imageEditorViewController" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="PlS-k6-tw1">
                         <rect key="frame" x="0.0" y="0.0" width="759" height="697"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1655,10 +1637,10 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhv-gu-RjS">
-                                        <rect key="frame" x="0.0" y="236" width="741" height="17"/>
+                                        <rect key="frame" x="1" y="236" width="741" height="17"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loaded File" id="2Gj-bf-dhH">
-                                            <font key="font" metaFont="systemBold" size="16"/>
+                                            <font key="font" metaFont="systemBold" size="12"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -1682,7 +1664,7 @@ Gw
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" autoresizes="NO" editable="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Nv-Id-8do">
-                                                            <rect key="frame" x="0.0" y="0.0" width="759" height="429"/>
+                                                            <rect key="frame" x="0.0" y="1" width="759" height="429"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         </ikImageView>

@@ -16,10 +16,10 @@ import CoreLocation
 
 
 class ScreenshotViewController: NSViewController {
-    @IBOutlet var imageView: IKImageView!
-    @IBOutlet var imageName: NSTextField!
-    @IBOutlet var imageEditorView: NSView!
-    
+//    @IBOutlet var imageView: IKImageView!
+//    @IBOutlet var imageName: NSTextField!
+//    @IBOutlet var imageEditorView: NSView!
+//    
     let geocoder = CLGeocoder()
     var latitude: Double?, originalLatitude: Double?
     var longitude: Double?, originalLongitude: Double?
@@ -27,10 +27,10 @@ class ScreenshotViewController: NSViewController {
     var timestamp:NSDate?
     var coordinate:CLLocationCoordinate2D?
     var altitude: Double?
-
+    
     @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
-
+    
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     var nowPlayingURL: URL!
@@ -48,37 +48,23 @@ class ScreenshotViewController: NSViewController {
     var modificationDate = Date()
     
     var audioPlayer: AVAudioPlayer?
-
+    var videoAsset: AVAsset?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // print("Loaded Screen Shot Editor")
-        imageView.autoresizes = true
-        imageView.supportsDragAndDrop = true
-        imageView.editable = true
-        
-        let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
-        
-        imageView.backgroundColor = rgb
+        self.appDelegate.screenshotViewController = self
     }
-    
-    func loadImage(_url: URL) {
-        self.imageView.setImageWith(_url)
-    }
-    
     
     func getLocationData(asset: AVAsset) -> String {
         
         var locationData = ""
         
-        print(asset.commonMetadata)
-        // print(asset.)
-        
         for metaDataItems in asset.commonMetadata {
             
             // print("Common Key: \(String(describing: metaDataItems.commonKey))")
             // print("Value: \(metaDataItems.value)")
-
+            
             if metaDataItems.commonKey == "location" {
                 locationData = (metaDataItems.value as! NSString) as String
                 print("Location Data: \(locationData)")
@@ -87,63 +73,72 @@ class ScreenshotViewController: NSViewController {
         
         return locationData
     }
-
+    
     
     
     func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
-
-        let foo = self.getLocationData(asset: asset)
-
         
-        self.playShutterSound()
+        self.videoAsset = asset
+        let foo = self.getLocationData(asset: asset)
+        
+        if(self.appDelegate.videoPlayerControlsController?.screenshotSound)! {
+            self.playShutterSound()
+        }
         
         self.modificationDate = modificationDate
         
-        var f = foo.components(separatedBy: "-")
+        if(self.appDelegate.videoPlayerControlsController?.screenshotJPG)! {
+            
+            if let range = foo.range(of: "-") {
+                
+                let latFull = foo[foo.startIndex..<range.lowerBound]
+                
+                let longFull = foo[range.lowerBound..<foo.endIndex]
+                
+                let lat = latFull.replacingOccurrences(of: "+", with: "")
+                
+                var long = longFull.replacingOccurrences(of: "+", with: "")
+                
+                var longArray = long.components(separatedBy: ".")
+                
+                longArray.removeLast()
+                
+                long = longArray.joined(separator: ".")
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = NumberFormatter.Style.decimal
+                
+                let finalLong = numberFormatter.number(from: long)
+                let finalLat = numberFormatter.number(from: lat)
+                
+                print("Long: \(finalLong as Any)")
+                print("Lat: \(finalLat as Any)")
+                
+                self.longitude = finalLong?.doubleValue
+                
+                self.latitude = finalLat?.doubleValue
+                
+            }
+            
+        }
         
-        print("F: \(f)")
-        
-        print("F0 \(f[0])")
-        print("F1 \(f[1])")
-
-        // f[1] = "-" + f[1] // SO FUCKING RIGGED
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        let finalNumber = numberFormatter.number(from: f[1])
-        let finalNumber2 = numberFormatter.number(from: f[0])
-
-        print(finalNumber as Any)
-        print(finalNumber2 as Any)
-
-        
-        self.longitude = Double(f[0])
-        self.latitude = Double(f[1])
-        
-        
-        print("LONG: \(String(describing: self.longitude))")
-        
-        print("LAT: \(String(describing: self.latitude))")
-
         print("Taking Screenshot")
-      
         
         print("Screen shot at: \(String(describing: currentTime))")
-        
-        
+       
         do {
-            let _: String! =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
+            let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
             
-            let url = URL(string: self.screenshotNameFullURL)
+            
+            if(self.appDelegate.screenshotPreview) {
+                 self.appDelegate.imageEditorViewController?.loadImage(_url: url)
+                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
 
-            if(preview == true) {
-                self.imageView.setImageWith(url)
             }
         }
     }
     
     func setFileDate(originalFile: String) {
-        
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
         do {
@@ -164,14 +159,16 @@ class ScreenshotViewController: NSViewController {
     
     
     // Screen shot stuff
-    func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> String? {
+    func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> URL! {
         
         let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
-
+        
         assetImgGenerate.appliesPreferredTrackTransform = true
         assetImgGenerate.requestedTimeToleranceAfter = kCMTimeZero;
         assetImgGenerate.requestedTimeToleranceBefore = kCMTimeZero;
-
+        assetImgGenerate.apertureMode = AVAssetImageGeneratorApertureModeCleanAperture
+        
+        
         var img: CGImage?
         
         do {
@@ -183,8 +180,11 @@ class ScreenshotViewController: NSViewController {
         }
         
         if img != nil {
-            let returnUrl = saveImage(image: img!)
-            return returnUrl
+            if(saveImage(image: img!)) {
+                return URL(string: self.screenshotNameFullURL)
+            } else {
+                return nil
+            }
         } else {
             return nil
         }
@@ -195,7 +195,7 @@ class ScreenshotViewController: NSViewController {
         return ciImage
     }
     
-
+    
     // Screen shot files
     func getScreenShotIncrement(_folder: String) -> String {
         var incrementer = "0000"
@@ -220,19 +220,42 @@ class ScreenshotViewController: NSViewController {
             fileExtension = "png"
         }
         
-        self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
-        
-        self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
-        
-        let increment = getScreenShotIncrement(_folder: self.appDelegate.fileBrowserViewController.screenShotFolder)
-    
         let dateformatter = DateFormatter()
         
         dateformatter.dateFormat = "HHmm.ss"
         
         let now = dateformatter.string(from: self.modificationDate)
         
-        self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - " + now + "." + fileExtension
+        self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+        
+        self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
+        
+        let increment = getScreenShotIncrement(_folder: self.appDelegate.fileBrowserViewController.screenShotFolder)
+        
+        
+        if(self.appDelegate.videoPlayerControlsController?.screenshotPreserveClipName)! {
+            
+            let assetUrl = self.appDelegate.videoPlayerControlsController?.currentVideoURL
+            
+            let filename = assetUrl?.deletingPathExtension()
+    
+            let tmpName = filename!.lastPathComponent
+            
+            var screenShotName = increment + " - " + tmpName
+            
+            print("screenShotName \(String(describing: screenShotName))")
+
+            screenShotName +=  " - " + now + "." + fileExtension
+            
+            self.screenshotName = screenShotName
+            
+            
+        } else {
+            self.screenshotName = increment + " - " + self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + now + "." + fileExtension
+            
+        }
+        
+        
         
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
         
@@ -252,9 +275,9 @@ class ScreenshotViewController: NSViewController {
         
         return self.screenshotPath
     }
-
     
-    func imageWrite(data: Data, to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
+    
+    func imageWrite(data: Data, to url: URL!, options: Data.WritingOptions = .atomic) -> Bool {
         
         do {
             try data.write(to: url, options: options )
@@ -267,7 +290,7 @@ class ScreenshotViewController: NSViewController {
     
     
     
-    func saveImage(image: CGImage) -> String! {
+    func saveImage(image: CGImage) -> Bool {
         let context = CIContext()
         
         do {
@@ -294,10 +317,9 @@ class ScreenshotViewController: NSViewController {
             } catch _ as NSError {
                 print("Error while creating a folder.")
             }
-        
-            let stringURL =  self.getScreenshotPath(_screenshotPath: " ")
-
             
+            let _ =  self.getScreenshotPath(_screenshotPath: " ")
+        
             let nsImage = NSImage(cgImage: cgImage!, size: (ciImage?.extent.size)!)
             
             
@@ -311,26 +333,35 @@ class ScreenshotViewController: NSViewController {
                 data = nsImage.imagePNGRepresentation()! as Data
             }
             
+            let surl = URL(string: (self.screenshotNameFullURL)!)
             
-            if self.imageWrite(data: data as Data , to: URL(string: self.screenshotNameFullURL)!, options: .withoutOverwriting) {
+            if self.imageWrite(data: data as Data , to: surl, options: .withoutOverwriting) {
+                
+                
                 self.exifWriteData(path: self.screenshotNameFullURL)
                 print("File saved")
+                
+                if(self.screenshotItemPreserveFileDates) {
+                    self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
+                }
+                
+                
+                self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+                
+                
+                return true
+            } else {
+                print("File saved FAILED")
+
+                return false
             }
             
-            if(self.screenshotItemPreserveFileDates) {
-                self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
-            }
-            
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
-            
-            
-            return stringURL
+         
         }
     }
     
     
     func exifWriteData(path: String) {
-        
         var latArg = "-GPSLatitude="
         var latRefArg = "-GPSLatitudeRef="
         if var lat = latitude {
@@ -360,19 +391,17 @@ class ScreenshotViewController: NSViewController {
         exiftool.standardOutput = FileHandle.nullDevice
         exiftool.standardError = FileHandle.nullDevice
         exiftool.launchPath = "/usr/local/bin/exiftool"
-        
         exiftool.arguments = ["-q", "-m",
                               "-DateTimeOriginal>FileModifyDate", latArg, latRefArg,
                               lonArg, lonRefArg, getPathFromURL(path: path)]
-
+        
         exiftool.arguments?.insert("-overwrite_original", at: 2)
-
         exiftool.launch()
         exiftool.waitUntilExit()
         
     }
-
-
+    
+    
     func geocode(completionHandler:@escaping (CLPlacemark?) -> Void) {
         guard let coordinate = self.coordinate else { return }
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -388,7 +417,7 @@ class ScreenshotViewController: NSViewController {
         path = path.replacingOccurrences(of: "%20" , with: " ")
         return path
     }
-
+    
     
     func playShutterSound() {
         let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!

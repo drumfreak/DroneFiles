@@ -16,15 +16,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var window: NSWindow!
     
     // TODO: Eventually load all these view controllers from storyboard
-    @IBOutlet var editorTabViewController: EditorTabViewController!
+    // @IBOutlet var editorTabViewController: EditorTabViewController!
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
-    @IBOutlet var videoSplitViewController: VideoSplitViewController!
-    @IBOutlet var screenshotViewController: ScreenshotViewController!
-    @IBOutlet weak var editorTabViewContrller: EditorTabViewController!
-    @IBOutlet weak var imageEditorViewController: ImageEditorViewController!
-
+  
+    
     @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
     @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
     @IBOutlet weak var fileManagerOptionsOrganizeController: FileManagerOptionsOrganizeController!
@@ -34,12 +31,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
+    @IBOutlet weak var editorTabViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "editorTabViewController") as? EditorTabViewController
+    
     @IBOutlet var videoPlayerControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerControlsController") as? VideoPlayerControllsController
     
     @IBOutlet weak var videoPlayerViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerViewController") as? VideoPlayerViewController
 
+    @IBOutlet weak var imageEditorViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorViewController") as? ImageEditorViewController
     
     @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
+    
+    var screenshotViewController = ScreenshotViewController()
+    
+    
+    
+    @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
+    
+
+    
+    
+    
+    
+    
+    
+    
+    // Variables setup for various usage.
+    
+    var screenshotPreview = true
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let notification = NSUserNotification()
