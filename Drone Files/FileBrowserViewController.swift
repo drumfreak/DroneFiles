@@ -19,7 +19,7 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var splitViewController: SplitViewController!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
-
+    
     // Directories!
     var directory: Directory?
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
@@ -38,12 +38,13 @@ class FileBrowserViewController: NSViewController {
                 self.reloadFileList()
                 self.currentDir = url
                 self.folderURL = url.absoluteString
-                self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: self.folderURL)
+                // self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: self.folderURL)
+                self.currentFolderPathControl.url = URL(string: self.folderURL)
                 UserDefaults.standard.setValue(self.folderURL, forKey: "sourceDirectory")
             }
         }
     }
-
+    
     
     // URL
     var startingDirectory: URL!
@@ -82,7 +83,14 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var rawDirectoryLabel: NSTextField!
     @IBOutlet var screenshotDirectoryLabel: NSTextField!
     @IBOutlet var videoClipsDirectoryLabel: NSTextField!
-
+    
+    @IBOutlet var currentFolderPathControl: NSPathControl!
+    @IBOutlet var videosFolderPathControl: NSPathControl!
+    @IBOutlet var clipsFolderPathControl: NSPathControl!
+    @IBOutlet var framesFolderPathControl: NSPathControl!
+    @IBOutlet var jpgFolderPathControl: NSPathControl!
+    @IBOutlet var rawFolderPathControl: NSPathControl!
+    
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
     var sortOrder = Directory.FileOrder.Name
@@ -90,13 +98,13 @@ class FileBrowserViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM-dd-YYYY"
         let now = dateformatter.string(from: NSDate() as Date)
         
         self.fileSequenceName = now + " - " + self.fileSequenceNameTag
-
+        
         let defaults = UserDefaults.standard
         
         if(defaults.value(forKey: "sourceDirectory") == nil) {
@@ -115,7 +123,7 @@ class FileBrowserViewController: NSViewController {
         self.startingDirectory = URL(string: self.sourceFolder)
         self.sourceFolderOpened = self.startingDirectory
         self.fileSequenceName = self.fileSequenceNameTag
-
+        
         
         self.createProjectSubDirectoriesButton.state = (defaults.value(forKey: "createProjectSubDirectories") as! Int)
         self.createProjectDirectoryButton.state = (defaults.value(forKey: "createProjectDirectory") as! Int)
@@ -127,7 +135,7 @@ class FileBrowserViewController: NSViewController {
         if(self.createProjectDirectoryButton.state == 0) {
             self.createProjectDirectory = false
         }
-
+        
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -143,6 +151,8 @@ class FileBrowserViewController: NSViewController {
         self.showNotification(messageType: "default", customMessage: "");
         
         self.currentDir = self.startingDirectory
+        
+        self.currentFolderPathControl.backgroundColor = NSColor.clear
         
         // self.outputDirectory = self.currentDir.absoluteString
         
@@ -161,55 +171,12 @@ class FileBrowserViewController: NSViewController {
         self.sourceFolderOpened = self.startingDirectory
         self.folderURL = self.startingDirectory?.absoluteString
         
-        self.folderURLDisplay.stringValue = urlStringToDisplayPath(input:self.folderURL)
+        // self.folderURLDisplay.stringValue = urlStringToDisplayPath(input:self.folderURL)
         
         reloadFileList()
         
         self.appDelegate.fileBrowserViewController = self
-        
-        // writeProjectFile(projectPath: self.outputDirectory)
-        
-        
-        
-        // Click Gestures
-        
-        let tapGestureFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
-        
-        self.folderURLDisplay.addGestureRecognizer(tapGestureFolder1)
-    
-        
-        let tapGestureFolder2 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath2))
-        
-        self.outputDirectoryLabel.addGestureRecognizer(tapGestureFolder2)
-    
-        let tapGestureFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
-        
-        self.projectDirectoryLabel.addGestureRecognizer(tapGestureFolder3)
-        
-        let tapGestureFolderVideos = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathVideos))
-        
-        self.videosDirectoryLabel.addGestureRecognizer(tapGestureFolderVideos)
-        
-        
-        let tapGestureFolderJPG = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathJPG))
-        
-        self.jpgDirectoryLabel.addGestureRecognizer(tapGestureFolderJPG)
-        
 
-        let tapGestureFolderRAW = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathRAW))
-        
-        self.rawDirectoryLabel.addGestureRecognizer(tapGestureFolderRAW)
-        
-        
-        let tapGestureFolderScreenshots = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathScreenshots))
-        
-        self.screenshotDirectoryLabel.addGestureRecognizer(tapGestureFolderScreenshots)
-        
-        let tapGestureFolderVideoClips = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathVideoClips))
-        
-        self.videoClipsDirectoryLabel.addGestureRecognizer(tapGestureFolderVideoClips)
-        
-        
     }
     
     
@@ -224,39 +191,6 @@ class FileBrowserViewController: NSViewController {
         self.sourceFolderOpened = URL(string: self.outputDirectory)
     }
     
-    
-    func setOpenPath3() {
-        // print("RUNNING");
-        self.sourceFolderOpened = URL(string: self.projectFolder)
-    }
-    
-
-    func setOpenPathVideos() {
-        // print("RUNNING");
-        self.sourceFolderOpened = URL(string: self.videoFolder)
-    }
-    
-    func setOpenPathJPG() {
-        // print("RUNNING");
-        self.sourceFolderOpened = URL(string: self.jpgFolder)
-    }
-    
-    func setOpenPathRAW() {
-        // print("RUNNING");
-        self.sourceFolderOpened = URL(string: self.rawFolder)
-    }
-    
-    func setOpenPathScreenshots() {
-        // print("RUNNING");
-        self.sourceFolderOpened = URL(string: self.screenShotFolder)
-    }
-    
-    func setOpenPathVideoClips() {
-        // print("RUNNING");
-        self.sourceFolderOpened = URL(string: self.videoClipsFolder)
-    }
-
-
     @IBAction func fileBrowserHomeButtonClicked(_ sender: AnyObject?) {
         // print ("Clicked home button")
         
@@ -279,7 +213,7 @@ class FileBrowserViewController: NSViewController {
             
             if(counter == previousIndex) {
                 // print("SHOULD OPEN " + self.previousUrlString)
-
+                
                 self.sourceFolderOpened = URL(string: self.previousUrlString)
                 reloadFileList()
             }
@@ -328,9 +262,9 @@ class FileBrowserViewController: NSViewController {
                 self.sourceFolder = (openPanel.url?.absoluteString)!
                 
                 UserDefaults.standard.setValue(self.sourceFolder, forKey: "sourceDirectory")
-                self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
+                //self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
                 self.setupProjectDirectory()
-
+                
             }
         })
     }
@@ -350,12 +284,39 @@ class FileBrowserViewController: NSViewController {
                 self.outputDirectory = (openPanel.url?.absoluteString)!
                 self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
                 UserDefaults.standard.setValue(self.outputDirectory, forKey: "outputDirectory")
-                
                 self.setupProjectDirectory()
             }
             
         })
     }
+    
+    
+    
+    
+    // Open directory for tableview
+    @IBAction func openProjectFile(_ sender: AnyObject?) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = true
+        openPanel.canChooseFiles = true
+        openPanel.canChooseDirectories = false
+        openPanel.allowsMultipleSelection = false
+        openPanel.resolvesAliases = true
+        
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
+            
+                if(openPanel.url?.pathExtension == "dronefiles") {
+                    print ("HEY it's drone files!")
+                    self.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
+                    
+                }
+            }
+            
+        })
+    }
+    
+    
     
     @IBAction func createProjectDirectoryCheckbox(_ sender: AnyObject?) {
         self.createProjectDirectory = !self.createProjectDirectory
@@ -364,8 +325,10 @@ class FileBrowserViewController: NSViewController {
         } else {
             UserDefaults.standard.setValue(0, forKey: "createProjectDirectory")
         }
-
+        
         self.setupProjectDirectory()
+        
+        
     }
     
     @IBAction func createProjectSubDirectoriesCheckbox(_ sender: AnyObject?) {
@@ -391,7 +354,7 @@ class FileBrowserViewController: NSViewController {
         
         self.projectDirectory = urlStringToDisplayPath(input: self.projectFolder)
         self.projectDirectoryLabel.stringValue = self.projectDirectory
-
+        
         if(self.createProjectSubDirectories) {
             self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
             self.videoClipsFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Video Clips"
@@ -418,31 +381,17 @@ class FileBrowserViewController: NSViewController {
         
         self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
         
-        let projectPath = pathOutputFromURL(inputString: self.projectFolder)
-    
-        self.videosDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.videoFolder).replacingOccurrences(of: projectPath, with: "")
+        // let projectPath = pathOutputFromURL(inputString: self.projectFolder)
         
-        self.jpgDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.jpgFolder).replacingOccurrences(of: projectPath, with: "")
-        
-        self.rawDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.rawFolder).replacingOccurrences(of: projectPath, with: "")
-        
-        self.screenshotDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
-        
-        self.videoClipsDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.videoClipsFolder).replacingOccurrences(of: projectPath, with: "")
-    
-        
-//        print("Project Folder: " + self.urlStringToDisplayURLString(input: self.projectFolder))
-//        print("Video Folder: " + self.urlStringToDisplayURLString(input:self.videoFolder))
-//        print("Video Clips Folder: " + self.urlStringToDisplayURLString(input:self.videoClipsFolder))
-//        print("JPG Folder: " + self.urlStringToDisplayURLString(input:self.jpgFolder))
-//        print("PNG Folder: " + self.urlStringToDisplayURLString(input:self.screenShotFolder))
-//        print("RAW Folder: " + self.urlStringToDisplayURLString(input:self.rawFolder))
-//        print("DNG Folder: " + self.urlStringToDisplayURLString(input:self.dngFolder))
-
+        self.videosFolderPathControl.url = URL(string:self.videoFolder)
+        self.clipsFolderPathControl.url = URL(string:self.videoClipsFolder)
+        self.framesFolderPathControl.url = URL(string:self.screenShotFolder)
+        self.jpgFolderPathControl.url = URL(string:self.jpgFolder)
+        self.rawFolderPathControl.url = URL(string:self.rawFolder)
     }
     
     
-
+    
     func pathOutputFromURL(inputString: String) -> String {
         let str = inputString.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
         return str
@@ -456,13 +405,35 @@ class FileBrowserViewController: NSViewController {
     
     // Button and Input Text Actions
     @IBAction func fileSequenceLabelChanged(sender: AnyObject) {
-//        self.fileSequenceName = self.fileSequenceNameTextField.stringValue
-//        self.newFileNamePath.stringValue = self.fileSequenceName
-//        print("New Sequence Name \( self.fileSequenceName)")
-//        
-//        UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
-//
-//        setupProjectDirectory()
+        
+    }
+    
+    
+    @IBAction func pathControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = self.currentFolderPathControl.clickedPathItem?.url
+    }
+    
+    @IBAction func videosPathControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = self.videosFolderPathControl.clickedPathItem?.url
+    }
+    
+    @IBAction func clipsControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = self.clipsFolderPathControl.clickedPathItem?.url
+    }
+    
+    
+    @IBAction func framesControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = self.framesFolderPathControl.clickedPathItem?.url
+    }
+    
+    
+    @IBAction func rawControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = self.rawFolderPathControl.clickedPathItem?.url
+    }
+    
+    
+    @IBAction func jpgControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = self.jpgFolderPathControl.clickedPathItem?.url
     }
     
     @IBAction func fileSequenceNameSetButtonClicked(sender: AnyObject) {
@@ -475,38 +446,37 @@ class FileBrowserViewController: NSViewController {
         
         UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
         
-        setupProjectDirectory()
-        
-        
+        self.setupProjectDirectory()
+        self.writeProjectFile(projectPath: self.projectFolder)
     }
     
     
     func showNotification(messageType: String, customMessage: String) -> Void {
         DispatchQueue.global(qos: .userInitiated).async {
             if(messageType == "VideoTrimComplete") {
-               // DispatchQueue.main.async {
-                    // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
-                    let notification = NSUserNotification()
-                    notification.title = "Video Trimming Complete"
-                    notification.informativeText = "Your clip has been saved. " + customMessage.replacingOccurrences(of: "%20", with: " ")
-                    
-                    notification.soundName = NSUserNotificationDefaultSoundName
-                    // NSUserNotificationCenter.default.deliver(notification)
-                    NSUserNotificationCenter.default.deliver(notification);
-               // }
+                // DispatchQueue.main.async {
+                // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
+                let notification = NSUserNotification()
+                notification.title = "Video Trimming Complete"
+                notification.informativeText = "Your clip has been saved. " + customMessage.replacingOccurrences(of: "%20", with: " ")
+                
+                notification.soundName = NSUserNotificationDefaultSoundName
+                // NSUserNotificationCenter.default.deliver(notification)
+                NSUserNotificationCenter.default.deliver(notification);
+                // }
             }
             
             if(messageType == "default") {
-               // DispatchQueue.main.async {
-                    
-                    // print("Message Type Welcome: " + messageType);
-                    let notification = NSUserNotification()
-                    notification.title = "Welcome to DroneFiles!"
-                    notification.informativeText = "Your life will never be the same"
-                    notification.soundName = NSUserNotificationDefaultSoundName
-                    NSUserNotificationCenter.default.deliver(notification)
-                    
-               //  }
+                // DispatchQueue.main.async {
+                
+                // print("Message Type Welcome: " + messageType);
+                let notification = NSUserNotification()
+                notification.title = "Welcome to DroneFiles!"
+                notification.informativeText = "Your life will never be the same"
+                notification.soundName = NSUserNotificationDefaultSoundName
+                NSUserNotificationCenter.default.deliver(notification)
+                
+                //  }
             }
         }
     }
@@ -523,7 +493,7 @@ class FileBrowserViewController: NSViewController {
                 print(directoryItem.url)
                 print("HOLLLY FUCK")
                 
-            let indexSet =  NSIndexSet(index: i) as IndexSet
+                let indexSet =  NSIndexSet(index: i) as IndexSet
                 self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
             }
             i += Int(1)
@@ -575,9 +545,9 @@ class FileBrowserViewController: NSViewController {
                 
                 self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false;
                 
-            self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
+                self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
                 
-                 self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
+                self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
                 
                 self.appDelegate.videoPlayerViewController?.nowPlayingURL = (item.url as URL)
                 
@@ -616,11 +586,11 @@ class FileBrowserViewController: NSViewController {
             selectedFileURLS.add(item.url)
             
         }
-    
+        
         if(showTab) {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 2
         }
-    
+        
         self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS
     }
     
@@ -637,11 +607,11 @@ class FileBrowserViewController: NSViewController {
             
             self.appDelegate.slideShowWindowController = segue.destinationController as? SlideShowWindowController
             
-           self.appDelegate.slideShowController?.loadImages(items: self.selectedFileURLS)
+            self.appDelegate.slideShowController?.loadImages(items: self.selectedFileURLS)
             
         }
     }
-
+    
     
     func updateStatus() {
         
@@ -702,63 +672,122 @@ class FileBrowserViewController: NSViewController {
         return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
     }
     
-    func writeProjectFile (projectPath: String) {
-        
-        let documentsDirectoryPath = NSURL(string: projectPath)!
-        
-        let jsonFilePath = documentsDirectoryPath.appendingPathComponent(".dronefiles")
-        
-        print("jsonFilePath \(String(describing: jsonFilePath))")
-        
-        let fileManager = FileManager.default
-        
-        var isDirectory: ObjCBool = false
-        
-        // creating a .json file in the Documents folder
-        var foo = jsonFilePath?.absoluteString.replacingOccurrences(of: "file://", with: "")
-        foo = foo?.replacingOccurrences(of: "%20", with: " ")
-        
-        if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
-            let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
-            if created {
-                print("File created ")
-            } else {
-                print("Couldn't create file for some reason")
-            }
-        } else {
-            print("File already exists")
-        }
-        
-        // creating an array of test data
-        var numbers = [String]()
-        for i in 0 ..< 100 {
-            numbers.append("Test\(i)")
-        }
-        
-        // creating JSON out of the above array
-        var jsonData: NSData!
+    
+    func readProjectFile(projectFile: String) {
+        let path = URL(string: projectFile)
+        print("READING PRPOJECT FILE")
         do {
-            jsonData = try JSONSerialization.data(withJSONObject: numbers, options: JSONSerialization.WritingOptions()) as NSData
-            let jsonString = String(data: jsonData as Data, encoding: String.Encoding.utf8)
-            print("\(String(describing: jsonString))")
-        } catch let error as NSError {
-            print("Array to JSON conversion failed: \(error.localizedDescription)")
-        }
-        
-        // Write that JSON to the file created earlier
-        // let jsonFilePath = documentsDirectoryPath.appendingPathComponent("test.json")
-        do {
-            // let file = try FileHandle(forWritingToURL: jsonFilePath!)
-            
-            let file = try FileHandle.init(forWritingTo: jsonFilePath!)
-            file.write(jsonData as Data)
+            let data = try Data(contentsOf: path!, options: .alwaysMapped)
+            let projectJson = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let dictionary = projectJson as? [String: Any] {
+                for (key, val) in dictionary {
+                    if(key == "projectName") {
+                        print("LOADED projectName: \(val)")
+                        self.fileSequenceName = val as! String
+                    }
 
+                    
+                    if(key == "projectDirectory") {
+                        print("projectDirectory: \(val)")
+                        self.projectFolder = val as! String
+                    }
+                    
+                    if(key == "outputDirectory") {
+                        print("outputDirectory: \(val)")
+                        self.outputDirectory = val as! String
+                    }
+                    
+                    if(key == "currentDirectory") {
+                        print("currentDirectory: \(val)")
+                        
+                    }
+                    
+                    if(key == "videosDirectory") {
+                        print("currentDirectory: \(val)")
+                        self.videoFolder = val as! String
+                    }
+                    
+                    if(key == "jpgDirectory") {
+                        print("jpgDirectory: \(val)")
+                        self.jpgFolder = val as! String
+                    }
+                
+                    if(key == "rawDirectory") {
+                        print("rawDirectory: \(val)")
+                        self.rawFolder = val as! String
+                    }
+                    
+                    if(key == "videoClipsDirectory") {
+                        print("VideoClipsDirectory: \(val)")
+                        self.videoClipsFolder = val as! String
+                    }
+                }
+                
+                self.setupProjectDirectory()
+
+            }
             
-            print("JSON data was written to teh file successfully!")
-        } catch let error as NSError {
-            print("Couldn't write to file: \(error.localizedDescription)")
+                       //  print(projectJson!)
+        } catch let error {
+            print(error.localizedDescription)
         }
         
+        
+    }
+    
+    func writeProjectFile (projectPath: String) {
+        if(checkFolderAndCreate(folderPath: projectPath)) {
+            let documentsDirectoryPath = NSURL(string: projectPath)!
+
+            let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.fileSequenceName + ".dronefiles")
+            
+            // creating an array of test data
+            
+            let dic = ["projectName" : self.fileSequenceName,
+                       "projectDirectory": self.projectFolder,
+                       "videosDirectory": self.videoFolder,
+                       "videoClipsDirectory": self.self.videoClipsFolder,
+                       "jpgDirectory": self.self.self.jpgFolder,
+                       "rawDirectory": self.self.self.rawFolder,
+                       "outputDirectory": self.self.self.outputDirectory,
+                       "currentDirectory": self.self.self.folderURL,
+                       ]
+            
+            // print(dic)
+            
+            let jsonData: Data!
+            
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+                
+                // Write that JSON to the file created earlier
+                do {
+                    let file = try FileHandle.init(forWritingTo: jsonFilePath!)
+                    file.write(jsonData)
+                    print("JSON data was written to the file successfully!")
+                    self.readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
+                } catch let error as NSError {
+                    print("Couldn't write to file: \(error.localizedDescription)")
+                }
+                
+                // print("\(String(describing: jsonString))")
+                
+            } catch let error as NSError {
+                print("Array to JSON conversion failed: \(error.localizedDescription)")
+            }
+            
+        }
+    }
+    
+    func checkFolderAndCreate(folderPath: String) -> Bool {
+        do {
+            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
+            // print("Created Directory... " + folderPath)
+            return true
+        } catch _ as NSError {
+            print("Error while creating a folder.")
+            return false
+        }
     }
 }
 

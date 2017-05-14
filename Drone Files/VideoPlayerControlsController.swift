@@ -191,7 +191,7 @@ class VideoPlayerControllsController: NSViewController {
         let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
         self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
         
-        self.currentFrameLabel.stringValue = String(format: "%010f", durationSeconds)
+        self.currentFrameLabel.stringValue = String(format: "%02f", durationSeconds)
     }
     
     
