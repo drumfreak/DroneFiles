@@ -141,10 +141,10 @@ class VideoPlayerViewController: NSViewController {
         
         for metaDataItems in asset.commonMetadata {
             if metaDataItems.commonKey == "location" {
-                print("ASSET METADATA");
-                print("Common Key: \(String(describing: metaDataItems.commonKey))")
+                //print("ASSET METADATA");
+                //print("Common Key: \(String(describing: metaDataItems.commonKey))")
                 locationData = (metaDataItems.value as! NSString) as String
-                print("Location Data: \(locationData)")
+                // print("Location Data: \(locationData)")
             }
         }
         

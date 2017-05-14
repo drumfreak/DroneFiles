@@ -121,19 +121,7 @@ class VideoPlayerControllsController: NSViewController {
         self.savingScreenShotSpinner.isHidden = true
         
         let defaults = UserDefaults.standard
-        
-        if(defaults.value(forKey: "screenshotSound") == nil) {
-            defaults.setValue(1, forKey: "screenshotSound")
-            defaults.setValue(1, forKey: "screenshotPreserveClipName")
-            defaults.setValue(1, forKey: "screenshotJPG")
-            defaults.setValue(0, forKey: "screenshotPNG")
-            defaults.setValue(1, forKey: "previewScreenshot")
-            defaults.setValue(0, forKey: "screenShotBurstEnabled")
-            defaults.setValue(1, forKey: "clippedItemPreserveFileDates")
-            defaults.setValue(0, forKey: "loadNewClip")
-            defaults.setValue(3, forKey: "burstFrames")
-        }
-        
+   
         self.screenshotPreserveClipNameButton.state = (defaults.value(forKey: "screenshotPreserveClipName") as! Int)
 
         self.screenshotSoundButton.state = (defaults.value(forKey: "screenshotSound") as! Int)
@@ -220,18 +208,27 @@ class VideoPlayerControllsController: NSViewController {
     // Play / Pause / Increment / Decrement
     
     @IBAction func frameDecrement(_ sender: AnyObject?) {
-        self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
-        let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
-        let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
+        
+        // if(  self.appDelegate.videoPlayerViewController?.playerItem)
+       if(self.appDelegate.videoPlayerViewController?.playerView.player != nil) {
+            self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
+            let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
+            let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
+            
+            let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
+            self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: previousFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                self.updateTimerLabel()
+            })
 
-        let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
-        self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: previousFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-            self.updateTimerLabel()
-        })
+        }
         
     }
     
     @IBAction func frameIncrement(_ sender: AnyObject?) {
+        
+        if(self.appDelegate.videoPlayerViewController?.playerView.player != nil) {
+
+        
         let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
@@ -239,6 +236,11 @@ class VideoPlayerControllsController: NSViewController {
         self.appDelegate.videoPlayerViewController?.playerView?.player?.seek(to: nextFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
             self.updateTimerLabel()
         })
+            
+        }
+        
+        
+        
     }
     
     
@@ -468,9 +470,9 @@ class VideoPlayerControllsController: NSViewController {
     @IBAction func setScreenShotSound(_ sender: AnyObject) {
         self.screenshotSound = !self.screenshotSound
         if(self.screenshotSound) {
-            UserDefaults.standard.setValue(0, forKey: "screenshotSound")
-        } else {
             UserDefaults.standard.setValue(1, forKey: "screenshotSound")
+        } else {
+            UserDefaults.standard.setValue(0, forKey: "screenshotSound")
         }
     }
     
@@ -670,12 +672,28 @@ class VideoPlayerControllsController: NSViewController {
         //}
     }
     
+    func frameIncrementFromKeyboard() {
+        //if(self.playerIsReady) {
+        self.frameIncrement("" as AnyObject)
+        //}
+    }
+    
+    
+    func frameDecrementFromKeyboard() {
+        //if(self.playerIsReady) {
+        self.frameDecrement("" as AnyObject)
+        //}
+    }
+    
+    
     
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         print("Taking Screenshot");
         
-        self.savingScreenShotSpinner.isHidden = false
-        self.savingScreenShotSpinner.startAnimation(nil)
+        DispatchQueue.main.async {
+            self.savingScreenShotSpinner.isHidden = false
+            self.savingScreenShotSpinner.startAnimation(nil)
+        }
         
         let playerTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         
@@ -692,20 +710,25 @@ class VideoPlayerControllsController: NSViewController {
         
         if(self.appDelegate.screenshotPreview) {
             // THIS MUST HAPPEN FIRST
-            self.savingScreenShotSpinner.stopAnimation(nil)
-           // 
-            
-            print("Screen shot at: \(String(describing: playerTime))")
+            DispatchQueue.main.async {
+                self.savingScreenShotSpinner.stopAnimation(nil)
+                self.savingScreenShotSpinner.isHidden = true
+
+            }
+            // print("Screen shot at: \(String(describing: playerTime))")
             
             self.appDelegate.screenshotViewController.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: true, modificationDate: newDate)
             
         } else {
-            print("Screen shot at: \(String(describing: playerTime))")
+            // print("Screen shot at: \(String(describing: playerTime))")
             self.appDelegate.screenshotViewController.takeScreenshot(asset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, currentTime: playerTime!, preview: false, modificationDate: newDate)
             if(playerWasPlaying) {
-                self.savingScreenShotSpinner.stopAnimation(nil)
-                self.savingScreenShotSpinner.isHidden = true
-                self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+                DispatchQueue.main.async {
+                    self.savingScreenShotSpinner.stopAnimation(nil)
+                    self.savingScreenShotSpinner.isHidden = true
+                    self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+
+                }
             }
         }
     }

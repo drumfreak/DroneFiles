@@ -16,10 +16,10 @@ import CoreLocation
 
 
 class ScreenshotViewController: NSViewController {
-//    @IBOutlet var imageView: IKImageView!
-//    @IBOutlet var imageName: NSTextField!
-//    @IBOutlet var imageEditorView: NSView!
-//    
+    //    @IBOutlet var imageView: IKImageView!
+    //    @IBOutlet var imageName: NSTextField!
+    //    @IBOutlet var imageEditorView: NSView!
+    //
     let geocoder = CLGeocoder()
     var latitude: Double?, originalLatitude: Double?
     var longitude: Double?, originalLongitude: Double?
@@ -124,17 +124,23 @@ class ScreenshotViewController: NSViewController {
         
         print("Taking Screenshot")
         
-        print("Screen shot at: \(String(describing: currentTime))")
-       
+        // print("Screen shot at: \(String(describing: currentTime))")
+        
         do {
             let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
             
-            
             if(self.appDelegate.screenshotPreview) {
-                 self.appDelegate.imageEditorViewController?.loadImage(_url: url)
+                
+                self.appDelegate.imageEditorViewController?.loadImage(_url: url)
                 self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-
+                
+                self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.fileBrowserViewController.screenShotFolder)
+                
+                self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
+                
+                
             }
+            
         }
     }
     
@@ -238,21 +244,20 @@ class ScreenshotViewController: NSViewController {
             let assetUrl = self.appDelegate.videoPlayerControlsController?.currentVideoURL
             
             let filename = assetUrl?.deletingPathExtension()
-    
+            
             let tmpName = filename!.lastPathComponent
             
-            var screenShotName = increment + " - " + tmpName
+            var screenShotName = tmpName + " - " + increment
             
-            print("screenShotName \(String(describing: screenShotName))")
-
+            // print("screenShotName \(String(describing: screenShotName))")
+            
             screenShotName +=  " - " + now + "." + fileExtension
             
             self.screenshotName = screenShotName
             
             
         } else {
-            self.screenshotName = increment + " - " + self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + now + "." + fileExtension
-            
+            self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - "  + now + "." + fileExtension
         }
         
         
@@ -319,7 +324,7 @@ class ScreenshotViewController: NSViewController {
             }
             
             let _ =  self.getScreenshotPath(_screenshotPath: " ")
-        
+            
             let nsImage = NSImage(cgImage: cgImage!, size: (ciImage?.extent.size)!)
             
             
@@ -346,17 +351,17 @@ class ScreenshotViewController: NSViewController {
                 }
                 
                 
-                self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+                // self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
                 
                 
                 return true
             } else {
                 print("File saved FAILED")
-
+                
                 return false
             }
             
-         
+            
         }
     }
     

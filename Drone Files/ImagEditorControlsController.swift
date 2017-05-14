@@ -232,7 +232,7 @@ class ImageEditorControllsController: NSViewController {
             CGImageDestinationAddImage(dest!, image1!, self.saveOptions.imageProperties! as CFDictionary)
             CGImageDestinationFinalize(dest!)
             
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.saveUrl.absoluteString)
             self.appDelegate.imageEditorViewController?.loadImage(_url: self.saveUrl!)
 
         }
@@ -453,6 +453,12 @@ class ImageEditorControllsController: NSViewController {
         let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
         
         picker.show(relativeTo: sender!.bounds, of: sender as! NSView, preferredEdge: NSRectEdge.minY)
+    }
+    
+    
+    @IBAction func openPreview(sender: AnyObject?) {
+        
+        NSWorkspace.shared().open((self.appDelegate.imageEditorViewController?.imageUrl!)!)
     }
     
     

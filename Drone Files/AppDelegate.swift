@@ -60,19 +60,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var screenshotPreview = true
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+        let defaults = UserDefaults.standard
+        
+        if(defaults.value(forKey: "screenshotSound33") == nil) {
+            defaults.setValue(1, forKey: "screenshotSound")
+            defaults.setValue(1, forKey: "screenshotPreserveClipName")
+            defaults.setValue(1, forKey: "screenshotJPG")
+            defaults.setValue(0, forKey: "screenshotPNG")
+            defaults.setValue(1, forKey: "previewScreenshot")
+            defaults.setValue(0, forKey: "screenShotBurstEnabled")
+            defaults.setValue(1, forKey: "clippedItemPreserveFileDates")
+            defaults.setValue(0, forKey: "loadNewClip")
+            defaults.setValue(3, forKey: "burstFrames")
+        }
+        
+
+        
+        
         let notification = NSUserNotification()
         notification.title = "Welcome to DroneFiles!"
         notification.informativeText = "Your life will never be the same"
@@ -232,14 +239,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func videoFrameDecrementAD(sender: AnyObject) {
+        self.videoPlayerControlsController?.frameDecrementFromKeyboard()
+    }
+    
+    @IBAction func videoFrameIncrementAD(sender: AnyObject) {
+        self.videoPlayerControlsController?.frameDecrementFromKeyboard()
+    }
+    
+    
+    @IBAction func videoPlayPauseAD(sender: AnyObject) {
+        // self.videoPlayerControlsController?.p()
+    }
+    
+    
+    @IBAction func videoLoopAD(sender: AnyObject) {
+        // self.videoPlayerControlsController?.p()
+    }
+    
+    
     func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
-        Swift.print("Calling validate")
+       // Swift.print("Calling validate")
         Swift.print(anItem)
         return true
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        Swift.print("Calling validate 222")
+        //Swift.print("Calling validate 222")
         return true
     }
     

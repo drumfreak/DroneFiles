@@ -619,6 +619,18 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Video Editor" id="bE9-R6-gBC">
                                     <items>
+                                        <menuItem title="Play / Pause" keyEquivalent=" " id="PMD-87-Cu0" userLabel="Reset Trim">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="videoPlayPauseADWithSender:" target="Voe-Tx-rLC" id="s1u-s6-u11"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Loop" keyEquivalent="L" id="brk-EF-TS8" userLabel="Reset Trim">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="videoLoopADWithSender:" target="Voe-Tx-rLC" id="afR-aD-ccX"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Take Screenshot" keyEquivalent="G" id="Edm-fs-YRA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -639,6 +651,18 @@
                                         </menuItem>
                                         <menuItem title="Reset Trim" keyEquivalent="]" id="Phk-Yy-jLv" userLabel="Reset Trim">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Previous Frame" keyEquivalent="," id="vbf-bg-7r2" userLabel="Reset Trim">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="videoFrameDecrementADWithSender:" target="Voe-Tx-rLC" id="hbu-5E-CQQ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Next Frame" keyEquivalent="." id="igb-Hg-Bli" userLabel="Reset Trim">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="videoFrameIncrementADWithSender:" target="Voe-Tx-rLC" id="xad-3G-IyH"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -815,7 +839,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3R1-GX-dWa">
-                                                <rect key="frame" x="5" y="15" width="30" height="30"/>
+                                                <rect key="frame" x="7" y="17" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSLeftFacingTriangleTemplate" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="cW7-ai-Qgs">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1182,7 +1206,7 @@
                         <splitViewItem id="w6x-ZN-qwp"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="paneSplitter" id="CMf-he-Wrs">
-                        <rect key="frame" x="-99" y="0.0" width="720" height="1001"/>
+                        <rect key="frame" x="-99" y="0.0" width="759" height="1001"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     </splitView>
                     <connections>
@@ -1193,7 +1217,7 @@
                 </splitViewController>
                 <customObject id="K03-Hg-yfB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-496" y="2430.5"/>
+            <point key="canvasLocation" x="-409" y="2439"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Ll7-zt-fiB">
@@ -1203,7 +1227,7 @@
                         <splitViewItem id="j7o-Eg-bAT"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="pUp-xt-yoB">
-                        <rect key="frame" x="0.0" y="0.0" width="776" height="389"/>
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="389"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
@@ -1212,14 +1236,14 @@
                 </splitViewController>
                 <customObject id="XH1-Ws-aHF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-178" y="3273"/>
+            <point key="canvasLocation" x="-409.5" y="3162.5"/>
         </scene>
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
             <objects>
                 <viewController storyboardIdentifier="videoPlayerControlsController" id="tOh-RK-Pxk" customClass="VideoPlayerControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="RqY-fb-uNe">
-                        <rect key="frame" x="0.0" y="0.0" width="781" height="351"/>
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8QD-xD-1X8">
@@ -1238,7 +1262,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fxL-8N-JOx">
-                                        <rect key="frame" x="670" y="60" width="97" height="32"/>
+                                        <rect key="frame" x="663" y="60" width="97" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Trim Out" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vji-Gh-bQi">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1344,7 +1368,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGP-4d-WCQ">
-                                        <rect key="frame" x="339" y="60" width="133" height="31"/>
+                                        <rect key="frame" x="339" y="63" width="104" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00:00:00" id="5f0-NG-bSl">
                                             <font key="font" metaFont="system" size="23"/>
@@ -1568,7 +1592,7 @@ Gw
                 </viewController>
                 <customObject id="zYz-ZO-4e8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-181.5" y="3826.5"/>
+            <point key="canvasLocation" x="-410" y="3561.5"/>
         </scene>
         <!--Video Player-->
         <scene sceneID="NSP-20-XAr">
@@ -1597,7 +1621,7 @@ Gw
                 </viewController>
                 <customObject id="PWZ-uy-RXA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="517.5" y="2282.5"/>
+            <point key="canvasLocation" x="-410" y="2462"/>
         </scene>
         <!--Editor Tab View Controller-->
         <scene sceneID="L4k-hf-rra">
@@ -1710,14 +1734,14 @@ AAAAAAEGA
                 </viewController>
                 <customObject id="DHx-x3-09M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2283.5" y="2286.5"/>
+            <point key="canvasLocation" x="381.5" y="2498.5"/>
         </scene>
         <!--File Manager-->
         <scene sceneID="GYP-4x-9bJ">
             <objects>
                 <viewController title="File Manager" id="NjL-Wo-Kn8" customClass="FileManagerViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="hJz-SH-44t" userLabel="File Manager View">
-                        <rect key="frame" x="0.0" y="0.0" width="772" height="1030"/>
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="1030"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <splitView fixedFrame="YES" arrangesAllSubviews="NO" dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="GQ4-EM-zt1">
@@ -1922,7 +1946,7 @@ AAAAAAEGA
                 </viewController>
                 <customObject id="xpE-3s-qD4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3166" y="2453"/>
+            <point key="canvasLocation" x="382" y="3832"/>
         </scene>
         <!--File Manager Options Tab View Controller-->
         <scene sceneID="pKn-Lr-XAT">
@@ -2897,7 +2921,7 @@ Gw
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BxG-LC-90s">
-                                <rect key="frame" x="21" y="286" width="85" height="32"/>
+                                <rect key="frame" x="19" y="285" width="88" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Airdrop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="P5V-mo-JeH">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2908,7 +2932,7 @@ Gw
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMD-lI-a6l">
-                                <rect key="frame" x="21" y="259" width="85" height="32"/>
+                                <rect key="frame" x="19" y="259" width="88" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1DO-at-U1z">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2945,6 +2969,17 @@ Gw
                                     <action selector="showFilterWindow:" target="HxO-aJ-Lgv" id="Awe-Zr-Akw"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pvV-XB-z7p">
+                                <rect key="frame" x="19" y="234" width="88" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZkO-LK-nWV">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openPreviewWithSender:" target="HxO-aJ-Lgv" id="JTg-as-mhS"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -2966,7 +3001,7 @@ Gw
                 </viewController>
                 <customObject id="dv0-9k-nOr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2283.5" y="2837"/>
+            <point key="canvasLocation" x="380.5" y="3046"/>
         </scene>
     </scenes>
     <resources>

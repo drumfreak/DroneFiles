@@ -20,7 +20,6 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet weak var splitViewController: SplitViewController!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
 
-    
     // Directories!
     var directory: Directory?
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
@@ -431,6 +430,36 @@ class FileBrowserViewController: NSViewController {
     
     func reloadFilesWithSelected(fileName: String) {
         self.sourceFolderOpened = URL(string: self.folderURL)
+        
+        print("Which index is filename: \(fileName)")
+        
+        
+        let url = URL(string: fileName)
+        
+        var i = 0
+        
+        self.directoryItems?.forEach({ directoryItem in
+            
+            let turl = directoryItem.url
+            if(turl == url) {
+                print(directoryItem.url)
+                print("HOLLLY FUCK")
+                
+            let indexSet =  NSIndexSet(index: i) as IndexSet
+                self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                
+                // self.tableView.selectRow(at: indexPath, animated: true)
+                
+               // self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: indexPath)
+                
+                
+            }
+            
+            
+            
+            i += Int(1)
+            
+        })
     }
     
     
