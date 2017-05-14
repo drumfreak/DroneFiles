@@ -107,7 +107,7 @@ class ImageEditorControllsController: NSViewController {
     
     func catchNotification(notification:Notification) -> Void {
         print(notification)
-        print("Catch notification")
+        //print("Catch notification")
     }
     
     func modalEnded() {
@@ -208,7 +208,7 @@ class ImageEditorControllsController: NSViewController {
         savePanel.begin { result in
             if result == NSFileHandlingPanelOKButton {
                 guard let url = savePanel.url else { return }
-                print("SAVE PANEL URL: \(url)")
+                //print("SAVE PANEL URL: \(url)")
                 
                 
                 // self.appDelegate.fileBrowserViewController?.loadImage(_url: url)
@@ -239,7 +239,7 @@ class ImageEditorControllsController: NSViewController {
     }
     
     @IBAction func cancelImage(_ sender: AnyObject) {
-        print("Hey cancelImage")
+        //print("Hey cancelImage")
     }
     
     @IBAction func resetImage(_ sender: AnyObject) {
@@ -270,7 +270,7 @@ class ImageEditorControllsController: NSViewController {
     
     
     @IBAction func showEditControls(_ sender: AnyObject) {
-        print(self.appDelegate.imageEditorViewController?.imageView.imageProperties()! as Any)
+        //print(self.appDelegate.imageEditorViewController?.imageView.imageProperties()! as Any)
          self.appDelegate.imageEditorViewController?.imageView.editable = !(self.appDelegate.imageEditorViewController?.imageView.editable)!
     }
     
@@ -348,7 +348,7 @@ class ImageEditorControllsController: NSViewController {
             newTool = (sender.tag)!
         }
         
-        print("SWITCHING TO NEW TOOL \(newTool)")
+       // print("SWITCHING TO NEW TOOL \(newTool)")
             
         switch newTool {
             case 0:

@@ -43,23 +43,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var screenshotViewController = ScreenshotViewController()
     
-    
-    
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
-    
+    //
+    @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
 
+    //@IBOutlet weak var slideShowWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowWindowController") as? SlideShowWindowController
     
-    
-    
-    
+    var slideShowWindowController: SlideShowWindowController?
+
+    var slideshowUrls = NSMutableArray()
+
     
     
     
     // Variables setup for various usage.
     
     var screenshotPreview = true
-    
-    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
@@ -76,9 +75,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(0, forKey: "loadNewClip")
             defaults.setValue(3, forKey: "burstFrames")
         }
-        
-
-        
         
         let notification = NSUserNotification()
         notification.title = "Welcome to DroneFiles!"
@@ -290,6 +286,12 @@ extension NSWindow {
     }
 }
 
+
+//extension NSWindowController {
+//    var appDelegate:AppDelegate {
+//        return NSApplication.shared().delegate as! AppDelegate
+//    }
+//}
 extension String {
     func trim() -> String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespaces)

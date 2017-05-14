@@ -11,6 +11,8 @@
 		1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */; };
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
 		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
+		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
+		1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB861EC824550000F749 /* SlideShowWindow.swift */; };
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -63,6 +65,8 @@
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
 		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
+		1836DB861EC824550000F749 /* SlideShowWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowWindow.swift; sourceTree = "<group>"; };
 		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		189D40BA1EC244D700E1298C /* Image Editor */ = {
 			isa = PBXGroup;
 			children = (
+				1836DB821EC80B720000F749 /* SlideShowController.swift */,
+				1836DB861EC824550000F749 /* SlideShowWindow.swift */,
 				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
 			);
@@ -377,10 +383,12 @@
 				18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */,
 				187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
+				1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */,
 				18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */,
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
+				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
 				1836DB811EC4CB250000F749 /* MenuController.swift in Sources */,

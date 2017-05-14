@@ -75,6 +75,7 @@ class FileBrowserViewController: NSViewController {
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
     
+    var selectedFileURLS: NSMutableArray = []
     
     @IBOutlet var videosDirectoryLabel: NSTextField!
     @IBOutlet var jpgDirectoryLabel: NSTextField!
@@ -419,10 +420,8 @@ class FileBrowserViewController: NSViewController {
         
         self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
         
-        
         let projectPath = pathOutputFromURL(inputString: self.projectFolder)
     
-        
         self.videosDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.videoFolder).replacingOccurrences(of: projectPath, with: "")
         
         self.jpgDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.jpgFolder).replacingOccurrences(of: projectPath, with: "")
@@ -430,7 +429,6 @@ class FileBrowserViewController: NSViewController {
         self.rawDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.rawFolder).replacingOccurrences(of: projectPath, with: "")
         
         self.screenshotDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
-        
         
         self.videoClipsDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
     
@@ -518,16 +516,10 @@ class FileBrowserViewController: NSViewController {
     
     func reloadFilesWithSelected(fileName: String) {
         self.sourceFolderOpened = URL(string: self.folderURL)
-        
-        print("Which index is filename: \(fileName)")
-        
-        
         let url = URL(string: fileName)
-        
         var i = 0
         
         self.directoryItems?.forEach({ directoryItem in
-            
             let turl = directoryItem.url
             if(turl == url) {
                 print(directoryItem.url)
@@ -535,16 +527,7 @@ class FileBrowserViewController: NSViewController {
                 
             let indexSet =  NSIndexSet(index: i) as IndexSet
                 self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
-                
-                // self.tableView.selectRow(at: indexPath, animated: true)
-                
-               // self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: indexPath)
-                
-                
             }
-            
-            
-            
             i += Int(1)
             
         })
@@ -593,7 +576,8 @@ class FileBrowserViewController: NSViewController {
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
                 self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false;
-                self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
+                
+            self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
                 
                  self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
                 
@@ -622,7 +606,7 @@ class FileBrowserViewController: NSViewController {
     }
     
     func sendItemsToFileManager (showTab: Bool) {
-        let selectedFileURLS: NSMutableArray = []
+        self.selectedFileURLS = []
         for (_, index) in self.tableView.selectedRowIndexes.enumerated() {
             guard index >= 0,
                 let item = directoryItems?[index] else {
@@ -637,12 +621,35 @@ class FileBrowserViewController: NSViewController {
     
         if(showTab) {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 2
-
         }
-
-        self.appDelegate.fileManagerViewController?.fileURLs = selectedFileURLS
-
+    
+        self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS
     }
+    
+    @IBAction func openSlideShow(_ sender: AnyObject?) {
+        self.appDelegate.slideShowWindowController?.showWindow(self)
+        print("What the fuck man...")
+        
+        
+        // print(someWindow)
+        
+        
+       //  self.appDelegate.slideShowController?.loadImages(items: selectedFileURLS)
+    }
+    
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "slideShow" {
+            
+            print("Doing the segue....")
+            
+            self.appDelegate.slideShowWindowController = segue.destinationController as? SlideShowWindowController
+            
+           self.appDelegate.slideShowController?.loadImages(items: self.selectedFileURLS)
+            
+        }
+    }
+
     
     func updateStatus() {
         

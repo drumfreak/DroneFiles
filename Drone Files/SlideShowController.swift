@@ -1,0 +1,153 @@
+//
+//  SlideShowController.swift
+//  Drone Files
+//
+//  Created by Eric Rosebrock on 5/13/17.
+//  Copyright © 2017 The Web Freaks, INC. All rights reserved.
+//
+
+import Foundation
+import Cocoa
+import AVKit
+import AppKit
+import AVFoundation
+import Quartz
+import Photos
+import PhotosUI
+
+class SlideShowController: NSViewController {
+    var mSlideshow = IKSlideshow.shared()
+    var mImagePaths = NSMutableArray() {
+        didSet {
+            print("Reloaded mImagePaths")
+            
+            print(self.mImagePaths)
+            
+            self.mSlideshow?.reloadData()
+        }
+    }
+    
+    
+   //  var dataSource: IKSlideshowDataSource!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        print("HEY WHAT THE FUCK  WHO WOKE ME UP???")
+        // NSApplication.shared().slideShowController = self
+        
+        self.appDelegate.slideShowController = self
+        
+        print("mImagePaths")
+        
+        print(self.mImagePaths)
+        
+        if(self.mImagePaths.count > 0) {
+            self.mSlideshow?.run(with: self, inMode: IKSlideshowModeImages, options: nil)
+        }
+    }
+    
+    func loadImages(items: NSMutableArray) {
+        print("This fucking happened...")
+        
+        self.mSlideshow?.stop(self)
+        
+        self.mImagePaths = items
+        
+//        self.mImagePaths.forEach({ m in
+//            print(m)
+//        })
+        
+        
+        if(self.mImagePaths.count > 0) {
+            self.mSlideshow?.run(with: self, inMode: IKSlideshowModeImages, options: nil)
+        }
+        self.mSlideshow?.reloadData()
+    }
+    
+    // Datasource stuff
+    
+    func numberOfSlideshowItems() -> Int {
+        return self.mImagePaths.count
+    }
+    
+    
+//    func slideshowItem(at: Int) -> String {
+//        
+//        return "Foo"
+//        
+//    }
+    
+    func nameOfSlideshowItem(at: Int) -> String {
+        
+        return "String"
+    }
+    
+}
+
+
+extension SlideShowController: IKSlideshowDataSource {
+    /*! 
+     @method slideshowItemAtIndex:
+     @abstract return the item for a given index.
+     @discussion The item can be either: NSImage, NSString, NSURL, CGImageRef, or PDFPage.
+     Note: when using 'IKSlideshowModeOther' as slideshowMode, the item has to be a NSURL.
+     */
+    
+    
+    
+    func slideshowItem(at index: Int) -> Any! {
+        let i = index % self.mImagePaths.count
+        return self.mImagePaths.object(at:i)
+    }
+    
+    
+    /*
+    @method nameOfSlideshowItemAtIndex:
+    @abstract Display name for item at index.
+    */
+    
+//    private func nameOfSlideshowItem(at index: Int) -> String! {
+//        print("Foo")
+//        
+//        return "Foo"
+//    }
+//    
+    
+    /*!
+     @method canExportSlideshowItemAtIndex:toApplication:
+     @abstract should the export button be enabled for a given item at index?
+     */
+    internal func canExportSlideshowItem(at index: Int, toApplication applicationBundleIdentifier: String!) -> Bool {
+        
+        return true
+    }
+    
+    
+    /*!
+     @method slideshowWillStart
+     @abstract Slideshow will start.
+     */
+//    internal func slideshowWillStart() {
+//        print("Fuck slideshow started")
+//
+//    }
+    
+    
+    /*!
+     @method slideshowDidStop
+     @abstract Slideshow did stop.
+     */
+//    internal func slideshowDidStop() {
+//        print("Fuck slideshow stopped")
+//    }
+//    
+    
+    /*!
+     @method slideshowDidChangeCurrentIndex:
+     @abstract Slideshow did change current item index.
+     */
+
+    
+}
+
