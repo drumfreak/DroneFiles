@@ -85,6 +85,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
         
     }
     
+    
     func pathOutputFromURL(inputString: String) -> String {
         let str = inputString.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
         return str

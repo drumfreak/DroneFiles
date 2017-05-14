@@ -75,6 +75,13 @@ class FileBrowserViewController: NSViewController {
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
     
+    
+    @IBOutlet var videosDirectoryLabel: NSTextField!
+    @IBOutlet var jpgDirectoryLabel: NSTextField!
+    @IBOutlet var rawDirectoryLabel: NSTextField!
+    @IBOutlet var screenshotDirectoryLabel: NSTextField!
+    @IBOutlet var videoClipsDirectoryLabel: NSTextField!
+
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
     var sortOrder = Directory.FileOrder.Name
@@ -178,6 +185,32 @@ class FileBrowserViewController: NSViewController {
         
         self.projectDirectoryLabel.addGestureRecognizer(tapGestureFolder3)
         
+        
+        
+        let tapGestureFolderVideos = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathVideos))
+        
+        self.videosDirectoryLabel.addGestureRecognizer(tapGestureFolderVideos)
+        
+        
+        let tapGestureFolderJPG = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathJPG))
+        
+        self.jpgDirectoryLabel.addGestureRecognizer(tapGestureFolderJPG)
+        
+
+        let tapGestureFolderRAW = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathRAW))
+        
+        self.rawDirectoryLabel.addGestureRecognizer(tapGestureFolderRAW)
+        
+        
+        let tapGestureFolderScreenshots = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathScreenshots))
+        
+        self.screenshotDirectoryLabel.addGestureRecognizer(tapGestureFolderScreenshots)
+        
+        let tapGestureFolderVideoClips = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathVideoClips))
+        
+        self.videoClipsDirectoryLabel.addGestureRecognizer(tapGestureFolderVideoClips)
+        
+        
     }
     
     
@@ -197,6 +230,33 @@ class FileBrowserViewController: NSViewController {
         // print("RUNNING");
         self.sourceFolderOpened = URL(string: self.projectFolder)
     }
+    
+
+    func setOpenPathVideos() {
+        // print("RUNNING");
+        self.sourceFolderOpened = URL(string: self.videoFolder)
+    }
+    
+    func setOpenPathJPG() {
+        // print("RUNNING");
+        self.sourceFolderOpened = URL(string: self.jpgFolder)
+    }
+    
+    func setOpenPathRAW() {
+        // print("RUNNING");
+        self.sourceFolderOpened = URL(string: self.rawFolder)
+    }
+    
+    func setOpenPathScreenshots() {
+        // print("RUNNING");
+        self.sourceFolderOpened = URL(string: self.screenShotFolder)
+    }
+    
+    func setOpenPathVideoClips() {
+        // print("RUNNING");
+        self.sourceFolderOpened = URL(string: self.videoClipsFolder)
+    }
+
 
     @IBAction func fileBrowserHomeButtonClicked(_ sender: AnyObject?) {
         // print ("Clicked home button")
@@ -360,6 +420,21 @@ class FileBrowserViewController: NSViewController {
         self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
         
         
+        let projectPath = pathOutputFromURL(inputString: self.projectFolder)
+    
+        
+        self.videosDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.videoFolder).replacingOccurrences(of: projectPath, with: "")
+        
+        self.jpgDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.jpgFolder).replacingOccurrences(of: projectPath, with: "")
+        
+        self.rawDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.rawFolder).replacingOccurrences(of: projectPath, with: "")
+        
+        self.screenshotDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
+        
+        
+        self.videoClipsDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
+    
+        
 //        print("Project Folder: " + self.urlStringToDisplayURLString(input: self.projectFolder))
 //        print("Video Folder: " + self.urlStringToDisplayURLString(input:self.videoFolder))
 //        print("Video Clips Folder: " + self.urlStringToDisplayURLString(input:self.videoClipsFolder))
@@ -368,6 +443,19 @@ class FileBrowserViewController: NSViewController {
 //        print("RAW Folder: " + self.urlStringToDisplayURLString(input:self.rawFolder))
 //        print("DNG Folder: " + self.urlStringToDisplayURLString(input:self.dngFolder))
 
+    }
+    
+    
+
+    func pathOutputFromURL(inputString: String) -> String {
+        let str = inputString.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
+        return str
+    }
+    
+    func getPathFromURL(path: String) -> String {
+        var path = path.replacingOccurrences(of: "file://", with: "")
+        path = path.replacingOccurrences(of: "%20" , with: " ")
+        return path
     }
     
     // Button and Input Text Actions
