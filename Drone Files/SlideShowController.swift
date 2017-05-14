@@ -22,10 +22,13 @@ class SlideShowController: NSViewController {
             print("Reloaded mImagePaths")
             
             print(self.mImagePaths)
-            
-            self.mSlideshow?.reloadData()
+            if(self.slideshowRunning) {
+                self.mSlideshow?.reloadData()
+            }
         }
     }
+    
+    var slideshowRunning = false
     
     
    //  var dataSource: IKSlideshowDataSource!
@@ -38,19 +41,22 @@ class SlideShowController: NSViewController {
         
         self.appDelegate.slideShowController = self
         
-        print("mImagePaths")
+        // print("mImagePaths")
         
-        print(self.mImagePaths)
+        //print(self.mImagePaths)
+        self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
         
         if(self.mImagePaths.count > 0) {
-            self.mSlideshow?.run(with: self, inMode: IKSlideshowModeImages, options: nil)
+            self.mSlideshow?.run(with: self, inMode: IKSlideshowModeOther, options: nil)
+            // self.mSlideshow.start()
+            
         }
     }
     
     func loadImages(items: NSMutableArray) {
         print("This fucking happened...")
         
-        self.mSlideshow?.stop(self)
+        // self.mSlideshow?.stop(self)
         
         self.mImagePaths = items
         
@@ -58,11 +64,16 @@ class SlideShowController: NSViewController {
 //            print(m)
 //        })
         
-        
+        self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
+
         if(self.mImagePaths.count > 0) {
-            self.mSlideshow?.run(with: self, inMode: IKSlideshowModeImages, options: nil)
+            self.mSlideshow?.run(with: self, inMode: IKSlideshowModeOther, options: nil)
         }
-        self.mSlideshow?.reloadData()
+        
+        if(self.slideshowRunning) {
+            self.mSlideshow?.reloadData()
+
+        }
     }
     
     // Datasource stuff
@@ -78,10 +89,10 @@ class SlideShowController: NSViewController {
 //        
 //    }
     
-    func nameOfSlideshowItem(at: Int) -> String {
-        
-        return "String"
-    }
+//    func nameOfSlideshowItem(at: Int) -> String {
+//        
+//        return "String"
+//    }
     
 }
 
@@ -93,8 +104,6 @@ extension SlideShowController: IKSlideshowDataSource {
      @discussion The item can be either: NSImage, NSString, NSURL, CGImageRef, or PDFPage.
      Note: when using 'IKSlideshowModeOther' as slideshowMode, the item has to be a NSURL.
      */
-    
-    
     
     func slideshowItem(at index: Int) -> Any! {
         let i = index % self.mImagePaths.count
@@ -128,20 +137,21 @@ extension SlideShowController: IKSlideshowDataSource {
      @method slideshowWillStart
      @abstract Slideshow will start.
      */
-//    internal func slideshowWillStart() {
-//        print("Fuck slideshow started")
-//
-//    }
+    internal func slideshowWillStart() {
+        print("Fuck slideshow started")
+        self.slideshowRunning = true
+    }
     
     
     /*!
      @method slideshowDidStop
      @abstract Slideshow did stop.
      */
-//    internal func slideshowDidStop() {
-//        print("Fuck slideshow stopped")
-//    }
-//    
+    internal func slideshowDidStop() {
+        print("Fuck slideshow stopped")
+        self.slideshowRunning = false
+    }
+    
     
     /*!
      @method slideshowDidChangeCurrentIndex:

@@ -238,7 +238,6 @@ class ScreenshotViewController: NSViewController {
         
         let increment = getScreenShotIncrement(_folder: self.appDelegate.fileBrowserViewController.screenShotFolder)
         
-        
         if(self.appDelegate.videoPlayerControlsController?.screenshotPreserveClipName)! {
             
             let assetUrl = self.appDelegate.videoPlayerControlsController?.currentVideoURL
@@ -259,8 +258,6 @@ class ScreenshotViewController: NSViewController {
         } else {
             self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - "  + now + "." + fileExtension
         }
-        
-        
         
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
         
@@ -309,7 +306,6 @@ class ScreenshotViewController: NSViewController {
             let result = filter?.outputImage
             let cgImage = context.createCGImage(result!, from: (result?.extent)!)
             
-            
             let dateformatter = DateFormatter()
             
             dateformatter.dateFormat = " HH-mm-ss"
@@ -341,7 +337,6 @@ class ScreenshotViewController: NSViewController {
             let surl = URL(string: (self.screenshotNameFullURL)!)
             
             if self.imageWrite(data: data as Data , to: surl, options: .withoutOverwriting) {
-                
                 
                 self.exifWriteData(path: self.screenshotNameFullURL)
                 print("File saved")

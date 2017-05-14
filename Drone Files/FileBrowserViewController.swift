@@ -186,8 +186,6 @@ class FileBrowserViewController: NSViewController {
         
         self.projectDirectoryLabel.addGestureRecognizer(tapGestureFolder3)
         
-        
-        
         let tapGestureFolderVideos = NSClickGestureRecognizer(target: self, action: #selector(setOpenPathVideos))
         
         self.videosDirectoryLabel.addGestureRecognizer(tapGestureFolderVideos)
@@ -430,7 +428,7 @@ class FileBrowserViewController: NSViewController {
         
         self.screenshotDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.videoClipsDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
+        self.videoClipsDirectoryLabel.stringValue = self.pathOutputFromURL(inputString: self.videoClipsFolder).replacingOccurrences(of: projectPath, with: "")
     
         
 //        print("Project Folder: " + self.urlStringToDisplayURLString(input: self.projectFolder))
@@ -629,12 +627,6 @@ class FileBrowserViewController: NSViewController {
     @IBAction func openSlideShow(_ sender: AnyObject?) {
         self.appDelegate.slideShowWindowController?.showWindow(self)
         print("What the fuck man...")
-        
-        
-        // print(someWindow)
-        
-        
-       //  self.appDelegate.slideShowController?.loadImages(items: selectedFileURLS)
     }
     
     
