@@ -75,6 +75,10 @@ class VideoPlayerViewController: NSViewController {
                                             options: [.old, .new],
                                             context: &playerViewControllerKVOContext)
         
+        let avPlayerLayer = AVPlayerLayer(player: self.playerView.player!)
+        avPlayerLayer.frame = self.view.bounds
+        
+        
     }
     
     func playVideo(_url: URL, frame: CMTime, startPlaying: Bool) {

@@ -150,6 +150,7 @@ extension SlideShowController: IKSlideshowDataSource {
     internal func slideshowDidStop() {
         print("Fuck slideshow stopped")
         self.slideshowRunning = false
+        
     }
     
     

@@ -688,15 +688,16 @@ class VideoPlayerControllsController: NSViewController {
     
     
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
-        print("Taking Screenshot");
-        
-        DispatchQueue.main.async {
-            self.savingScreenShotSpinner.isHidden = false
-            self.savingScreenShotSpinner.startAnimation(nil)
-        }
-        
         let playerTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
         
+        print("Taking Screenshot");
+        
+        //DispatchQueue.main.async {
+            self.savingScreenShotSpinner.isHidden = false
+            self.savingScreenShotSpinner.startAnimation(nil)
+        // }
+        
+     
         var playerWasPlaying = false
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
             self.appDelegate.videoPlayerViewController?.playerView.player?.pause()

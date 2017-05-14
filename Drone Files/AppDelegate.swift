@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let defaults = UserDefaults.standard
         
-        if(defaults.value(forKey: "screenshotSound33") == nil) {
+        if(defaults.value(forKey: "screenshotSound") == nil) {
             defaults.setValue(1, forKey: "screenshotSound")
             defaults.setValue(1, forKey: "screenshotPreserveClipName")
             defaults.setValue(1, forKey: "screenshotJPG")

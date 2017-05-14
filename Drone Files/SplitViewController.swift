@@ -18,20 +18,24 @@ class SplitViewController: NSSplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        // print("Split View Loaded")
-        
-        mySplitView.adjustSubviews();
-        self.splitViewRightController = self.childViewControllers[1] as! SplitViewRightViewController
+        self.view.wantsLayer = true
 
-        
         self.appDelegate.splitViewController = self
-        
-        
-        
-        /*
-        
-        */
+        // self.view.layer?.backgroundColor = CGColor.black
+    }
+    
+    
+    override var representedObject: Any? {
+        didSet {
+            // Update the view, if already loaded.
+        }
+    }
+    
+    override func awakeFromNib() {
+//        if self.view.layer != nil {
+//            let color : CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+//            self.view.layer?.backgroundColor = color
+//        }
         
     }
     
