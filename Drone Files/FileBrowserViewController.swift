@@ -534,6 +534,10 @@ class FileBrowserViewController: NSViewController {
             
             let _extension = url.pathExtension
             
+            if(_extension == "dronefiles") {
+                self.readProjectFile(projectFile: item.url.absoluteString)
+            }
+            
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
                 
                 self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
@@ -684,6 +688,9 @@ class FileBrowserViewController: NSViewController {
                     if(key == "projectName") {
                         print("LOADED projectName: \(val)")
                         self.fileSequenceName = val as! String
+                        self.fileSequenceNameTextField.stringValue = self.fileSequenceName
+                        UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
+
                     }
 
                     
