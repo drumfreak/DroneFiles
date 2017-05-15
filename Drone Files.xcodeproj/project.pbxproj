@@ -22,6 +22,9 @@
 		187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */; };
 		187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A91EB3E26100BCD214 /* VideoPlayerController.swift */; };
 		187843AC1EB4F78200BCD214 /* FileCopyProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */; };
+		188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272131EC9E19800EE50D0 /* AppSettings.swift */; };
+		188272161ECA5FD300EE50D0 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272151ECA5FD300EE50D0 /* Document.swift */; };
+		188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272171ECA61F000EE50D0 /* DocumentController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
@@ -88,6 +91,9 @@
 		187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControlsController.swift; sourceTree = "<group>"; };
 		187843A91EB3E26100BCD214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
 		187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCopyProgressIndicator.swift; sourceTree = "<group>"; };
+		188272131EC9E19800EE50D0 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		188272151ECA5FD300EE50D0 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		188272171ECA61F000EE50D0 /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
+				188272151ECA5FD300EE50D0 /* Document.swift */,
+				188272171ECA61F000EE50D0 /* DocumentController.swift */,
 				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
 				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
 				185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */,
@@ -205,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
+				188272131EC9E19800EE50D0 /* AppSettings.swift */,
 				187843A81EB3CE8300BCD214 /* Video Player */,
 				18A483031EAFFE8B007F735B /* File Manager */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
@@ -395,10 +404,13 @@
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
+				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
+				188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */,
 				187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */,
 				185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */,
 				187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */,
+				188272161ECA5FD300EE50D0 /* Document.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */,
 				18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */,

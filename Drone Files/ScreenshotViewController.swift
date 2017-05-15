@@ -141,7 +141,7 @@ class ScreenshotViewController: NSViewController {
                 self.appDelegate.imageEditorViewController?.loadImage(_url: url)
                 self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
                 
-                self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.fileBrowserViewController.screenShotFolder)
+                self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.screenShotFolder)
                 
                 self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
                 
@@ -214,7 +214,7 @@ class ScreenshotViewController: NSViewController {
         var incrementer = "0000"
         if FileManager.default.fileExists(atPath: self.screenshotPath) {
             do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.fileBrowserViewController.screenShotFolder)!, includingPropertiesForKeys: nil, options: [])
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.appSettings.screenShotFolder)!, includingPropertiesForKeys: nil, options: [])
                 
                 incrementer = String(format: "%04d", files.count)
             } catch let error as NSError {
@@ -239,11 +239,11 @@ class ScreenshotViewController: NSViewController {
         
         let now = dateformatter.string(from: self.modificationDate)
         
-        self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+        self.screenshotPathFull = self.appDelegate.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
         
         self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
         
-        let increment = getScreenShotIncrement(_folder: self.appDelegate.fileBrowserViewController.screenShotFolder)
+        let increment = getScreenShotIncrement(_folder: self.appDelegate.appSettings.screenShotFolder)
         
         if(self.appDelegate.videoPlayerControlsController?.screenshotPreserveClipName)! {
             
@@ -263,7 +263,7 @@ class ScreenshotViewController: NSViewController {
             
             
         } else {
-            self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName + " - " + increment + " - "  + now + "." + fileExtension
+            self.screenshotName = self.appDelegate.appSettings.saveDirectoryName + " - " + increment + " - "  + now + "." + fileExtension
         }
         
         self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
@@ -273,7 +273,7 @@ class ScreenshotViewController: NSViewController {
         if FileManager.default.fileExists(atPath: self.screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
             // print("Fuck that file screenshot exists..")
             let incrementer = "00000"
-            self.screenshotName = self.appDelegate.fileBrowserViewController.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer  + "." + fileExtension
+            self.screenshotName = self.appDelegate.appSettings.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer  + "." + fileExtension
             
             self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
             self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
@@ -317,7 +317,7 @@ class ScreenshotViewController: NSViewController {
             
             dateformatter.dateFormat = " HH-mm-ss"
             
-            self.screenshotPathFull = self.appDelegate.fileBrowserViewController.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+            self.screenshotPathFull = self.appDelegate.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
             self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
             
             do {

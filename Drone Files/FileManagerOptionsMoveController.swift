@@ -38,7 +38,7 @@ class FileManagerOptionsMoveController: NSViewController {
         // print("FileManagerOptionsMoveController loaded")
         
         if(UserDefaults.standard.value(forKey: "moveToFolder") == nil) {
-            self.moveToFolder = self.appDelegate.fileBrowserViewController.outputDirectory
+            self.moveToFolder = self.appDelegate.appSettings.outputDirectory
             UserDefaults.standard.setValue(self.moveToFolder, forKey: "copyToFolder1")
         } else {
             self.moveToFolder = UserDefaults.standard.value(forKey: "moveToFolder") as! String

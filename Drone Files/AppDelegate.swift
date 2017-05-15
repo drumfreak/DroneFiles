@@ -15,13 +15,16 @@ import Quartz
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var window: NSWindow!
     
+    
+    var appSettings = AppSettings()
+    var documentController = NSDocumentController.shared()
+    
     // TODO: Eventually load all these view controllers from storyboard
     // @IBOutlet var editorTabViewController: EditorTabViewController!
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
   
-    
     @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
     @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
     @IBOutlet weak var fileManagerOptionsOrganizeController: FileManagerOptionsOrganizeController!
@@ -53,14 +56,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var slideshowUrls = NSMutableArray()
 
-    
-    
-    
     // Variables setup for various usage.
     
     var screenshotPreview = true
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+    
+        // Swift.print(appSettings)
         
         let defaults = UserDefaults.standard
         
@@ -222,6 +224,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    
+    @IBAction func openProjectFileAD(sender: AnyObject) {
+        self.fileBrowserViewController?.openProjectFile(self);
+    }
+    
+    
     @IBAction func takeScreenShotAD(sender: AnyObject) {
         self.videoPlayerControlsController?.takeScreenshot(self);
     }
@@ -263,6 +271,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         //Swift.print("Calling validate 222")
         return true
+    }
+    
+    
+    func openDocument(sender: AnyObject) {
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~openDocument got called")
     }
     
 }

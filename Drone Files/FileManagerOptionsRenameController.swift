@@ -49,7 +49,7 @@ class FileManagerOptionsRenameController: NSViewController {
         self.numberofFilesLabel.title = count
         
         if(UserDefaults.standard.value(forKey: "renameSequenceName") == nil) {
-            self.renameSequenceName = self.appDelegate.fileBrowserViewController.fileSequenceName
+            self.renameSequenceName = self.appDelegate.appSettings.fileSequenceName
             // UserDefaults.standard.setValue(self.renameSequenceName, forKey: "renameSequenceName")
         } else {
             self.renameSequenceName = UserDefaults.standard.value(forKey: "renameSequenceName") as! String

@@ -17,19 +17,11 @@ class FileBrowserViewController: NSViewController {
     // View controllers
     @IBOutlet var topView: NSView!
     @IBOutlet weak var statusLabel: NSTextField!
-    @IBOutlet weak var splitViewController: SplitViewController!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
     
     // Directories!
     var directory: Directory?
-    var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
-    var fileSequenceName = ""
-    var fileSequenceNameTag = ""
-    var projectDirectory = ""
-    var outputDirectory = ""
-    var createProjectDirectory = true
-    var createProjectSubDirectories = true
-    
+       
     var sourceFolderOpened: Any? {
         didSet {
             if let url = sourceFolderOpened as? URL {
@@ -37,10 +29,10 @@ class FileBrowserViewController: NSViewController {
                 directory = Directory(folderURL: url)
                 self.reloadFileList()
                 self.currentDir = url
-                self.folderURL = url.absoluteString
+                self.appDelegate.appSettings.folderURL = url.absoluteString
                 // self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: self.folderURL)
-                self.currentFolderPathControl.url = URL(string: self.folderURL)
-                UserDefaults.standard.setValue(self.folderURL, forKey: "sourceDirectory")
+                self.currentFolderPathControl.url = URL(string: self.appDelegate.appSettings.folderURL)
+                UserDefaults.standard.setValue(self.appDelegate.appSettings.folderURL, forKey: "sourceDirectory")
             }
         }
     }
@@ -54,9 +46,7 @@ class FileBrowserViewController: NSViewController {
     var directoryItems: [Metadata]?
     
     @IBOutlet weak var newFileNamePath: NSTextField!
-    @IBOutlet var saveDirectoryName: String!
     @IBOutlet weak var fileSequenceNameTextField: NSTextField!
-    @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     @IBOutlet var outputDirectoryLabel: NSTextField!
     @IBOutlet var createProjectDirectoryButton: NSButton!
@@ -67,15 +57,7 @@ class FileBrowserViewController: NSViewController {
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
     
-    var projectFolder = "My Project"
-    var screenShotFolder = " - Screenshots"
-    var videoFolder = " - Videos"
-    var jpgFolder = " - JPG"
-    var dngFolder = " - RAW"
-    var rawFolder = " - RAW"
-    var videoClipsFolder = " - Video Clips"
-    var previousUrlString = "file://"
-    
+       
     var selectedFileURLS: NSMutableArray = []
     
     @IBOutlet var videosDirectoryLabel: NSTextField!
@@ -103,7 +85,7 @@ class FileBrowserViewController: NSViewController {
         dateformatter.dateFormat = "MM-dd-YYYY"
         let now = dateformatter.string(from: NSDate() as Date)
         
-        self.fileSequenceName = now + " - " + self.fileSequenceNameTag
+        self.appDelegate.appSettings.fileSequenceName = now + " - " + self.appDelegate.appSettings.fileSequenceNameTag
         
         let defaults = UserDefaults.standard
         
@@ -117,23 +99,23 @@ class FileBrowserViewController: NSViewController {
             defaults.setValue(1, forKey: "createProjectSubDirectories")
         }
         
-        self.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
-        self.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
-        self.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
-        self.startingDirectory = URL(string: self.sourceFolder)
+        self.appDelegate.appSettings.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
+        self.appDelegate.appSettings.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
+        self.appDelegate.appSettings.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
+        self.startingDirectory = URL(string: self.appDelegate.appSettings.sourceFolder)
         self.sourceFolderOpened = self.startingDirectory
-        self.fileSequenceName = self.fileSequenceNameTag
+        self.appDelegate.appSettings.fileSequenceName = self.appDelegate.appSettings.fileSequenceNameTag
         
         
         self.createProjectSubDirectoriesButton.state = (defaults.value(forKey: "createProjectSubDirectories") as! Int)
         self.createProjectDirectoryButton.state = (defaults.value(forKey: "createProjectDirectory") as! Int)
         
         if(self.createProjectSubDirectoriesButton.state == 0) {
-            self.createProjectSubDirectories = false
+            self.appDelegate.appSettings.createProjectSubDirectories = false
         }
         
         if(self.createProjectDirectoryButton.state == 0) {
-            self.createProjectDirectory = false
+            self.appDelegate.appSettings.createProjectDirectory = false
         }
         
         
@@ -143,9 +125,9 @@ class FileBrowserViewController: NSViewController {
         self.tableView.target = self
         self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
-        self.fileSequenceNameTextField.stringValue = self.fileSequenceName
+        self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
         
-        self.saveDirectoryName = self.fileSequenceName
+        self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
         
         //videoView.
         self.showNotification(messageType: "default", customMessage: "");
@@ -156,7 +138,7 @@ class FileBrowserViewController: NSViewController {
         
         // self.outputDirectory = self.currentDir.absoluteString
         
-        self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
+        self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.outputDirectory)
         
         setupProjectDirectory()
         
@@ -169,7 +151,7 @@ class FileBrowserViewController: NSViewController {
         self.tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
         
         self.sourceFolderOpened = self.startingDirectory
-        self.folderURL = self.startingDirectory?.absoluteString
+        self.appDelegate.appSettings.folderURL = self.startingDirectory?.absoluteString
         
         // self.folderURLDisplay.stringValue = urlStringToDisplayPath(input:self.folderURL)
         
@@ -188,7 +170,7 @@ class FileBrowserViewController: NSViewController {
     
     
     func setOpenPath2() {
-        self.sourceFolderOpened = URL(string: self.outputDirectory)
+        self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.outputDirectory)
     }
     
     @IBAction func fileBrowserHomeButtonClicked(_ sender: AnyObject?) {
@@ -203,18 +185,18 @@ class FileBrowserViewController: NSViewController {
         let previousIndex = paths["parentIndex"] as! Int
         
         // print("previousIndex \(String(describing: previousIndex))")
-        self.previousUrlString = "file://"
+        self.appDelegate.appSettings.previousUrlString = "file://"
         
         tmp.forEach { thisPath in
             print(thisPath)
             if(counter <= previousIndex) {
-                self.previousUrlString = self.previousUrlString + "/" + (thisPath as! String)
+                self.appDelegate.appSettings.previousUrlString = self.appDelegate.appSettings.previousUrlString + "/" + (thisPath as! String)
             }
             
             if(counter == previousIndex) {
                 // print("SHOULD OPEN " + self.previousUrlString)
                 
-                self.sourceFolderOpened = URL(string: self.previousUrlString)
+                self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.previousUrlString)
                 reloadFileList()
             }
             counter = counter + Int(1)
@@ -257,11 +239,11 @@ class FileBrowserViewController: NSViewController {
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
                 self.sourceFolderOpened = openPanel.url
-                self.sourceFolder = (openPanel.url?.absoluteString)!
+                self.appDelegate.appSettings.sourceFolder = (openPanel.url?.absoluteString)!
                 self.startingDirectory = openPanel.url
-                self.sourceFolder = (openPanel.url?.absoluteString)!
+                self.appDelegate.appSettings.sourceFolder = (openPanel.url?.absoluteString)!
                 
-                UserDefaults.standard.setValue(self.sourceFolder, forKey: "sourceDirectory")
+                UserDefaults.standard.setValue(self.appDelegate.appSettings.sourceFolder, forKey: "sourceDirectory")
                 //self.folderURLDisplay.stringValue = self.urlStringToDisplayPath(input: (openPanel.url?.absoluteString)!)
                 self.setupProjectDirectory()
                 
@@ -281,9 +263,9 @@ class FileBrowserViewController: NSViewController {
         
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
-                self.outputDirectory = (openPanel.url?.absoluteString)!
-                self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
-                UserDefaults.standard.setValue(self.outputDirectory, forKey: "outputDirectory")
+                self.appDelegate.appSettings.outputDirectory = (openPanel.url?.absoluteString)!
+                self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.outputDirectory)
+                UserDefaults.standard.setValue(self.appDelegate.appSettings.outputDirectory, forKey: "outputDirectory")
                 self.setupProjectDirectory()
             }
             
@@ -295,6 +277,7 @@ class FileBrowserViewController: NSViewController {
     
     // Open directory for tableview
     @IBAction func openProjectFile(_ sender: AnyObject?) {
+        
         let openPanel = NSOpenPanel()
         openPanel.showsHiddenFiles = true
         openPanel.canChooseFiles = true
@@ -309,6 +292,11 @@ class FileBrowserViewController: NSViewController {
                 if(openPanel.url?.pathExtension == "dronefiles") {
                     print ("HEY it's drone files!")
                     self.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
+
+                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
+                        print("Fuck yeah \(String(describing: document))")
+                        print("Error: \(String(describing: err))")
+                    })
                     
                 }
             }
@@ -319,8 +307,8 @@ class FileBrowserViewController: NSViewController {
     
     
     @IBAction func createProjectDirectoryCheckbox(_ sender: AnyObject?) {
-        self.createProjectDirectory = !self.createProjectDirectory
-        if(self.createProjectDirectory) {
+        self.appDelegate.appSettings.createProjectDirectory = !self.appDelegate.appSettings.createProjectDirectory
+        if(self.appDelegate.appSettings.createProjectDirectory) {
             UserDefaults.standard.setValue(1, forKey: "createProjectDirectory")
         } else {
             UserDefaults.standard.setValue(0, forKey: "createProjectDirectory")
@@ -332,8 +320,8 @@ class FileBrowserViewController: NSViewController {
     }
     
     @IBAction func createProjectSubDirectoriesCheckbox(_ sender: AnyObject?) {
-        self.createProjectSubDirectories = !self.createProjectSubDirectories
-        if(self.createProjectSubDirectories) {
+        self.appDelegate.appSettings.createProjectSubDirectories = !self.appDelegate.appSettings.createProjectSubDirectories
+        if(self.appDelegate.appSettings.createProjectSubDirectories) {
             UserDefaults.standard.setValue(1, forKey: "createProjectSubDirectories")
         } else {
             UserDefaults.standard.setValue(0, forKey: "createProjectSubDirectories")
@@ -343,51 +331,51 @@ class FileBrowserViewController: NSViewController {
     
     // Helper Functions
     func setupProjectDirectory() {
-        self.saveDirectoryName =  self.fileSequenceName
-        self.projectFolder = self.outputDirectory + self.saveDirectoryName
+        self.appDelegate.appSettings.saveDirectoryName =  self.appDelegate.appSettings.fileSequenceName
+        self.appDelegate.appSettings.projectFolder = self.appDelegate.appSettings.outputDirectory + self.appDelegate.appSettings.saveDirectoryName
         
-        if(self.createProjectDirectory) {
-            self.projectFolder = self.outputDirectory + self.saveDirectoryName
+        if(self.appDelegate.appSettings.createProjectDirectory) {
+            self.appDelegate.appSettings.projectFolder = self.appDelegate.appSettings.outputDirectory + self.appDelegate.appSettings.saveDirectoryName
         } else {
-            self.projectFolder = self.outputDirectory
+            self.appDelegate.appSettings.projectFolder = self.appDelegate.appSettings.outputDirectory
         }
         
-        self.projectDirectory = urlStringToDisplayPath(input: self.projectFolder)
-        self.projectDirectoryLabel.stringValue = self.projectDirectory
+        self.appDelegate.appSettings.projectDirectory = urlStringToDisplayPath(input: self.appDelegate.appSettings.projectFolder)
+        self.projectDirectoryLabel.stringValue = self.appDelegate.appSettings.projectDirectory
         
-        if(self.createProjectSubDirectories) {
-            self.videoFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Videos"
-            self.videoClipsFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Video Clips"
-            self.jpgFolder = self.projectFolder + "/" + self.saveDirectoryName + " - JPG"
-            self.screenShotFolder = self.projectFolder + "/" + self.saveDirectoryName + " - Frames"
-            self.rawFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
-            self.dngFolder = self.projectFolder + "/" + self.saveDirectoryName + " - RAW"
+        if(self.appDelegate.appSettings.createProjectSubDirectories) {
+            self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Videos"
+            self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Video Clips"
+            self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - JPG"
+            self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Frames"
+            self.appDelegate.appSettings.rawFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - RAW"
+            self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - RAW"
         } else {
-            self.videoFolder = self.projectFolder + "/"
-            self.videoClipsFolder = self.projectFolder  + "/"
-            self.jpgFolder = self.projectFolder  + "/"
-            self.screenShotFolder = self.projectFolder  + "/"
-            self.rawFolder = self.projectFolder  + "/"
-            self.dngFolder = self.projectFolder  + "/"
+            self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.projectFolder + "/"
+            self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            self.appDelegate.appSettings.rawFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.projectFolder  + "/"
         }
         
-        self.projectFolder = self.projectFolder.replacingOccurrences(of: " ", with: "%20")
-        self.videoFolder = self.videoFolder.replacingOccurrences(of: " ", with: "%20")
-        self.videoClipsFolder = self.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
-        self.jpgFolder = self.jpgFolder.replacingOccurrences(of: " ", with: "%20")
-        self.screenShotFolder = self.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
-        self.rawFolder = self.rawFolder.replacingOccurrences(of: " ", with: "%20")
-        self.dngFolder = self.dngFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.projectFolder = self.appDelegate.appSettings.projectFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.videoFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.jpgFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.rawFolder = self.appDelegate.appSettings.rawFolder.replacingOccurrences(of: " ", with: "%20")
+        self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.dngFolder.replacingOccurrences(of: " ", with: "%20")
         
         self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
         
         // let projectPath = pathOutputFromURL(inputString: self.projectFolder)
         
-        self.videosFolderPathControl.url = URL(string:self.videoFolder)
-        self.clipsFolderPathControl.url = URL(string:self.videoClipsFolder)
-        self.framesFolderPathControl.url = URL(string:self.screenShotFolder)
-        self.jpgFolderPathControl.url = URL(string:self.jpgFolder)
-        self.rawFolderPathControl.url = URL(string:self.rawFolder)
+        self.videosFolderPathControl.url = URL(string:self.appDelegate.appSettings.videoFolder)
+        self.clipsFolderPathControl.url = URL(string:self.appDelegate.appSettings.videoClipsFolder)
+        self.framesFolderPathControl.url = URL(string:self.appDelegate.appSettings.screenShotFolder)
+        self.jpgFolderPathControl.url = URL(string:self.appDelegate.appSettings.jpgFolder)
+        self.rawFolderPathControl.url = URL(string:self.appDelegate.appSettings.rawFolder)
     }
     
     
@@ -440,14 +428,14 @@ class FileBrowserViewController: NSViewController {
         
         self.fileSequenceNameTextField.resignFirstResponder()
         
-        self.fileSequenceName = self.fileSequenceNameTextField.stringValue
+        self.appDelegate.appSettings.fileSequenceName = self.fileSequenceNameTextField.stringValue
         // self.newFileNamePath.stringValue = self.fileSequenceName
-        print("New Sequence Name \( self.fileSequenceName)")
+        print("New Sequence Name \( self.appDelegate.appSettings.fileSequenceName)")
         
-        UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
+        UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
         
         self.setupProjectDirectory()
-        self.writeProjectFile(projectPath: self.projectFolder)
+        self.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
     }
     
     
@@ -483,7 +471,7 @@ class FileBrowserViewController: NSViewController {
     
     
     func reloadFilesWithSelected(fileName: String) {
-        self.sourceFolderOpened = URL(string: self.folderURL)
+        self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.folderURL)
         let url = URL(string: fileName)
         var i = 0
         
@@ -687,23 +675,23 @@ class FileBrowserViewController: NSViewController {
                 for (key, val) in dictionary {
                     if(key == "projectName") {
                         print("LOADED projectName: \(val)")
-                        self.fileSequenceName = val as! String
-                        self.fileSequenceNameTextField.stringValue = self.fileSequenceName
-                        UserDefaults.standard.setValue(self.fileSequenceName, forKey: "fileSequenceNameTag")
+                        self.appDelegate.appSettings.fileSequenceName = val as! String
+                        self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
+                        UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
 
                     }
 
                     
                     if(key == "projectDirectory") {
                         print("projectDirectory: \(val)")
-                        self.projectFolder = val as! String
-                        self.sourceFolderOpened = URL(string: self.projectFolder)
+                        self.appDelegate.appSettings.projectFolder = val as! String
+                        self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.projectFolder)
                     }
                     
                     if(key == "outputDirectory") {
                         print("outputDirectory: \(val)")
-                        self.outputDirectory = val as! String
-                        self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
+                        self.appDelegate.appSettings.outputDirectory = val as! String
+                        self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.outputDirectory)
 
                     }
                     
@@ -714,22 +702,22 @@ class FileBrowserViewController: NSViewController {
                     
                     if(key == "videosDirectory") {
                         print("currentDirectory: \(val)")
-                        self.videoFolder = val as! String
+                        self.appDelegate.appSettings.videoFolder = val as! String
                     }
                     
                     if(key == "jpgDirectory") {
                         print("jpgDirectory: \(val)")
-                        self.jpgFolder = val as! String
+                        self.appDelegate.appSettings.jpgFolder = val as! String
                     }
                 
                     if(key == "rawDirectory") {
                         print("rawDirectory: \(val)")
-                        self.rawFolder = val as! String
+                        self.appDelegate.appSettings.rawFolder = val as! String
                     }
                     
                     if(key == "videoClipsDirectory") {
                         print("VideoClipsDirectory: \(val)")
-                        self.videoClipsFolder = val as! String
+                        self.appDelegate.appSettings.videoClipsFolder = val as! String
                     }
                 }
                 
@@ -752,7 +740,7 @@ class FileBrowserViewController: NSViewController {
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
 
-            let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.fileSequenceName + ".dronefiles")
+            let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.appDelegate.appSettings.fileSequenceName + ".dronefiles")
             
             
             // creating a .json file in the Documents folder
@@ -778,14 +766,14 @@ class FileBrowserViewController: NSViewController {
             
             // creating an array of test data
             
-            let dic = ["projectName" : self.fileSequenceName,
-                       "projectDirectory": self.projectFolder,
-                       "videosDirectory": self.videoFolder,
-                       "videoClipsDirectory": self.self.videoClipsFolder,
-                       "jpgDirectory": self.self.self.jpgFolder,
-                       "rawDirectory": self.self.self.rawFolder,
-                       "outputDirectory": self.self.self.outputDirectory,
-                       "currentDirectory": self.self.self.folderURL,
+            let dic = ["projectName" : self.appDelegate.appSettings.fileSequenceName,
+                       "projectDirectory": self.appDelegate.appSettings.projectFolder,
+                       "videosDirectory": self.appDelegate.appSettings.videoFolder,
+                       "videoClipsDirectory": self.appDelegate.appSettings.videoClipsFolder,
+                       "jpgDirectory": self.appDelegate.appSettings.jpgFolder,
+                       "rawDirectory": self.appDelegate.appSettings.rawFolder,
+                       "outputDirectory": self.appDelegate.appSettings.outputDirectory,
+                       "currentDirectory": self.appDelegate.appSettings.folderURL,
                        ]
             
             // print(dic)
