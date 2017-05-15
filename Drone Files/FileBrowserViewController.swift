@@ -690,11 +690,14 @@ class FileBrowserViewController: NSViewController {
                     if(key == "projectDirectory") {
                         print("projectDirectory: \(val)")
                         self.projectFolder = val as! String
+                        self.sourceFolderOpened = URL(string: self.projectFolder)
                     }
                     
                     if(key == "outputDirectory") {
                         print("outputDirectory: \(val)")
                         self.outputDirectory = val as! String
+                        self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.outputDirectory)
+
                     }
                     
                     if(key == "currentDirectory") {
@@ -737,9 +740,34 @@ class FileBrowserViewController: NSViewController {
     
     func writeProjectFile (projectPath: String) {
         if(checkFolderAndCreate(folderPath: projectPath)) {
+            
+            print("CREATING DRONE FILES PROJECT")
+            
             let documentsDirectoryPath = NSURL(string: projectPath)!
 
             let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.fileSequenceName + ".dronefiles")
+            
+            
+            // creating a .json file in the Documents folder
+            
+            let fileManager = FileManager.default
+            
+            var isDirectory: ObjCBool = false
+            var foo = jsonFilePath?.absoluteString.replacingOccurrences(of: "file://", with: "")
+            
+            foo = foo?.replacingOccurrences(of: "%20", with: " ")
+            
+            if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
+                let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
+                if created {
+                    print("File created ")
+                } else {
+                    print("Couldn't create file for some reason")
+                }
+            } else {
+                print("File already exists")
+            }
+            
             
             // creating an array of test data
             
@@ -755,7 +783,9 @@ class FileBrowserViewController: NSViewController {
             
             // print(dic)
             
-            let jsonData: Data!
+            print("Try this Path: \(String(describing: jsonFilePath))")
+            
+            var jsonData: Data!
             
             do {
                 jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
