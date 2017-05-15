@@ -60,6 +60,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		18BA71041EC94E0600EE3595 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +187,7 @@
 				18B001E01EA69C92003C3214 /* Drone FilesTests */,
 				18B001EB1EA69C92003C3214 /* Drone FilesUITests */,
 				18B001CA1EA69C92003C3214 /* Products */,
+				18BA71001EC94C8C00EE3595 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +243,13 @@
 			path = "Drone FilesUITests";
 			sourceTree = "<group>";
 		};
+		18BA71001EC94C8C00EE3595 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -240,6 +260,7 @@
 				18B001C51EA69C92003C3214 /* Sources */,
 				18B001C61EA69C92003C3214 /* Frameworks */,
 				18B001C71EA69C92003C3214 /* Resources */,
+				18BA71041EC94E0600EE3595 /* CopyFiles */,
 			);
 			buildRules = (
 			);

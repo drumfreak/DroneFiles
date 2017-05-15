@@ -43,6 +43,7 @@ class ScreenshotViewController: NSViewController {
     @IBOutlet var screenshotName: String!
     @IBOutlet var screenshotNameFull: String!
     @IBOutlet var screenshotNameFullURL: String!
+
     var timeOffset = 0.00
     var screenshotItemPreserveFileDates = true
     var modificationDate = Date()
@@ -68,6 +69,8 @@ class ScreenshotViewController: NSViewController {
             if metaDataItems.commonKey == "location" {
                 locationData = (metaDataItems.value as! NSString) as String
                 print("Location Data: \(locationData)")
+            } else {
+               
             }
         }
         
@@ -79,6 +82,10 @@ class ScreenshotViewController: NSViewController {
     func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
         
         self.videoAsset = asset
+        
+        self.longitude = 0.00
+        self.latitude = 0.00
+        
         let foo = self.getLocationData(asset: asset)
         
         if(self.appDelegate.videoPlayerControlsController?.screenshotSound)! {
