@@ -161,7 +161,7 @@ class VideoPlayerControllsController: NSViewController {
         self.playerTimerLabel.addGestureRecognizer(tapGesture)
         
         self.appDelegate.videoPlayerControlsController = self
-        
+    
     }
     
     

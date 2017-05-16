@@ -25,6 +25,22 @@
 		188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272131EC9E19800EE50D0 /* AppSettings.swift */; };
 		188272161ECA5FD300EE50D0 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272151ECA5FD300EE50D0 /* Document.swift */; };
 		188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272171ECA61F000EE50D0 /* DocumentController.swift */; };
+		188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272191ECA704F00EE50D0 /* appicon-64px.png */; };
+		188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882721A1ECA704F00EE50D0 /* appicon-1024px.png */; };
+		188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882721B1ECA704F00EE50D0 /* appicon-512px.png */; };
+		188272231ECA704F00EE50D0 /* appicon-256px.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882721C1ECA704F00EE50D0 /* appicon-256px.png */; };
+		188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882721D1ECA704F00EE50D0 /* appicon-128px.png */; };
+		188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882721E1ECA704F00EE50D0 /* appicon-32px.png */; };
+		188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882721F1ECA704F00EE50D0 /* appicon-16px.png */; };
+		1882722A1ECA74C300EE50D0 /* darkbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272291ECA74C300EE50D0 /* darkbackground.png */; };
+		1882722F1ECA898900EE50D0 /* ThemeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882722E1ECA898900EE50D0 /* ThemeLabel.swift */; };
+		188272311ECA939300EE50D0 /* ThemePathControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272301ECA939300EE50D0 /* ThemePathControl.swift */; };
+		188272331ECA9AC900EE50D0 /* ThemeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272321ECA9AC900EE50D0 /* ThemeCheckbox.swift */; };
+		188272351ECAA50100EE50D0 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272341ECAA50100EE50D0 /* ThemeView.swift */; };
+		188272371ECAABD000EE50D0 /* ThemeTabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272361ECAABD000EE50D0 /* ThemeTabViewItem.swift */; };
+		1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188272391ECAC76900EE50D0 /* darkbackground-2.jpg */; };
+		1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */; };
+		1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
@@ -94,6 +110,22 @@
 		188272131EC9E19800EE50D0 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		188272151ECA5FD300EE50D0 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		188272171ECA61F000EE50D0 /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
+		188272191ECA704F00EE50D0 /* appicon-64px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-64px.png"; path = "../../../../Graphics/Drone Files/appicon-64px.png"; sourceTree = "<group>"; };
+		1882721A1ECA704F00EE50D0 /* appicon-1024px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-1024px.png"; path = "../../../../Graphics/Drone Files/appicon-1024px.png"; sourceTree = "<group>"; };
+		1882721B1ECA704F00EE50D0 /* appicon-512px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-512px.png"; path = "../../../../Graphics/Drone Files/appicon-512px.png"; sourceTree = "<group>"; };
+		1882721C1ECA704F00EE50D0 /* appicon-256px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-256px.png"; path = "../../../../Graphics/Drone Files/appicon-256px.png"; sourceTree = "<group>"; };
+		1882721D1ECA704F00EE50D0 /* appicon-128px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-128px.png"; path = "../../../../Graphics/Drone Files/appicon-128px.png"; sourceTree = "<group>"; };
+		1882721E1ECA704F00EE50D0 /* appicon-32px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-32px.png"; path = "../../../../Graphics/Drone Files/appicon-32px.png"; sourceTree = "<group>"; };
+		1882721F1ECA704F00EE50D0 /* appicon-16px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon-16px.png"; path = "../../../../Graphics/Drone Files/appicon-16px.png"; sourceTree = "<group>"; };
+		188272291ECA74C300EE50D0 /* darkbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = darkbackground.png; path = ../../../Dronefiles/darkbackground.png; sourceTree = "<group>"; };
+		1882722E1ECA898900EE50D0 /* ThemeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeLabel.swift; sourceTree = "<group>"; };
+		188272301ECA939300EE50D0 /* ThemePathControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemePathControl.swift; sourceTree = "<group>"; };
+		188272321ECA9AC900EE50D0 /* ThemeCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeCheckbox.swift; sourceTree = "<group>"; };
+		188272341ECAA50100EE50D0 /* ThemeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
+		188272361ECAABD000EE50D0 /* ThemeTabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTabViewItem.swift; sourceTree = "<group>"; };
+		188272391ECAC76900EE50D0 /* darkbackground-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "darkbackground-2.jpg"; path = "../../../Dronefiles/darkbackground-2.jpg"; sourceTree = "<group>"; };
+		1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "darkbackground-3.jpg"; path = "../../../Dronefiles/darkbackground-3.jpg"; sourceTree = "<group>"; };
+		1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeButton.swift; path = ../../../../Desktop/ThemeButton.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +187,36 @@
 				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
 			);
 			name = "Video Player";
+			sourceTree = "<group>";
+		};
+		1882722B1ECA7A4A00EE50D0 /* Theme Customizations */ = {
+			isa = PBXGroup;
+			children = (
+				188272361ECAABD000EE50D0 /* ThemeTabViewItem.swift */,
+				1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */,
+				188272341ECAA50100EE50D0 /* ThemeView.swift */,
+				188272321ECA9AC900EE50D0 /* ThemeCheckbox.swift */,
+				188272301ECA939300EE50D0 /* ThemePathControl.swift */,
+				1882722E1ECA898900EE50D0 /* ThemeLabel.swift */,
+			);
+			name = "Theme Customizations";
+			sourceTree = "<group>";
+		};
+		188272381ECAC74E00EE50D0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				188272191ECA704F00EE50D0 /* appicon-64px.png */,
+				1882721A1ECA704F00EE50D0 /* appicon-1024px.png */,
+				1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */,
+				1882721B1ECA704F00EE50D0 /* appicon-512px.png */,
+				1882721C1ECA704F00EE50D0 /* appicon-256px.png */,
+				188272291ECA74C300EE50D0 /* darkbackground.png */,
+				188272391ECAC76900EE50D0 /* darkbackground-2.jpg */,
+				1882721D1ECA704F00EE50D0 /* appicon-128px.png */,
+				1882721E1ECA704F00EE50D0 /* appicon-32px.png */,
+				1882721F1ECA704F00EE50D0 /* appicon-16px.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		189D40BA1EC244D700E1298C /* Image Editor */ = {
@@ -221,6 +283,7 @@
 				189D40BA1EC244D700E1298C /* Image Editor */,
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
+				1882722B1ECA7A4A00EE50D0 /* Theme Customizations */,
 				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
 				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
 				185F4C351EB124440046C452 /* Window.swift */,
@@ -228,6 +291,7 @@
 				1883B15C1EAC445D00D722D5 /* Submarine.aiff */,
 				18BAABA61EADA2CB00EE5434 /* Shutter.aif */,
 				18B001D31EA69C92003C3214 /* Assets.xcassets */,
+				188272381ECAC74E00EE50D0 /* Images */,
 				18B001D81EA69C92003C3214 /* Info.plist */,
 				18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */,
 			);
@@ -367,10 +431,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */,
+				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
+				188272231ECA704F00EE50D0 /* appicon-256px.png in Resources */,
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
+				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
+				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
+				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
+				188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */,
+				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
+				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
+				1882722A1ECA74C300EE50D0 /* darkbackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,17 +472,21 @@
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
 				185F4C361EB124440046C452 /* Window.swift in Sources */,
+				188272331ECA9AC900EE50D0 /* ThemeCheckbox.swift in Sources */,
 				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
+				1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
 				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
+				188272311ECA939300EE50D0 /* ThemePathControl.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
 				188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */,
 				187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */,
 				185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */,
+				188272351ECAA50100EE50D0 /* ThemeView.swift in Sources */,
 				187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */,
 				188272161ECA5FD300EE50D0 /* Document.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
@@ -417,11 +495,13 @@
 				187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */,
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
 				1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */,
+				1882722F1ECA898900EE50D0 /* ThemeLabel.swift in Sources */,
 				18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */,
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
+				188272371ECAABD000EE50D0 /* ThemeTabViewItem.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
 				1836DB811EC4CB250000F749 /* MenuController.swift in Sources */,

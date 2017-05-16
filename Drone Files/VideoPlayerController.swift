@@ -44,6 +44,11 @@ class VideoPlayerViewController: NSViewController {
         self.VideoEditView.isHidden = false
 
         self.appDelegate.videoPlayerViewController = self
+        
+        view.wantsLayer = true
+
+        view.layer?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+
     }
     
     override func viewDidAppear() {

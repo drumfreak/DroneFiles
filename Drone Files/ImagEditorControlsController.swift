@@ -79,6 +79,8 @@ class ImageEditorControllsController: NSViewController {
         // self.filterPanel?.filterBrowserView(options: [:])
         
         // self.filterPanel?.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: Any!(), didEnd:Selector(("switchToolMode:")), contextInfo: nil)
+    
+
 
     }
     

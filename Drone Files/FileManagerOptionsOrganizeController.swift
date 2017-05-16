@@ -228,9 +228,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
         let increment =  getFileIncrementAtPath(path: self.appDelegate.appSettings.videoFolder)
         
         var newMovieFile = self.appDelegate.appSettings.videoFolder + "/" + self.appDelegate.appSettings.fileSequenceName + " - " + increment + "." + _extension
-        
-        
-        //  ".MOV" // for now
+    
         
         newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {

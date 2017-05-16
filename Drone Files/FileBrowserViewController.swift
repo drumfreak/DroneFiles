@@ -19,9 +19,10 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
     
+    @IBOutlet var backgroundImage: NSImageView!
     // Directories!
     var directory: Directory?
-       
+    
     var sourceFolderOpened: Any? {
         didSet {
             if let url = sourceFolderOpened as? URL {
@@ -57,7 +58,7 @@ class FileBrowserViewController: NSViewController {
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
     
-       
+    
     var selectedFileURLS: NSMutableArray = []
     
     @IBOutlet var videosDirectoryLabel: NSTextField!
@@ -125,6 +126,10 @@ class FileBrowserViewController: NSViewController {
         self.tableView.target = self
         self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
+        
+        // Add a background view to the table view
+        self.tableView.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
+        
         self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
         
         self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
@@ -158,7 +163,7 @@ class FileBrowserViewController: NSViewController {
         reloadFileList()
         
         self.appDelegate.fileBrowserViewController = self
-
+        
     }
     
     
@@ -288,15 +293,15 @@ class FileBrowserViewController: NSViewController {
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
                 print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
-            
+                
                 if(openPanel.url?.pathExtension == "dronefiles") {
                     print ("HEY it's drone files!")
                     self.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
-
-                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
-                        print("Fuck yeah \(String(describing: document))")
-                        print("Error: \(String(describing: err))")
-                    })
+                    
+                    //                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
+                    //                        print("Fuck yeah \(String(describing: document))")
+                    //                        print("Error: \(String(describing: err))")
+                    //                    })
                     
                 }
             }
@@ -678,9 +683,9 @@ class FileBrowserViewController: NSViewController {
                         self.appDelegate.appSettings.fileSequenceName = val as! String
                         self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
                         UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
-
+                        
                     }
-
+                    
                     
                     if(key == "projectDirectory") {
                         print("projectDirectory: \(val)")
@@ -692,7 +697,7 @@ class FileBrowserViewController: NSViewController {
                         print("outputDirectory: \(val)")
                         self.appDelegate.appSettings.outputDirectory = val as! String
                         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.outputDirectory)
-
+                        
                     }
                     
                     if(key == "currentDirectory") {
@@ -709,7 +714,7 @@ class FileBrowserViewController: NSViewController {
                         print("jpgDirectory: \(val)")
                         self.appDelegate.appSettings.jpgFolder = val as! String
                     }
-                
+                    
                     if(key == "rawDirectory") {
                         print("rawDirectory: \(val)")
                         self.appDelegate.appSettings.rawFolder = val as! String
@@ -722,10 +727,10 @@ class FileBrowserViewController: NSViewController {
                 }
                 
                 self.setupProjectDirectory()
-
+                
             }
             
-                       //  print(projectJson!)
+            //  print(projectJson!)
         } catch let error {
             print(error.localizedDescription)
         }
@@ -739,7 +744,7 @@ class FileBrowserViewController: NSViewController {
             print("CREATING DRONE FILES PROJECT")
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
-
+            
             let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.appDelegate.appSettings.fileSequenceName + ".dronefiles")
             
             
@@ -822,6 +827,8 @@ extension FileBrowserViewController: NSTableViewDataSource {
         return directoryItems?.count ?? 0
     }
     
+    
+    
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         // 1
         guard let sortDescriptor = tableView.sortDescriptors.first else {
@@ -846,7 +853,10 @@ extension FileBrowserViewController: NSTableViewDelegate {
         static let KindCell = "KindCellID"
     }
     
+
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
         
         var image: NSImage?
         var text: String = ""
@@ -866,21 +876,43 @@ extension FileBrowserViewController: NSTableViewDelegate {
         
         // 2
         if tableColumn == tableView.tableColumns[0] {
+            // print("IMage ICON FOR TABLE: \(item.icon)")
+            
             image = item.icon
             text = item.name
             cellIdentifier = CellIdentifiers.NameCell
+            
         } else if tableColumn == tableView.tableColumns[1] {
+            
             text = dateFormatter.string(from: item.date)
             cellIdentifier = CellIdentifiers.DateCell
+            
         } else if tableColumn == tableView.tableColumns[2] {
+            
             text = item.isFolder ? "--" : sizeFormatter.string(fromByteCount: item.size)
+          
             cellIdentifier = CellIdentifiers.SizeCell
+        
         }
         
         // 3
         if let cell = tableView.make(withIdentifier: cellIdentifier, owner: nil) as? NSTableCellView {
+            
             cell.textField?.stringValue = text
             cell.imageView?.image = image ?? nil
+            
+            
+            cell.backgroundStyle = NSBackgroundStyle.dark
+    
+            let layer:CALayer = CALayer()
+            layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+            
+            
+            cell.wantsLayer = true
+            cell.layer = layer
+            
+            
+            
             return cell
         }
         return nil

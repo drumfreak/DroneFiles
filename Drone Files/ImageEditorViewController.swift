@@ -60,16 +60,13 @@ class ImageEditorViewController: NSViewController {
         self.imageView.backgroundColor = rgb
         
         self.appDelegate.imageEditorViewController = self
+        
+        self.view.wantsLayer = true
+        
+        self.view.layer?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
 
     }
-    
-        
-//    func setWindowVisible(sender : AnyObject?) {
-//        // self.window!.orderFront(self)
-//        //print("FUCK");
-//    }
-    
-    
+
     func loadImage(_url: URL) {
         
         print("Loading IMAGES: \(_url)")

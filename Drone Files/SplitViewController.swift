@@ -19,7 +19,8 @@ class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.wantsLayer = true
-
+        
+        
         self.appDelegate.splitViewController = self
         // self.view.layer?.backgroundColor = CGColor.black
     }

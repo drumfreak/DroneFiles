@@ -49,6 +49,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
     //
     @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
+    
+    
+//    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
 
     //@IBOutlet weak var slideShowWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowWindowController") as? SlideShowWindowController
     
@@ -64,6 +67,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
         // Swift.print(appSettings)
         
+//        self.windowController?.window?.titlebarAppearsTransparent = true
+//        self.windowController?.window?.backgroundColor = NSColor.clear
+//
+//        self.windowController?.window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
+//        
         let defaults = UserDefaults.standard
         
         if(defaults.value(forKey: "screenshotSound") == nil) {
@@ -298,6 +306,26 @@ extension NSWindow {
         return NSApplication.shared().delegate as! AppDelegate
     }
 }
+
+//extension NSButton {
+//    var appDelegate:AppDelegate {
+//        return NSApplication.shared().delegate as! AppDelegate
+//    }
+//}
+//
+//extension NSTextField {
+//    var appDelegate:AppDelegate {
+//        return NSApplication.shared().delegate as! AppDelegate
+//    }
+//}
+
+
+extension NSView {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+}
+
 
 
 //extension NSWindowController {

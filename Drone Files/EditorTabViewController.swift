@@ -20,6 +20,19 @@ class EditorTabViewController: NSTabViewController {
         
         self.appDelegate.editorTabViewController = self
         
+        view.wantsLayer = true
+        // change the background color of the layer
+        view.layer?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+        
+        // self.appeara
+        // view.layer.back
+        
+        self.tabView.tabViewItem(at: 0).color =  self.appDelegate.appSettings.appViewBackgroundColor
+        
+        
+        // self.tabView.controlTint = NSControlTint.graphiteControlTint
+        
+        
     }
     
 }

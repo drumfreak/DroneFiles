@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 struct AppSettings {
     
@@ -29,7 +30,18 @@ struct AppSettings {
     var rawFolder = " - RAW"
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
+    
+    
+    // colors
+    var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbackground-3.jpg")!)
 
+    var appViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbackground-2.jpg")!)
+    
+    var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbackground-2.jpg")!)
+    
+    var patternColor = NSColor.init(patternImage: NSImage(named: "darkbackground.png")!)
+    
+    var textLabelColor = NSColor.gray
     
     
 }

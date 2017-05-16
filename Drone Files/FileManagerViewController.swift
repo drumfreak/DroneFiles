@@ -67,6 +67,8 @@ class FileManagerViewController: NSViewController {
         reloadFileList()
         
         self.appDelegate.fileManagerViewController = self
+    
+
     }
     
     override func viewWillAppear() {
