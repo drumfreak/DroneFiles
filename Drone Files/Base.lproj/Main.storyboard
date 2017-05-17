@@ -808,7 +808,7 @@
         <scene sceneID="Mji-nT-U6E">
             <objects>
                 <windowController id="Ghq-DC-VIS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="c9a-jd-nux">
+                    <window key="window" title="New Project" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="c9a-jd-nux">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -822,22 +822,22 @@
             </objects>
             <point key="canvasLocation" x="-1199" y="-139"/>
         </scene>
-        <!--View Controller-->
+        <!--New Project-->
         <scene sceneID="WuM-cZ-3DQ">
             <objects>
-                <viewController id="d8w-EJ-f8R" sceneMemberID="viewController">
-                    <view key="view" id="5XA-cE-6SW">
+                <viewController title="New Project" storyboardIdentifier="newProjectViewController" id="d8w-EJ-f8R" customClass="NewProjectViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="5XA-cE-6SW" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box fixedFrame="YES" title="Project Settings" translatesAutoresizingMaskIntoConstraints="NO" id="ENd-bo-ci6">
+                            <box fixedFrame="YES" title="Project Settings" translatesAutoresizingMaskIntoConstraints="NO" id="ENd-bo-ci6" customClass="ThemeViewDarkBox1" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="25" y="16" width="438" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="MEU-6t-w0C">
                                     <rect key="frame" x="2" y="2" width="434" height="223"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvj-sb-kh2">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvj-sb-kh2" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                             <rect key="frame" x="-2" y="184" width="86" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project Name" id="YMD-G7-W5f">
@@ -846,7 +846,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gY5-7E-l4J">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gY5-7E-l4J" customClass="ThemeLabelTextField" customModule="Drone_Files" customModuleProvider="target">
                                             <rect key="frame" x="103" y="180" width="311" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kYy-hB-yHT">
@@ -864,17 +864,6 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37j-lU-cnc" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
-                                            <rect key="frame" x="281" y="99" width="143" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Use Sub Directories" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UX0-Jd-cf6">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="createProjectSubDirectoriesCheckbox:" target="ZvK-30-Mbm" id="9aG-4v-82T"/>
-                                            </connections>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H77-6Q-6jM" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                             <rect key="frame" x="202" y="144" width="229" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -890,20 +879,20 @@
                                             <buttonCell key="cell" type="square" title="Choose" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="WK5-dL-XS2">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
-                                                <connections>
-                                                    <action selector="chooseOutputDirectory:" target="ZvK-30-Mbm" id="Bc9-Cz-lDd"/>
-                                                </connections>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="chooseOutputDirectory:" target="d8w-EJ-f8R" id="XMW-jB-WJW"/>
+                                            </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flY-8v-WXh" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
-                                            <rect key="frame" x="-2" y="102" width="152" height="18"/>
+                                            <rect key="frame" x="109" y="110" width="152" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Use Project Directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Vk-ta-6Eb">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="createProjectDirectoryCheckbox:" target="ZvK-30-Mbm" id="WsW-6p-IEt"/>
+                                                <action selector="createProjectDirectoryCheckbox:" target="d8w-EJ-f8R" id="zm1-rT-52a"/>
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iXC-Ww-Lr8" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
@@ -914,7 +903,18 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="openDocument:" target="ZvK-30-Mbm" id="Lxc-eM-Xng"/>
+                                                <action selector="createNewProjectWithSender:" target="d8w-EJ-f8R" id="MgF-cv-RC4"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37j-lU-cnc" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="109" y="88" width="143" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Use Sub Directories" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UX0-Jd-cf6">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="createProjectSubDirectoriesCheckbox:" target="d8w-EJ-f8R" id="E0o-dS-lBC"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -922,6 +922,14 @@
                             </box>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="createProjectButton" destination="iXC-Ww-Lr8" id="62j-M0-zxY"/>
+                        <outlet property="outputDirectoryButton" destination="Pnc-29-R7W" id="Mqh-DL-Xfj"/>
+                        <outlet property="outputDirectoryLabel" destination="H77-6Q-6jM" id="SAz-9s-xYw"/>
+                        <outlet property="projectNameTextField" destination="gY5-7E-l4J" id="SyA-Q5-QCh"/>
+                        <outlet property="useProjectDirectoryCheckbox" destination="flY-8v-WXh" id="7D9-W8-bxh"/>
+                        <outlet property="useSubDirectoriesCheckbox" destination="37j-lU-cnc" id="Jhn-Uj-95b"/>
+                    </connections>
                 </viewController>
                 <customObject id="mkc-8U-MtM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -984,14 +992,14 @@
                                             </textField>
                                         </subviews>
                                     </customView>
-                                    <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="GHP-OC-WAh" userLabel="File List">
+                                    <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="110" horizontalPageScroll="10" verticalLineScroll="110" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="GHP-OC-WAh" userLabel="File List">
                                         <rect key="frame" x="0.0" y="58" width="636" height="494"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="7R8-yL-CRv">
                                             <rect key="frame" x="0.0" y="0.0" width="636" height="494"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="gZ4-DF-70f" viewBased="YES" id="aqc-Ti-zl8" customClass="ThemeTableView" customModule="Drone_Files" customModuleProvider="target">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="108" rowSizeStyle="automatic" headerView="gZ4-DF-70f" viewBased="YES" id="aqc-Ti-zl8" customClass="ThemeTableView" customModule="Drone_Files" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="648" height="471"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -1142,7 +1150,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <customView fixedFrame="YES" id="nqS-et-DxB" customClass="" customModule="Drone_Files" customModuleProvider="target">
+                                    <customView fixedFrame="YES" id="nqS-et-DxB">
                                         <rect key="frame" x="0.0" y="553" width="636" height="422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
@@ -1261,6 +1269,7 @@
                                                             </pathCell>
                                                             <connections>
                                                                 <action selector="videosPathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="wwR-DW-M3f"/>
+                                                                <outlet property="delegate" destination="ZvK-30-Mbm" id="Fgk-DO-3GE"/>
                                                             </connections>
                                                         </pathControl>
                                                         <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ff-7B-qxD">
@@ -1471,7 +1480,7 @@
         <scene sceneID="px2-MB-SDI">
             <objects>
                 <viewController storyboardIdentifier="videoPlayerControlsController" id="tOh-RK-Pxk" customClass="VideoPlayerControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="RqY-fb-uNe" customClass="" customModule="Drone_Files" customModuleProvider="target">
+                    <view key="view" id="RqY-fb-uNe">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -1879,11 +1888,11 @@
         <scene sceneID="qsw-uA-ZE1">
             <objects>
                 <viewController title="Image Editor" storyboardIdentifier="imageEditorViewController" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="PlS-k6-tw1" customClass="" customModule="Drone_Files" customModuleProvider="target">
+                    <view key="view" wantsLayer="YES" id="PlS-k6-tw1">
                         <rect key="frame" x="0.0" y="0.0" width="759" height="787"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7" customClass="" customModule="Drone_Files" customModuleProvider="target">
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7">
                                 <rect key="frame" x="0.0" y="90" width="759" height="697"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -1896,7 +1905,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siq-1X-QQb" customClass="">
+                                    <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siq-1X-QQb">
                                         <rect key="frame" x="0.0" y="-30" width="759" height="231"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <connections>
@@ -2125,7 +2134,7 @@ AAAAAAEGA
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lzS-0R-DjC">
-                                            <rect key="frame" x="1" y="477" width="770" height="16"/>
+                                            <rect key="frame" x="1" y="-16" width="47" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Xym-8n-3nn">

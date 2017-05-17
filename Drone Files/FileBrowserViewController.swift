@@ -74,6 +74,9 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var jpgFolderPathControl: NSPathControl!
     @IBOutlet var rawFolderPathControl: NSPathControl!
     
+    
+    var pathControlDelegate: NSPathControlDelegate!
+    
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
     var sortOrder = Directory.FileOrder.Name
@@ -668,18 +671,7 @@ class FileBrowserViewController: NSViewController {
             // NSWorkspace.shared().open(item.url as URL)
         }
     }
-    
-    
-    // Helper Functions
-    func urlStringToDisplayURLString(input: String) -> String {
-        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
-    }
-    
-    func urlStringToDisplayPath(input: String) -> String {
-        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
-    }
-    
-    
+        
     func readProjectFile(projectFile: String) {
         let path = URL(string: projectFile)
         
@@ -991,6 +983,14 @@ extension FileBrowserViewController: NSTableViewDelegate {
         return ThemeTableRowView()
     }
     
+}
+
+
+
+
+extension FileBrowserViewController: NSPathControlDelegate {
+
+
 }
 
 

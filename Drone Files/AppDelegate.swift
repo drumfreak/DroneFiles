@@ -301,6 +301,16 @@ extension NSViewController {
     var appSettings:AppSettings {
         return appDelegate.appSettings
     }
+    
+    // Helper Functions
+    func urlStringToDisplayURLString(input: String) -> String {
+        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
+    }
+    
+    func urlStringToDisplayPath(input: String) -> String {
+        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
+    }
+
 }
 
 
@@ -334,6 +344,10 @@ extension NSView {
     var appSettings:AppSettings {
         return appDelegate.appSettings
     }
+
+    
+    
+
 }
 //
 //extension  NSTabViewItem {

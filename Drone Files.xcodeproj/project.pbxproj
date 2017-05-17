@@ -47,6 +47,7 @@
 		188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */; };
 		188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272511ECB9B2D00EE50D0 /* tablerow-dark.png */; };
 		188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272531ECB9BB100EE50D0 /* tablerow-black.png */; };
+		188272561ECBFAE800EE50D0 /* NewProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272551ECBFAE800EE50D0 /* NewProjectController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
@@ -138,6 +139,7 @@
 		1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-lightgray.png"; path = "../../../Dronefiles/tablerow-lightgray.png"; sourceTree = "<group>"; };
 		188272511ECB9B2D00EE50D0 /* tablerow-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-dark.png"; path = "../../../Dronefiles/tablerow-dark.png"; sourceTree = "<group>"; };
 		188272531ECB9BB100EE50D0 /* tablerow-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-black.png"; path = "../../../Dronefiles/tablerow-black.png"; sourceTree = "<group>"; };
+		188272551ECBFAE800EE50D0 /* NewProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProjectController.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
+				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				188272151ECA5FD300EE50D0 /* Document.swift */,
 				188272171ECA61F000EE50D0 /* DocumentController.swift */,
 				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
@@ -515,6 +518,7 @@
 				188272161ECA5FD300EE50D0 /* Document.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */,
+				188272561ECBFAE800EE50D0 /* NewProjectController.swift in Sources */,
 				188272421ECAD55400EE50D0 /* ThemeCheckbox.swift in Sources */,
 				18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */,
 				187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */,

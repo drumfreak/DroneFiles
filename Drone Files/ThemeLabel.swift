@@ -22,3 +22,12 @@ class ThemeLabel: NSTextField {
     }
 }
 
+
+class ThemeLabelTextField: NSTextField {
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        self.textColor = self.appSettings.textLabelColor
+        self.backgroundColor = self.appSettings.themeViewDarkBox1
+    }
+}
+

@@ -227,13 +227,6 @@ class FileManagerOptionsMoveController: NSViewController {
         myPopup.runModal()
     }
     
-    func urlStringToDisplayURLString(input: String) -> String {
-        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
-    }
-    
-    func urlStringToDisplayPath(input: String) -> String {
-        return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
-    }
     
     func setOpenPath1() {
         doOpenFinder(urlString:self.moveToFolder)

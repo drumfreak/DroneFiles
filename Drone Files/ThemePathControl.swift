@@ -41,23 +41,42 @@ class ThemePathControl: NSPathControl {
 }
 
 
+class ThemePathComponentCell: NSPathComponentCell {
+    required init(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+        Swift.print("This NSPathComponentCell initted")
+        
+        self.textColor = NSColor.lightGray
+        
+        
+        
+//            - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+//                NSImage *background = [NSImage imageNamed:@"ITPathbar-fill"];
+//                [background drawInRect:cellFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:NO];
+//                
+//                [super drawWithFrame:cellFrame inView:controlView];
+        }
+    
+}
+
 class ThemePathControlCell: NSPathCell {
     
     required init(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
         
+        // Swift.print("This cell initted")
         Swift.print("This cell initted")
-       //  self.setT
-        // self.title = "Fuck"
-        
-        // let myAttribute = [NSForegroundColorAttributeName: NSColor.lightGray
-       //  ]
-//
-//        
-        // let myAttrString = NSAttributedString(string: "foo", attributes: myAttribute)
 
-        // self.cell. attributedStringValue = myAttrString
+        self.pathComponentCells.forEach({m in
+            
+            Swift.print("CELLLL  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+            m.textColor = NSColor.lightGray
+        })
+        
         
     }
 }
