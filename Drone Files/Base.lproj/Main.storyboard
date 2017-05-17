@@ -1846,29 +1846,13 @@
             <objects>
                 <viewController title="Image Editor" storyboardIdentifier="imageEditorViewController" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="PlS-k6-tw1">
-                        <rect key="frame" x="0.0" y="0.0" width="759" height="787"/>
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="890"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7">
-                                <rect key="frame" x="0.0" y="90" width="759" height="697"/>
+                                <rect key="frame" x="0.0" y="193" width="759" height="697"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhv-gu-RjS" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="1" y="209" width="741" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loaded File" id="2Gj-bf-dhH">
-                                            <font key="font" metaFont="systemBold" size="12"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siq-1X-QQb">
-                                        <rect key="frame" x="0.0" y="-30" width="759" height="231"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <connections>
-                                            <segue destination="HxO-aJ-Lgv" kind="embed" id="6lq-76-fu3"/>
-                                        </connections>
-                                    </containerView>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="ltj-hA-ODY">
                                         <rect key="frame" x="0.0" y="246" width="760" height="426"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1901,6 +1885,15 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </scroller>
                                     </scrollView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhv-gu-RjS" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="1" y="223" width="741" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Loaded File" id="2Gj-bf-dhH">
+                                            <font key="font" metaFont="systemBold" size="12"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <animations>
                                     <caTransition key="subviews">
@@ -1916,6 +1909,13 @@ AAAAAAEGA
                                     </caTransition>
                                 </animations>
                             </customView>
+                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siq-1X-QQb">
+                                <rect key="frame" x="0.0" y="100" width="759" height="400"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <connections>
+                                    <segue destination="HxO-aJ-Lgv" kind="embed" id="6lq-76-fu3"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
@@ -1932,7 +1932,7 @@ AAAAAAEGA
                 </viewController>
                 <customObject id="DHx-x3-09M" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380.5" y="2308.5"/>
+            <point key="canvasLocation" x="380.5" y="2360"/>
         </scene>
         <!--File Manager-->
         <scene sceneID="GYP-4x-9bJ">
@@ -1974,7 +1974,7 @@ AAAAAAEGA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="NameCellID" id="VnT-6l-g47">
-                                                                    <rect key="frame" x="1" y="1" width="416" height="86"/>
+                                                                    <rect key="frame" x="1" y="1" width="415" height="86"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LXG-VV-myc">
@@ -2022,7 +2022,7 @@ AAAAAAEGA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="DateCellID" id="jqq-rn-fMV">
-                                                                    <rect key="frame" x="420" y="1" width="207" height="86"/>
+                                                                    <rect key="frame" x="420" y="1" width="206" height="86"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifF-05-I1W">
@@ -2059,7 +2059,7 @@ AAAAAAEGA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="SizeCellID" id="gQj-YM-BRV">
-                                                                    <rect key="frame" x="631" y="1" width="137" height="86"/>
+                                                                    <rect key="frame" x="631" y="1" width="136" height="86"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtB-pS-icO">
@@ -2890,316 +2890,330 @@ AAAAAAEGA
             <objects>
                 <viewController storyboardIdentifier="imageEditorControlsController" id="HxO-aJ-Lgv" customClass="ImageEditorControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" identifier="imageEditorControlsController" id="3Ls-FT-EMg" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="759" height="338"/>
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="328"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWT-0r-Kxl" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="133" y="297" width="68" height="17"/>
+                            <box fixedFrame="YES" title="Edit" translatesAutoresizingMaskIntoConstraints="NO" id="RJV-VB-tsq" customClass="ThemeBox">
+                                <rect key="frame" x="22" y="6" width="720" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Edit Image" id="BFD-ob-H9o">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48T-5i-7kt">
-                                <rect key="frame" x="306" y="244" width="51" height="32"/>
+                                <view key="contentView" id="xVN-ZI-Qka" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="2" y="2" width="716" height="258"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWT-0r-Kxl" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="45" y="232" width="68" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Edit Image" id="BFD-ob-H9o">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48T-5i-7kt">
+                                            <rect key="frame" x="218" y="179" width="51" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="-0.1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T4r-dd-26t">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="rotateLeft:" target="HxO-aJ-Lgv" id="zqQ-t6-1ZC"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mxW-uJ-GZy">
+                                            <rect key="frame" x="172" y="179" width="51" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="-1.0" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UEQ-u4-gSu">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="rotateLeft1:" target="HxO-aJ-Lgv" id="gsg-5F-yxJ"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hwo-sM-uHQ">
+                                            <rect key="frame" x="320" y="179" width="51" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="+0.1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="byR-zX-Jgp">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="rotateRight:" target="HxO-aJ-Lgv" id="8q1-be-Gc5"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abp-Yg-bx2">
+                                            <rect key="frame" x="368" y="179" width="55" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="+1.0" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MSb-Kh-CUM">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="rotateRight1:" target="HxO-aJ-Lgv" id="5jF-vK-hBf"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDu-jI-EeD">
+                                            <rect key="frame" x="418" y="179" width="51" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="+90" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zRh-bH-MIr">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="rotateRight90:" target="HxO-aJ-Lgv" id="lfN-QS-kB8"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKQ-KS-IWe">
+                                            <rect key="frame" x="128" y="179" width="49" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="-90" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c4W-E1-tC5">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="rotateLeft90:" target="HxO-aJ-Lgv" id="51m-gB-89e"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSe-eT-oTa">
+                                            <rect key="frame" x="266" y="179" width="51" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V4Y-me-GOV">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="resetImage:" target="HxO-aJ-Lgv" id="WGZ-AG-US5"/>
+                                            </connections>
+                                        </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGR-f5-cFC" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="50" y="190" width="59" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rotation:" id="wrQ-xQ-fof">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-zM-PyT">
+                                            <rect key="frame" x="132" y="150" width="423" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" alignment="left" minValue="-180" maxValue="180" tickMarkPosition="above" sliderType="linear" id="gZE-II-TSV"/>
+                                            <connections>
+                                                <action selector="rotationSliderChanged:" target="HxO-aJ-Lgv" id="6tz-rI-K9e"/>
+                                            </connections>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yF9-W9-2ch" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="70" y="116" width="43" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Zoom:" id="t4w-jT-dhD">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgu-W6-DEP">
+                                            <rect key="frame" x="132" y="78" width="423" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="EBd-L2-mRx"/>
+                                            <connections>
+                                                <action selector="zoomSliderChanged:" target="HxO-aJ-Lgv" id="tZ4-DT-td9"/>
+                                            </connections>
+                                        </slider>
+                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSp-pL-wKb">
+                                            <rect key="frame" x="583" y="77" width="19" height="84"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="right" sliderType="linear" id="Otv-jb-sJW"/>
+                                            <connections>
+                                                <action selector="zoomVerticalSliderChanged:" target="HxO-aJ-Lgv" id="Q3R-aL-r5O"/>
+                                            </connections>
+                                        </slider>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwm-wR-ZMf" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="222" y="223" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Move" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="OTE-IF-uPp">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="moveImage:" target="HxO-aJ-Lgv" id="aR8-pB-jZ2"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jLZ-1c-8cU" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="317" y="223" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Appaearance" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="piE-4Z-UoA">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="moveImage:" target="HxO-aJ-Lgv" id="LmR-Tf-t4o"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smV-mA-UZX" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="415" y="223" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Reset" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Jjy-Tx-0qC">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="moveImage:" target="HxO-aJ-Lgv" id="wYA-l4-Dzv"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iqd-zl-rao" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="518" y="223" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Cancel" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="EAZ-9M-YdY">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="cancelImage:" target="HxO-aJ-Lgv" id="jHf-pA-ELb"/>
+                                                </connections>
+                                            </buttonCell>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tzQ-Df-Efw" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="613" y="223" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Save" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="be9-3U-QFa">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="saveImage:" target="HxO-aJ-Lgv" id="xpl-h5-Hto"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0fP-u7-PKk" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="610" y="181" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Filters" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="SGj-6T-jTx">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="showFilterWindow:" target="HxO-aJ-Lgv" id="pny-Lc-CRn"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C36-2d-UDP" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="518" y="181" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Crop" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="nPv-cj-IfB">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="cropImage:" target="HxO-aJ-Lgv" id="WIt-jP-XZQ"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t8J-p1-vuA" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="473" y="110" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Fit" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="fua-Id-vfR">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="resetImage:" target="HxO-aJ-Lgv" id="Ya0-I9-89g"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhT-x1-Cu5" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="361" y="110" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Zoom Full" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Xlf-75-7ss">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="zoomIn:" target="HxO-aJ-Lgv" id="hto-8S-W87"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MqT-uE-1Fe" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="251" y="110" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Zoom Out" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="2c0-x0-aqS">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="zoomOut:" target="HxO-aJ-Lgv" id="Shs-K3-mRM"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pco-Nj-Nw7" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="144" y="110" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Zoom In" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="hEf-nc-5tc">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="zoomIn:" target="HxO-aJ-Lgv" id="HN7-Qe-8tu"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <connections>
+                                        <action selector="resetImage:" target="HxO-aJ-Lgv" id="JfC-w0-fLL"/>
+                                    </connections>
+                                </view>
+                            </box>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yp9-4V-LIi" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="339" y="283" width="80" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="-0.1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T4r-dd-26t">
+                                <buttonCell key="cell" type="square" title="Edit" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="IrP-lj-mjw">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="rotateLeft:" target="HxO-aJ-Lgv" id="zqQ-t6-1ZC"/>
+                                    <action selector="toggleEditorControls:" target="HxO-aJ-Lgv" id="HsM-3G-rNb"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mxW-uJ-GZy">
-                                <rect key="frame" x="260" y="244" width="51" height="32"/>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGG-DG-LNU" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="437" y="283" width="80" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="-1.0" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UEQ-u4-gSu">
+                                <buttonCell key="cell" type="square" title="Airdrop" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="brI-xg-4hN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="rotateLeft1:" target="HxO-aJ-Lgv" id="gsg-5F-yxJ"/>
+                                    <action selector="shareAirdropWithSender:" target="HxO-aJ-Lgv" id="cUI-ct-esM"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hwo-sM-uHQ">
-                                <rect key="frame" x="408" y="244" width="51" height="32"/>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ban-s5-LDh" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="633" y="283" width="80" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="+0.1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="byR-zX-Jgp">
+                                <buttonCell key="cell" type="square" title="Preview" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="BBz-hE-oPV">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="rotateRight:" target="HxO-aJ-Lgv" id="8q1-be-Gc5"/>
+                                    <action selector="openPreviewWithSender:" target="HxO-aJ-Lgv" id="zml-LQ-DJD"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aLn-D3-bBq">
-                                <rect key="frame" x="577" y="244" width="117" height="32"/>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iA5-Sl-ioO" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="535" y="283" width="80" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Crop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SbJ-2A-K47">
+                                <buttonCell key="cell" type="square" title="Share" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="CZ5-e6-OwN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="cropImage:" target="HxO-aJ-Lgv" id="ZcB-3l-a4C"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4RU-9X-9pV">
-                                <rect key="frame" x="675" y="290" width="70" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hof-9C-me2">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="saveImage:" target="HxO-aJ-Lgv" id="BhU-SB-HYR"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtj-oe-HKU">
-                                <rect key="frame" x="594" y="290" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Io-6B-TEw">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="cancelImage:" target="HxO-aJ-Lgv" id="DWU-wE-nWO"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="sJT-zm-XOe">
-                                <rect key="frame" x="216" y="170" width="107" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Zoom In" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lqc-kN-cw8">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="doZoomWithSender:" target="HxO-aJ-Lgv" id="Nd9-GP-qUX"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Dy-gz-Wnl">
-                                <rect key="frame" x="326" y="170" width="107" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Zoom Out" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hF0-Nb-okB">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="doZoomWithSender:" target="HxO-aJ-Lgv" id="xOF-mH-fbd"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m25-d6-T5a">
-                                <rect key="frame" x="443" y="290" width="115" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yGE-wk-biA">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="resetImage:" target="HxO-aJ-Lgv" id="5P5-vq-5Os"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nzV-Fb-DIh">
-                                <rect key="frame" x="323" y="290" width="113" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Appearance" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3GV-tM-ud0">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="showEditControls:" target="HxO-aJ-Lgv" id="LYL-xi-o5J"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="79g-98-aze">
-                                <rect key="frame" x="216" y="290" width="107" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Move" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WDu-t9-jjA">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="moveImage:" target="HxO-aJ-Lgv" id="sya-iY-HQA"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abp-Yg-bx2">
-                                <rect key="frame" x="456" y="244" width="55" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="+1.0" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MSb-Kh-CUM">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="rotateRight1:" target="HxO-aJ-Lgv" id="5jF-vK-hBf"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDu-jI-EeD">
-                                <rect key="frame" x="506" y="244" width="51" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="+90" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zRh-bH-MIr">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="rotateRight90:" target="HxO-aJ-Lgv" id="lfN-QS-kB8"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKQ-KS-IWe">
-                                <rect key="frame" x="216" y="244" width="49" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="-90" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c4W-E1-tC5">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="rotateLeft90:" target="HxO-aJ-Lgv" id="51m-gB-89e"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSe-eT-oTa">
-                                <rect key="frame" x="354" y="244" width="51" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V4Y-me-GOV">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="resetImage:" target="HxO-aJ-Lgv" id="WGZ-AG-US5"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGR-f5-cFC" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="138" y="255" width="59" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rotation:" id="wrQ-xQ-fof">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ji8-zM-PyT">
-                                <rect key="frame" x="220" y="215" width="423" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" alignment="left" minValue="-180" maxValue="180" tickMarkPosition="above" sliderType="linear" id="gZE-II-TSV"/>
-                                <connections>
-                                    <action selector="rotationSliderChanged:" target="HxO-aJ-Lgv" id="6tz-rI-K9e"/>
-                                </connections>
-                            </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yF9-W9-2ch" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="158" y="181" width="43" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Zoom:" id="t4w-jT-dhD">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="mAD-a8-SrC">
-                                <rect key="frame" x="433" y="170" width="107" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Zoom Full" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xgQ-7u-Kg9">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="doZoomWithSender:" target="HxO-aJ-Lgv" id="Tth-j7-Zif"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="IzZ-ep-jCv">
-                                <rect key="frame" x="540" y="170" width="107" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Zoom Fit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="83w-MO-8TG">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="doZoomWithSender:" target="HxO-aJ-Lgv" id="3pm-HK-hi5"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BxG-LC-90s">
-                                <rect key="frame" x="19" y="285" width="88" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Airdrop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="P5V-mo-JeH">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="shareAirdropWithSender:" target="HxO-aJ-Lgv" id="Uqy-RF-fkg"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMD-lI-a6l">
-                                <rect key="frame" x="19" y="259" width="88" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Share" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1DO-at-U1z">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="shareFacebookWithSender:" target="HxO-aJ-Lgv" id="2HT-oJ-Qvd"/>
-                                </connections>
-                            </button>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgu-W6-DEP">
-                                <rect key="frame" x="220" y="143" width="423" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="EBd-L2-mRx"/>
-                                <connections>
-                                    <action selector="zoomSliderChanged:" target="HxO-aJ-Lgv" id="tZ4-DT-td9"/>
-                                </connections>
-                            </slider>
-                            <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSp-pL-wKb">
-                                <rect key="frame" x="671" y="142" width="19" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="right" sliderType="linear" id="Otv-jb-sJW"/>
-                                <connections>
-                                    <action selector="zoomVerticalSliderChanged:" target="HxO-aJ-Lgv" id="Q3R-aL-r5O"/>
-                                </connections>
-                            </slider>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UrR-xj-JZx">
-                                <rect key="frame" x="686" y="244" width="78" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Filters" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZpB-Pg-49n">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="showFilterWindow:" target="HxO-aJ-Lgv" id="Awe-Zr-Akw"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pvV-XB-z7p">
-                                <rect key="frame" x="19" y="234" width="88" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Preview" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZkO-LK-nWV">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="openPreviewWithSender:" target="HxO-aJ-Lgv" id="JTg-as-mhS"/>
+                                    <action selector="shareFacebookWithSender:" target="HxO-aJ-Lgv" id="6AM-C5-S6n"/>
                                 </connections>
                             </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="appearanceButton" destination="nzV-Fb-DIh" id="eG4-bi-N25"/>
-                        <outlet property="cancelButton" destination="jtj-oe-HKU" id="qiw-m7-Tcy"/>
-                        <outlet property="cropButton" destination="aLn-D3-bBq" id="bkU-B1-all"/>
+                        <outlet property="controlsBox" destination="RJV-VB-tsq" id="Jgf-it-V0N"/>
                         <outlet property="editImageLabel" destination="tWT-0r-Kxl" id="Kfu-tK-uYl"/>
-                        <outlet property="moveButton" destination="79g-98-aze" id="w01-EQ-L4k"/>
-                        <outlet property="resetButton" destination="m25-d6-T5a" id="2Yd-6n-vMS"/>
                         <outlet property="rotateLeftButton" destination="48T-5i-7kt" id="CWL-WP-7JV"/>
                         <outlet property="rotateRightButton" destination="Hwo-sM-uHQ" id="Vct-2p-sF2"/>
                         <outlet property="rotationSlider" destination="Ji8-zM-PyT" id="1Qj-Ve-tA7"/>
-                        <outlet property="saveButton" destination="4RU-9X-9pV" id="gft-jq-a4Z"/>
-                        <outlet property="zoomInButton" destination="sJT-zm-XOe" id="5zm-5y-6W7"/>
-                        <outlet property="zoomOutButton" destination="3Dy-gz-Wnl" id="0cm-sa-yeD"/>
                         <outlet property="zoomSlider" destination="cgu-W6-DEP" id="FhF-WW-DL4"/>
                         <outlet property="zoomVerticalSlider" destination="gSp-pL-wKb" id="l3D-y6-kqg"/>
                     </connections>
                 </viewController>
                 <customObject id="dv0-9k-nOr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="393.5" y="3049"/>
+            <point key="canvasLocation" x="382" y="3070"/>
         </scene>
     </scenes>
     <resources>

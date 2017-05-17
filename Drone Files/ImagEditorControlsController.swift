@@ -62,7 +62,12 @@ class ImageEditorControllsController: NSViewController {
     
     @IBOutlet var moveButton: NSButton!
     
+    @IBOutlet var controlsBox: NSView!
+
     
+    
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +85,7 @@ class ImageEditorControllsController: NSViewController {
         
         // self.filterPanel?.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: Any!(), didEnd:Selector(("switchToolMode:")), contextInfo: nil)
     
+        self.controlsBox.isHidden = true
 
 
     }
@@ -88,6 +94,7 @@ class ImageEditorControllsController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
     }
     
 
@@ -106,6 +113,12 @@ class ImageEditorControllsController: NSViewController {
         nc.addObserver(self, selector: #selector(self.catchNotification(notification:)), name: .IKFilterBrowserWillPreviewFilter, object: nil)
 
     }
+    
+    
+    @IBAction func toggleEditorControls(_ sender: AnyObject) {
+        self.controlsBox.isHidden = !self.controlsBox.isHidden
+    }
+
     
     func catchNotification(notification:Notification) -> Void {
         print(notification)
