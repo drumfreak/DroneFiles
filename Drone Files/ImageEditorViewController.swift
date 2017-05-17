@@ -48,6 +48,10 @@ class ImageEditorViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.wantsLayer = true
+        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         // print("Loaded Image Editor")
         self.imageView.autoresizes = true
         self.imageView.supportsDragAndDrop = true
@@ -61,17 +65,20 @@ class ImageEditorViewController: NSViewController {
         
         self.appDelegate.imageEditorViewController = self
         
-       // print("This is kind of happening.......")
-        
+        // print("This is kind of happening.......")
+
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
         self.view.wantsLayer = true
         
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-
     }
 
     func loadImage(_url: URL) {
         
-        print("Loading IMAGES: \(_url)")
+        // print("Loading IMAGES: \(_url)")
         
         // imageView.show
         self.imageUrl = _url
@@ -99,7 +106,7 @@ class ImageEditorViewController: NSViewController {
             // let exifDict = imageProperties["Exif"] as! Dictionary
             
             
-            print(imageProperties)
+            // print(imageProperties)
         }
      
         

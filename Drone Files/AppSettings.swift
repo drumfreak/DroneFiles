@@ -19,8 +19,6 @@ struct AppSettings {
     var fileSequenceNameTag = ""
     var projectDirectory = ""
     
-    
-    
     var outputDirectory: String! {
         didSet {
             if let output = outputDirectory {
@@ -29,6 +27,29 @@ struct AppSettings {
             }
         }
     }
+    
+    
+    var lastFolderOpened: String! {
+        didSet {
+            if let output = lastFolderOpened {
+                // defaults.value(forKey: "outputDirectory") as! String
+                print("lastFolderOpened \(lastFolderOpened)")
+                
+                userDefaults.setValue(output, forKey: "lastFolderOpened")
+            }
+        }
+    }
+    
+
+    var lastFileOpened: String! {
+        didSet {
+            if let output = lastFileOpened {
+                // defaults.value(forKey: "outputDirectory") as! String
+                userDefaults.setValue(output, forKey: "lastFileOpened")
+            }
+        }
+    }
+    
     
     var createProjectDirectory = true
     var createProjectSubDirectories = true

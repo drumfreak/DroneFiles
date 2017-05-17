@@ -25,7 +25,8 @@ class NewProjectViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.projectNameTextField.resignFirstResponder()
+
         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.outputDirectory)
         
         self.projectNameTextField.stringValue = self.appSettings.fileSequenceName
@@ -81,7 +82,7 @@ class NewProjectViewController: NSViewController {
     
     @IBAction func createNewProject(sender: AnyObject) {
         
-        self.projectNameTextField.resignFirstResponder()
+        // self.projectNameTextField.resignFirstResponder()
         
         self.appDelegate.appSettings.fileSequenceName = self.projectNameTextField.stringValue
         
@@ -95,11 +96,18 @@ class NewProjectViewController: NSViewController {
         
         self.appDelegate.fileBrowserViewController.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
         
-        self.dismissViewController(self)
+        self.view.window?.close()
         
     }
 
     
+    @IBAction func cancel(sender: AnyObject) {
+        
+        
+        self.view.window?.close()
+        
+    }
+
     
     
     

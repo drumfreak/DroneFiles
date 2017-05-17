@@ -967,7 +967,7 @@
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fileSequenceNameSetButtonClickedWithSender:" target="ZvK-30-Mbm" id="h4d-cV-muI"/>
-                                                    <segue destination="Ghq-DC-VIS" kind="modal" id="Srm-Mr-6dh"/>
+                                                    <segue destination="Ghq-DC-VIS" kind="show" id="Srm-Mr-6dh"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="su4-aM-NZP" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
@@ -1181,7 +1181,7 @@
                                                 <pathCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="VvR-qL-MVH" customClass="ThemePathControlCell" customModule="Drone_Files" customModuleProvider="target">
                                                     <font key="font" metaFont="system" size="10"/>
                                                     <url key="url" string="file:///Volumes/Untitled/"/>
-                                                    <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="0.0" colorSpace="deviceRGB"/>
+                                                    <color key="backgroundColor" red="0.55164223948748958" green="0.63876582881810973" blue="0.87515054244263957" alpha="0.20023544520547945" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </pathCell>
                                                 <connections>
                                                     <action selector="pathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="eQ9-Q3-Ch0"/>
@@ -1206,193 +1206,150 @@
                                                     <rect key="frame" x="1" y="1" width="617" height="328"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ZB-mO-lG3" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="116" y="258" width="488" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project Directory Label" id="4xB-sb-Eyw">
-                                                                <font key="font" metaFont="systemBold" size="10"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nqv-3G-Pi3" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="55" y="235" width="50" height="17"/>
+                                                            <rect key="frame" x="149" y="252" width="46" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Videos:" id="vM9-pU-RHl">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Videos" id="vM9-pU-RHl">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOx-1i-Ped" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="72" y="187" width="33" height="17"/>
+                                                            <rect key="frame" x="282" y="252" width="29" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JPG:" id="tIo-FD-NaK">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="JPG" id="tIo-FD-NaK">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRU-IV-jWV" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="67" y="210" width="38" height="17"/>
+                                                            <rect key="frame" x="218" y="252" width="35" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Clips:" id="jaF-gU-sUY">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wj-tu-Grw" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="52" y="138" width="53" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frames:" id="NrY-RJ-pKk">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Clips" id="jaF-gU-sUY">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vl-0D-FUX" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="68" y="161" width="37" height="17"/>
+                                                            <rect key="frame" x="340" y="252" width="33" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="RAW:" id="zfp-T5-iCu">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="RAW" id="zfp-T5-iCu">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dia-gl-fwL">
-                                                            <rect key="frame" x="111" y="232" width="496" height="26"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRW-kV-kMF">
+                                                            <rect key="frame" x="278" y="271" width="39" height="38"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <pathCell key="cell" selectable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="c7z-xl-y4m">
-                                                                <font key="font" metaFont="system" size="10"/>
-                                                                <url key="url" string="file:///Volumes/Untitled/"/>
-                                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="0.0" colorSpace="deviceRGB"/>
-                                                            </pathCell>
-                                                            <connections>
-                                                                <action selector="videosPathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="wwR-DW-M3f"/>
-                                                            </connections>
-                                                        </pathControl>
-                                                        <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ff-7B-qxD">
-                                                            <rect key="frame" x="111" y="208" width="496" height="26"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="b89-57-4Z1">
-                                                                <font key="font" metaFont="system" size="10"/>
-                                                                <url key="url" string="file:///Volumes/Untitled/"/>
-                                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="0.0" colorSpace="deviceRGB"/>
-                                                            </pathCell>
-                                                            <connections>
-                                                                <action selector="clipsControlSingleClickWithSender:" target="ZvK-30-Mbm" id="lUQ-Wg-ei8"/>
-                                                            </connections>
-                                                        </pathControl>
-                                                        <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrO-en-M3k">
-                                                            <rect key="frame" x="111" y="184" width="496" height="26"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="tW8-yh-D9Q">
-                                                                <font key="font" metaFont="system" size="10"/>
-                                                                <url key="url" string="file:///Volumes/Untitled/"/>
-                                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="0.0" colorSpace="deviceRGB"/>
-                                                            </pathCell>
-                                                            <connections>
-                                                                <action selector="jpgControlSingleClickWithSender:" target="ZvK-30-Mbm" id="dsy-GY-wLN"/>
-                                                            </connections>
-                                                        </pathControl>
-                                                        <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73d-zm-FB8">
-                                                            <rect key="frame" x="111" y="158" width="496" height="26"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="CMH-j3-AN6">
-                                                                <font key="font" metaFont="system" size="10"/>
-                                                                <url key="url" string="file:///Volumes/Untitled/"/>
-                                                                <color key="backgroundColor" red="0.91566347777409196" green="0.95004793078399985" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </pathCell>
-                                                            <connections>
-                                                                <action selector="rawControlSingleClickWithSender:" target="ZvK-30-Mbm" id="G3i-Ge-jdB"/>
-                                                            </connections>
-                                                        </pathControl>
-                                                        <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n1a-8i-NG4">
-                                                            <rect key="frame" x="111" y="135" width="496" height="26"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="uwy-e2-rmA">
-                                                                <font key="font" metaFont="system" size="10"/>
-                                                                <url key="url" string="file:///Volumes/Untitled/"/>
-                                                                <color key="backgroundColor" red="0.8980392157" green="0.92549019610000005" blue="0.97254901959999995" alpha="0.0" colorSpace="deviceRGB"/>
-                                                            </pathCell>
-                                                            <connections>
-                                                                <action selector="framesControlSingleClickWithSender:" target="ZvK-30-Mbm" id="4L8-uA-R7X"/>
-                                                            </connections>
-                                                        </pathControl>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrQ-wP-7Wq" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="-2" y="260" width="111" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project Directory:" id="oJO-z4-DAP">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9NX-YJ-ShW" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="-2" y="288" width="110" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output Directory:" id="Xfq-wV-jaZ">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1L5-pu-tNF" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="202" y="287" width="397" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="output directory" id="DMF-7a-Ht0">
-                                                                <font key="font" metaFont="systemBold" size="10"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8ic-xi-eMM" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="111" y="285" width="80" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="square" title="Choose" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="DjM-JY-3Yd">
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="FUT-3r-jOG">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
-                                                                <connections>
-                                                                    <action selector="chooseOutputDirectory:" target="ZvK-30-Mbm" id="DtT-0J-WH8"/>
-                                                                </connections>
-                                                            </buttonCell>
-                                                        </button>
-                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9o-Kq-g31" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="239" y="97" width="143" height="18"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="check" title="Use Sub Directories" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="etZ-cU-NP5">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <connections>
-                                                                <action selector="createProjectSubDirectoriesCheckbox:" target="ZvK-30-Mbm" id="9pt-4X-xJH"/>
+                                                                <action selector="jpgControlSingleClickWithSender:" target="ZvK-30-Mbm" id="9xi-8R-s6J"/>
                                                             </connections>
                                                         </button>
-                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vFx-rE-ciK" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="55" y="97" width="152" height="18"/>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qT0-FX-Eso">
+                                                            <rect key="frame" x="216" y="271" width="39" height="38"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="check" title="Use Project Directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bf8-KI-EnQ">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="LEM-cE-dLa">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <connections>
-                                                                <action selector="createProjectDirectoryCheckbox:" target="ZvK-30-Mbm" id="NNJ-GB-Pfk"/>
+                                                                <action selector="clipsControlSingleClickWithSender:" target="ZvK-30-Mbm" id="lIr-h7-ewD"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eY-Qg-xKJ">
+                                                            <rect key="frame" x="153" y="271" width="39" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="Rac-XK-KOI">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="videosPathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="PTZ-wV-ssM"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lX3-oK-yIz">
+                                                            <rect key="frame" x="337" y="271" width="39" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="KI0-H9-3ef">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="rawControlSingleClickWithSender:" target="ZvK-30-Mbm" id="s0C-Bu-Q72"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHt-as-wIE" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                            <rect key="frame" x="84" y="252" width="47" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project" id="69L-rx-1VH">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TQ3-ho-TmP">
+                                                            <rect key="frame" x="88" y="271" width="39" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="NJu-nK-7pa">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="projectControlSingleClickWithSender:" target="ZvK-30-Mbm" id="EdD-0O-63A"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLz-T5-Mt9" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                            <rect key="frame" x="19" y="252" width="47" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output" id="DKa-66-96g">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjW-eb-SPN" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                                            <rect key="frame" x="23" y="271" width="39" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="zy6-SB-hwr">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="outputPathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="VL6-bh-R4c"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wj-tu-Grw" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                            <rect key="frame" x="391" y="252" width="49" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frames" id="NrY-RJ-pKk">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1U-rW-wr8">
+                                                            <rect key="frame" x="396" y="271" width="39" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="ipj-iX-0ER">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="framesControlSingleClickWithSender:" target="ZvK-30-Mbm" id="JlI-9c-IHj"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
                                                 </view>
                                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.1386451198630137" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcR-Nc-nS7">
-                                                <rect key="frame" x="117" y="378" width="37" height="17"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="bRU-NJ-6rJ">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
                                         </subviews>
                                     </customView>
                                 </subviews>
@@ -1411,19 +1368,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="clipsFolderPathControl" destination="6Ff-7B-qxD" id="Fbm-kb-ude"/>
-                        <outlet property="createProjectDirectoryButton" destination="vFx-rE-ciK" id="p3B-Ba-qe1"/>
-                        <outlet property="createProjectSubDirectoriesButton" destination="f9o-Kq-g31" id="z8E-Tl-EpH"/>
                         <outlet property="currentFolderPathControl" destination="dGI-zY-IQJ" id="Dg7-0B-GJT"/>
                         <outlet property="fileSequenceNameTextField" destination="hfk-RY-Bd4" id="X49-9R-vRw"/>
-                        <outlet property="framesFolderPathControl" destination="n1a-8i-NG4" id="kZs-ik-fUJ"/>
-                        <outlet property="jpgFolderPathControl" destination="ZrO-en-M3k" id="t3n-to-WKT"/>
-                        <outlet property="outputDirectoryLabel" destination="1L5-pu-tNF" id="BLg-TL-jZ6"/>
-                        <outlet property="projectDirectoryLabel" destination="6ZB-mO-lG3" id="4Ve-rI-NlZ"/>
-                        <outlet property="rawFolderPathControl" destination="73d-zm-FB8" id="HVz-M4-2M4"/>
                         <outlet property="statusLabel" destination="cW6-yz-d1H" id="Bxi-d2-dqy"/>
                         <outlet property="tableView" destination="aqc-Ti-zl8" id="xxQ-ob-VLa"/>
-                        <outlet property="videosFolderPathControl" destination="dia-gl-fwL" id="1uD-0i-fmr"/>
                     </connections>
                 </viewController>
                 <customObject id="NnT-2V-riI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
