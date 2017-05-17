@@ -71,6 +71,11 @@ struct AppSettings {
     // Active row
     var tableRowActiveBackGroundColor =  NSColor.init(patternImage: NSImage(named: "tablerow-blue.png")!)
     
+    // tableHeaderRow
+    var tableHeaderRowBackground =  NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
+
+    
+    
     var textLabelColor = NSColor.gray
     
     

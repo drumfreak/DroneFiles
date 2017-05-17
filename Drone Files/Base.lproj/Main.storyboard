@@ -1145,7 +1145,7 @@
                                             <rect key="frame" x="-15" y="0.0" width="16" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <tableHeaderView key="headerView" id="gZ4-DF-70f">
+                                        <tableHeaderView key="headerView" id="gZ4-DF-70f" customClass="ThemeTableHeaderView" customModule="Drone_Files" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="648" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
@@ -1269,7 +1269,6 @@
                                                             </pathCell>
                                                             <connections>
                                                                 <action selector="videosPathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="wwR-DW-M3f"/>
-                                                                <outlet property="delegate" destination="ZvK-30-Mbm" id="Fgk-DO-3GE"/>
                                                             </connections>
                                                         </pathControl>
                                                         <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Ff-7B-qxD">

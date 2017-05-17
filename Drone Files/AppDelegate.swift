@@ -323,17 +323,6 @@ extension NSWindow {
     }
 }
 
-//extension NSButton {
-//    var appDelegate:AppDelegate {
-//        return NSApplication.shared().delegate as! AppDelegate
-//    }
-//}
-//
-//extension NSTextField {
-//    var appDelegate:AppDelegate {
-//        return NSApplication.shared().delegate as! AppDelegate
-//    }
-//}
 
 
 extension NSView {
@@ -344,32 +333,20 @@ extension NSView {
     var appSettings:AppSettings {
         return appDelegate.appSettings
     }
-
-    
-    
-
 }
-//
-//extension  NSTabViewItem {
-//    var appDelegate:AppDelegate {
-//        return NSApplication.shared().delegate as! AppDelegate
-//    }
-//    
-//    var appSettings:AppSettings {
-//        return appDelegate.appSettings
-//    }
-//}
 
 
+extension NSTableHeaderCell {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }
+}
 
 
-
-
-//extension NSWindowController {
-//    var appDelegate:AppDelegate {
-//        return NSApplication.shared().delegate as! AppDelegate
-//    }
-//}
 extension String {
     func trim() -> String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespaces)

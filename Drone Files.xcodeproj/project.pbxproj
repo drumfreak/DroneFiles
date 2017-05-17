@@ -18,6 +18,7 @@
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
 		185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */; };
 		185F4C361EB124440046C452 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C351EB124440046C452 /* Window.swift */; };
+		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
 		187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */; };
 		187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */; };
 		187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A91EB3E26100BCD214 /* VideoPlayerController.swift */; };
@@ -110,6 +111,7 @@
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
 		185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsDeleteController.swift; sourceTree = "<group>"; };
 		185F4C351EB124440046C452 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
 		187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSplitViewController.swift; sourceTree = "<group>"; };
 		187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControlsController.swift; sourceTree = "<group>"; };
 		187843A91EB3E26100BCD214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */,
 				188272341ECAA50100EE50D0 /* ThemeView.swift */,
 				1882723F1ECAD55400EE50D0 /* ThemeTabViewItem.swift */,
+				186A2E051ECC14DF000FE0AB /* ThemeTables.swift */,
 				188272401ECAD55400EE50D0 /* ThemeCheckbox.swift */,
 				188272301ECA939300EE50D0 /* ThemePathControl.swift */,
 				1882722E1ECA898900EE50D0 /* ThemeLabel.swift */,
@@ -533,6 +536,7 @@
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
 				1836DB811EC4CB250000F749 /* MenuController.swift in Sources */,
+				186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */,
 				187843AC1EB4F78200BCD214 /* FileCopyProgressIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

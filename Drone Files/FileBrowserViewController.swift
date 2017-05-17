@@ -838,6 +838,7 @@ extension FileBrowserViewController: NSTableViewDataSource {
     
     
     
+    
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         // 1
         guard let sortDescriptor = tableView.sortDescriptors.first else {
@@ -866,6 +867,10 @@ extension FileBrowserViewController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
+        
+        tableColumn!.headerCell = ThemeTableHeaderCell(textCell: tableColumn!.title)
+        
+        // tableColumn!.headerCell.backgroundColor = self.appSettings.tableRowSelectedBackGroundColor
         
         var image: NSImage?
         var text: String = ""
@@ -979,10 +984,11 @@ extension FileBrowserViewController: NSTableViewDelegate {
     }
     
     
+   // public func tableView
+    
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return ThemeTableRowView()
     }
-    
 }
 
 
