@@ -2133,7 +2133,7 @@ AAAAAAEGA
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lzS-0R-DjC">
-                                            <rect key="frame" x="1" y="-16" width="47" height="16"/>
+                                            <rect key="frame" x="1" y="477" width="770" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Xym-8n-3nn">
