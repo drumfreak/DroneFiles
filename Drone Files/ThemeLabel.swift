@@ -17,7 +17,7 @@ class ThemeLabel: NSTextField {
         
         super.init(coder: aDecoder)!
         
-        self.textColor = self.appDelegate.appSettings.textLabelColor
+        self.textColor = self.appSettings.textLabelColor
         
     }
 }

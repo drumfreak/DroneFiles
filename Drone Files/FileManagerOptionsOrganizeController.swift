@@ -47,17 +47,17 @@ class FileManagerOptionsOrganizeController: NSViewController {
         if(!self.viewIsLoaded) {
             return
         }
-        let projectPath = pathOutputFromURL(inputString: self.appDelegate.appSettings.projectFolder)
+        let projectPath = pathOutputFromURL(inputString: self.appSettings.projectFolder)
         
-        self.projectDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.appSettings.projectFolder)
+        self.projectDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appSettings.projectFolder)
         
-        self.videosDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.appSettings.videoFolder).replacingOccurrences(of: projectPath, with: "")
+        self.videosDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appSettings.videoFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.jpgDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.appSettings.jpgFolder).replacingOccurrences(of: projectPath, with: "")
+        self.jpgDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appSettings.jpgFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.rawDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.appSettings.rawFolder).replacingOccurrences(of: projectPath, with: "")
+        self.rawDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appSettings.rawFolder).replacingOccurrences(of: projectPath, with: "")
         
-        self.screenshotDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appDelegate.appSettings.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
+        self.screenshotDirectoryLabel.stringValue = pathOutputFromURL(inputString: self.appSettings.screenShotFolder).replacingOccurrences(of: projectPath, with: "")
         
         
         // Click Gestures
@@ -153,8 +153,8 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 
                 
                 if(manageFileMovies.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.appSettings.videoFolder)) {
-                        print("VIDEOS FOLDER: \(self.appDelegate.appSettings.videoFolder)")
+                    if(self.checkFolderAndCreate(folderPath: self.appSettings.videoFolder)) {
+                        print("VIDEOS FOLDER: \(self.appSettings.videoFolder)")
                         manageFileMovies.forEach({ m in
                             let url = (m as! URL)
                             //print(movie)
@@ -168,7 +168,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 }
                 
                 if(manageFileJPG.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.appSettings.jpgFolder)) {
+                    if(self.checkFolderAndCreate(folderPath: self.appSettings.jpgFolder)) {
                         manageFileJPG.forEach({ m in
                             let url = (m as! URL)
                             if(self.organizeJPGFile(url: url)) {
@@ -181,7 +181,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 }
                 
                 if(manageFileScreenshots.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.appSettings.screenShotFolder)) {
+                    if(self.checkFolderAndCreate(folderPath: self.appSettings.screenShotFolder)) {
                         manageFileScreenshots.forEach({ m in
                             let url = (m as! URL)
                             if(self.organizeScreenShotFile(url: (url))) {
@@ -194,7 +194,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
                 }
                 
                 if(manageFileRAW.count > 0) {
-                    if(self.checkFolderAndCreate(folderPath: self.appDelegate.appSettings.rawFolder)) {
+                    if(self.checkFolderAndCreate(folderPath: self.appSettings.rawFolder)) {
                         manageFileRAW.forEach({ m in
                             let url = (m as! URL)
                             if(self.organizeRawFile(url: (url))) {
@@ -225,9 +225,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
         let _extension = url.pathExtension
 
         
-        let increment =  getFileIncrementAtPath(path: self.appDelegate.appSettings.videoFolder)
+        let increment =  getFileIncrementAtPath(path: self.appSettings.videoFolder)
         
-        var newMovieFile = self.appDelegate.appSettings.videoFolder + "/" + self.appDelegate.appSettings.fileSequenceName + " - " + increment + "." + _extension
+        var newMovieFile = self.appSettings.videoFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
     
         
         newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
@@ -247,9 +247,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
         // let url = NSURL(fileURLWithPath: urlPath)
         let _extension = url.pathExtension
 
-        let increment =  getFileIncrementAtPath(path: self.appDelegate.appSettings.jpgFolder)
+        let increment =  getFileIncrementAtPath(path: self.appSettings.jpgFolder)
         
-        var newJPGFile = self.appDelegate.appSettings.jpgFolder + "/" + self.appDelegate.appSettings.fileSequenceName + " - " + increment + "." + _extension
+        var newJPGFile = self.appSettings.jpgFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
         
         newJPGFile = newJPGFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newJPGFile)!)) {
@@ -267,9 +267,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
         
         let _extension = url.pathExtension
 
-        let increment =  getFileIncrementAtPath(path: self.appDelegate.appSettings.screenShotFolder)
+        let increment =  getFileIncrementAtPath(path: self.appSettings.screenShotFolder)
         
-        var newScreenshotFile = self.appDelegate.appSettings.screenShotFolder + "/" + self.appDelegate.appSettings.fileSequenceName + " - " + increment + "." + _extension
+        var newScreenshotFile = self.appSettings.screenShotFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
         
         newScreenshotFile = newScreenshotFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newScreenshotFile)!)) {
@@ -287,9 +287,9 @@ class FileManagerOptionsOrganizeController: NSViewController {
         
         let _extension = url.pathExtension
 
-        let increment =  getFileIncrementAtPath(path: self.appDelegate.appSettings.rawFolder)
+        let increment =  getFileIncrementAtPath(path: self.appSettings.rawFolder)
         
-        var newRawFile = self.appDelegate.appSettings.rawFolder + "/" + self.appDelegate.appSettings.fileSequenceName + " - " + increment + "." + _extension
+        var newRawFile = self.appSettings.rawFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
         
         newRawFile = newRawFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newRawFile)!)) {
@@ -374,23 +374,23 @@ class FileManagerOptionsOrganizeController: NSViewController {
     
     
     func setOpenPath1() {
-        doOpenFinder(urlString:self.appDelegate.appSettings.projectFolder)
+        doOpenFinder(urlString:self.appSettings.projectFolder)
     }
     
     func setOpenPath2() {
-        doOpenFinder(urlString:self.appDelegate.appSettings.videoFolder)
+        doOpenFinder(urlString:self.appSettings.videoFolder)
     }
     
     func setOpenPath3() {
-        doOpenFinder(urlString:self.appDelegate.appSettings.jpgFolder)
+        doOpenFinder(urlString:self.appSettings.jpgFolder)
     }
     
     func setOpenPath4() {
-        doOpenFinder(urlString:self.appDelegate.appSettings.screenShotFolder)
+        doOpenFinder(urlString:self.appSettings.screenShotFolder)
     }
     
     func setOpenPath5() {
-        doOpenFinder(urlString:self.appDelegate.appSettings.rawFolder)
+        doOpenFinder(urlString:self.appSettings.rawFolder)
     }
     
     func doOpenFinder(urlString: String) {

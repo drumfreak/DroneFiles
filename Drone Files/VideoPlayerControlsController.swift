@@ -250,7 +250,7 @@ class VideoPlayerControllsController: NSViewController {
         var incrementer = "00"
         if FileManager.default.fileExists(atPath: self.clippedVideoPath) {
             do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.appSettings.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appSettings.videoClipsFolder)!, includingPropertiesForKeys: nil, options: [])
                 
                 incrementer = String(format: "%02d", files.count)
             } catch let error as NSError {
@@ -262,19 +262,19 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func getClippedVideoPath(_videoPath : String) -> String {
-        self.clippedVideoPathFull = self.appDelegate.appSettings.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
+        self.clippedVideoPathFull = self.appSettings.videoClipsFolder.replacingOccurrences(of: "%20", with: " ")
         self.clippedVideoPath = self.clippedVideoPathFull.replacingOccurrences(of: "file://", with: "")
         
-        let increment = getClippedVideosIncrement(_folder: self.appDelegate.appSettings.videoClipsFolder)
+        let increment = getClippedVideosIncrement(_folder: self.appSettings.videoClipsFolder)
         
-        self.clippedVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Clip " + increment + ".MOV"
+        self.clippedVideoName = self.appSettings.saveDirectoryName + " - Clip " + increment + ".MOV"
         self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
         self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
         
         if FileManager.default.fileExists(atPath: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: "")) {
             print("Fuck that file exists..")
             let incrementer = "00000"
-            self.clippedVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
+            self.clippedVideoName = self.appSettings.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
             self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
             self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
             
@@ -347,7 +347,7 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func calculateClipLength() {
-        print("Calling Calculate Clip Length")
+        // print("Calling Calculate Clip Length")
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime == kCMTimeInvalid) {
             self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.duration)!
         }

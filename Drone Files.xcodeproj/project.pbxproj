@@ -41,6 +41,12 @@
 		1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */; };
 		188272411ECAD55400EE50D0 /* ThemeTabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882723F1ECAD55400EE50D0 /* ThemeTabViewItem.swift */; };
 		188272421ECAD55400EE50D0 /* ThemeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272401ECAD55400EE50D0 /* ThemeCheckbox.swift */; };
+		188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272451ECB759A00EE50D0 /* darkbrownbackground.png */; };
+		188272481ECB897E00EE50D0 /* darkbrownbackground-light.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */; };
+		1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */; };
+		188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */; };
+		188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272511ECB9B2D00EE50D0 /* tablerow-dark.png */; };
+		188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272531ECB9BB100EE50D0 /* tablerow-black.png */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
@@ -126,6 +132,12 @@
 		1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeButton.swift; path = ../../../../Desktop/ThemeButton.swift; sourceTree = "<group>"; };
 		1882723F1ECAD55400EE50D0 /* ThemeTabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeTabViewItem.swift; path = ../../../../Desktop/ThemeTabViewItem.swift; sourceTree = "<group>"; };
 		188272401ECAD55400EE50D0 /* ThemeCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeCheckbox.swift; path = ../../../../Desktop/ThemeCheckbox.swift; sourceTree = "<group>"; };
+		188272451ECB759A00EE50D0 /* darkbrownbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = darkbrownbackground.png; path = ../../../Dronefiles/darkbrownbackground.png; sourceTree = "<group>"; };
+		188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "darkbrownbackground-light.png"; path = "../../../Dronefiles/darkbrownbackground-light.png"; sourceTree = "<group>"; };
+		1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-blue.png"; path = "../../../Dronefiles/tablerow-blue.png"; sourceTree = "<group>"; };
+		1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-lightgray.png"; path = "../../../Dronefiles/tablerow-lightgray.png"; sourceTree = "<group>"; };
+		188272511ECB9B2D00EE50D0 /* tablerow-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-dark.png"; path = "../../../Dronefiles/tablerow-dark.png"; sourceTree = "<group>"; };
+		188272531ECB9BB100EE50D0 /* tablerow-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-black.png"; path = "../../../Dronefiles/tablerow-black.png"; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
@@ -209,8 +221,14 @@
 				1882721A1ECA704F00EE50D0 /* appicon-1024px.png */,
 				1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */,
 				1882721B1ECA704F00EE50D0 /* appicon-512px.png */,
+				188272451ECB759A00EE50D0 /* darkbrownbackground.png */,
+				188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */,
+				1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */,
+				188272531ECB9BB100EE50D0 /* tablerow-black.png */,
+				1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */,
 				1882721C1ECA704F00EE50D0 /* appicon-256px.png */,
 				188272291ECA74C300EE50D0 /* darkbackground.png */,
+				188272511ECB9B2D00EE50D0 /* tablerow-dark.png */,
 				188272391ECAC76900EE50D0 /* darkbackground-2.jpg */,
 				1882721D1ECA704F00EE50D0 /* appicon-128px.png */,
 				1882721E1ECA704F00EE50D0 /* appicon-32px.png */,
@@ -433,8 +451,11 @@
 			files = (
 				188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */,
 				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
+				188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */,
+				188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */,
 				188272231ECA704F00EE50D0 /* appicon-256px.png in Resources */,
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
+				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
 				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
 				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
@@ -442,9 +463,12 @@
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
 				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
+				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,
+				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
 				1882722A1ECA74C300EE50D0 /* darkbackground.png in Resources */,
+				188272481ECB897E00EE50D0 /* darkbrownbackground-light.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

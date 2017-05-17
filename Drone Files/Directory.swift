@@ -55,16 +55,42 @@ public struct Directory  {
                                                        options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants],
                                                        errorHandler: nil) {
 
+        
+    let imageTypes = ["jpg", "JPG", "PNG", "png", "JPEG", "jpeg"]
+
       while let url = enumerator.nextObject() as? URL {
         // print( "\(url )")
 
         do {
           let properties = try  (url as NSURL).resourceValues(forKeys: requiredAttributes)
+            
+            var icon = NSImage()
+            
+            if(imageTypes.contains(url.pathExtension)) {
+                
+                 icon = NSImage.init(contentsOf: url)!
+                
+            } else {
+                if(properties[URLResourceKey.customIconKey] != nil) {
+                    icon = properties[URLResourceKey.customIconKey] as? NSImage ?? NSImage()
+                    // print("This didn't happen")
+                    
+                } else if( properties[URLResourceKey.effectiveIconKey] != nil) {
+                    icon = properties[URLResourceKey.effectiveIconKey] as? NSImage ?? NSImage()
+                    
+                    // print("This fucking happen")
+                
+                }
+
+            }
+            
+            
+            
           files.append(Metadata(fileURL: url,
                                 name: properties[URLResourceKey.localizedNameKey] as? String ?? "",
                                 date: properties[URLResourceKey.contentModificationDateKey] as? Date ?? Date.distantPast,
                                 size: (properties[URLResourceKey.fileSizeKey] as? NSNumber)?.int64Value ?? 0,
-                                icon: properties[URLResourceKey.effectiveIconKey] as? NSImage  ?? NSImage(),
+                                icon: icon,
                                 isFolder: (properties[URLResourceKey.isDirectoryKey] as? NSNumber)?.boolValue ?? false,
                                 color: NSColor()))
         }

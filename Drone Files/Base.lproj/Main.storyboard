@@ -942,27 +942,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="636" height="57"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhq-qs-AjI">
-                                                <rect key="frame" x="192" y="15" width="266" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="File Sequence Name" drawsBackground="YES" id="Rg2-pH-A31">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                                <connections>
-                                                    <action selector="fileSequenceLabelChangedWithSender:" target="ZvK-30-Mbm" id="AJr-sx-3EQ"/>
-                                                </connections>
-                                            </textField>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-NK-8jB" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                <rect key="frame" x="89" y="18" width="90" height="17"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Project Name:" id="qU0-nU-A61">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhl-Od-pr3">
                                                 <rect key="frame" x="7" y="2" width="48" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -994,20 +973,29 @@
                                                     <action selector="openProjectFile:" target="ZvK-30-Mbm" id="F6f-7E-1Sy"/>
                                                 </connections>
                                             </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfk-RY-Bd4" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                <rect key="frame" x="71" y="17" width="402" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome to Drone Files!" id="f5o-fT-6Ki">
+                                                    <font key="font" metaFont="systemBold" size="14"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
                                         </subviews>
                                     </customView>
-                                    <scrollView wantsLayer="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="110" horizontalPageScroll="10" verticalLineScroll="110" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="GHP-OC-WAh" userLabel="File List">
+                                    <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="GHP-OC-WAh" userLabel="File List">
                                         <rect key="frame" x="0.0" y="58" width="636" height="494"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <clipView key="contentView" id="7R8-yL-CRv">
-                                            <rect key="frame" x="1" y="0.0" width="634" height="493"/>
+                                        <clipView key="contentView" copiesOnScroll="NO" id="7R8-yL-CRv">
+                                            <rect key="frame" x="0.0" y="0.0" width="636" height="494"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="108" rowSizeStyle="automatic" headerView="gZ4-DF-70f" viewBased="YES" id="aqc-Ti-zl8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="648" height="470"/>
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="gZ4-DF-70f" viewBased="YES" id="aqc-Ti-zl8" customClass="ThemeTableView" customModule="Drone_Files" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="648" height="471"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" red="0.084371132429999995" green="0.084371132429999995" blue="0.084371132429999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
                                                         <tableColumn width="344" minWidth="40" maxWidth="1000" id="Pta-8u-sph">
@@ -1023,7 +1011,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="NameCellID" id="JhN-ep-U7D">
+                                                                <tableCellView identifier="NameCellID" id="JhN-ep-U7D" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="1" y="1" width="344" height="108"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1071,7 +1059,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="DateCellID" id="eVb-jg-JcE">
+                                                                <tableCellView identifier="DateCellID" id="eVb-jg-JcE" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="348" y="1" width="195" height="108"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1108,7 +1096,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="SizeCellID" id="rrQ-6F-Rdw">
+                                                                <tableCellView identifier="SizeCellID" id="rrQ-6F-Rdw" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="546" y="1" width="100" height="108"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1139,10 +1127,10 @@
                                                     </connections>
                                                 </tableView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.79139019695479451" colorSpace="custom" customColorSpace="sRGB"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Vs9-pL-nim">
-                                            <rect key="frame" x="1" y="477" width="634" height="16"/>
+                                            <rect key="frame" x="0.0" y="478" width="636" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="nwi-l9-GWM">
@@ -1154,7 +1142,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <customView fixedFrame="YES" id="nqS-et-DxB" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                                    <customView fixedFrame="YES" id="nqS-et-DxB" customClass="" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="553" width="636" height="422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
@@ -1409,7 +1397,7 @@
                         <outlet property="createProjectDirectoryButton" destination="vFx-rE-ciK" id="p3B-Ba-qe1"/>
                         <outlet property="createProjectSubDirectoriesButton" destination="f9o-Kq-g31" id="z8E-Tl-EpH"/>
                         <outlet property="currentFolderPathControl" destination="dGI-zY-IQJ" id="Dg7-0B-GJT"/>
-                        <outlet property="fileSequenceNameTextField" destination="vhq-qs-AjI" id="1kf-hY-SxB"/>
+                        <outlet property="fileSequenceNameTextField" destination="hfk-RY-Bd4" id="X49-9R-vRw"/>
                         <outlet property="framesFolderPathControl" destination="n1a-8i-NG4" id="kZs-ik-fUJ"/>
                         <outlet property="jpgFolderPathControl" destination="ZrO-en-M3k" id="t3n-to-WKT"/>
                         <outlet property="outputDirectoryLabel" destination="1L5-pu-tNF" id="BLg-TL-jZ6"/>
@@ -1483,7 +1471,7 @@
         <scene sceneID="px2-MB-SDI">
             <objects>
                 <viewController storyboardIdentifier="videoPlayerControlsController" id="tOh-RK-Pxk" customClass="VideoPlayerControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="RqY-fb-uNe" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                    <view key="view" id="RqY-fb-uNe" customClass="" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -1785,7 +1773,7 @@
                                     </button>
                                 </subviews>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0G-zg-6X8">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0G-zg-6X8" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="18" y="235" width="105" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Video Location:" id="jgp-YG-1rA">
@@ -1794,7 +1782,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYg-8r-pVd">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYg-8r-pVd" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="123" y="235" width="225" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Location Label" id="oTn-UW-QPH">
@@ -1867,26 +1855,15 @@
             <objects>
                 <tabViewController storyboardIdentifier="editorTabViewController" selectedTabViewItemIndex="0" id="fa8-kS-UDX" customClass="EditorTabViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
-                        <tabViewItem id="7YO-L8-htw" customClass="ThemeTabViewItem" customModule="Drone_Files" customModuleProvider="target">
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
-                                    <color key="value" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </tabViewItem>
-                        <tabViewItem id="dzA-8y-OAr" customClass="ThemeTabViewItem" customModule="Drone_Files" customModuleProvider="target"/>
-                        <tabViewItem id="5gS-78-PU7" customClass="ThemeTabViewItem" customModule="Drone_Files" customModuleProvider="target"/>
+                        <tabViewItem id="7YO-L8-htw"/>
+                        <tabViewItem id="dzA-8y-OAr"/>
+                        <tabViewItem id="5gS-78-PU7"/>
                     </tabViewItems>
                     <tabView key="tabView" misplaced="YES" type="noTabsNoBorder" id="4zA-k8-0f3">
                         <rect key="frame" x="-2" y="0.0" width="867" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="message"/>
                         <tabViewItems/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </tabView>
                     <connections>
                         <segue destination="Ree-Ez-cKD" kind="relationship" relationship="tabItems" id="DHM-Pl-5BM"/>
@@ -1896,17 +1873,17 @@
                 </tabViewController>
                 <customObject id="1vV-02-af2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="292"/>
+            <point key="canvasLocation" x="1046.5" y="292"/>
         </scene>
         <!--Image Editor-->
         <scene sceneID="qsw-uA-ZE1">
             <objects>
                 <viewController title="Image Editor" storyboardIdentifier="imageEditorViewController" id="9Ua-RM-M9k" userLabel="Image Editor" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="PlS-k6-tw1" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                    <view key="view" wantsLayer="YES" id="PlS-k6-tw1" customClass="" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="759" height="787"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7">
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zU-06-bh7" customClass="" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="90" width="759" height="697"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -1919,7 +1896,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siq-1X-QQb">
+                                    <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siq-1X-QQb" customClass="">
                                         <rect key="frame" x="0.0" y="-30" width="759" height="231"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <connections>
@@ -2148,7 +2125,7 @@ AAAAAAEGA
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lzS-0R-DjC">
-                                            <rect key="frame" x="1" y="-16" width="47" height="16"/>
+                                            <rect key="frame" x="1" y="477" width="770" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Xym-8n-3nn">

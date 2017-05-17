@@ -62,7 +62,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         // 1
         if(UserDefaults.standard.value(forKey: "copyToFolder1") == nil) {
-            self.copyToFolder1 = self.appDelegate.appSettings.outputDirectory
+            self.copyToFolder1 = self.appSettings.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder1")
         } else {
             self.copyToFolder1 = UserDefaults.standard.value(forKey: "copyToFolder1") as! String
@@ -72,7 +72,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         // 2
         if(UserDefaults.standard.value(forKey: "copyToFolder2") == nil) {
-            self.copyToFolder2 = self.appDelegate.appSettings.outputDirectory
+            self.copyToFolder2 = self.appSettings.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder2, forKey: "copyToFolder2")
         } else {
             self.copyToFolder2 = UserDefaults.standard.value(forKey: "copyToFolder2") as! String
@@ -82,7 +82,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         // 3
         if(UserDefaults.standard.value(forKey: "copyToFolder3") == nil) {
-            self.copyToFolder3 = self.appDelegate.appSettings.outputDirectory
+            self.copyToFolder3 = self.appSettings.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder1, forKey: "copyToFolder3")
         } else {
             self.copyToFolder3 = UserDefaults.standard.value(forKey: "copyToFolder3") as! String
@@ -92,7 +92,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         // 4
         if(UserDefaults.standard.value(forKey: "copyToFolder4") == nil) {
-            self.copyToFolder4 = self.appDelegate.appSettings.outputDirectory
+            self.copyToFolder4 = self.appSettings.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder4, forKey: "copyToFolder4")
         } else {
             self.copyToFolder4 = UserDefaults.standard.value(forKey: "copyToFolder4") as! String
@@ -103,7 +103,7 @@ class FileManagerOptionsCopyController: NSViewController {
         self.copyDirectoryLabel4.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder4)
         
         if(UserDefaults.standard.value(forKey: "copyToFolder5") == nil) {
-            self.copyToFolder5 = self.appDelegate.appSettings.outputDirectory
+            self.copyToFolder5 = self.appSettings.outputDirectory
             UserDefaults.standard.setValue(self.copyToFolder5, forKey: "copyToFolder5")
         } else {
             self.copyToFolder5 = UserDefaults.standard.value(forKey: "copyToFolder5") as! String

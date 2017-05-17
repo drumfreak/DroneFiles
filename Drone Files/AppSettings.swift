@@ -11,11 +11,25 @@ import Cocoa
 
 struct AppSettings {
     
+    let userDefaults = UserDefaults.standard
+
+    
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
     var fileSequenceName = ""
     var fileSequenceNameTag = ""
     var projectDirectory = ""
-    var outputDirectory = ""
+    
+    
+    
+    var outputDirectory: String! {
+        didSet {
+            if let output = outputDirectory {
+                // defaults.value(forKey: "outputDirectory") as! String
+                userDefaults.setValue(output, forKey: "outputDirectory")
+            }
+        }
+    }
+    
     var createProjectDirectory = true
     var createProjectSubDirectories = true
 
@@ -33,13 +47,29 @@ struct AppSettings {
     
     
     // colors
-    var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbackground-3.jpg")!)
+    var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
 
-    var appViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbackground-2.jpg")!)
+    var appViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
-    var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbackground-2.jpg")!)
+    var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
-    var patternColor = NSColor.init(patternImage: NSImage(named: "darkbackground.png")!)
+    var patternColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
+    
+
+    var tableViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
+    
+    // normal row
+    var tableRowBackGroundColor =  NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
+    
+    // Alternate row
+    var tableViewAlternatingRowColor = NSColor.init(patternImage: NSImage(named: "tablerow-black.png")!)
+    
+    // Selected row
+    var tableRowSelectedBackGroundColor = NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
+    
+    
+    // Active row
+    var tableRowActiveBackGroundColor =  NSColor.init(patternImage: NSImage(named: "tablerow-blue.png")!)
     
     var textLabelColor = NSColor.gray
     

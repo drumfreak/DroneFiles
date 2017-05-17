@@ -298,12 +298,18 @@ extension NSViewController {
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }
 }
 
 
 extension NSWindow {
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
+    }
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
     }
 }
 
@@ -324,7 +330,24 @@ extension NSView {
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }
+    
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }
 }
+//
+//extension  NSTabViewItem {
+//    var appDelegate:AppDelegate {
+//        return NSApplication.shared().delegate as! AppDelegate
+//    }
+//    
+//    var appSettings:AppSettings {
+//        return appDelegate.appSettings
+//    }
+//}
+
+
+
 
 
 

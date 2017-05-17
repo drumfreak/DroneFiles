@@ -17,7 +17,7 @@ class ThemePathControl: NSPathControl {
         
         super.init(coder: aDecoder)!
         
-        Swift.print("This initted")
+        // Swift.print("This initted")
         
         //        let paragraph = NSMutableParagraphStyle()
         //        paragraph.alignment = .left

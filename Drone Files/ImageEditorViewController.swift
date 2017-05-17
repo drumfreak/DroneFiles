@@ -61,9 +61,11 @@ class ImageEditorViewController: NSViewController {
         
         self.appDelegate.imageEditorViewController = self
         
+       // print("This is kind of happening.......")
+        
         self.view.wantsLayer = true
         
-        self.view.layer?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
 
     }
 

@@ -21,7 +21,8 @@ class VideoSplitViewController: NSSplitViewController {
         mySplitView.adjustSubviews();
         self.appDelegate.videoSplitViewController = self
         
-        view.layer?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
 
         
     }

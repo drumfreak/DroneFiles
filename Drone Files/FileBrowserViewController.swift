@@ -100,6 +100,15 @@ class FileBrowserViewController: NSViewController {
             defaults.setValue(1, forKey: "createProjectSubDirectories")
         }
         
+        
+        
+        // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
+        if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
+            let previousPath = defaults.value(forKey: "lastOpenedProjectFile") as! String
+            self.readProjectFile(projectFile: previousPath)
+
+        }
+        
         self.appDelegate.appSettings.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
         self.appDelegate.appSettings.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
         self.appDelegate.appSettings.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
@@ -127,8 +136,8 @@ class FileBrowserViewController: NSViewController {
         self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
         
-        // Add a background view to the table view
-        self.tableView.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
+//        // Add a background view to the table view
+//        self.tableView.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
         
         self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
         
@@ -511,6 +520,7 @@ class FileBrowserViewController: NSViewController {
             let item = directoryItems?[self.tableView.selectedRow] else {
                 return
         }
+    
         
         if item.isFolder {
             // 2
@@ -672,6 +682,9 @@ class FileBrowserViewController: NSViewController {
     
     func readProjectFile(projectFile: String) {
         let path = URL(string: projectFile)
+        
+        UserDefaults.standard.setValue(path?.absoluteString, forKey: "lastOpenedProjectFile")
+        
         print("READING PRPOJECT FILE")
         do {
             let data = try Data(contentsOf: path!, options: .alwaysMapped)
@@ -696,6 +709,10 @@ class FileBrowserViewController: NSViewController {
                     if(key == "outputDirectory") {
                         print("outputDirectory: \(val)")
                         self.appDelegate.appSettings.outputDirectory = val as! String
+                        
+                        // self.appSettings.outputDirectory
+                        
+                        
                         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.outputDirectory)
                         
                     }
@@ -872,6 +889,24 @@ extension FileBrowserViewController: NSTableViewDelegate {
             return nil
         }
         
+        
+        
+        let rowView = self.tableView.rowView(atRow: row, makeIfNecessary: false)
+        
+        if(row % 2 == 0) {
+            
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+            
+           // cell.backgroundStyle = NSBackgroundStyle.light
+        } else {
+           // cell.backgroundStyle = NSBackgroundStyle.dark
+            
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+        }
+        
+       
+        
+        
         // print(item);
         
         // 2
@@ -902,16 +937,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
             cell.imageView?.image = image ?? nil
             
             
-            cell.backgroundStyle = NSBackgroundStyle.dark
-    
-            let layer:CALayer = CALayer()
-            layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
-            
-            
-            cell.wantsLayer = true
-            cell.layer = layer
-            
-            
+
             
             return cell
         }
@@ -920,6 +946,49 @@ extension FileBrowserViewController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateStatus()
+        
+        var i = Int(0)
+        
+        while(i < self.tableView.numberOfRows) {
+            
+            let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
+            
+            // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+
+
+            let f = self.tableView.selectedRowIndexes.index(of: i)
+            if((f) != nil) {
+                //print("INDEX OF SELECTED ROW: \(i)")
+                 rowView?.backgroundColor = self.appDelegate.appSettings.tableRowSelectedBackGroundColor
+            } else {
+                //print("Unselected Row... (i)")
+                
+                // Back to alternating colors...
+                
+                if(i % 2 == 0) {
+                     rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+                } else {
+                     rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+                }
+                
+            }
+            
+            i += 1
+            
+        }
+        
+        let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
+        
+        // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+        
+        // Current row selected color
+        rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
+        
+    }
+    
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return ThemeTableRowView()
     }
     
 }

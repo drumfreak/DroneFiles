@@ -47,7 +47,7 @@ class VideoPlayerViewController: NSViewController {
         
         view.wantsLayer = true
 
-        view.layer?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+        view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
 
     }
     
@@ -97,7 +97,7 @@ class VideoPlayerViewController: NSViewController {
         let location = self.getLocationData(asset: self.currentAsset)
         self.appDelegate.videoPlayerControlsController?.metadataLocationLabel.stringValue = location
         
-        print("Location: \(location)")
+        // print("Location: \(location)")
 
     }
     
