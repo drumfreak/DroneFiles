@@ -820,7 +820,7 @@
                 </windowController>
                 <customObject id="Im8-gz-va1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1199" y="-139"/>
+            <point key="canvasLocation" x="-1404" y="-142"/>
         </scene>
         <!--New Project-->
         <scene sceneID="WuM-cZ-3DQ">
@@ -933,7 +933,7 @@
                 </viewController>
                 <customObject id="mkc-8U-MtM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1199" y="267"/>
+            <point key="canvasLocation" x="-1404" y="292"/>
         </scene>
         <!--File Browser View Controller-->
         <scene sceneID="xVd-9D-m54">
@@ -1185,6 +1185,7 @@
                                                 </pathCell>
                                                 <connections>
                                                     <action selector="pathControlSingleClickWithSender:" target="ZvK-30-Mbm" id="eQ9-Q3-Ch0"/>
+                                                    <outlet property="delegate" destination="ZvK-30-Mbm" id="SVq-So-beI"/>
                                                 </connections>
                                             </pathControl>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="klV-MO-Lfn" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
@@ -1996,7 +1997,7 @@ AAAAAAEGA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="86" rowSizeStyle="automatic" headerView="Xwn-LU-3wI" viewBased="YES" id="qCX-m8-psV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="770" height="470"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="771" height="470"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2101,7 +2102,7 @@ AAAAAAEGA
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="SizeCellID" id="gQj-YM-BRV">
-                                                                    <rect key="frame" x="630.5" y="1" width="137" height="86"/>
+                                                                    <rect key="frame" x="631" y="1" width="137" height="86"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtB-pS-icO">
@@ -2132,7 +2133,7 @@ AAAAAAEGA
                                                 </tableView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lzS-0R-DjC">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="lzS-0R-DjC">
                                             <rect key="frame" x="1" y="477" width="770" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -2141,7 +2142,7 @@ AAAAAAEGA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="Xwn-LU-3wI">
-                                            <rect key="frame" x="0.0" y="0.0" width="770" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="771" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>

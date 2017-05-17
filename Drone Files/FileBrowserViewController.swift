@@ -75,7 +75,7 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var rawFolderPathControl: NSPathControl!
     
     
-    var pathControlDelegate: NSPathControlDelegate!
+    // var pathControlDelegate: NSPathControlDelegate!
     
     // Tableviews - File List
     @IBOutlet var tableView: NSTableView!
@@ -102,8 +102,6 @@ class FileBrowserViewController: NSViewController {
             defaults.setValue(1, forKey: "createProjectDirectory")
             defaults.setValue(1, forKey: "createProjectSubDirectories")
         }
-        
-        
         
         // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
         if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
@@ -995,8 +993,8 @@ extension FileBrowserViewController: NSTableViewDelegate {
 
 
 extension FileBrowserViewController: NSPathControlDelegate {
-
-
+        
+        
 }
 
 

@@ -13,70 +13,93 @@ import AppKit
 class ThemePathControl: NSPathControl {
     
     
-    required init(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)!
-        
-        // Swift.print("This initted")
-        
-        //        let paragraph = NSMutableParagraphStyle()
-        //        paragraph.alignment = .left
-        //
-        //        let myAttribute = [NSForegroundColorAttributeName: NSColor.lightGray,
-        //                           NSParagraphStyleAttributeName: paragraph
-        //        ]
-        //
-        //
-        //        let myAttrString = NSAttributedString(string: (self.cell?.title)!, attributes: myAttribute)
-        //
-        //        self.cell?.attributedStringValue = myAttrString
-               let foo = self.pathComponentCells()
+//    required init(coder aDecoder: NSCoder) {
 //        
-//        foo.first?.changeColor(NSColor.lightGray)
-        
-        foo.first?.textColor = NSColor.lightGray
-        
-        
-    }
+//        super.init(coder: aDecoder)!
+//        
+//        // Swift.print("This initted")
+//        
+//        //        let paragraph = NSMutableParagraphStyle()
+//        //        paragraph.alignment = .left
+//        //
+//        //        let myAttribute = [NSForegroundColorAttributeName: NSColor.lightGray,
+//        //                           NSParagraphStyleAttributeName: paragraph
+//        //        ]
+//        //
+//        //
+//        //        let myAttrString = NSAttributedString(string: (self.cell?.title)!, attributes: myAttribute)
+//        //
+//        //        self.cell?.attributedStringValue = myAttrString
+//               let foo = self.pathComponentCells()
+////        
+////        foo.first?.changeColor(NSColor.lightGray)
+//        
+//        foo.first?.textColor = NSColor.lightGray
+//        
+//        
+//    }
 }
 
 
 class ThemePathComponentCell: NSPathComponentCell {
-    required init(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-        
-        Swift.print("This NSPathComponentCell initted")
-        
-        self.textColor = NSColor.lightGray
-        
-        
-        
-//            - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-//                NSImage *background = [NSImage imageNamed:@"ITPathbar-fill"];
-//                [background drawInRect:cellFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:NO];
-//                
-//                [super drawWithFrame:cellFrame inView:controlView];
-        }
+    
+//    required public init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        
+//       Swift.print("This ThemePathComponentCell init coder")
+//
+//        self.textColor = NSColor.lightGray
+//        // self.wantsLayer = true
+//        // Swift.print("tableview cell Init")
+//        //self.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+//        
+//        //self.layer?.backgroundColor = self.appSettings.tableViewBackgroundColor.cgColor
+//    }
+//    
+    
     
 }
 
 class ThemePathControlCell: NSPathCell {
+//    
+//    required public init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        
+//        Swift.print("This ThemePathControlCell init coder")
+//        self.backgroundColor = NSColor.red
+//        
+//        // self.textColor = NSColor.lightGray
+//        // self.wantsLayer = true
+//        // Swift.print("tableview cell Init")
+//        //self.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+//        
+//        //self.layer?.backgroundColor = self.appSettings.tableViewBackgroundColor.cgColor
+//    }
+//    
+//    
+//    override init(textCell: String) {
+//        super.init(textCell: textCell)
+//        Swift.print("This ThemePathControlCell init string")
+//        
+//        // self.textColor = self.appSettings.textLabelColor
+//        // self.font = NSFont.boldSystemFontOfSize(14)
+//    }
+//    
+//    override public func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
+//        
+//        Swift.print("This NSPathComponentCell init draw")
+//        
+//        self.backgroundColor  = NSColor.red
+//        self.drawInterior(withFrame: cellFrame, in: controlView)
+//        
+//    }
     
-    required init(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-        
-        // Swift.print("This cell initted")
-        Swift.print("This cell initted")
-
-        self.pathComponentCells.forEach({m in
-            
-            Swift.print("CELLLL  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
-            m.textColor = NSColor.lightGray
-        })
-        
-        
-    }
+//    override public func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+//        
+//        Swift.print("This NSPathComponentCell init drawInterior")
+//        
+//        let titleRect = self.titleRect(forBounds: cellFrame)
+//        self.attributedStringValue.draw(in: titleRect)
+//    }
+    
 }
