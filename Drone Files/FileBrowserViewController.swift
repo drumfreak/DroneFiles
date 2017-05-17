@@ -150,6 +150,44 @@ class FileBrowserViewController: NSViewController {
         self.currentDir = self.startingDirectory
         
         self.currentFolderPathControl.backgroundColor = NSColor.clear
+        self.currentFolderPathControl.delegate = self
+        
+        var i = 0
+        self.currentFolderPathControl.pathItems.forEach {m in
+            print(m)
+            // m.title = "FUOOOOOOO"
+            
+            
+            
+            print(m.attributedTitle.string)
+            
+            var colorRanges: [NSRange] = []
+            m.attributedTitle.enumerateAttribute(NSForegroundColorAttributeName, in: NSRange(0..<m.attributedTitle.length), options: .longestEffectiveRangeNotRequired) {
+                value, range, stop in
+                
+                
+                //Confirm the attribute value is actually a color
+                if let color = value as? NSColor {
+                    print(color)
+                    colorRanges.append(range)
+                }
+            }
+            
+            
+            //Replace their colors.
+            let mutableAttributedText = m.attributedTitle.mutableCopy() as! NSMutableAttributedString
+            
+            for colorRange in colorRanges {
+                mutableAttributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor.red, range: colorRange)
+            }
+
+            m.attributedTitle = mutableAttributedText
+            
+            self.currentFolderPathControl.pathItems[i] = m
+            
+            i += 1
+            
+        }
         
         // self.outputDirectory = self.currentDir.absoluteString
         
@@ -675,14 +713,14 @@ class FileBrowserViewController: NSViewController {
         
         UserDefaults.standard.setValue(path?.absoluteString, forKey: "lastOpenedProjectFile")
         
-        print("READING PRPOJECT FILE")
+        // print("READING PRPOJECT FILE")
         do {
             let data = try Data(contentsOf: path!, options: .alwaysMapped)
             let projectJson = try? JSONSerialization.jsonObject(with: data, options: [])
             if let dictionary = projectJson as? [String: Any] {
                 for (key, val) in dictionary {
                     if(key == "projectName") {
-                        print("LOADED projectName: \(val)")
+                        //print("LOADED projectName: \(val)")
                         self.appDelegate.appSettings.fileSequenceName = val as! String
                         self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
                         UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
@@ -691,13 +729,13 @@ class FileBrowserViewController: NSViewController {
                     
                     
                     if(key == "projectDirectory") {
-                        print("projectDirectory: \(val)")
+                        //print("projectDirectory: \(val)")
                         self.appDelegate.appSettings.projectFolder = val as! String
                         self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.projectFolder)
                     }
                     
                     if(key == "outputDirectory") {
-                        print("outputDirectory: \(val)")
+                        //print("outputDirectory: \(val)")
                         self.appDelegate.appSettings.outputDirectory = val as! String
                         
                         // self.appSettings.outputDirectory
@@ -708,27 +746,27 @@ class FileBrowserViewController: NSViewController {
                     }
                     
                     if(key == "currentDirectory") {
-                        print("currentDirectory: \(val)")
+                        //print("currentDirectory: \(val)")
                         
                     }
                     
                     if(key == "videosDirectory") {
-                        print("currentDirectory: \(val)")
+                        //print("currentDirectory: \(val)")
                         self.appDelegate.appSettings.videoFolder = val as! String
                     }
                     
                     if(key == "jpgDirectory") {
-                        print("jpgDirectory: \(val)")
+                        //print("jpgDirectory: \(val)")
                         self.appDelegate.appSettings.jpgFolder = val as! String
                     }
                     
                     if(key == "rawDirectory") {
-                        print("rawDirectory: \(val)")
+                        //print("rawDirectory: \(val)")
                         self.appDelegate.appSettings.rawFolder = val as! String
                     }
                     
                     if(key == "videoClipsDirectory") {
-                        print("VideoClipsDirectory: \(val)")
+                        //print("VideoClipsDirectory: \(val)")
                         self.appDelegate.appSettings.videoClipsFolder = val as! String
                     }
                 }
@@ -989,12 +1027,30 @@ extension FileBrowserViewController: NSTableViewDelegate {
     }
 }
 
-
-
-
 extension FileBrowserViewController: NSPathControlDelegate {
+    
+    
+    public func pathControl(_ pathControl: NSPathControl, shouldDrag pathItem: NSPathControlItem, with pasteboard: NSPasteboard) -> Bool {
         
+        return false
         
+    }
+ //   - (void)insertItemWithTitle:(NSString *)title atIndex:(NSInteger)index;
+
+   //  public func
+    
+    public func pathControl(_ pathControl: NSPathControl, shouldDrag pathComponentCell: NSPathComponentCell, with pasteboard: NSPasteboard) -> Bool {
+        
+        return false
+        
+    }
+    
+    // func
+    public func pathControl(_ pathControl: NSPathControl, willPopUp menu: NSMenu) {
+        
+        print("FPPasdfasdfasdfasdfasdfasdfasdfasasfd")
+        
+    }
 }
 
 

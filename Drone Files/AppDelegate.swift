@@ -326,6 +326,9 @@ extension NSWindow {
 
 
 extension NSView {
+    
+    //var setTranslatesAutoresizingMaskIntoConstraints = false
+
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }

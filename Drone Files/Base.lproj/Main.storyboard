@@ -1384,6 +1384,15 @@
                                                 </view>
                                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.1386451198630137" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcR-Nc-nS7">
+                                                <rect key="frame" x="117" y="378" width="37" height="17"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="bRU-NJ-6rJ">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
                                         </subviews>
                                     </customView>
                                 </subviews>

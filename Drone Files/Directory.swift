@@ -56,7 +56,7 @@ public struct Directory  {
                                                        errorHandler: nil) {
 
         
-    let imageTypes = ["jpg", "JPG", "PNG", "png", "JPEG", "jpeg"]
+    // let imageTypes = ["jpg", "JPG", "PNG", "png", "JPEG", "jpeg"]
 
       while let url = enumerator.nextObject() as? URL {
         // print( "\(url )")
@@ -65,12 +65,12 @@ public struct Directory  {
           let properties = try  (url as NSURL).resourceValues(forKeys: requiredAttributes)
             
             var icon = NSImage()
-            
-            if(imageTypes.contains(url.pathExtension)) {
-                
-                 icon = NSImage.init(contentsOf: url)!
-                
-            } else {
+//            
+//            if(imageTypes.contains(url.pathExtension)) {
+//                
+//                 icon = NSImage.init(contentsOf: url)!
+//                
+//            } else {
                 if(properties[URLResourceKey.customIconKey] != nil) {
                     icon = properties[URLResourceKey.customIconKey] as? NSImage ?? NSImage()
                     // print("This didn't happen")
@@ -81,8 +81,8 @@ public struct Directory  {
                     // print("This fucking happen")
                 
                 }
-
-            }
+//
+//            }
             
             
             
