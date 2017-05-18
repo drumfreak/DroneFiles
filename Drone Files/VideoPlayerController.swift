@@ -29,6 +29,9 @@ class VideoPlayerViewController: NSViewController {
     var startPlayingVideo = true
     var playerIsReady = false
     
+    var videoRate = 1.0
+
+    
     var playerViewControllerKVOContext = 0
     
     
@@ -222,6 +225,7 @@ class VideoPlayerViewController: NSViewController {
                 
                 if(self.startPlayingVideo) {
                     self.playerView.player?.play()
+                    self.playerView.player?.rate = Float(self.videoRate)
                     self.startPlayingVideo = false
                 }
                 

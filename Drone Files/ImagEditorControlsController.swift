@@ -65,6 +65,10 @@ class ImageEditorControllsController: NSViewController {
     @IBOutlet var controlsBox: NSView!
 
     
+    @IBOutlet weak var nowPlayingFile: NSTextField!
+    
+    var nowPlayingURLString: String!
+    
     
     
 

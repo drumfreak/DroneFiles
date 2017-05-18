@@ -81,6 +81,11 @@ class ScreenshotViewController: NSViewController {
     
     func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
         
+        let maxTime = asset.duration
+
+        if(currentTime < kCMTimeZero || currentTime > maxTime) {
+            return
+        }
         self.videoAsset = asset
         
         self.longitude = 0.00
@@ -134,18 +139,23 @@ class ScreenshotViewController: NSViewController {
         // print("Screen shot at: \(String(describing: currentTime))")
         
         do {
-            let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
             
-            if(self.appDelegate.screenshotPreview) {
+            
+            if(currentTime >= kCMTimeZero && currentTime < maxTime) {
+                let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
                 
-                self.appDelegate.imageEditorViewController?.loadImage(_url: url)
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-                
-                self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
-                
-                self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
-                
-                
+                if(self.appDelegate.screenshotPreview) {
+                    
+                    self.appDelegate.imageEditorViewController?.loadImage(_url: url)
+                    self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                    
+                    self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
+                    
+                    self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
+                    
+                    
+                }
+
             }
             
         }

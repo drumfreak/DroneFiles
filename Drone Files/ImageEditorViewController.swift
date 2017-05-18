@@ -38,8 +38,8 @@ class ImageEditorViewController: NSViewController {
     @IBOutlet weak var folderURLDisplay: NSTextField!
     var nowPlayingURL: URL!
     var imageUrl: URL!
-    @IBOutlet weak var nowPlayingFile: NSTextField!
-    var nowPlayingURLString: String!
+//    @IBOutlet weak var nowPlayingFile: NSTextField!
+//    var nowPlayingURLString: String!
     
     
     var imageProperties: NSDictionary = Dictionary<String, String>() as NSDictionary
@@ -85,8 +85,10 @@ class ImageEditorViewController: NSViewController {
         self.imageView.setImageWith(_url)
         
         self.nowPlayingURL = _url
-        self.nowPlayingFile?.stringValue = self.nowPlayingURL.lastPathComponent
-        self.nowPlayingURLString = _url.absoluteString.replacingOccurrences(of: "file://", with: "")
+        self.appDelegate.imageEditorControlsController?.nowPlayingFile?.stringValue = self.nowPlayingURL.lastPathComponent
+        
+        
+        self.appDelegate.imageEditorControlsController?.nowPlayingURLString = _url.absoluteString.replacingOccurrences(of: "file://", with: "")
         
         //print("Loaded Image")
         
@@ -101,7 +103,7 @@ class ImageEditorViewController: NSViewController {
         
         let imageSource = CGImageSourceCreateWithURL(_url as CFURL, nil)
         if((imageSource) != nil) {
-            let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
+            // let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
             
             // let exifDict = imageProperties["Exif"] as! Dictionary
             

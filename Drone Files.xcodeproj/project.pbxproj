@@ -19,6 +19,9 @@
 		185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */; };
 		185F4C361EB124440046C452 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C351EB124440046C452 /* Window.swift */; };
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
+		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
+		18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */; };
+		18740B711ECD5656003803B4 /* ScreenShotCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B701ECD5656003803B4 /* ScreenShotCollectionView.swift */; };
 		187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */; };
 		187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */; };
 		187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A91EB3E26100BCD214 /* VideoPlayerController.swift */; };
@@ -112,6 +115,9 @@
 		185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsDeleteController.swift; sourceTree = "<group>"; };
 		185F4C351EB124440046C452 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
+		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
+		18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotSliderController.swift; sourceTree = "<group>"; };
+		18740B701ECD5656003803B4 /* ScreenShotCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotCollectionView.swift; sourceTree = "<group>"; };
 		187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSplitViewController.swift; sourceTree = "<group>"; };
 		187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControlsController.swift; sourceTree = "<group>"; };
 		187843A91EB3E26100BCD214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
@@ -194,6 +200,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18740B6D1ECD54EB003803B4 /* ScreenShot Collection */ = {
+			isa = PBXGroup;
+			children = (
+				18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */,
+				18740B701ECD5656003803B4 /* ScreenShotCollectionView.swift */,
+			);
+			name = "ScreenShot Collection";
+			sourceTree = "<group>";
+		};
 		187843A81EB3CE8300BCD214 /* Video Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +264,7 @@
 				1836DB861EC824550000F749 /* SlideShowWindow.swift */,
 				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
+				18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */,
 			);
 			name = "Image Editor";
 			sourceTree = "<group>";
@@ -259,6 +275,7 @@
 				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
 				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				188272151ECA5FD300EE50D0 /* Document.swift */,
+				18740B6D1ECD54EB003803B4 /* ScreenShot Collection */,
 				188272171ECA61F000EE50D0 /* DocumentController.swift */,
 				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
 				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
@@ -511,6 +528,7 @@
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
 				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
+				18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */,
 				188272311ECA939300EE50D0 /* ThemePathControl.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
 				188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */,
@@ -528,8 +546,10 @@
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
 				1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */,
 				1882722F1ECA898900EE50D0 /* ThemeLabel.swift in Sources */,
+				18740B711ECD5656003803B4 /* ScreenShotCollectionView.swift in Sources */,
 				18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */,
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
+				18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */,
 				18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
