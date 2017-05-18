@@ -23,9 +23,7 @@ class ImageEditorSplitViewController: NSSplitViewController {
         // self.appDelegate.videoSplitViewController = self
         
         self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-        
-        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor        
     }
     
 }

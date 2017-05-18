@@ -51,6 +51,23 @@ struct AppSettings {
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     var createProjectDirectory = true
     var createProjectSubDirectories = true
 
@@ -65,6 +82,80 @@ struct AppSettings {
     var rawFolder = " - RAW"
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
+    
+
+    // Screenshots
+    
+    var screenShotBurstEnabled = Bool(true) {
+        didSet {
+            userDefaults.setValue(screenShotBurstEnabled, forKey: "screenShotBurstEnabled")
+        }
+    }
+    
+    var screenshotSound = Bool(true) {
+        didSet {
+            userDefaults.setValue(screenshotSound, forKey: "screenshotSound")
+        }
+    }
+
+    
+    var screenshotPreview = Bool(false){
+        didSet {
+            userDefaults.setValue(screenshotPreview, forKey: "screenshotPreview")
+        }
+    }
+    
+    var screenshotPreserveVideoDate = Bool(true) {
+        didSet {
+            userDefaults.setValue(screenshotPreserveVideoDate, forKey: "screenshotPreserveVideoDate")
+        }
+    }
+    
+
+    var screenshotPreserveVideoLocation = Bool(false) {
+        didSet {
+            userDefaults.setValue(screenshotPreserveVideoLocation, forKey: "screenshotPreserveVideoLocation")
+        }
+    }
+    
+    var screenshotPreserveVideoName = Bool(true) {
+        didSet {
+            userDefaults.setValue(screenshotPreserveVideoName, forKey: "screenshotPreserveVideoName")
+        }
+    }
+    
+    
+    var screenshotFramesBefore = Int32(5) {
+        didSet {
+            userDefaults.setValue(screenshotFramesBefore, forKey: "screenshotFramesBefore")
+        }
+    }
+
+    var screenshotFramesAfter = Int32(5) {
+        didSet {
+            userDefaults.setValue(screenshotFramesAfter, forKey: "screenshotFramesAfter")
+        }
+    }
+    
+    var screenshotFramesInterval = Double(0.1) {
+        didSet {
+            userDefaults.setValue(screenshotFramesInterval, forKey: "screenshotFramesInterval")
+        }
+    }
+    
+    
+    var screenshotTypeJPG = Bool(true) {
+        didSet {
+            userDefaults.setValue(screenshotTypeJPG, forKey: "screenshotTypeJPG")
+        }
+    }
+    
+    var screenshotTypePNG = Bool(false) {
+        didSet {
+            userDefaults.setValue(screenshotTypePNG, forKey: "screenshotTypePNG")
+        }
+    }
+    
     
     
     // colors
@@ -96,6 +187,10 @@ struct AppSettings {
     var tableHeaderRowBackground =  NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
 
     
+    // Message Boxes
+    // tableHeaderRow
+    var messageBoxBackground =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
+
     
     var textLabelColor = NSColor.gray
     

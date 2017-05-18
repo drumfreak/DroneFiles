@@ -61,7 +61,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Variables setup for various usage.
     
-    var screenshotPreview = true
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     
@@ -74,17 +73,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        
         let defaults = UserDefaults.standard
         
-        if(defaults.value(forKey: "screenshotSound") == nil) {
-            defaults.setValue(1, forKey: "screenshotSound")
-            defaults.setValue(1, forKey: "screenshotPreserveClipName")
-            defaults.setValue(1, forKey: "screenshotJPG")
-            defaults.setValue(0, forKey: "screenshotPNG")
-            defaults.setValue(1, forKey: "previewScreenshot")
-            defaults.setValue(0, forKey: "screenShotBurstEnabled")
-            defaults.setValue(1, forKey: "clippedItemPreserveFileDates")
-            defaults.setValue(0, forKey: "loadNewClip")
-            defaults.setValue(3, forKey: "burstFrames")
+        if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
+            defaults.setValue(true, forKey: "screenshotSound")
+            defaults.setValue(true, forKey: "screenshotPreserveVideoName")
+            defaults.setValue(true, forKey: "screenshotTypeJPG")
+            defaults.setValue(false, forKey: "screenshotTypePNG")
+            defaults.setValue(true, forKey: "screenshotPreview")
+            defaults.setValue(true, forKey: "screenShotBurstEnabled")
+            defaults.setValue(true, forKey: "clippedItemPreserveFileDates")
+            defaults.setValue(true, forKey: "screenshotPreserveVideoDate")
+            defaults.setValue(true, forKey: "screenshotPreserveVideoLocation")
+            defaults.setValue(0.1, forKey: "screenshotFramesInterval")
+            defaults.setValue(5, forKey: "screenshotFramesAfter")
+            defaults.setValue(5, forKey: "screenshotFramesBefore")
+            
+            defaults.setValue(false, forKey: "loadNewClip")
+            
         }
+        
+        print(defaults)
         
         let notification = NSUserNotification()
         notification.title = "Welcome to DroneFiles!"

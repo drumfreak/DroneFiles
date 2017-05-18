@@ -30,9 +30,15 @@ class VideoPlayerViewController: NSViewController {
     var playerIsReady = false
     
     var videoRate = 1.0
-
     
+    @IBOutlet weak var playerMessageBox: NSBox!
+    @IBOutlet weak var playerMessageBoxView: NSView!
+
+    @IBOutlet weak var playerMessageBoxLabel: NSTextField!
     var playerViewControllerKVOContext = 0
+    
+    @IBOutlet weak var messageSpinner: NSProgressIndicator!
+    
     
     
     // Allow view to receive keypress (remove the purr sound)
@@ -43,20 +49,22 @@ class VideoPlayerViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.VideoEditView.isHidden = false
-
+        // self.VideoEditView.isHidden = false
         self.appDelegate.videoPlayerViewController = self
-        
         view.wantsLayer = true
-
         view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+
+        self.playerMessageBoxView.wantsLayer = true
+        self.playerMessageBoxView.layer?.backgroundColor = self.appSettings.messageBoxBackground.cgColor
+        self.messageSpinner.startAnimation(self)
+        
+
+
 
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
@@ -66,6 +74,7 @@ class VideoPlayerViewController: NSViewController {
         super.viewDidDisappear()
         // self.deallocObservers(playerItem: (self.playerView?.player)!)
     }
+
     
     func setupPlayer() {
         // self.playerView.showsFrameSteppingButtons = true

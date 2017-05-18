@@ -45,7 +45,6 @@ class ScreenshotViewController: NSViewController {
     @IBOutlet var screenshotNameFullURL: String!
 
     var timeOffset = 0.00
-    var screenshotItemPreserveFileDates = true
     var modificationDate = Date()
     
     var audioPlayer: AVAudioPlayer?
@@ -93,13 +92,14 @@ class ScreenshotViewController: NSViewController {
         
         let foo = self.getLocationData(asset: asset)
         
-        if(self.appDelegate.videoPlayerControlsController?.screenshotSound)! {
+        if(self.appSettings.screenshotSound) {
             self.playShutterSound()
         }
         
         self.modificationDate = modificationDate
-        
-        if(self.appDelegate.videoPlayerControlsController?.screenshotJPG)! {
+
+        if(self.appSettings.screenshotTypeJPG && self.appSettings.screenshotPreserveVideoLocation) {
+            
             
             if let range = foo.range(of: "-") {
                 
@@ -144,7 +144,7 @@ class ScreenshotViewController: NSViewController {
             if(currentTime >= kCMTimeZero && currentTime < maxTime) {
                 let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
                 
-                if(self.appDelegate.screenshotPreview) {
+                if(self.appSettings.screenshotPreview) {
                     
                     self.appDelegate.imageEditorViewController?.loadImage(_url: url)
                     self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
@@ -239,7 +239,7 @@ class ScreenshotViewController: NSViewController {
         
         var fileExtension = "jpg"
         
-        if(self.appDelegate.videoPlayerControlsController?.screenshotPNG)! {
+        if(self.appSettings.screenshotTypePNG) {
             fileExtension = "png"
         }
         
@@ -255,7 +255,7 @@ class ScreenshotViewController: NSViewController {
         
         let increment = getScreenShotIncrement(_folder: self.appSettings.screenShotFolder)
         
-        if(self.appDelegate.videoPlayerControlsController?.screenshotPreserveClipName)! {
+        if(self.appSettings.screenshotPreserveVideoName) {
             
             let assetUrl = self.appDelegate.videoPlayerControlsController?.currentVideoURL
             
@@ -345,7 +345,7 @@ class ScreenshotViewController: NSViewController {
             
             var data = Data()
             
-            if(self.appDelegate.videoPlayerControlsController?.screenshotJPG)! {
+            if(self.appSettings.screenshotTypeJPG) {
                 data = nsImage.imageJPGRepresentation()! as Data
             } else {
                 data = nsImage.imagePNGRepresentation()! as Data
@@ -358,7 +358,7 @@ class ScreenshotViewController: NSViewController {
                 self.exifWriteData(path: self.screenshotNameFullURL)
                 print("File saved")
                 
-                if(self.screenshotItemPreserveFileDates) {
+                if(self.appSettings.screenshotPreserveVideoDate) {
                     self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
                 }
                 
