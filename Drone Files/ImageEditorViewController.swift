@@ -82,7 +82,15 @@ class ImageEditorViewController: NSViewController {
         
         // imageView.show
         self.imageUrl = _url
+        
+        
+        
+        // let img = NSImage.init(contentsOf: imageUrl)
+        
         self.imageView.setImageWith(_url)
+        
+        
+        // self.imageView.setImageWith(_url)
         
         self.nowPlayingURL = _url
         self.appDelegate.imageEditorControlsController?.nowPlayingFile?.stringValue = self.nowPlayingURL.lastPathComponent
@@ -90,26 +98,24 @@ class ImageEditorViewController: NSViewController {
         
         self.appDelegate.imageEditorControlsController?.nowPlayingURLString = _url.absoluteString.replacingOccurrences(of: "file://", with: "")
         
-        //print("Loaded Image")
-        
-        if(self.appDelegate.imageEditorControlsController?.viewIsLoaded)! {
+               if(self.appDelegate.imageEditorControlsController?.viewIsLoaded)! {
             //print("Resetting..")
             self.appDelegate.imageEditorControlsController?.resetImage(self)
         }
         
         self.imageView.zoomImageToFit(self)
-        
-        
-        
-        let imageSource = CGImageSourceCreateWithURL(_url as CFURL, nil)
-        if((imageSource) != nil) {
-            // let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
-            
-            // let exifDict = imageProperties["Exif"] as! Dictionary
-            
-            
-            // print(imageProperties)
-        }
+//        
+//        
+//        
+//        let imageSource = CGImageSourceCreateWithURL(_url as CFURL, nil)
+//        if((imageSource) != nil) {
+//            // let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
+//            
+//            // let exifDict = imageProperties["Exif"] as! Dictionary
+//            
+//            
+//            // print(imageProperties)
+//        }
      
         
     }

@@ -65,6 +65,7 @@
 		18B001ED1EA69C92003C3214 /* Drone_FilesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001EC1EA69C92003C3214 /* Drone_FilesUITests.swift */; };
 		18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FA1EA6A09D003C3214 /* WindowController.swift */; };
 		18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FC1EA6A0A8003C3214 /* Directory.swift */; };
+		18B4418A1ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B441891ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift */; };
 		18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */; };
 		18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */; };
 		18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */ = {isa = PBXBuildFile; fileRef = 18BAABA61EADA2CB00EE5434 /* Shutter.aif */; };
@@ -79,7 +80,6 @@
 		18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */; };
 		18DD9F5F1ECEB10E008E9E02 /* SecondWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F5E1ECEB10E008E9E02 /* SecondWindowController.swift */; };
 		18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */; };
-		18DD9F631ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F621ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +176,7 @@
 		18B001EE1EA69C92003C3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B001FA1EA6A09D003C3214 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		18B001FC1EA6A0A8003C3214 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		18B441891ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondaryDisplayMediaViewController.swift; path = ../../../../Desktop/SecondaryDisplayMediaViewController.swift; sourceTree = "<group>"; };
 		18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		18BAABA61EADA2CB00EE5434 /* Shutter.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shutter.aif; sourceTree = "<group>"; };
@@ -190,7 +191,6 @@
 		18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotCollectionViewItem.xib; sourceTree = "<group>"; };
 		18DD9F5E1ECEB10E008E9E02 /* SecondWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondWindowController.swift; sourceTree = "<group>"; };
 		18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondWindow.xib; sourceTree = "<group>"; };
-		18DD9F621ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryDisplayMediaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,8 +400,8 @@
 			isa = PBXGroup;
 			children = (
 				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
-				18DD9F621ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift */,
 				18DD9F5E1ECEB10E008E9E02 /* SecondWindowController.swift */,
+				18B441891ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift */,
 				185F4C351EB124440046C452 /* Window.swift */,
 			);
 			name = "Window Controllers";
@@ -563,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
+				18B4418A1ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift in Sources */,
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
 				18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */,
 				18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */,
@@ -576,7 +577,6 @@
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */,
-				18DD9F631ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
 				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
 				18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */,
