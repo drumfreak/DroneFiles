@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ScreenShotCollectionViewItem" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="wJI-9g-A1D" id="5pP-qS-UGy"/>
+                <outlet property="textField" destination="gWP-ef-giO" id="ALb-yp-XDx"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY" customClass="SCreenshotCollectionView">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wJI-9g-A1D">
+                    <rect key="frame" x="0.0" y="30" width="480" height="242"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="sP8-N5-XXZ"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWP-ef-giO">
+                    <rect key="frame" x="-2" y="0.0" width="484" height="30"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="YVc-1v-Hm9">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="gWP-ef-giO" secondAttribute="trailing" id="1Rf-mu-d2P"/>
+                <constraint firstItem="wJI-9g-A1D" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="LJJ-IN-tfZ"/>
+                <constraint firstAttribute="bottom" secondItem="gWP-ef-giO" secondAttribute="bottom" id="LeY-ex-xnZ"/>
+                <constraint firstItem="gWP-ef-giO" firstAttribute="top" secondItem="wJI-9g-A1D" secondAttribute="bottom" id="MLH-WK-sgs"/>
+                <constraint firstAttribute="bottom" secondItem="wJI-9g-A1D" secondAttribute="bottom" constant="30" id="Qx1-re-LeQ"/>
+                <constraint firstAttribute="trailing" secondItem="wJI-9g-A1D" secondAttribute="trailing" id="aK7-0e-5ly"/>
+                <constraint firstItem="wJI-9g-A1D" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="hjB-1y-VZU"/>
+                <constraint firstItem="gWP-ef-giO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="rWR-w3-loL"/>
+            </constraints>
+        </customView>
+        <collectionViewItem id="jBg-8p-yy7" customClass="ScreenShotCollectionViewItem" customModule="Drone_Files" customModuleProvider="target"/>
+    </objects>
+</document>

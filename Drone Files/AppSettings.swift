@@ -19,16 +19,18 @@ struct AppSettings {
     var fileSequenceNameTag = ""
     var projectDirectory = ""
     
-    var mediaBinUrls = [] as NSMutableArray? {
-        didSet {
-            print("Fuck yeah set the media array")
-
-            if let output = mediaBinUrls {
-                print("\(String(describing: output))")
-                userDefaults.setValue(output, forKey: "mediaBinUrls")
-            }
-        }
-    }
+    var mediaBinUrls = [URL]()
+    
+    //{
+//        didSet {
+//            if let output = mediaBinUrls {
+//                print("Fuck yeah set the media array")
+//
+//                print("\(String(describing: output))")
+//                userDefaults.setValue(output, forKey: "mediaBinUrls")
+//            }
+//        }
+   // }
     
     var outputDirectory: String! {
         didSet {

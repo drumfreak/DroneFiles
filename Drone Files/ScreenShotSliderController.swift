@@ -15,12 +15,31 @@ class ScreenShotSliderController: NSViewController {
 
     @IBOutlet weak var collectionView: NSCollectionView!
 
+    let mediaBinLoader = MediaBinLoader()
+
     
+    func loadDataForNewFolderWithUrl(_ folderURL: URL) {
+        mediaBinLoader.loadDataForFolderWithUrl(folderURL)
+        collectionView.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
+        self.appDelegate.screenShotSliderController = self
+        self.reloadContents()
     }
     
+    
+    func reloadContents() {
+        
+        // mediaBinLoader.loadDataForFolderWithUrl(initialFolderUrl)
+        
+        mediaBinLoader.loadDataFromUrls(self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray)
+        
+        configureCollectionView()
+        
+        
+    }
 
     private func configureCollectionView() {
         // 1
@@ -37,58 +56,31 @@ class ScreenShotSliderController: NSViewController {
     }
     
 }
-//
-//
-//extension ScreenShotSliderController : NSCollectionViewDataSource {
-//    
-//    // 1
-//    func numberOfSectionsInCollectionView(collectionView: NSCollectionView) -> Int {
-//        return imageDirectoryLoader.numberOfSections
-//    }
-//    
-//    // 2
-//    func collectionView(collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return imageDirectoryLoader.numberOfItemsInSection(section)
-//    }
-//    
-//    // 3
-//    func collectionView(collectionView: NSCollectionView, itemForRepresentedObjectAtIndexPath indexPath: NSIndexPath) -> NSCollectionViewItem {
-//        
-//        // 4
-//        let item = collectionView.makeItemWithIdentifier("CollectionViewItem", forIndexPath: indexPath)
-//        guard let collectionViewItem = item as? CollectionViewItem else {return item}
-//        
-//        // 5
-//        let imageFile = imageDirectoryLoader.imageFileForIndexPath(indexPath)
-//        collectionViewItem.imageFile = imageFile
-//        return item
-//    }
-//    
-//}
 
 
-
-
-class CollectionViewItem: NSCollectionViewItem {
+extension ScreenShotSliderController : NSCollectionViewDataSource {
     
     // 1
-    var imageFile: NSImage? {
-        didSet {
-            guard isViewLoaded else { return }
-//            if let imageFile = imageFile {
-//               // imageView?.image = imageFile.thumbnail
-//               // textField?.stringValue = imageFile.fileName
-//            } else {
-//                imageView?.image = nil
-//                textField?.stringValue = ""
-//            }
-        }
+    func numberOfSectionsInCollectionView(collectionView: NSCollectionView) -> Int {
+        return mediaBinLoader.numberOfSections
     }
     
     // 2
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.lightGray.cgColor
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return mediaBinLoader.numberOfItemsInSection(section)
     }
+    
+    // 3
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        
+        // 4
+        let item = collectionView.makeItem(withIdentifier: "ScreenShotCollectionViewItem", for: indexPath as IndexPath)
+        guard let collectionViewItem = item as? ScreenShotCollectionViewItem else {return item}
+        
+        // 5
+        let imageFile = mediaBinLoader.imageFileForIndexPath(indexPath as IndexPath)
+        collectionViewItem.imageFile = imageFile
+        return item
+    }
+    
 }

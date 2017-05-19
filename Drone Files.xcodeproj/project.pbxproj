@@ -21,7 +21,6 @@
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
 		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
 		18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */; };
-		18740B711ECD5656003803B4 /* ScreenShotCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B701ECD5656003803B4 /* ScreenShotCollectionView.swift */; };
 		18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B721ECE06A3003803B4 /* VideoPlayerMessageBox.swift */; };
 		187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */; };
 		187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */; };
@@ -74,6 +73,10 @@
 		18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */; };
 		18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F501ECE1CDE008E9E02 /* messagewindow.png */; };
 		18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */; };
+		18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F541ECE8E08008E9E02 /* ImageFile.swift */; };
+		18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */; };
+		18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */; };
+		18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +123,6 @@
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
 		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
 		18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotSliderController.swift; sourceTree = "<group>"; };
-		18740B701ECD5656003803B4 /* ScreenShotCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotCollectionView.swift; sourceTree = "<group>"; };
 		18740B721ECE06A3003803B4 /* VideoPlayerMessageBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerMessageBox.swift; sourceTree = "<group>"; };
 		187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSplitViewController.swift; sourceTree = "<group>"; };
 		187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControlsController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,10 @@
 		18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerList.swift; sourceTree = "<group>"; };
 		18DD9F501ECE1CDE008E9E02 /* messagewindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = messagewindow.png; path = ../../../Dronefiles/messagewindow.png; sourceTree = "<group>"; };
 		18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotSettingsController.swift; sourceTree = "<group>"; };
+		18DD9F541ECE8E08008E9E02 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
+		18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaBinLoader.swift; sourceTree = "<group>"; };
+		18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotCollectionViewItem.swift; sourceTree = "<group>"; };
+		18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotCollectionViewItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +215,10 @@
 		18740B6D1ECD54EB003803B4 /* ScreenShot Collection */ = {
 			isa = PBXGroup;
 			children = (
+				18DD9F561ECE8E0F008E9E02 /* Image Collection View */,
 				18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */,
-				18740B701ECD5656003803B4 /* ScreenShotCollectionView.swift */,
+				18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */,
+				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 			);
 			name = "ScreenShot Collection";
 			sourceTree = "<group>";
@@ -373,6 +381,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		18DD9F561ECE8E0F008E9E02 /* Image Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				18DD9F541ECE8E08008E9E02 /* ImageFile.swift */,
+				18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */,
+			);
+			name = "Image Collection View";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -491,6 +508,7 @@
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
 				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
+				18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */,
 				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
 				188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */,
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
@@ -528,6 +546,8 @@
 			files = (
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
+				18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */,
+				18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */,
 				185F4C361EB124440046C452 /* Window.swift in Sources */,
 				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
@@ -535,6 +555,7 @@
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
 				1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */,
+				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
@@ -557,7 +578,6 @@
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
 				1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */,
 				1882722F1ECA898900EE50D0 /* ThemeLabel.swift in Sources */,
-				18740B711ECD5656003803B4 /* ScreenShotCollectionView.swift in Sources */,
 				18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */,
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */,

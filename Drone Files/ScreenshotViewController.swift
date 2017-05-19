@@ -205,9 +205,9 @@ class ScreenshotViewController: NSViewController {
             if(saveImage(image: img!)) {
                 let url = URL(string: self.screenshotNameFullURL)
                 
-                self.appDelegate.appSettings.mediaBinUrls?.add(url!.absoluteString)
+                self.appDelegate.appSettings.mediaBinUrls.append(url!)
                 
-                print("\(String(describing: self.appDelegate.appSettings.mediaBinUrls))")
+                self.appDelegate.screenShotSliderController.reloadContents()
                 
                 return url
             } else {
