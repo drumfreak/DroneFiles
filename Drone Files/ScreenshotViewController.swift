@@ -134,7 +134,7 @@ class ScreenshotViewController: NSViewController {
             
         }
         
-        print("Taking Screenshot")
+        // print("Taking Screenshot")
         
         // print("Screen shot at: \(String(describing: currentTime))")
         

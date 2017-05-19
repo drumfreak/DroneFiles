@@ -49,11 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
     //
     @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
-    
-    
-//    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
 
-    //@IBOutlet weak var slideShowWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowWindowController") as? SlideShowWindowController
     
     var slideShowWindowController: SlideShowWindowController?
 
@@ -65,13 +61,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     
         // Swift.print(appSettings)
-        
-//        self.windowController?.window?.titlebarAppearsTransparent = true
-//        self.windowController?.window?.backgroundColor = NSColor.clear
-//
-//        self.windowController?.window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
-//        
+        setupOptions()
+       
+        let notification = NSUserNotification()
+        notification.title = "Welcome to DroneFiles!"
+        notification.informativeText = "Your life will never be the same"
+        notification.soundName = NSUserNotificationDefaultSoundName
+        NSUserNotificationCenter.default.deliver(notification)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    func setupOptions() {
         let defaults = UserDefaults.standard
+
         
         if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
             defaults.setValue(true, forKey: "screenshotSound")
@@ -86,19 +94,71 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(0.1, forKey: "screenshotFramesInterval")
             defaults.setValue(5, forKey: "screenshotFramesAfter")
             defaults.setValue(5, forKey: "screenshotFramesBefore")
-            
             defaults.setValue(false, forKey: "loadNewClip")
-            
         }
         
         print(defaults)
         
-        let notification = NSUserNotification()
-        notification.title = "Welcome to DroneFiles!"
-        notification.informativeText = "Your life will never be the same"
-        notification.soundName = NSUserNotificationDefaultSoundName
-        NSUserNotificationCenter.default.deliver(notification)
+        if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
+            self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
+        }
+        
+        
+    
+        if(defaults.value(forKey: "screenshotPreserveVideoLocation") != nil) {
+            self.appSettings.screenshotPreserveVideoLocation = (defaults.value(forKey: "screenshotPreserveVideoLocation"))! as! Bool
+        }
+        
+        
+        if(defaults.value(forKey: "screenshotSound") != nil) {
+            self.appSettings.screenshotSound = (defaults.value(forKey: "screenshotSound"))! as! Bool
+        }
+        
+        
+        if(defaults.value(forKey: "screenShotBurstEnabled") != nil) {
+            self.appSettings.screenShotBurstEnabled = (defaults.value(forKey: "screenShotBurstEnabled"))! as! Bool
+        }
+        
+        
+        if(defaults.value(forKey: "screenshotPreview") != nil) {
+            self.appSettings.screenshotPreview = (defaults.value(forKey: "screenshotPreview"))! as! Bool
+        }
+        
+        if(defaults.value(forKey: "screenshotPreserveVideoDate") != nil) {
+            self.appSettings.screenshotPreserveVideoDate = (defaults.value(forKey: "screenshotPreserveVideoDate"))! as! Bool
+        }
+        
+        
+        
+        if(defaults.value(forKey: "screenshotTypeJPG") != nil) {
+            self.appSettings.screenshotTypeJPG = (defaults.value(forKey: "screenshotTypeJPG"))! as! Bool
+        }
+        
+        
+        if(defaults.value(forKey: "screenshotTypePNG") != nil) {
+            self.appSettings.screenshotTypePNG = (defaults.value(forKey: "screenshotTypePNG"))! as! Bool
+        }
+        
+        if(defaults.value(forKey: "screenshotFramesBefore") != nil) {
+            self.appSettings.screenshotFramesBefore = (defaults.value(forKey: "screenshotFramesBefore"))! as! Int32
+        }
+        
+        if(defaults.value(forKey: "screenshotFramesAfter") != nil) {
+            self.appSettings.screenshotFramesAfter = (defaults.value(forKey: "screenshotFramesAfter"))! as! Int32
+        }
+        
+        
+        if(defaults.value(forKey: "screenshotTypePNG") != nil) {
+            self.appSettings.screenshotTypePNG = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
+        }
+        
+        
+        if(defaults.value(forKey: "screenshotFramesInterval") != nil) {
+            self.appSettings.screenshotFramesInterval = (defaults.value(forKey: "screenshotFramesInterval"))! as! Double
+        }
+        
     }
+    
 
 
     func applicationWillTerminate(_ aNotification: Notification) {

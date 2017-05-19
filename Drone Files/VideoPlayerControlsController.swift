@@ -119,11 +119,24 @@ class VideoPlayerControllsController: NSViewController {
         
         self.appDelegate.videoPlayerControlsController = self
         
+        self.setupControls()
+        
     }
-    
+//    
+//    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.setupControls()
+    }
+//
+//    
+//    override func viewDidDisappear() {
+//        super.viewDidDisappear()
+//    }
+//    
     func setupControls() {
     
-        if(self.appSettings.screenShotBurstEnabled) {
+        if(self.appDelegate.appSettings.screenShotBurstEnabled) {
             self.screenShotBurstEnabledButton.state = 1
         } else {
             self.screenShotBurstEnabledButton.state = 0
@@ -453,11 +466,11 @@ class VideoPlayerControllsController: NSViewController {
     
     @IBAction func setPreviewScreenshot(_ sender: AnyObject) {
         if(self.screenShotPreviewButton.state == 0) {
-            self.appDelegate.appSettings.screenshotPreview = true
+            self.appDelegate.appSettings.screenshotPreview = false
         }
         
         if(self.screenShotPreviewButton.state == 1) {
-            self.appDelegate.appSettings.screenshotPreview = false
+            self.appDelegate.appSettings.screenshotPreview = true
         }
     }
     
@@ -697,11 +710,10 @@ class VideoPlayerControllsController: NSViewController {
     func messageBox(hidden: Bool) {
         DispatchQueue.main.async {
             if(hidden == true) {
-                print("Unhiding")
-                
+                //print("Unhiding")
                 self.appDelegate.videoPlayerViewController?.playerMessageBox.isHidden = true
             } else {
-                print("Hiding")
+                //print("Hiding")
 
                 self.appDelegate.videoPlayerViewController?.playerMessageBox.isHidden = false
             }
@@ -762,11 +774,12 @@ class VideoPlayerControllsController: NSViewController {
             }
         
             i = Int(0)
+            var playerTime1: CMTime!
             
             while(i < Int(self.appSettings.screenshotFramesAfter)) {
                     let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), playerTime!.timescale);
                     
-                    let playerTime1 = CMTimeAdd(playerTime!, oneFrame);
+                    playerTime1 = CMTimeAdd(playerTime!, oneFrame);
                 
                 
                     // do this before calling takeScreenshot
@@ -783,28 +796,46 @@ class VideoPlayerControllsController: NSViewController {
                 i += 1
             }
             
+            
+            if(playerWasPlaying) {
+                // DispatchQueue.main.async {
+                
+                self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                    // self.updateTimerLabel()
+                })
+                
+                
+                
+                self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+                
+                // }
+            }
+
+            
         } else {
             messageBoxLabel(string: "Screen Shot Taken!")
 
             self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime!)
             
-        }
-        
-        
-        if(playerWasPlaying) {
-           // DispatchQueue.main.async {
-     
-            self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-                // self.updateTimerLabel()
-            })
+            if(playerWasPlaying) {
+                // DispatchQueue.main.async {
+                
+                self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                    // self.updateTimerLabel()
+                })
+                
+                
+                
+                self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+                
+                // }
+            }
 
             
-            
-            self.appDelegate.videoPlayerViewController?.playerView.player?.play()
-                
-            // }
         }
-        self.burstInProgress = false
+        
+        
+                self.burstInProgress = false
         messageBox(hidden: true)
         
     }
