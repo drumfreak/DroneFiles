@@ -15,6 +15,8 @@ import Quartz
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var window: NSWindow!
     
+    var externalScreens = [NSScreen]()
+    
     
     var appSettings = AppSettings()
     var documentController = NSDocumentController.shared()
@@ -36,6 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
  
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
+    
+//    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
+    
+    
     @IBOutlet weak var editorTabViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "editorTabViewController") as? EditorTabViewController
     
     @IBOutlet var videoPlayerControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerControlsController") as? VideoPlayerControllsController
@@ -51,6 +57,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
     //
     @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
+
+    
+    
+    @IBOutlet weak var secondWindowController = SecondWindowController()
+    @IBOutlet weak var secondaryDisplayMediaViewController = SecondaryDisplayMediaViewController()
+
+        //NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
 
     
     var slideShowWindowController: SlideShowWindowController?
@@ -70,14 +83,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         notification.informativeText = "Your life will never be the same"
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
+        
+        
+        // let externalScreens = NSScreen.externalScreens()
+        self.externalScreens = NSScreen.externalScreens()
+        
+        
+        // secondwindow
+        
+//        NSWindow *window = [[NSWindow alloc] initWithContentRect:screenRect
+//            styleMask:NSBorderlessWindowMask
+//            backing:NSBackingStoreBuffered
+//            defer:NO
+//            screen:screen];
+        
+        
+        //[window setLevel: CGShieldingWindowLevel()];
+
+       
     }
     
-    
-    
-    
-    
-    
-    
+
     
     func setupOptions() {
         let defaults = UserDefaults.standard
@@ -99,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(false, forKey: "loadNewClip")
         }
         
-        print(defaults)
+        // print(defaults)
         
         if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
             self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
@@ -386,6 +412,16 @@ extension NSViewController {
 
 }
 
+extension NSWindowController {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }
+}
+
+
 
 extension NSWindow {
     var appDelegate:AppDelegate {
@@ -426,5 +462,16 @@ extension NSTableHeaderCell {
 extension String {
     func trim() -> String {
         return self.trimmingCharacters(in: NSCharacterSet.whitespaces)
+    }
+}
+
+
+extension NSScreen {
+    class func externalScreens() -> [NSScreen] {
+        guard let screens = NSScreen.screens() else { return [] }
+        return screens.filter {
+            guard let deviceID = $0.deviceDescription["NSScreenNumber"] as? NSNumber else { return false }
+            return CGDisplayIsBuiltin(deviceID.uint32Value) == 0
+        }
     }
 }

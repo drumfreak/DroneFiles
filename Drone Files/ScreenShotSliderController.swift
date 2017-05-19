@@ -12,17 +12,17 @@ import Cocoa
 
 class ScreenShotSliderController: NSViewController {
     // View controllers
-
+    
     @IBOutlet weak var collectionView: NSCollectionView!
-
+    
     let mediaBinLoader = MediaBinLoader()
-
+    
     
     func loadDataForNewFolderWithUrl(_ folderURL: URL) {
         mediaBinLoader.loadDataForFolderWithUrl(folderURL)
         collectionView.reloadData()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appDelegate.screenShotSliderController = self
@@ -37,10 +37,44 @@ class ScreenShotSliderController: NSViewController {
         mediaBinLoader.loadDataFromUrls(self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray)
         
         configureCollectionView()
-        
-        
+        collectionView.reloadData()
     }
+    
+    
+    
+//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+//        print("SEGUE");
+//        print(segue.identifier!)
+//        if segue.identifier == "showExternalWindow" {
+//            //    self.appDelegate.videoPlayerViewController = segue.destinationController as? VideoPlayerViewController
+//            print ("showExternalWindow Loaded by segue");
+//            
+//
+//        }
+        
+  //  }
+    
+    
+    @IBAction func openSecondDisplay (_ sender : AnyObject) {
+       /*
+        self.appDelegate.externalScreens = NSScreen.externalScreens()
+        
+        let screenRect = self.appDelegate.externalScreens[0].frame
+        
+        
 
+         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
+        
+        secondWindowController?.window = secondwindow
+        
+        secondwindow.makeKeyAndOrderFront(self)
+
+        
+        secondWindowController?.showWindow(self)
+        */
+    
+    }
+    
     private func configureCollectionView() {
         // 1
         let flowLayout = NSCollectionViewFlowLayout()

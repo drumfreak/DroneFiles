@@ -632,6 +632,7 @@ class FileBrowserViewController: NSViewController {
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 
+                 self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: item.url as URL)
             //
                 
             } else {

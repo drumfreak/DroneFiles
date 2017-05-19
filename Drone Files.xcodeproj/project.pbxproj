@@ -77,6 +77,9 @@
 		18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */; };
 		18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */; };
 		18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */; };
+		18DD9F5F1ECEB10E008E9E02 /* SecondWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F5E1ECEB10E008E9E02 /* SecondWindowController.swift */; };
+		18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */; };
+		18DD9F631ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F621ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +188,9 @@
 		18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaBinLoader.swift; sourceTree = "<group>"; };
 		18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotCollectionViewItem.swift; sourceTree = "<group>"; };
 		18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotCollectionViewItem.xib; sourceTree = "<group>"; };
+		18DD9F5E1ECEB10E008E9E02 /* SecondWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondWindowController.swift; sourceTree = "<group>"; };
+		18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondWindow.xib; sourceTree = "<group>"; };
+		18DD9F621ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryDisplayMediaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +224,7 @@
 				18DD9F561ECE8E0F008E9E02 /* Image Collection View */,
 				18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */,
 				18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */,
+				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 			);
 			name = "ScreenShot Collection";
@@ -344,8 +351,7 @@
 				1882722B1ECA7A4A00EE50D0 /* Theme Customizations */,
 				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
 				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
-				185F4C351EB124440046C452 /* Window.swift */,
-				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
+				18DD9F5D1ECEB0E9008E9E02 /* Window Controllers */,
 				1883B15C1EAC445D00D722D5 /* Submarine.aiff */,
 				18BAABA61EADA2CB00EE5434 /* Shutter.aif */,
 				18B001D31EA69C92003C3214 /* Assets.xcassets */,
@@ -388,6 +394,17 @@
 				18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */,
 			);
 			name = "Image Collection View";
+			sourceTree = "<group>";
+		};
+		18DD9F5D1ECEB0E9008E9E02 /* Window Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
+				18DD9F621ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift */,
+				18DD9F5E1ECEB10E008E9E02 /* SecondWindowController.swift */,
+				185F4C351EB124440046C452 /* Window.swift */,
+			);
+			name = "Window Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,6 +536,7 @@
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
 				1882722A1ECA74C300EE50D0 /* darkbackground.png in Resources */,
+				18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */,
 				188272481ECB897E00EE50D0 /* darkbrownbackground-light.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,6 +576,7 @@
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */,
+				18DD9F631ECEC31C008E9E02 /* SecondaryDisplayMediaViewController.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
 				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
 				18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */,
@@ -582,6 +601,7 @@
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */,
 				18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */,
+				18DD9F5F1ECEB10E008E9E02 /* SecondWindowController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,

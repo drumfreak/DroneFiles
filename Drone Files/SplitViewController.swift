@@ -20,15 +20,46 @@ class SplitViewController: NSSplitViewController {
         super.viewDidLoad()
         // self.view.wantsLayer = true
         
-        
         self.appDelegate.splitViewController = self
-        
+
         // self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
-   
 
         // self.view.layer?.backgroundColor = CGColor.black
+
+       // self.goFullScreenWindow1()
     }
     
+    
+    func goFullScreenWindow1() {
+        let presOptions: NSApplicationPresentationOptions = ([.fullScreen,.autoHideMenuBar])
+        /*These are all of the options for NSApplicationPresentationOptions
+         .Default
+         .AutoHideDock              |   /
+         .AutoHideMenuBar           |   /
+         .DisableForceQuit          |   /
+         .DisableMenuBarTransparency|   /
+         .FullScreen                |   /
+         .HideDock                  |   /
+         .HideMenuBar               |   /
+         .DisableAppleMenu          |   /
+         .DisableProcessSwitching   |   /
+         .DisableSessionTermination |   /
+         .DisableHideApplication    |   /
+         .AutoHideToolbar
+         .HideMenuBar               |   /
+         .DisableAppleMenu          |   /
+         .DisableProcessSwitching   |   /
+         .DisableSessionTermination |   /
+         .DisableHideApplication    |   /
+         .AutoHideToolbar */
+        
+        let optionsDictionary = [NSFullScreenModeApplicationPresentationOptions :
+            UInt64(presOptions.rawValue)]
+        
+        self.view.enterFullScreenMode(NSScreen.main()!, withOptions:optionsDictionary)
+        
+        // self.view.wantsLayer = true
+    }
     
     override var representedObject: Any? {
         didSet {

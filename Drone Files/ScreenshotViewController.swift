@@ -142,16 +142,17 @@ class ScreenshotViewController: NSViewController {
             
             
             if(currentTime >= kCMTimeZero && currentTime < maxTime) {
-                let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
+                let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)
                 
                 if(self.appSettings.screenshotPreview) {
-                    self.appDelegate.imageEditorViewController?.loadImage(_url: url)
+                    DispatchQueue.main.async {
+                        self.appDelegate.imageEditorViewController?.loadImage(_url: url!)
                     self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
                     
                     self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
                     
                     self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
-                    
+                    }
                     
                 }
 
@@ -205,9 +206,13 @@ class ScreenshotViewController: NSViewController {
             if(saveImage(image: img!)) {
                 let url = URL(string: self.screenshotNameFullURL)
                 
-                self.appDelegate.appSettings.mediaBinUrls.append(url!)
+                DispatchQueue.main.async() {
+                    self.appDelegate.appSettings.mediaBinUrls.append(url!)
+                    self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: url!)
                 
-                self.appDelegate.screenShotSliderController.reloadContents()
+                    self.appDelegate.screenShotSliderController.reloadContents()
+                }
+                
                 
                 return url
             } else {
