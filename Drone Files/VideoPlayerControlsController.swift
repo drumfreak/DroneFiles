@@ -810,6 +810,9 @@ class VideoPlayerControllsController: NSViewController {
                 
                 self.burstInProgress = false
                 self.messageBox(hidden: true)
+                if(self.appDelegate.appSettings.screenshotPreview == false) {
+                    self.appDelegate.screenShotSliderController.reloadContents()
+                }
             } else {
                 
                 DispatchQueue.main.async {
@@ -835,6 +838,11 @@ class VideoPlayerControllsController: NSViewController {
                 
                 self.burstInProgress = false
                 self.messageBox(hidden: true)
+                
+                if(self.appDelegate.appSettings.screenshotPreview == false) {
+                    self.appDelegate.screenShotSliderController.reloadContents()
+                }
+
             }
             
         }

@@ -627,7 +627,12 @@ class FileBrowserViewController: NSViewController {
             if(_extension == "JPG" || _extension == "jpg" || _extension == "DNG" || _extension == "dng" || _extension == "png" || _extension == "PNG") {
                 
                 // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                
+                if(!self.appDelegate.appSettings.blockScreenShotTabSwitch) {
+
+                    self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                }
+                
                 self.appDelegate.imageEditorViewController?.loadImage(_url: item.url as URL)
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString

@@ -43,7 +43,7 @@ class ScreenshotViewController: NSViewController {
     @IBOutlet var screenshotName: String!
     @IBOutlet var screenshotNameFull: String!
     @IBOutlet var screenshotNameFullURL: String!
-
+    
     var timeOffset = 0.00
     var modificationDate = Date()
     
@@ -69,7 +69,7 @@ class ScreenshotViewController: NSViewController {
                 locationData = (metaDataItems.value as! NSString) as String
                 print("Location Data: \(locationData)")
             } else {
-               
+                
             }
         }
         
@@ -79,9 +79,9 @@ class ScreenshotViewController: NSViewController {
     
     
     func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
-        
+        self.appDelegate.appSettings.blockScreenShotTabSwitch = true
         let maxTime = asset.duration
-
+        
         if(currentTime < kCMTimeZero || currentTime > maxTime) {
             return
         }
@@ -97,7 +97,7 @@ class ScreenshotViewController: NSViewController {
         }
         
         self.modificationDate = modificationDate
-
+        
         if(self.appSettings.screenshotTypeJPG && self.appSettings.screenshotPreserveVideoLocation) {
             
             
@@ -144,18 +144,33 @@ class ScreenshotViewController: NSViewController {
             if(currentTime >= kCMTimeZero && currentTime < maxTime) {
                 let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)
                 
+                self.appDelegate.appSettings.mediaBinUrls.append(url!)
+
                 if(self.appSettings.screenshotPreview) {
+                    
                     DispatchQueue.main.async {
-                        self.appDelegate.imageEditorViewController?.loadImage(_url: url!)
-                    self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-                    
-                    self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
-                    
-                    self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
+                        
+                        self.appDelegate.screenShotSliderController.reloadContents()
+                        
+                        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: url!)
+                        
+                        self.appDelegate.screenShotSliderController.selectItemOne()
+                        
+                        //                        if(self.appDelegate.fileBrowserViewController.sourceFolderOpened.absoluteString != self.appSettings.screenShotFolder) {
+                        //                                 self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
+                        //
+                        // self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
+                        
+                        
+                        //self.appDelegate.imageEditorViewController?.loadImage(_url: url!)
+                        // self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
                     }
                     
                 }
+                
+                self.appDelegate.appSettings.blockScreenShotTabSwitch = false
 
+                
             }
             
         }
@@ -205,15 +220,6 @@ class ScreenshotViewController: NSViewController {
         if img != nil {
             if(saveImage(image: img!)) {
                 let url = URL(string: self.screenshotNameFullURL)
-                
-                DispatchQueue.main.async() {
-                    self.appDelegate.appSettings.mediaBinUrls.append(url!)
-                    self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: url!)
-                
-                    self.appDelegate.screenShotSliderController.reloadContents()
-                }
-                
-                
                 return url
             } else {
                 return nil

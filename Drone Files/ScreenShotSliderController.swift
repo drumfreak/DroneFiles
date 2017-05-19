@@ -38,6 +38,9 @@ class ScreenShotSliderController: NSViewController {
         self.reloadContents()
         self.collectionView.resignFirstResponder()
         self.resignFirstResponder()
+
+        self.selectItemOne()
+
         
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
@@ -45,6 +48,15 @@ class ScreenShotSliderController: NSViewController {
         
     }
     
+    
+    func selectItemOne() {
+       //  let indexPath = Set()
+       //  indexPath.ini
+        
+        let path = NSIndexPath.init(forItem: 0, inSection: 0)
+        
+        self.collectionView.selectItems(at: Set([path]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
+    }
     
     func reloadContents() {
         
@@ -59,7 +71,6 @@ class ScreenShotSliderController: NSViewController {
         
         self.collectionView.resignFirstResponder()
         self.resignFirstResponder()
-
     }
     
     

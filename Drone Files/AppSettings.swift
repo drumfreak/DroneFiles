@@ -19,6 +19,8 @@ struct AppSettings {
     var fileSequenceNameTag = ""
     var projectDirectory = ""
     
+    var blockScreenShotTabSwitch = true
+    
     var mediaBinUrls = [URL]()
     
     //{
