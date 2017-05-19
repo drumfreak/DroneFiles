@@ -14,6 +14,12 @@ class ScreenShotSliderController: NSViewController {
     // View controllers
     
     @IBOutlet weak var collectionView: NSCollectionView!
+    @IBOutlet weak var countLabel: NSButton!
+    
+    @IBOutlet weak var scrollView: ThemeScrollView!
+
+    
+    var viewConfigured = false
     
     let mediaBinLoader = MediaBinLoader()
     
@@ -25,8 +31,18 @@ class ScreenShotSliderController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.countLabel.stringValue = "0"
+
         self.appDelegate.screenShotSliderController = self
         self.reloadContents()
+        self.collectionView.resignFirstResponder()
+        self.resignFirstResponder()
+        
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+        
+        
     }
     
     
@@ -38,23 +54,24 @@ class ScreenShotSliderController: NSViewController {
         
         configureCollectionView()
         collectionView.reloadData()
+        
+        self.countLabel.title = String(format: "%1d", self.appSettings.mediaBinUrls.count)
+        
+        self.collectionView.resignFirstResponder()
+        self.resignFirstResponder()
+
     }
     
     
     
-//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-//        print("SEGUE");
-//        print(segue.identifier!)
-//        if segue.identifier == "showExternalWindow" {
-//            //    self.appDelegate.videoPlayerViewController = segue.destinationController as? VideoPlayerViewController
-//            print ("showExternalWindow Loaded by segue");
-//            
-//
-//        }
+    
+    @IBAction func clearMediaBin (_ sender : AnyObject) {
+        self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
         
-  //  }
-    
-    
+        self.reloadContents()
+    }
+ 
+ 
     @IBAction func openSecondDisplay (_ sender : AnyObject) {
        /*
         self.appDelegate.externalScreens = NSScreen.externalScreens()
@@ -76,17 +93,24 @@ class ScreenShotSliderController: NSViewController {
     }
     
     private func configureCollectionView() {
-        // 1
-        let flowLayout = NSCollectionViewFlowLayout()
-        flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
-        flowLayout.sectionInset = EdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
-        flowLayout.minimumInteritemSpacing = 20.0
-        flowLayout.minimumLineSpacing = 20.0
-        collectionView.collectionViewLayout = flowLayout
-        // 2
-        view.wantsLayer = true
-        // 3
-        collectionView.layer?.backgroundColor = NSColor.black.cgColor
+        
+        if(!self.viewConfigured) {
+            
+            // 1
+            let flowLayout = NSCollectionViewFlowLayout()
+            flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
+            flowLayout.sectionInset = EdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+            flowLayout.minimumInteritemSpacing = 20.0
+            flowLayout.minimumLineSpacing = 20.0
+            self.collectionView.collectionViewLayout = flowLayout
+            // 2
+            view.wantsLayer = true
+            // 3
+            self.collectionView.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+            self.viewConfigured = true
+        }
+      
+       
     }
     
 }
@@ -114,7 +138,88 @@ extension ScreenShotSliderController : NSCollectionViewDataSource {
         // 5
         let imageFile = mediaBinLoader.imageFileForIndexPath(indexPath as IndexPath)
         collectionViewItem.imageFile = imageFile
+        
+        
+        if let selectedIndexPath = collectionView.selectionIndexPaths.first, selectedIndexPath == indexPath {
+            collectionViewItem.setHighlight(selected: true)
+        } else {
+            collectionViewItem.setHighlight(selected: false)
+        }
+        
+        
         return item
     }
     
+}
+
+extension ScreenShotSliderController : NSCollectionViewDelegate {
+    // 1
+    
+    
+    internal func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let indexPath = indexPaths.first else {
+            return
+        }
+        // 3
+        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+            return
+        }
+        let img = (item as! ScreenShotCollectionViewItem)
+        
+    
+        //  print(img.imageFile)
+        
+         self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        
+        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        
+    }
+
+    
+    private func collectionView(collectionView: NSCollectionView, didSelectItemsAtIndexPaths indexPaths: Set<NSIndexPath>) {
+        // 2
+        guard let indexPath = indexPaths.first else {
+            return
+        }
+        // 3
+        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+            return
+        }
+        let img = (item as! ScreenShotCollectionViewItem)
+        
+        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        
+        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+
+    }
+    
+    // 4
+    
+    internal func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        
+        guard let indexPath = indexPaths.first else {
+            return
+        }
+        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+            return
+        }
+        (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
+
+    }
+    
+    
+    private func collectionView(collectionView: NSCollectionView, didDeselectItemsAtIndexPaths indexPaths: Set<NSIndexPath>) {
+        guard let indexPath = indexPaths.first else {
+            return
+        }
+        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+            return
+        }
+//        let img = (item as! ScreenShotCollectionViewItem)
+//        
+//        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        
+
+        (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
+    }
 }

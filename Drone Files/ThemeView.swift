@@ -22,7 +22,6 @@ class ThemeViewDark: NSView {
 
 
 class ThemeViewDarkBox1: NSBox {
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.wantsLayer = true
@@ -34,7 +33,6 @@ class ThemeViewDarkBox1: NSBox {
 
 
 class ThemeSplitViewMain: NSSplitView {
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.wantsLayer = true
@@ -45,5 +43,42 @@ class ThemeSplitViewMain: NSSplitView {
     }
 }
 
+
+class ThemeCollectionView: NSCollectionView {
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        self.wantsLayer = true
+        // Swift.print("SplitView Init")
+        
+        self.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+        
+    }
+}
+
+
+
+class ThemeClipView: NSClipView {
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        self.wantsLayer = true
+        // Swift.print("SplitView Init")
+        
+        self.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+        
+    }
+}
+
+
+
+class ThemeScrollView: NSScrollView {
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        self.wantsLayer = true
+        // Swift.print("SplitView Init")
+        
+        self.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+        
+    }
+}
 
 

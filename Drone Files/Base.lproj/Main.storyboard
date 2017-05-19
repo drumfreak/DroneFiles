@@ -1439,61 +1439,82 @@
         <scene sceneID="Eng-JV-XKr">
             <objects>
                 <viewController id="icX-yH-ocJ" customClass="ScreenShotSliderController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="UMQ-Ij-lSF">
+                    <view key="view" id="UMQ-Ij-lSF" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="218"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView wantsLayer="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-Oo-nwe">
+                            <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-Oo-nwe" customClass="ThemeScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="760" height="192"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="kqC-NA-6BJ">
-                                    <rect key="frame" x="1" y="1" width="758" height="190"/>
+                                <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="kqC-NA-6BJ" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="760" height="192"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView ambiguous="YES" id="RcQ-Zu-56k">
-                                            <rect key="frame" x="0.0" y="0.0" width="758" height="190"/>
+                                        <collectionView ambiguous="YES" selectable="YES" id="RcQ-Zu-56k" customClass="ThemeCollectionView" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="192"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="w7c-0M-HXc">
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="UH0-hs-T7a">
                                                 <size key="itemSize" width="50" height="50"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="icX-yH-ocJ" id="5ys-8B-YUf"/>
+                                                <outlet property="delegate" destination="icX-yH-ocJ" id="58Q-Kg-wFF"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="On9-pB-5Mz">
-                                    <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                    <rect key="frame" x="-100" y="-100" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="MY8-03-8aN">
-                                    <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                                    <rect key="frame" x="-100" y="-100" width="16" height="190"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXj-vI-2Rg">
-                                <rect key="frame" x="340" y="188" width="81" height="32"/>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIW-Gg-8BT" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="330" y="192" width="100" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5SG-15-fjf">
+                                <buttonCell key="cell" type="square" title="View External" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Qo1-ot-cvI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="openSecondDisplay:" target="icX-yH-ocJ" id="QTF-vQ-lUg"/>
-                                    <segue destination="j3G-sP-691" kind="show" id="pFn-4S-VGm"/>
+                                    <segue destination="j3G-sP-691" kind="show" id="xwy-hM-eMt"/>
                                 </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EeQ-AS-d5T" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="651" y="193" width="100" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="oNo-s3-ExH">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clearMediaBin:" target="icX-yH-ocJ" id="x0S-Be-OOK"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PFz-bj-fWz">
+                                <rect key="frame" x="14" y="195" width="27" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="inline" title="23" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="6Be-hp-nUk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="systemBold"/>
+                                </buttonCell>
                             </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="RcQ-Zu-56k" id="6S1-ca-Tyt"/>
+                        <outlet property="countLabel" destination="PFz-bj-fWz" id="0dx-0u-rxB"/>
+                        <outlet property="scrollView" destination="sJL-Oo-nwe" id="eiq-sd-aA6"/>
                     </connections>
                 </viewController>
                 <customObject id="Moj-Gh-uWB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-909" y="3577"/>
+            <point key="canvasLocation" x="-2285" y="3564"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="SPo-Yj-KQn">
@@ -1506,46 +1527,12 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
                     </window>
                     <connections>
-                        <segue destination="KWF-xB-Ixc" kind="relationship" relationship="window.shadowedContentViewController" id="TbO-Gj-elc"/>
+                        <segue destination="WEp-or-sWK" kind="relationship" relationship="window.shadowedContentViewController" id="cAJ-n7-x4z"/>
                     </connections>
                 </windowController>
                 <customObject id="aUD-EN-KNy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1037" y="3958"/>
-        </scene>
-        <!--Secondary Display Media View Controller-->
-        <scene sceneID="A0R-0Q-5I9">
-            <objects>
-                <viewController id="KWF-xB-Ixc" customClass="SecondaryDisplayMediaViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="sQ7-nw-eYl">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n8J-PB-35k">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="darkbackground-3.png" id="48l-LQ-brx"/>
-                            </imageView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H7H-uG-Qw4" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="929" y="720" width="81" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E13-7b-yDY">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="goFullScreen:" target="KWF-xB-Ixc" id="0MP-Wn-aed"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="n8J-PB-35k" id="gR6-mw-4kx"/>
-                    </connections>
-                </viewController>
-                <customObject id="wx2-E5-V0b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1029" y="4720"/>
+            <point key="canvasLocation" x="-1029" y="4114"/>
         </scene>
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
@@ -3654,11 +3641,63 @@
             </objects>
             <point key="canvasLocation" x="1140" y="2118"/>
         </scene>
+        <!--Secondary Display Media View Controller-->
+        <scene sceneID="Dqh-ax-Mwa">
+            <objects>
+                <viewController storyboardIdentifier="secondaryDisplayMediaViewController" id="WEp-or-sWK" customClass="SecondaryDisplayMediaViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="4hW-vA-26T">
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="hnq-8u-3zg">
+                                <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <clipView key="contentView" ambiguous="YES" id="bHM-db-3HY">
+                                    <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t44-db-lTj">
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <ikImageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="grO-Kb-7jj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="0.50002289" green="0.50002289" blue="0.50002289" alpha="1" colorSpace="deviceRGB"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="WEp-or-sWK" id="1I5-8c-B4p"/>
+                                                    </connections>
+                                                </ikImageView>
+                                            </subviews>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="ziv-bK-1F3">
+                                    <rect key="frame" x="-100" y="-100" width="760" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="nfX-IY-X0E">
+                                    <rect key="frame" x="-100" y="-100" width="16" height="404"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="imageEditorView" destination="t44-db-lTj" id="2MC-ek-hMV"/>
+                        <outlet property="imageView" destination="grO-Kb-7jj" id="EGk-4b-Zh7"/>
+                        <outlet property="scrollView" destination="hnq-8u-3zg" id="ACf-ZK-ZHk"/>
+                    </connections>
+                </viewController>
+                <customObject id="IEk-Mk-Weh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1670" y="4209"/>
+        </scene>
     </scenes>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="appicon-64px" width="64" height="64"/>
         <image name="darkbackground" width="1200" height="1000"/>
-        <image name="darkbackground-3.png" width="128" height="128"/>
     </resources>
 </document>

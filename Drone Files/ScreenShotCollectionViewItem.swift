@@ -28,6 +28,15 @@ class ScreenShotCollectionViewItem: NSCollectionViewItem {
         override func viewDidLoad() {
             super.viewDidLoad()
             view.wantsLayer = true
-            view.layer?.backgroundColor = NSColor.lightGray.cgColor
+            view.layer?.backgroundColor = self.appSettings.imageThumbnailHolder.cgColor
+            
+            view.layer?.borderWidth = 0.0
+            // 2
+            view.layer?.borderColor = self.appSettings.tableRowActiveBackGroundColor.cgColor
         }
+    
+    
+    func setHighlight(selected: Bool) {
+        view.layer?.borderWidth = selected ? 5.0 : 0.0
+    }
 }

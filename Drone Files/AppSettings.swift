@@ -190,5 +190,10 @@ struct AppSettings {
     
     var textLabelColor = NSColor.gray
     
+    // Image thumbnail for collection View Backgrounds
+    // tableHeaderRow
+    var imageThumbnailHolder =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
+
+    
     
 }

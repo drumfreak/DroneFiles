@@ -14,10 +14,11 @@ class ImageFile {
     
     fileprivate(set) var thumbnail: NSImage?
     fileprivate(set) var fileName: String
+    fileprivate(set) var imgUrl: URL!
     
     init (url: URL) {
        self.fileName = url.lastPathComponent
-       
+       self.imgUrl = url
         let imageSource = CGImageSourceCreateWithURL(url.absoluteURL as CFURL, nil)
         if let imageSource = imageSource {
             guard CGImageSourceGetType(imageSource) != nil else { return }

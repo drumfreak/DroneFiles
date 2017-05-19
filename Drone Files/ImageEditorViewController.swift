@@ -28,12 +28,8 @@ class ImageEditorViewController: NSViewController {
     @IBOutlet var imageName: NSTextField!
     @IBOutlet var imageEditorView: NSView!
     
-    @IBOutlet weak var dateField: NSTextField!
-    @IBOutlet weak var flightName: NSTextField!
     @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
-    @IBOutlet var flightNameVar: String!
-    @IBOutlet var dateNameVar: String!
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     var nowPlayingURL: URL!
