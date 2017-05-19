@@ -157,6 +157,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.appSettings.screenshotFramesInterval = (defaults.value(forKey: "screenshotFramesInterval"))! as! Double
         }
         
+//        if(defaults.value(forKey: "mediaBinUrls") != nil) {
+//            self.appSettings.mediaBinUrls = (defaults.value(forKey: "mediaBinUrls"))! as? NSMutableArray
+//        }
+        
     }
     
 

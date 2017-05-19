@@ -801,7 +801,7 @@ class VideoPlayerControllsController: NSViewController {
                 // DispatchQueue.main.async {
                 
                 self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-                    // self.updateTimerLabel()
+                        self.updateTimerLabel()
                 })
                 
                 
@@ -821,7 +821,7 @@ class VideoPlayerControllsController: NSViewController {
                 // DispatchQueue.main.async {
                 
                 self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-                    // self.updateTimerLabel()
+                    self.updateTimerLabel()
                 })
                 
                 
@@ -850,11 +850,12 @@ class VideoPlayerControllsController: NSViewController {
             messageBox(hidden: true)
             return
         }
+        
         print("Taking Screenshot");
         
         
     self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-            // self.updateTimerLabel()
+            self.updateTimerLabel()
         })
         
         

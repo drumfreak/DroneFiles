@@ -145,7 +145,6 @@ class ScreenshotViewController: NSViewController {
                 let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)!
                 
                 if(self.appSettings.screenshotPreview) {
-                    
                     self.appDelegate.imageEditorViewController?.loadImage(_url: url)
                     self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
                     
@@ -204,7 +203,13 @@ class ScreenshotViewController: NSViewController {
         
         if img != nil {
             if(saveImage(image: img!)) {
-                return URL(string: self.screenshotNameFullURL)
+                let url = URL(string: self.screenshotNameFullURL)
+                
+                self.appDelegate.appSettings.mediaBinUrls?.add(url!.absoluteString)
+                
+                print("\(String(describing: self.appDelegate.appSettings.mediaBinUrls))")
+                
+                return url
             } else {
                 return nil
             }

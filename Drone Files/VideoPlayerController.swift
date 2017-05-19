@@ -82,6 +82,9 @@ class VideoPlayerViewController: NSViewController {
         self.playerView.showsFullScreenToggleButton = true
         self.playerView.player = AVPlayer(playerItem: self.playerItem)
         
+        
+        self.playerView.player?.volume = 0.0
+        
         self.playerView.player?.addObserver(self,
                                             forKeyPath: #keyPath(AVPlayerItem.status),
                                             options: [.old, .new],

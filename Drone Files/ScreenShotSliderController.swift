@@ -18,7 +18,6 @@ class ScreenShotSliderController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureCollectionView()
     }
     
