@@ -107,6 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func setupOptions() {
         let defaults = UserDefaults.standard
+        // defaults.setValue([], forKey: "mediaBinUrls")
 
         
         if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
@@ -122,6 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(0.1, forKey: "screenshotFramesInterval")
             defaults.setValue(5, forKey: "screenshotFramesAfter")
             defaults.setValue(5, forKey: "screenshotFramesBefore")
+            defaults.setValue(0.2, forKey: "mediaBinTimerInterval")
             defaults.setValue(false, forKey: "loadNewClip")
         }
         
@@ -130,8 +132,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
             self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
         }
-        
-        
+    
     
         if(defaults.value(forKey: "screenshotPreserveVideoLocation") != nil) {
             self.appSettings.screenshotPreserveVideoLocation = (defaults.value(forKey: "screenshotPreserveVideoLocation"))! as! Bool
@@ -184,6 +185,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if(defaults.value(forKey: "screenshotFramesInterval") != nil) {
             self.appSettings.screenshotFramesInterval = (defaults.value(forKey: "screenshotFramesInterval"))! as! Double
         }
+        
+        
+        if(defaults.value(forKey: "mediaBinTimerInterval") != nil) {
+            self.appSettings.mediaBinTimerInterval = (defaults.value(forKey: "mediaBinTimerInterval"))! as! Double
+        }
+        
+        if(defaults.value(forKey: "mediaBinUrls") != nil) {
+            if let data = defaults.value(forKey: "mediaBinUrls") as? NSData {
+                self.appSettings.mediaBinUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
+                    print(self.appSettings.mediaBinUrls)
+            }
+            
+            if(self.appSettings.mediaBinUrls.count > 0) {
+                self.screenShotSliderController.reloadContents()
+                self.screenShotSliderController.selectItemOne()
+            }
+        }
+        
+        
         
 //        if(defaults.value(forKey: "mediaBinUrls") != nil) {
 //            self.appSettings.mediaBinUrls = (defaults.value(forKey: "mediaBinUrls"))! as? NSMutableArray

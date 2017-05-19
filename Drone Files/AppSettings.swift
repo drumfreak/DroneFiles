@@ -14,6 +14,19 @@ struct AppSettings {
     let userDefaults = UserDefaults.standard
 
     
+    var secondDisplayIsOpen = false {
+        didSet {
+            
+        }
+    }
+    
+    
+    var mediaBinSlideshowRunning = false {
+        didSet {
+            
+        }
+    }
+    
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
     var fileSequenceName = ""
     var fileSequenceNameTag = ""
@@ -21,18 +34,22 @@ struct AppSettings {
     
     var blockScreenShotTabSwitch = true
     
-    var mediaBinUrls = [URL]()
-    
-    //{
-//        didSet {
+    var mediaBinUrls = [URL]() {
+        didSet {
+            print(mediaBinUrls)
+            
+            let data = NSKeyedArchiver.archivedData(withRootObject: mediaBinUrls)
+            
+            userDefaults.setValue(data, forKey: "mediaBinUrls")
+
 //            if let output = mediaBinUrls {
 //                print("Fuck yeah set the media array")
 //
 //                print("\(String(describing: output))")
 //                userDefaults.setValue(output, forKey: "mediaBinUrls")
 //            }
-//        }
-   // }
+        }
+    }
     
     var outputDirectory: String! {
         didSet {
@@ -155,6 +172,15 @@ struct AppSettings {
     }
     
     
+    // Media Bin Stuff
+    
+    var mediaBinTimerInterval = Double(0.2) {
+        didSet {
+            userDefaults.setValue(mediaBinTimerInterval, forKey: "mediaBinTimerInterval")
+        }
+    }
+    
+
     
     // colors
     var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)

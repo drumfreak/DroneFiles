@@ -128,7 +128,6 @@ class ScreenShotSettingsViewController: NSViewController {
         self.screenshotFolderLabel.stringValue = (URL(string: self.appSettings.screenShotFolder)?.lastPathComponent
             )!
         
-        
         self.numShotSBeforeTextField.intValue = self.appSettings.screenshotFramesBefore
         
         self.numShotsAfterTextField.intValue = self.appSettings.screenshotFramesAfter

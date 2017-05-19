@@ -15,12 +15,15 @@ class ScreenShotSliderController: NSViewController {
     
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var countLabel: NSButton!
-    
-    @IBOutlet weak var scrollView: ThemeScrollView!
+    @IBOutlet var mediaShowIntervalSlider: NSSlider!
+    @IBOutlet weak var startShowButton: NSButton!
 
-    
+    @IBOutlet weak var scrollView: ThemeScrollView!
+    @IBOutlet var mediaShowRateLabel: NSTextField!
+    @IBOutlet weak var mediaBinSlideshowTimer: Timer!
+
     var viewConfigured = false
-    
+    var currentSlide = 0
     let mediaBinLoader = MediaBinLoader()
     
     
@@ -41,22 +44,44 @@ class ScreenShotSliderController: NSViewController {
 
         self.selectItemOne()
 
-        
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
         
+        self.mediaShowIntervalSlider.doubleValue =  self.appDelegate.appSettings.mediaBinTimerInterval
+        
+        self.mediaShowRateLabel.doubleValue = self.appDelegate.appSettings.mediaBinTimerInterval
         
     }
     
     
     func selectItemOne() {
-       //  let indexPath = Set()
-       //  indexPath.ini
-        
         let path = NSIndexPath.init(forItem: 0, inSection: 0)
-        
         self.collectionView.selectItems(at: Set([path]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
     }
+    
+    
+    func selectItemByIndex(int: Int) {
+        let indexPath = NSIndexPath.init(forItem: int, inSection: 0)
+        
+        self.collectionView.selectItems(at: Set([indexPath]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
+        
+        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+            return
+        }
+        let img = (item as! ScreenShotCollectionViewItem)
+        
+        
+        //  print(img.imageFile)
+        
+        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        
+        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+    
+
+        
+
+    }
+    
     
     func reloadContents() {
         
@@ -78,9 +103,39 @@ class ScreenShotSliderController: NSViewController {
     
     @IBAction func clearMediaBin (_ sender : AnyObject) {
         self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
-        
         self.reloadContents()
     }
+    
+    
+    @IBAction func startMediaShow (_ sender : AnyObject) {
+       //  self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
+        
+        // self.reloadContents()
+        
+        if(self.appSettings.mediaBinSlideshowRunning == true) {
+            self.stopTimer()
+            self.startShowButton.stringValue = "Start Show"
+        } else {
+            self.startTimer()
+            self.startShowButton.stringValue = "Stop Show"
+
+        }
+        
+    }
+    
+    @IBAction func mediaShowRateSliderChanged(_ sender: NSSlider) {
+        // let slider = sender as! NSSlider
+        print(sender.doubleValue)
+        self.appDelegate.appSettings.mediaBinTimerInterval = sender.doubleValue
+    
+       self.mediaShowRateLabel.doubleValue = sender.doubleValue
+        
+        if(self.appSettings.mediaBinSlideshowRunning) {
+            self.stopTimer()
+            self.startTimer()
+        }
+    }
+
  
  
     @IBAction func openSecondDisplay (_ sender : AnyObject) {
@@ -120,9 +175,72 @@ class ScreenShotSliderController: NSViewController {
             self.collectionView.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
             self.viewConfigured = true
         }
-      
-       
     }
+    
+    
+    func startTimer() {
+        
+        self.appDelegate.appSettings.mediaBinSlideshowRunning = true
+        
+        self.currentSlide = 0
+        // if(self.whatTheFucktimer == nil) {
+        //DispatchQueue.main.async {
+            print("Running Timer")
+        // }
+        
+        
+       // DispatchQueue.global().async() {
+            self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
+        
+                RunLoop.current.add(self.mediaBinSlideshowTimer, forMode: RunLoopMode.commonModes)
+        
+       // }
+
+    }
+    
+    func stopTimer() {
+        self.appDelegate.appSettings.mediaBinSlideshowRunning = false
+        if(self.mediaBinSlideshowTimer != nil) {
+            if(self.mediaBinSlideshowTimer.isValid) {
+                print("Invalidating Timer")
+                // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
+                self.mediaBinSlideshowTimer.invalidate()
+            }
+        }
+        
+    }
+    
+    func nextSlide() {
+        
+        print("Hey next slide!")
+        
+       self.currentSlide += 1
+        
+        if(self.currentSlide >= self.appDelegate.appSettings.mediaBinUrls.count) {
+            
+            self.currentSlide = 0
+        }
+    
+        print("Selecting : i \(self.currentSlide)")
+        
+        DispatchQueue.main.async {
+        
+            self.selectItemByIndex(int: self.currentSlide)
+            
+            self.collectionView.reloadData()
+
+        }
+        
+        
+        
+       // self.collectionView.sele
+        
+    }
+
+    
+    
+    
+    
     
 }
 
