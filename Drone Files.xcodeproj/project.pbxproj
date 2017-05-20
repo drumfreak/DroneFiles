@@ -53,6 +53,7 @@
 		188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272531ECB9BB100EE50D0 /* tablerow-black.png */; };
 		188272561ECBFAE800EE50D0 /* NewProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272551ECBFAE800EE50D0 /* NewProjectController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
+		18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
 		18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */; };
@@ -158,6 +159,7 @@
 		188272531ECB9BB100EE50D0 /* tablerow-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-black.png"; path = "../../../Dronefiles/tablerow-black.png"; sourceTree = "<group>"; };
 		188272551ECBFAE800EE50D0 /* NewProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProjectController.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
+		18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraBrowserController.swift; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
 		18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsMoveController.swift; sourceTree = "<group>"; };
@@ -218,7 +220,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18740B6D1ECD54EB003803B4 /* ScreenShot Collection */ = {
+		18740B6D1ECD54EB003803B4 /* MediaBin Collection */ = {
 			isa = PBXGroup;
 			children = (
 				18DD9F561ECE8E0F008E9E02 /* Image Collection View */,
@@ -227,7 +229,7 @@
 				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 			);
-			name = "ScreenShot Collection";
+			name = "MediaBin Collection";
 			sourceTree = "<group>";
 		};
 		187843A81EB3CE8300BCD214 /* Video Player */ = {
@@ -281,6 +283,23 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		18976E021ED08CB000A04CD2 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				1883B15C1EAC445D00D722D5 /* Submarine.aiff */,
+				18BAABA61EADA2CB00EE5434 /* Shutter.aif */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		18976E031ED08CCD00A04CD2 /* Camera Import */ = {
+			isa = PBXGroup;
+			children = (
+				18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */,
+			);
+			name = "Camera Import";
+			sourceTree = "<group>";
+		};
 		189D40BA1EC244D700E1298C /* Image Editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,17 +315,16 @@
 		18A483031EAFFE8B007F735B /* File Manager */ = {
 			isa = PBXGroup;
 			children = (
+				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
 				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
 				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				188272151ECA5FD300EE50D0 /* Document.swift */,
-				18740B6D1ECD54EB003803B4 /* ScreenShot Collection */,
 				188272171ECA61F000EE50D0 /* DocumentController.swift */,
 				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
 				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
 				185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */,
 				185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */,
 				185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */,
-				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
 				18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */,
 				18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */,
 				18B001FC1EA6A0A8003C3214 /* Directory.swift */,
@@ -341,21 +359,22 @@
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
 				188272131EC9E19800EE50D0 /* AppSettings.swift */,
-				187843A81EB3CE8300BCD214 /* Video Player */,
-				18A483031EAFFE8B007F735B /* File Manager */,
+				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
-				189D40BA1EC244D700E1298C /* Image Editor */,
-				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
-				1882722B1ECA7A4A00EE50D0 /* Theme Customizations */,
 				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
 				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
+				18976E031ED08CCD00A04CD2 /* Camera Import */,
+				18A483031EAFFE8B007F735B /* File Manager */,
+				18740B6D1ECD54EB003803B4 /* MediaBin Collection */,
+				189D40BA1EC244D700E1298C /* Image Editor */,
+				1882722B1ECA7A4A00EE50D0 /* Theme Customizations */,
 				18DD9F5D1ECEB0E9008E9E02 /* Window Controllers */,
-				1883B15C1EAC445D00D722D5 /* Submarine.aiff */,
-				18BAABA61EADA2CB00EE5434 /* Shutter.aif */,
-				18B001D31EA69C92003C3214 /* Assets.xcassets */,
+				187843A81EB3CE8300BCD214 /* Video Player */,
 				188272381ECAC74E00EE50D0 /* Images */,
+				18976E021ED08CB000A04CD2 /* Sounds */,
+				18B001D31EA69C92003C3214 /* Assets.xcassets */,
 				18B001D81EA69C92003C3214 /* Info.plist */,
 				18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */,
 			);
@@ -573,6 +592,7 @@
 				188272411ECAD55400EE50D0 /* ThemeTabViewItem.swift in Sources */,
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
+				18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */,
 				1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */,
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,

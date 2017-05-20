@@ -87,7 +87,19 @@ class ScreenShotSliderController: NSViewController {
         
         // mediaBinLoader.loadDataForFolderWithUrl(initialFolderUrl)
         
-        mediaBinLoader.loadDataFromUrls(self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray)
+        var boo = [] as NSArray
+        var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
+        foo = foo.reversed() as! NSMutableArray
+        
+        if(foo.count > 10) {
+            boo = Array(foo.prefix(10)) as NSArray
+            foo = boo.mutableCopy() as! NSMutableArray
+            
+            mediaBinLoader.loadDataFromUrls(foo)
+        } else {
+            mediaBinLoader.loadDataFromUrls(foo)
+        }
+    
         
         configureCollectionView()
         collectionView.reloadData()
