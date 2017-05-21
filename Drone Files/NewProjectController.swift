@@ -20,7 +20,8 @@ class NewProjectViewController: NSViewController {
     @IBOutlet var outputDirectoryButton: ThemeButton!
     @IBOutlet var outputDirectoryLabel: ThemeLabel!
 
-    
+    @IBOutlet var thumbnailDirectoryButton: ThemeButton!
+    @IBOutlet var thumbnailDirectoryLabel: ThemeLabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,10 @@ class NewProjectViewController: NSViewController {
         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.outputDirectory)
         
         self.projectNameTextField.stringValue = self.appSettings.fileSequenceName
-        
+        if(self.appSettings.thumbnailDirectory != nil) {
+
+            self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.thumbnailDirectory)
+        }
         
     }
     
@@ -80,6 +84,32 @@ class NewProjectViewController: NSViewController {
     }
     
     
+    
+    // Open directory for tableview
+    @IBAction func chooseThumbnailDirectory(_ sender: AnyObject?) {
+        let openPanel = NSOpenPanel()
+        openPanel.showsHiddenFiles = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = true
+        openPanel.resolvesAliases = true
+        
+        openPanel.begin(completionHandler: {(result:Int) in
+            if(result == NSFileHandlingPanelOKButton) {
+                self.appDelegate.appSettings.thumbnailDirectory = (openPanel.url?.absoluteString)!
+                self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.thumbnailDirectory)
+                // UserDefaults.standard.setValue(self.appDelegate.appSettings.thumbnailDirectory, forKey: "thumbnailDirectory")
+                // self.setupProjectDirectory()
+            }
+            
+        })
+    }
+
+    
+    
+    
+    
+    
     @IBAction func createNewProject(sender: AnyObject) {
         
         // self.projectNameTextField.resignFirstResponder()
@@ -92,7 +122,7 @@ class NewProjectViewController: NSViewController {
         
         UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
         
-       self.appDelegate.fileBrowserViewController.setupProjectDirectory()
+        self.appDelegate.fileBrowserViewController.setupProjectDirectory()
         
         self.appDelegate.fileBrowserViewController.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
         
