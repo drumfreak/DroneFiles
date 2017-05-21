@@ -892,7 +892,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flY-8v-WXh" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
-                                            <rect key="frame" x="109" y="110" width="152" height="18"/>
+                                            <rect key="frame" x="109" y="83" width="152" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Use Project Directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Vk-ta-6Eb">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -914,7 +914,7 @@
                                             </connections>
                                         </button>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37j-lU-cnc" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
-                                            <rect key="frame" x="109" y="88" width="143" height="18"/>
+                                            <rect key="frame" x="109" y="61" width="143" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Use Sub Directories" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UX0-Jd-cf6">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -922,6 +922,26 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="createProjectSubDirectoriesCheckbox:" target="d8w-EJ-f8R" id="E0o-dS-lBC"/>
+                                            </connections>
+                                        </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPf-Lj-aJQ" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="202" y="111" width="229" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="output directory" id="TIW-6K-GJ9">
+                                                <font key="font" metaFont="systemBold" size="10"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Sx-iG-9E5" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                            <rect key="frame" x="111" y="108" width="80" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="square" title="Choose" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="6df-I1-rCj">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="chooseThumbnailDirectory:" target="d8w-EJ-f8R" id="bEv-4C-aRG"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -934,6 +954,8 @@
                         <outlet property="outputDirectoryButton" destination="Pnc-29-R7W" id="Mqh-DL-Xfj"/>
                         <outlet property="outputDirectoryLabel" destination="H77-6Q-6jM" id="SAz-9s-xYw"/>
                         <outlet property="projectNameTextField" destination="gY5-7E-l4J" id="SyA-Q5-QCh"/>
+                        <outlet property="thumbnailDirectoryButton" destination="8Sx-iG-9E5" id="YOG-eH-K5j"/>
+                        <outlet property="thumbnailDirectoryLabel" destination="SPf-Lj-aJQ" id="1hR-X9-YMw"/>
                         <outlet property="useProjectDirectoryCheckbox" destination="flY-8v-WXh" id="7D9-W8-bxh"/>
                         <outlet property="useSubDirectoriesCheckbox" destination="37j-lU-cnc" id="Jhn-Uj-95b"/>
                     </connections>

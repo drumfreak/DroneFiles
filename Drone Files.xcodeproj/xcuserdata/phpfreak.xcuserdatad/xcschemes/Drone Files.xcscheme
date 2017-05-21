@@ -85,12 +85,12 @@
          <EnvironmentVariable
             key = "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"
             value = "1"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CA_DEBUG_TRANSACTIONS"
             value = "0"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
