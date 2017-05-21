@@ -81,12 +81,18 @@
             ReferencedContainer = "container:Drone Files.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints YES"
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"
+            value = "1"
             isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "CA_DEBUG_TRANSACTIONS"
+            value = "0"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

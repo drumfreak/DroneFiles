@@ -88,6 +88,7 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem isSeparatorItem="YES" id="HGO-AX-Cb1"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
@@ -672,6 +673,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Image Editor" id="G5H-QV-4Mo" userLabel="Image Editor">
                                     <items>
+                                        <menuItem title="Add/Remove Favorite" keyEquivalent="f" id="c8O-X8-K5c" userLabel="Favorite">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="addToFavorites:" target="Ady-hI-5gd" id="dew-2R-Ooz"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Hand Tool" keyEquivalent="M" id="myo-kx-rZY">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1226,7 +1233,7 @@
                                                 </connections>
                                             </button>
                                             <pathControl focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGI-zY-IQJ" customClass="ThemePathControl" customModule="Drone_Files" customModuleProvider="target">
-                                                <rect key="frame" x="89" y="372" width="437" height="26"/>
+                                                <rect key="frame" x="89" y="372" width="381" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <pathCell key="cell" selectable="YES" editable="YES" focusRingType="none" alignment="left" pathStyle="popUp" id="VvR-qL-MVH" customClass="ThemePathControlCell" customModule="Drone_Files" customModuleProvider="target">
                                                     <font key="font" metaFont="system" size="10"/>
@@ -1400,6 +1407,17 @@
                                                 </view>
                                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.1386451198630137" colorSpace="custom" customColorSpace="sRGB"/>
                                             </box>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAU-9X-aaG">
+                                                <rect key="frame" x="509" y="370" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="heart-inactive" imagePosition="only" alignment="center" alternateImage="heart-active" imageScaling="proportionallyUpOrDown" inset="2" id="a1H-vN-7iA">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="addFavorite:" target="ZvK-30-Mbm" id="IQm-ed-pKT"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </customView>
                                 </subviews>
@@ -1419,6 +1437,7 @@
                     </view>
                     <connections>
                         <outlet property="currentFolderPathControl" destination="dGI-zY-IQJ" id="Dg7-0B-GJT"/>
+                        <outlet property="favoriteButton" destination="JAU-9X-aaG" id="lIV-ww-XJl"/>
                         <outlet property="fileSequenceNameTextField" destination="hfk-RY-Bd4" id="X49-9R-vRw"/>
                         <outlet property="statusLabel" destination="cW6-yz-d1H" id="Bxi-d2-dqy"/>
                         <outlet property="tableView" destination="aqc-Ti-zl8" id="xxQ-ob-VLa"/>
@@ -1493,7 +1512,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="760" height="231"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-Oo-nwe" customClass="ThemeScrollView">
+                            <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-Oo-nwe" customClass="">
                                 <rect key="frame" x="0.0" y="7" width="760" height="192"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="kqC-NA-6BJ" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
@@ -3832,5 +3851,7 @@ CiEKKQosCjEKOQo8Ck4KUQpWAAAAAAAAAgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAClg
 </mutableData>
         </image>
         <image name="darkbackground" width="1200" height="1000"/>
+        <image name="heart-active" width="30" height="30"/>
+        <image name="heart-inactive" width="30" height="30"/>
     </resources>
 </document>

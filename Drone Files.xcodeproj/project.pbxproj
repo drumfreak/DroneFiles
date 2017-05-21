@@ -18,6 +18,9 @@
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
 		185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */; };
 		185F4C361EB124440046C452 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C351EB124440046C452 /* Window.swift */; };
+		1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0131ED0C6FC00928FD7 /* heart-inactive.png */; };
+		1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0141ED0C6FC00928FD7 /* heart-active.png */; };
+		1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */; };
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
 		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
 		18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */; };
@@ -124,6 +127,9 @@
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
 		185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsDeleteController.swift; sourceTree = "<group>"; };
 		185F4C351EB124440046C452 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		1860F0131ED0C6FC00928FD7 /* heart-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-inactive.png"; path = "../../../Dronefiles/heart-inactive.png"; sourceTree = "<group>"; };
+		1860F0141ED0C6FC00928FD7 /* heart-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-active.png"; path = "../../../Dronefiles/heart-active.png"; sourceTree = "<group>"; };
+		1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
 		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
 		18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotSliderController.swift; sourceTree = "<group>"; };
@@ -220,6 +226,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1860F0171ED0C7CD00928FD7 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
+			);
+			name = Favorites;
+			sourceTree = "<group>";
+		};
 		18740B6D1ECD54EB003803B4 /* MediaBin Collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +279,8 @@
 				188272191ECA704F00EE50D0 /* appicon-64px.png */,
 				1882721A1ECA704F00EE50D0 /* appicon-1024px.png */,
 				1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */,
+				1860F0131ED0C6FC00928FD7 /* heart-inactive.png */,
+				1860F0141ED0C6FC00928FD7 /* heart-active.png */,
 				1882721B1ECA704F00EE50D0 /* appicon-512px.png */,
 				188272451ECB759A00EE50D0 /* darkbrownbackground.png */,
 				188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */,
@@ -365,6 +381,7 @@
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
 				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
 				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
+				1860F0171ED0C7CD00928FD7 /* Favorites */,
 				18976E031ED08CCD00A04CD2 /* Camera Import */,
 				18A483031EAFFE8B007F735B /* File Manager */,
 				18740B6D1ECD54EB003803B4 /* MediaBin Collection */,
@@ -543,6 +560,7 @@
 				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
+				1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */,
 				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
 				18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */,
 				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
@@ -551,6 +569,7 @@
 				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,
+				1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */,
 				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
@@ -589,6 +608,7 @@
 				185F4C361EB124440046C452 /* Window.swift in Sources */,
 				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
+				1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */,
 				188272411ECAD55400EE50D0 /* ThemeTabViewItem.swift in Sources */,
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,

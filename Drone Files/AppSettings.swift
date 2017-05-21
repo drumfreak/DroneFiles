@@ -33,23 +33,7 @@ struct AppSettings {
     var projectDirectory = ""
     
     var blockScreenShotTabSwitch = true
-    
-    var mediaBinUrls = [URL]() {
-        didSet {
-            print(mediaBinUrls)
-            
-            let data = NSKeyedArchiver.archivedData(withRootObject: mediaBinUrls)
-            
-            userDefaults.setValue(data, forKey: "mediaBinUrls")
 
-//            if let output = mediaBinUrls {
-//                print("Fuck yeah set the media array")
-//
-//                print("\(String(describing: output))")
-//                userDefaults.setValue(output, forKey: "mediaBinUrls")
-//            }
-        }
-    }
     
     var outputDirectory: String! {
         didSet {
@@ -65,7 +49,7 @@ struct AppSettings {
         didSet {
             if let output = lastFolderOpened {
                 // defaults.value(forKey: "outputDirectory") as! String
-                print("lastFolderOpened \(lastFolderOpened)")
+                //print("lastFolderOpened \(lastFolderOpened)")
                 
                 userDefaults.setValue(output, forKey: "lastFolderOpened")
             }
@@ -222,6 +206,32 @@ struct AppSettings {
     // tableHeaderRow
     var imageThumbnailHolder =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
 
+    // Media Bin stuff
+    var mediaBinUrls = [URL]() {
+        didSet {
+            // print(mediaBinUrls)
+            
+            let data = NSKeyedArchiver.archivedData(withRootObject: mediaBinUrls)
+            
+            userDefaults.setValue(data, forKey: "mediaBinUrls")
+            
+            //            if let output = mediaBinUrls {
+            //                print("Fuck yeah set the media array")
+            //
+            //                print("\(String(describing: output))")
+            //                userDefaults.setValue(output, forKey: "mediaBinUrls")
+            //            }
+        }
+    }
     
+    
+    // Favorites
+    var favoriteUrls = [URL]() {
+        didSet {
+            // print(favoriteUrls)
+            let data = NSKeyedArchiver.archivedData(withRootObject: favoriteUrls)
+            userDefaults.setValue(data, forKey: "favoriteUrls")
+        }
+    }
     
 }

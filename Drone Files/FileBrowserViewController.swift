@@ -28,6 +28,8 @@ class FileBrowserViewController: NSViewController {
             if let url = sourceFolderOpened {
                 // print("Source Folder Opened: \(url)")
                 directory = Directory(folderURL: url)
+                
+               
                 self.reloadFileList()
                
                 self.appDelegate.appSettings.folderURL = url.absoluteString
@@ -41,8 +43,6 @@ class FileBrowserViewController: NSViewController {
                 // self.startingDirectory = url
                 
                 self.appDelegate.appSettings.folderURL = url.absoluteString
-                
-                
             }
         }
     }
@@ -65,9 +65,11 @@ class FileBrowserViewController: NSViewController {
     let sizeFormatter = ByteCountFormatter()
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
-    
+    @IBOutlet var favoriteButton: NSButton!
+
     
     var selectedFileURLS: NSMutableArray = []
+    var addToFavoriteUrls = [URL]()
     
     @IBOutlet var videosDirectoryLabel: NSTextField!
     @IBOutlet var jpgDirectoryLabel: NSTextField!
@@ -262,7 +264,7 @@ class FileBrowserViewController: NSViewController {
                 
                 // self.appDelegate.appSettings.lastFileOpened = lastFile.absoluteString
                 
-
+                
 
             }
             
@@ -344,14 +346,12 @@ class FileBrowserViewController: NSViewController {
     
     // Open directory for tableview
     @IBAction func openProjectFile(_ sender: AnyObject?) {
-        
         let openPanel = NSOpenPanel()
         openPanel.showsHiddenFiles = true
         openPanel.canChooseFiles = true
         openPanel.canChooseDirectories = false
         openPanel.allowsMultipleSelection = false
         openPanel.resolvesAliases = true
-        
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
                 print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
@@ -370,6 +370,38 @@ class FileBrowserViewController: NSViewController {
             
         })
     }
+    
+    
+    // Add to Favorites
+    
+    
+    @IBAction func addFavorite(_ sender: AnyObject?) {
+        // print("Fuck yeah")
+        
+        self.addToFavoriteUrls.forEach { furl in
+            let f = furl
+            // print(f)
+            
+            if(self.appDelegate.appSettings.favoriteUrls.contains(f as URL)) {
+               // print("Removing URL to from favorites: \(f)")
+                let index = self.appDelegate.appSettings.favoriteUrls.index(of: f as URL)
+                self.appDelegate.appSettings.favoriteUrls.remove(at: index!)
+                self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
+            } else {
+                self.favoriteButton.image = NSImage(named: "heart-active.png")!
+
+               // print("Adding URL to favorites: \(f)")
+                self.appDelegate.appSettings.favoriteUrls.append(f)
+            }
+           
+        }
+        
+        // self.addToFavoriteUrls.removeAll(keepingCapacity: false)
+
+        // print(self.appDelegate.appSettings.favoriteUrls)
+        
+    }
+
     
 
     // Helper Functions
@@ -411,6 +443,9 @@ class FileBrowserViewController: NSViewController {
         self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.dngFolder.replacingOccurrences(of: " ", with: "%20")
         
         self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
+        
+        //self.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)!
+        
     }
     
     
@@ -533,38 +568,43 @@ class FileBrowserViewController: NSViewController {
         
         
         // self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.folderURL)
-        self.directory = Directory(folderURL: self.sourceFolderOpened)
-        self.reloadFileList()
         
-        let url = URL(string: fileName)
-        var i = 0
+        DispatchQueue.main.async {
+            self.directory = Directory(folderURL: self.sourceFolderOpened)
+            self.reloadFileList()
+            
+            let url = URL(string: fileName)
+            var i = 0
+            
+            self.directoryItems?.forEach({ directoryItem in
+                
+                let turl = directoryItem.url
+                
+                
+                if(turl.absoluteString == url?.absoluteString) {
+                    //print(directoryItem.url)
+                    //print("HOLLLY FUCK")
+                    
+                    let indexSet =  NSIndexSet(index: i) as IndexSet
+                    self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                    
+                    // self.tableView.selectRowIndexes(<#T##indexes: IndexSet##IndexSet#>, byExtendingSelection: <#T##Bool#>)
+                    
+                }
+                i += Int(1)
+                
+            })
+        }
         
-        self.directoryItems?.forEach({ directoryItem in
-            
-            
-            let turl = directoryItem.url
-            
-            
-            if(turl.absoluteString == url?.absoluteString) {
-                print(directoryItem.url)
-                print("HOLLLY FUCK")
-                
-                let indexSet =  NSIndexSet(index: i) as IndexSet
-                self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
-                
-                // self.tableView.selectRowIndexes(<#T##indexes: IndexSet##IndexSet#>, byExtendingSelection: <#T##Bool#>)
-                
-            }
-            i += Int(1)
-            
-        })
     }
     
     
     
     func reloadFileList() {
-        directoryItems = directory?.contentsOrderedBy(sortOrder, ascending: sortAscending)
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.directoryItems = self.directory?.contentsOrderedBy(self.sortOrder, ascending: self.sortAscending)
+            self.tableView.reloadData()
+        }
     }
     
     
@@ -578,14 +618,18 @@ class FileBrowserViewController: NSViewController {
                 return
         }
     
+        if(self.appSettings.favoriteUrls.contains(item.url as URL)) {
+            self.favoriteButton.image = NSImage(named: "heart-active.png")!
+        } else {
+            self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
+        }
         
         if item.isFolder {
             // 2
             // print("CLICKED FOLDER");
             // self.currentDir = item.url as URL
             // self.representedObject = item.url as Any
-        }
-        else {
+        } else {
             
             // print("SELECTED ITEM IS \(item)");
             // 3
@@ -603,8 +647,8 @@ class FileBrowserViewController: NSViewController {
                 self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
                 
                 // nowPlayingFile.stringValue = item.name;
-                var itemUrl = (item.url as URL).absoluteString
-                itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
+                var itemUrl = url.absoluteString
+                itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
                 self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false;
@@ -649,6 +693,9 @@ class FileBrowserViewController: NSViewController {
     
     func sendItemsToFileManager (showTab: Bool) {
         self.selectedFileURLS = []
+        self.addToFavoriteUrls.removeAll(keepingCapacity: false)
+        
+        
         for (_, index) in self.tableView.selectedRowIndexes.enumerated() {
             guard index >= 0,
                 let item = directoryItems?[index] else {
@@ -657,7 +704,8 @@ class FileBrowserViewController: NSViewController {
             
             // print("SELECTED ITEMS \(item.url)")
             
-            selectedFileURLS.add(item.url)
+            self.selectedFileURLS.add(item.url)
+            self.addToFavoriteUrls.append(item.url)
             
         }
         
@@ -795,6 +843,7 @@ class FileBrowserViewController: NSViewController {
                 }
                 
                 self.setupProjectDirectory()
+                self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.projectDirectory)
                 
             }
             
@@ -896,8 +945,7 @@ extension FileBrowserViewController: NSTableViewDataSource {
     }
     
     
-    
-    
+
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         // 1
         guard let sortDescriptor = tableView.sortDescriptors.first else {
@@ -991,10 +1039,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
             
             cell.textField?.stringValue = text
             cell.imageView?.image = image ?? nil
-            
-            
 
-            
             return cell
         }
         return nil
@@ -1016,6 +1061,8 @@ extension FileBrowserViewController: NSTableViewDelegate {
             if((f) != nil) {
                 //print("INDEX OF SELECTED ROW: \(i)")
                  rowView?.backgroundColor = self.appDelegate.appSettings.tableRowSelectedBackGroundColor
+                
+                
             } else {
                 //print("Unselected Row... (i)")
                 

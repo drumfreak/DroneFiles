@@ -34,7 +34,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileManagerOptionsRenameController: FileManagerOptionsRenameController!
     @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
     
-      @IBOutlet weak var screenShotSliderController: ScreenShotSliderController!
+    @IBOutlet weak var screenShotSliderController: ScreenShotSliderController!
+    
+    @IBOutlet weak var favoritesViewController: FavoritesViewController!
  
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
@@ -194,7 +196,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if(defaults.value(forKey: "mediaBinUrls") != nil) {
             if let data = defaults.value(forKey: "mediaBinUrls") as? NSData {
                 self.appSettings.mediaBinUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
-                    print(self.appSettings.mediaBinUrls)
+                   // print(self.appSettings.mediaBinUrls)
             }
             
             if(self.appSettings.mediaBinUrls.count > 0) {
@@ -202,6 +204,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.screenShotSliderController.selectItemOne()
             }
         }
+        
+        
+        
+        if(defaults.value(forKey: "favoriteUrls") != nil) {
+            if let data = defaults.value(forKey: "favoriteUrls") as? NSData {
+                self.appSettings.favoriteUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
+               // print(self.appSettings.favoriteUrls)
+            }
+            
+            if(self.appSettings.favoriteUrls.count > 0) {
+                // self.screenShotSliderController.reloadContents()
+                // self.screenShotSliderController.selectItemOne()
+            }
+        }
+        
         
         
         
@@ -389,9 +406,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func addFavoriteAD(sender: AnyObject) {
+        // self.videoPlayerControlsController?.p()
+        self.favoritesViewController.addFavorite(url: URL(string: "")!)
+        
+    }
+    
+    
     func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
        // Swift.print("Calling validate")
-        Swift.print(anItem)
+       // Swift.print(anItem)
         return true
     }
     
@@ -402,7 +426,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func openDocument(sender: AnyObject) {
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~openDocument got called")
+       //  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~openDocument got called")
     }
     
 }
