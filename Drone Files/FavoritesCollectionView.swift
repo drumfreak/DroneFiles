@@ -1,5 +1,5 @@
 //
-//  ScreenShotSliderController.swift
+//  FavoritesCollectionViewController
 //  Drone Files
 //
 //  Created by Eric Rosebrock on 5/18/17.
@@ -10,23 +10,21 @@ import Foundation
 import Cocoa
 
 
-class ScreenShotSliderController: NSViewController {
+class FavoritesCollectionViewController: NSViewController {
     // View controllers
     
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var countLabel: NSButton!
     @IBOutlet var mediaShowIntervalSlider: NSSlider!
     @IBOutlet weak var startShowButton: NSButton!
-
+    
     @IBOutlet weak var scrollView: ThemeScrollView!
     @IBOutlet var mediaShowRateLabel: NSTextField!
     @IBOutlet weak var mediaBinSlideshowTimer: Timer!
-
+    
     var viewConfigured = false
     var currentSlide = 0
     let mediaBinLoader = MediaBinLoader()
-    
-    var collectionViewLimit = 30
     
     
     func loadDataForNewFolderWithUrl(_ folderURL: URL) {
@@ -38,14 +36,12 @@ class ScreenShotSliderController: NSViewController {
         super.viewDidLoad()
         
         self.countLabel.stringValue = "0"
-
-        self.appDelegate.screenShotSliderController = self
+        
+        self.appDelegate.favoritesCollectionViewController = self
         self.reloadContents()
-        self.collectionView.resignFirstResponder()
-        self.resignFirstResponder()
-
+        
         self.selectItemOne()
-
+        
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
         
@@ -78,93 +74,111 @@ class ScreenShotSliderController: NSViewController {
         self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        
+        
+        
+        
     }
     
     
     func reloadContents() {
         
         // mediaBinLoader.loadDataForFolderWithUrl(initialFolderUrl)
-        
-        var boo = [] as NSArray
-        var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
+       
+        // var boo = [] as NSArray
+        var foo = self.appDelegate.appSettings.favoriteUrls as! NSMutableArray
         foo = foo.reversed() as! NSMutableArray
         
-        if(foo.count > 10) {
-            boo = Array(foo.prefix(10)) as NSArray
-            foo = boo.mutableCopy() as! NSMutableArray
-            
-            mediaBinLoader.loadDataFromUrls(foo)
-        } else {
-            mediaBinLoader.loadDataFromUrls(foo)
-        }
+//        if(foo.count > 10) {
+//            boo = Array(foo.prefix(10)) as NSArray
+//            foo = boo.mutableCopy() as! NSMutableArray
+//            
+//            mediaBinLoader.loadDataFromUrls(foo)
+//        } else {
+      //   }
+        
+        
+        self.mediaBinLoader.loadDataFromUrls(foo)
 
         self.configureCollectionView()
+        
+        DispatchQueue.main.async {
+
         self.collectionView.reloadData()
         
-        self.countLabel.title = String(format: "%1d", self.appSettings.mediaBinUrls.count)
+            
+        self.countLabel.title = String(format: "%1d", self.appSettings.favoriteUrls.count)
+        }
         
-        self.collectionView.resignFirstResponder()
-        self.resignFirstResponder()
+        //self.collectionView.resignFirstResponder()
+        //self.resignFirstResponder()
+        // }
     }
     
     
     
     
     @IBAction func clearMediaBin (_ sender : AnyObject) {
-        self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
+        self.appDelegate.appSettings.favoriteUrls.removeAll(keepingCapacity: false)
         self.reloadContents()
     }
     
     
     @IBAction func startMediaShow (_ sender : AnyObject) {
+        //  self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
+        
+        // self.reloadContents()
+        
         if(self.appSettings.mediaBinSlideshowRunning == true) {
             self.stopTimer()
             self.startShowButton.stringValue = "Start Show"
         } else {
             self.startTimer()
             self.startShowButton.stringValue = "Stop Show"
-
+            
         }
         
     }
     
     @IBAction func mediaShowRateSliderChanged(_ sender: NSSlider) {
         // let slider = sender as! NSSlider
-        // print(sender.doubleValue)
+        print(sender.doubleValue)
         self.appDelegate.appSettings.mediaBinTimerInterval = sender.doubleValue
-    
-       self.mediaShowRateLabel.doubleValue = sender.doubleValue
+        
+        self.mediaShowRateLabel.doubleValue = sender.doubleValue
         
         if(self.appSettings.mediaBinSlideshowRunning) {
             self.stopTimer()
             self.startTimer()
         }
     }
-
- 
- 
-    @IBAction func openSecondDisplay (_ sender : AnyObject) {
-       /*
-        self.appDelegate.externalScreens = NSScreen.externalScreens()
-        
-        let screenRect = self.appDelegate.externalScreens[0].frame
-        
-        
-
-         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
-        
-        secondWindowController?.window = secondwindow
-        
-        secondwindow.makeKeyAndOrderFront(self)
-
-        
-        secondWindowController?.showWindow(self)
-        */
     
+    
+    
+    @IBAction func openSecondDisplay (_ sender : AnyObject) {
+        /*
+         self.appDelegate.externalScreens = NSScreen.externalScreens()
+         
+         let screenRect = self.appDelegate.externalScreens[0].frame
+         
+         
+         
+         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
+         
+         secondWindowController?.window = secondwindow
+         
+         secondwindow.makeKeyAndOrderFront(self)
+         
+         
+         secondWindowController?.showWindow(self)
+         */
+        
     }
     
     private func configureCollectionView() {
+        
         if(!self.viewConfigured) {
+            
             // 1
             let flowLayout = NSCollectionViewFlowLayout()
             flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
@@ -186,13 +200,19 @@ class ScreenShotSliderController: NSViewController {
         self.appDelegate.appSettings.mediaBinSlideshowRunning = true
         
         self.currentSlide = 0
-       // DispatchQueue.global().async() {
-            self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
+        // if(self.whatTheFucktimer == nil) {
+        //DispatchQueue.main.async {
+        print("Running Timer")
+        // }
         
-                RunLoop.current.add(self.mediaBinSlideshowTimer, forMode: RunLoopMode.commonModes)
         
-       // }
-
+        // DispatchQueue.global().async() {
+        self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
+        
+        RunLoop.current.add(self.mediaBinSlideshowTimer, forMode: RunLoopMode.commonModes)
+        
+        // }
+        
     }
     
     func stopTimer() {
@@ -209,33 +229,40 @@ class ScreenShotSliderController: NSViewController {
     
     func nextSlide() {
         
-        // print("Hey next slide!")
+        print("Hey next slide!")
         
-       self.currentSlide += 1
+        self.currentSlide += 1
         
-        if(self.currentSlide <= self.collectionViewLimit) {
-            if(self.currentSlide >= self.appDelegate.appSettings.mediaBinUrls.count) {
-                self.currentSlide = 0
-            }
-        } else {
+        if(self.currentSlide >= self.appDelegate.appSettings.mediaBinUrls.count) {
+            
             self.currentSlide = 0
         }
         
-        // print("Selecting : i \(self.currentSlide)")
+        print("Selecting : i \(self.currentSlide)")
         
         DispatchQueue.main.async {
-        
+            
             self.selectItemByIndex(int: self.currentSlide)
             
             self.collectionView.reloadData()
-
+            
         }
-     
+        
+        
+        
+        // self.collectionView.sele
+        
     }
+    
+    
+    
+    
+    
+    
 }
 
 
-extension ScreenShotSliderController : NSCollectionViewDataSource {
+extension FavoritesCollectionViewController : NSCollectionViewDataSource {
     
     // 1
     func numberOfSectionsInCollectionView(collectionView: NSCollectionView) -> Int {
@@ -271,7 +298,7 @@ extension ScreenShotSliderController : NSCollectionViewDataSource {
     
 }
 
-extension ScreenShotSliderController : NSCollectionViewDelegate {
+extension FavoritesCollectionViewController : NSCollectionViewDelegate {
     // 1
     
     
@@ -285,15 +312,15 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         }
         let img = (item as! ScreenShotCollectionViewItem)
         
-    
+        
         //  print(img.imageFile)
         
-         self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
         
     }
-
+    
     
     private func collectionView(collectionView: NSCollectionView, didSelectItemsAtIndexPaths indexPaths: Set<NSIndexPath>) {
         // 2
@@ -309,7 +336,7 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
-
+        
     }
     
     // 4
@@ -323,7 +350,7 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
             return
         }
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
-
+        
     }
     
     
@@ -334,11 +361,11 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         guard let item = collectionView.item(at: indexPath as IndexPath) else {
             return
         }
-//        let img = (item as! ScreenShotCollectionViewItem)
-//        
-//        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        //        let img = (item as! ScreenShotCollectionViewItem)
+        //
+        //        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
         
-
+        
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
     }
 }

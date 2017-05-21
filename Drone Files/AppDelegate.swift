@@ -36,6 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var screenShotSliderController: ScreenShotSliderController!
     
+    @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
+    
     @IBOutlet weak var favoritesViewController: FavoritesViewController!
  
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
@@ -130,6 +132,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // print(defaults)
+        
+        if(defaults.value(forKey: "thumbnailDirectory") != nil) {
+            self.appSettings.thumbnailDirectory = (defaults.value(forKey: "thumbnailDirectory"))! as! String
+        }
+        
         
         if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
             self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
@@ -373,6 +380,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.fileBrowserViewController?.openProjectFile(self);
     }
     
+    @IBAction func openThumbnailDirectoryAD(sender: AnyObject) {
+        // self.fileBrowserViewController?.openProjectFile(self);
+    }
+    
     
     @IBAction func takeScreenShotAD(sender: AnyObject) {
         self.videoPlayerControlsController?.takeScreenshot(self);
@@ -385,7 +396,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func setVideoTrimOutAD(sender: AnyObject) {
         self.videoPlayerControlsController?.setTrimOutFromKeyboard()
     }
-    
     
     @IBAction func videoFrameDecrementAD(sender: AnyObject) {
         self.videoPlayerControlsController?.frameDecrementFromKeyboard()

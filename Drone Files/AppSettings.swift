@@ -32,7 +32,7 @@ struct AppSettings {
     var fileSequenceNameTag = ""
     var projectDirectory = ""
     
-    var blockScreenShotTabSwitch = true
+    var blockScreenShotTabSwitch = false
 
     
     var outputDirectory: String! {
@@ -43,6 +43,16 @@ struct AppSettings {
             }
         }
     }
+    
+    
+    var thumbnailDirectory: String! {
+        didSet {
+            if let output = thumbnailDirectory {
+                userDefaults.setValue(output, forKey: "thumbnailDirectory")
+            }
+        }
+    }
+    
     
     
     var lastFolderOpened: String! {

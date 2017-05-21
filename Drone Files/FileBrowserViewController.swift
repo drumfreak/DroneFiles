@@ -518,6 +518,13 @@ class FileBrowserViewController: NSViewController {
 
     }
     
+    
+    
+    @IBAction func favoritesControlSingleClick(sender: AnyObject) {
+        // self.sourceFolderOpened = URL(string: self.appSettings.jpgFolder)
+        // self.setupPathControl(control: self.currentFolderPathControl)
+        
+    }
 //    @IBAction func fileSequenceNameSetButtonClicked(sender: AnyObject) {
 //        
 //        self.fileSequenceNameTextField.resignFirstResponder()
@@ -569,7 +576,7 @@ class FileBrowserViewController: NSViewController {
         
         // self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.folderURL)
         
-        DispatchQueue.main.async {
+       // DispatchQueue.main.async {
             self.directory = Directory(folderURL: self.sourceFolderOpened)
             self.reloadFileList()
             
@@ -594,17 +601,17 @@ class FileBrowserViewController: NSViewController {
                 i += Int(1)
                 
             })
-        }
+       // }
         
     }
     
     
     
     func reloadFileList() {
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.directoryItems = self.directory?.contentsOrderedBy(self.sortOrder, ascending: self.sortAscending)
             self.tableView.reloadData()
-        }
+       // }
     }
     
     

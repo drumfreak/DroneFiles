@@ -172,7 +172,6 @@ class ScreenshotViewController: NSViewController {
                 
                 self.appDelegate.appSettings.blockScreenShotTabSwitch = false
 
-                
             }
             
         }
