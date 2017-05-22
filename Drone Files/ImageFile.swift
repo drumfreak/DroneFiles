@@ -82,7 +82,7 @@ class ImageFile {
         
         let thumbnailOptions = [
             String(kCGImageSourceCreateThumbnailFromImageIfAbsent): true,
-            String(kCGImageSourceThumbnailMaxPixelSize): 160
+            String(kCGImageSourceThumbnailMaxPixelSize): 80
             ] as [String : Any]
         
         

@@ -167,10 +167,10 @@ class ScreenShotSliderController: NSViewController {
         if(!self.viewConfigured) {
             // 1
             let flowLayout = NSCollectionViewFlowLayout()
-            flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
-            flowLayout.sectionInset = EdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
-            flowLayout.minimumInteritemSpacing = 20.0
-            flowLayout.minimumLineSpacing = 20.0
+            flowLayout.itemSize = NSSize(width: 80.0, height: 70.0)
+            flowLayout.sectionInset = EdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+            flowLayout.minimumInteritemSpacing = 10.0
+            flowLayout.minimumLineSpacing = 10.0
             self.collectionView.collectionViewLayout = flowLayout
             // 2
             view.wantsLayer = true
@@ -228,6 +228,9 @@ class ScreenShotSliderController: NSViewController {
             self.selectItemByIndex(int: self.currentSlide)
             
             self.collectionView.reloadData()
+            
+            
+            
 
         }
      
@@ -313,7 +316,14 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         }
         let img = (item as! ScreenShotCollectionViewItem)
         
-        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        if(self.appSettings.secondDisplayIsOpen) {
+            print("Displaying item on second screen...")
+            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+            
+        } else {
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl!)!)
+        }
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
 

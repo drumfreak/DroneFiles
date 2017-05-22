@@ -71,7 +71,14 @@ class FavoritesCollectionViewController: NSViewController {
         
         //  print(img.imageFile)
         
-        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        if(self.appSettings.secondDisplayIsOpen) {
+            print("Displaying item on second screen...")
+            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+            
+        } else {
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl!)!)
+        }
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
         
@@ -154,34 +161,13 @@ class FavoritesCollectionViewController: NSViewController {
     }
     
     
-    
-    @IBAction func openSecondDisplay (_ sender : AnyObject) {
-        /*
-         self.appDelegate.externalScreens = NSScreen.externalScreens()
-         
-         let screenRect = self.appDelegate.externalScreens[0].frame
-         
-         
-         
-         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
-         
-         secondWindowController?.window = secondwindow
-         
-         secondwindow.makeKeyAndOrderFront(self)
-         
-         
-         secondWindowController?.showWindow(self)
-         */
-        
-    }
-    
     private func configureCollectionView() {
         
         if(!self.viewConfigured) {
             
             // 1
             let flowLayout = NSCollectionViewFlowLayout()
-            flowLayout.itemSize = NSSize(width: 160.0, height: 140.0)
+            flowLayout.itemSize = NSSize(width: 80.0, height: 70.0)
             flowLayout.sectionInset = EdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
             flowLayout.minimumInteritemSpacing = 20.0
             flowLayout.minimumLineSpacing = 20.0
@@ -200,11 +186,6 @@ class FavoritesCollectionViewController: NSViewController {
         self.appDelegate.appSettings.mediaBinSlideshowRunning = true
         
         self.currentSlide = 0
-        // if(self.whatTheFucktimer == nil) {
-        //DispatchQueue.main.async {
-        print("Running Timer")
-        // }
-        
         
         // DispatchQueue.global().async() {
         self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
@@ -249,16 +230,7 @@ class FavoritesCollectionViewController: NSViewController {
         }
         
         
-        
-        // self.collectionView.sele
-        
     }
-    
-    
-    
-    
-    
-    
 }
 
 

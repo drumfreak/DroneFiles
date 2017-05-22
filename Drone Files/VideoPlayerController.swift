@@ -73,6 +73,10 @@ class VideoPlayerViewController: NSViewController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         // self.deallocObservers(playerItem: (self.playerView?.player)!)
+        
+        if(self.playerView.player?.isPlaying)! {
+            self.playerView.player?.pause()
+        }
     }
 
     

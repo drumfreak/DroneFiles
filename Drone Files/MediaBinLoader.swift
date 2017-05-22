@@ -25,7 +25,7 @@ class MediaBinLoader: NSObject {
     // sectionLengthArray[0] is 7, i.e. put the first 7 images from the imageFiles array into section 0
     // sectionLengthArray[1] is 5, i.e. put the next 5 images from the imageFiles array into section 1
     // and so on...
-    fileprivate let sectionLengthArray = [7, 5, 10, 2, 11, 7, 10, 12, 20, 25, 10, 3, 30, 25, 40]
+    fileprivate let sectionLengthArray = [400]
     fileprivate var sectionsAttributesArray = [SectionAttributes]()
     
     func setupDataForUrls(_ urls: [URL]?) {

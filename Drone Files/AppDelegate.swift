@@ -17,7 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var externalScreens = [NSScreen]()
     
-    
     var appSettings = AppSettings()
     var documentController = NSDocumentController.shared()
     

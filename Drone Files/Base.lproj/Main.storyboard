@@ -792,7 +792,7 @@
                 <splitViewController title="Drone Files" id="0tx-kD-7nM" customClass="SplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
                         <splitViewItem id="V7H-nq-pY6"/>
-                        <splitViewItem id="GIm-8s-fqH"/>
+                        <splitViewItem id="fDd-oZ-ppC"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="5pU-Fa-0yg" customClass="ThemeSplitViewMain" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1590" height="533"/>
@@ -804,12 +804,33 @@
                     <connections>
                         <outlet property="mySplitView" destination="5pU-Fa-0yg" id="qzB-D0-Zsu"/>
                         <segue destination="ZvK-30-Mbm" kind="relationship" relationship="splitItems" id="OYH-Tk-Q0v"/>
-                        <segue destination="fa8-kS-UDX" kind="relationship" relationship="splitItems" id="YTQ-C0-1pv"/>
+                        <segue destination="b22-3L-PpC" kind="relationship" relationship="splitItems" id="rHh-b6-gM3"/>
                     </connections>
                 </splitViewController>
                 <customObject id="N0k-GW-Bci" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="381" y="-619"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="ydp-vB-cOd">
+            <objects>
+                <splitViewController id="b22-3L-PpC" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="zN2-PK-eBD"/>
+                        <splitViewItem id="3Ga-2p-uj1"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" id="D7m-RF-pX8">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </splitView>
+                    <connections>
+                        <segue destination="fa8-kS-UDX" kind="relationship" relationship="splitItems" id="PEq-RF-so3"/>
+                        <segue destination="icX-yH-ocJ" kind="relationship" relationship="splitItems" id="BFH-ga-957"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="qci-jc-jNX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="680" y="-86"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="Mji-nT-U6E">
@@ -1530,7 +1551,6 @@
                     <splitViewItems>
                         <splitViewItem id="Fn6-7k-a9w"/>
                         <splitViewItem id="JTT-VV-8tE"/>
-                        <splitViewItem id="itT-hK-yho"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="CMf-he-Wrs">
                         <rect key="frame" x="-99" y="0.0" width="981" height="1001"/>
@@ -1540,7 +1560,6 @@
                         <outlet property="mySplitView" destination="CMf-he-Wrs" id="x2x-Y1-RZT"/>
                         <segue destination="MAv-UR-Xgu" kind="relationship" relationship="splitItems" id="6Mv-PI-3bX"/>
                         <segue destination="tOh-RK-Pxk" kind="relationship" relationship="splitItems" id="fj0-SB-o37"/>
-                        <segue destination="icX-yH-ocJ" kind="relationship" relationship="splitItems" id="RO1-un-0zH"/>
                     </connections>
                 </splitViewController>
                 <customObject id="K03-Hg-yfB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1657,7 +1676,7 @@
                 </viewController>
                 <customObject id="Moj-Gh-uWB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2285" y="3570.5"/>
+            <point key="canvasLocation" x="1570" y="-94"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="SPo-Yj-KQn">
@@ -1675,7 +1694,7 @@
                 </windowController>
                 <customObject id="aUD-EN-KNy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1029" y="4114"/>
+            <point key="canvasLocation" x="1662" y="307"/>
         </scene>
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
@@ -2392,7 +2411,7 @@
                 </tabViewController>
                 <customObject id="1vV-02-af2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1046.5" y="292"/>
+            <point key="canvasLocation" x="878" y="544"/>
         </scene>
         <!--File Manager-->
         <scene sceneID="GYP-4x-9bJ">
@@ -3835,7 +3854,7 @@
                 </viewController>
                 <customObject id="IEk-Mk-Weh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1670" y="4209"/>
+            <point key="canvasLocation" x="1745" y="818"/>
         </scene>
         <!--Favorites Collection View Controller-->
         <scene sceneID="LTo-tP-mnp">
