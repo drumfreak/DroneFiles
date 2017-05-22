@@ -693,7 +693,7 @@ extension AppDelegate {
     func writeProjectFile (projectPath: String) {
         if(checkFolderAndCreate(folderPath: projectPath)) {
             
-            print("CREATING DRONE FILES PROJECT")
+            //print("CREATING DRONE FILES PROJECT")
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
             
@@ -710,14 +710,15 @@ extension AppDelegate {
             foo = foo?.replacingOccurrences(of: "%20", with: " ")
             
             if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
+                
                 let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
                 if created {
-                    print("File created ")
+                   // print("File created ")
                 } else {
                     print("Couldn't create file for some reason")
                 }
             } else {
-                print("File already exists")
+               // print("File already exists")
             }
             
             
@@ -761,7 +762,7 @@ extension AppDelegate {
         
             // print(dic)
             
-            print("Try this Path: \(String(describing: jsonFilePath))")
+            // print("Try this Path: \(String(describing: jsonFilePath))")
             
             var jsonData: Data!
             
@@ -772,7 +773,7 @@ extension AppDelegate {
                 do {
                     let file = try FileHandle.init(forWritingTo: jsonFilePath!)
                     file.write(jsonData)
-                    print("JSON data was written to the file successfully!")
+                    // print("JSON data was written to the file successfully!")
                     // readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
                 } catch let error as NSError {
                     print("Couldn't write to file: \(error.localizedDescription)")
