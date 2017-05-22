@@ -75,7 +75,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var slideshowUrls = NSMutableArray()
 
     // Variables setup for various usage.
-    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     
@@ -88,21 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
         
-        
-        // let externalScreens = NSScreen.externalScreens()
         self.externalScreens = NSScreen.externalScreens()
-        
-        
-        // secondwindow
-        
-//        NSWindow *window = [[NSWindow alloc] initWithContentRect:screenRect
-//            styleMask:NSBorderlessWindowMask
-//            backing:NSBackingStoreBuffered
-//            defer:NO
-//            screen:screen];
-        
-        
-        //[window setLevel: CGShieldingWindowLevel()];
 
        
     }
@@ -112,7 +97,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setupOptions() {
         let defaults = UserDefaults.standard
         // defaults.setValue([], forKey: "mediaBinUrls")
-
         
         if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
             defaults.setValue(true, forKey: "screenshotSound")
@@ -167,7 +151,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         
-        
         if(defaults.value(forKey: "screenshotTypeJPG") != nil) {
             self.appSettings.screenshotTypeJPG = (defaults.value(forKey: "screenshotTypeJPG"))! as! Bool
         }
@@ -212,8 +195,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         
-        
-        
         if(defaults.value(forKey: "favoriteUrls") != nil) {
             if let data = defaults.value(forKey: "favoriteUrls") as? NSData {
                 self.appSettings.favoriteUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
@@ -225,13 +206,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 // self.screenShotSliderController.selectItemOne()
             }
         }
-        
-        
-        
-        
-//        if(defaults.value(forKey: "mediaBinUrls") != nil) {
-//            self.appSettings.mediaBinUrls = (defaults.value(forKey: "mediaBinUrls"))! as? NSMutableArray
-//        }
         
     }
     
@@ -407,37 +381,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func videoPlayPauseAD(sender: AnyObject) {
-        // self.videoPlayerControlsController?.p()
         self.videoPlayerViewController?.playPause()
     }
     
     
     @IBAction func videoLoopAD(sender: AnyObject) {
-        // self.videoPlayerControlsController?.p()
     }
     
     
     @IBAction func addFavoriteAD(sender: AnyObject) {
-        // self.videoPlayerControlsController?.p()
         self.fileBrowserViewController.addFavorite(nil)
     }
     
     
     func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
-       // Swift.print("Calling validate")
-       // Swift.print(anItem)
         return true
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        //Swift.print("Calling validate 222")
         return true
     }
     
     
-    func openDocument(sender: AnyObject) {
-       //  print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~openDocument got called")
-    }
+//    func openDocument(sender: AnyObject) {
+//    }
     
 }
 
@@ -476,7 +443,6 @@ extension NSWindowController {
 }
 
 
-
 extension NSWindow {
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
@@ -485,7 +451,6 @@ extension NSWindow {
         return appDelegate.appSettings
     }
 }
-
 
 
 extension NSView {
@@ -500,7 +465,6 @@ extension NSView {
         return appDelegate.appSettings
     }
 }
-
 
 extension NSTableHeaderCell {
     var appDelegate:AppDelegate {

@@ -37,7 +37,6 @@ struct AppSettings {
     var outputDirectory: String! {
         didSet {
             if let output = outputDirectory {
-                // defaults.value(forKey: "outputDirectory") as! String
                 userDefaults.setValue(output, forKey: "outputDirectory")
             }
         }
@@ -57,9 +56,6 @@ struct AppSettings {
     var lastFolderOpened: String! {
         didSet {
             if let output = lastFolderOpened {
-                // defaults.value(forKey: "outputDirectory") as! String
-                //print("lastFolderOpened \(lastFolderOpened)")
-                
                 userDefaults.setValue(output, forKey: "lastFolderOpened")
             }
         }
@@ -69,7 +65,6 @@ struct AppSettings {
     var lastFileOpened: String! {
         didSet {
             if let output = lastFileOpened {
-                // defaults.value(forKey: "outputDirectory") as! String
                 userDefaults.setValue(output, forKey: "lastFileOpened")
             }
         }
@@ -173,8 +168,6 @@ struct AppSettings {
         }
     }
     
-
-    
     // colors
     var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
 
@@ -184,7 +177,6 @@ struct AppSettings {
     
     var patternColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
-
     var tableViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
     // normal row
@@ -196,7 +188,6 @@ struct AppSettings {
     // Selected row
     var tableRowSelectedBackGroundColor = NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
     
-    
     // Active row
     var tableRowActiveBackGroundColor =  NSColor.init(patternImage: NSImage(named: "tablerow-blue.png")!)
     
@@ -206,11 +197,11 @@ struct AppSettings {
     
     // Message Boxes
     // tableHeaderRow
-    var messageBoxBackground =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
-
     
     var textLabelColor = NSColor.gray
     
+    var messageBoxBackground =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
+
     // Image thumbnail for collection View Backgrounds
     // tableHeaderRow
     var imageThumbnailHolder =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
@@ -218,21 +209,11 @@ struct AppSettings {
     // Media Bin stuff
     var mediaBinUrls = [URL]() {
         didSet {
-            // print(mediaBinUrls)
-            
             let data = NSKeyedArchiver.archivedData(withRootObject: mediaBinUrls)
             
             userDefaults.setValue(data, forKey: "mediaBinUrls")
-            
-            //            if let output = mediaBinUrls {
-            //                print("Fuck yeah set the media array")
-            //
-            //                print("\(String(describing: output))")
-            //                userDefaults.setValue(output, forKey: "mediaBinUrls")
-            //            }
         }
     }
-    
     
     // Favorites
     var favoriteUrls = [URL]() {
@@ -242,5 +223,4 @@ struct AppSettings {
             userDefaults.setValue(data, forKey: "favoriteUrls")
         }
     }
-    
 }
