@@ -240,14 +240,13 @@ class FileBrowserViewController: NSViewController {
                 
                 
                 //self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
-                
-                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
-                
                 self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
+
+                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
                 
                 self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = lastFile.absoluteString
                 
-                self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
+                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
                 
                 // self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
 
@@ -658,7 +657,7 @@ class FileBrowserViewController: NSViewController {
                 itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
-                self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false;
+                self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
                 self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
                 
                 self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
@@ -666,8 +665,6 @@ class FileBrowserViewController: NSViewController {
                 self.appDelegate.videoPlayerViewController?.nowPlayingURL = (item.url as URL)
                 
                 self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = itemUrl
-                
-                self.appDelegate.videoPlayerViewController?.playVideo(_url: item.url as URL, frame:kCMTimeZero, startPlaying: true);
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 

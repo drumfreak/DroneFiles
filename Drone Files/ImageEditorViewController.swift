@@ -90,16 +90,20 @@ class ImageEditorViewController: NSViewController {
         
         // imageView.show
         self.imageUrl = _url
-        
-        
-        
-        // let img = NSImage.init(contentsOf: imageUrl)
-        
-        self.imageView.setImageWith(_url)
-        
-        
-        // self.imageView.setImageWith(_url)
-        
+        NSAnimationContext.runAnimationGroup({context in
+            context.duration = 0.15
+            self.imageView.alphaValue = 0.25
+        }) {
+            self.imageView.setImageWith(_url)
+            self.imageView.zoomImageToFit(self)
+            NSAnimationContext.runAnimationGroup({context in
+                context.duration = 0.15
+                self.imageView.alphaValue = 1.0
+                
+            }) {
+            }
+        }
+
         self.nowPlayingURL = _url
         self.appDelegate.imageEditorControlsController?.nowPlayingFile?.stringValue = self.nowPlayingURL.lastPathComponent
         
@@ -110,21 +114,6 @@ class ImageEditorViewController: NSViewController {
             //print("Resetting..")
             self.appDelegate.imageEditorControlsController?.resetImage(self)
         }
-        
-        self.imageView.zoomImageToFit(self)
-//        
-//        
-//        
-//        let imageSource = CGImageSourceCreateWithURL(_url as CFURL, nil)
-//        if((imageSource) != nil) {
-//            // let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil) as! [String:Any]
-//            
-//            // let exifDict = imageProperties["Exif"] as! Dictionary
-//            
-//            
-//            // print(imageProperties)
-//        }
-     
         
     }
 }

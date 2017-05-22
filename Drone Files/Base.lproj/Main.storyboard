@@ -627,22 +627,40 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Video Editor" id="bE9-R6-gBC">
                                     <items>
-                                        <menuItem title="Play / Pause" keyEquivalent=" " id="PMD-87-Cu0" userLabel="Reset Trim">
+                                        <menuItem title="Play / Pause" keyEquivalent=" " id="PMD-87-Cu0" userLabel="Play">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="videoPlayPauseADWithSender:" target="Voe-Tx-rLC" id="s1u-s6-u11"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Loop" keyEquivalent="L" id="brk-EF-TS8" userLabel="Reset Trim">
+                                        <menuItem title="Loop" keyEquivalent="L" id="OIX-yo-CwH">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="videoLoopADWithSender:" target="Voe-Tx-rLC" id="afR-aD-ccX"/>
+                                                <action selector="videoLoopADWithSender:" target="Voe-Tx-rLC" id="i1z-Q6-CCV"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Take Screenshot" keyEquivalent="G" id="Edm-fs-YRA">
+                                        <menuItem title="Auto Advance" keyEquivalent="A" id="brk-EF-TS8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="videoAutoPlayADWithSender:" target="Voe-Tx-rLC" id="5tf-kf-qAM"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Auto Play" id="icX-AD-hYl">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="videoAutoPlayAlwaysPlayWithSender:" target="Voe-Tx-rLC" id="05P-Ou-p8c"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save Frame" keyEquivalent="F" id="Edm-fs-YRA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="takeScreenShotADWithSender:" target="Voe-Tx-rLC" id="L7D-WP-BP0"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save Frame Burst" keyEquivalent="B" id="kSd-CA-OTk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="takeScreenShotBurstADWithSender:" target="Voe-Tx-rLC" id="fJ5-tI-Q0O"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Set Trim In" keyEquivalent="[" id="1d5-s6-akh">
@@ -791,10 +809,10 @@
             <objects>
                 <splitViewController title="Drone Files" id="0tx-kD-7nM" customClass="SplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem id="V7H-nq-pY6"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="V7H-nq-pY6"/>
                         <splitViewItem id="fDd-oZ-ppC"/>
                     </splitViewItems>
-                    <splitView key="splitView" misplaced="YES" dividerStyle="thin" vertical="YES" id="5pU-Fa-0yg" customClass="ThemeSplitViewMain" customModule="Drone_Files" customModuleProvider="target">
+                    <splitView key="splitView" misplaced="YES" arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" id="5pU-Fa-0yg" customClass="ThemeSplitViewMain" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1590" height="533"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userDefinedRuntimeAttributes>
@@ -1048,7 +1066,7 @@
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IPL-WB-g34" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                                 <rect key="frame" x="489" y="14" width="60" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="5dM-In-sQR">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1060,7 +1078,7 @@
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="su4-aM-NZP" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                                 <rect key="frame" x="559" y="14" width="60" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" title="Open" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="4gC-ah-qIk">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1080,7 +1098,7 @@
                                             </textField>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="djm-gh-WTq" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                                 <rect key="frame" x="419" y="13" width="60" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" title="Import" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="qrj-hh-rut">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1265,7 +1283,7 @@
                                             </textField>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aLh-es-lvO" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                                 <rect key="frame" x="550" y="370" width="80" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" title="Slideshow" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="xJb-hT-Gka">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1473,7 +1491,7 @@
                                             </box>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAU-9X-aaG">
                                                 <rect key="frame" x="509" y="370" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="heart-inactive" imagePosition="only" alignment="center" alternateImage="heart-active" imageScaling="proportionallyUpOrDown" inset="2" id="a1H-vN-7iA">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1572,11 +1590,11 @@
                 <viewController id="icX-yH-ocJ" customClass="ScreenShotSliderController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="UMQ-Ij-lSF" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="307"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-Oo-nwe">
                                 <rect key="frame" x="0.0" y="0.0" width="760" height="275"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="kqC-NA-6BJ" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="760" height="275"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1607,7 +1625,7 @@
                             </scrollView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIW-Gg-8BT" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="330" y="281" width="100" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" title="View External" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Qo1-ot-cvI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1618,7 +1636,7 @@
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EeQ-AS-d5T" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="651" y="282" width="100" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="oNo-s3-ExH">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1665,7 +1683,7 @@
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-VJ-1Je" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="541" y="282" width="100" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" title="Hide" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="k1s-gQ-9bo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1713,11 +1731,11 @@
                 <viewController storyboardIdentifier="videoPlayerControlsController" id="tOh-RK-Pxk" customClass="VideoPlayerControllsController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="RqY-fb-uNe">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="231"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8QD-xD-1X8">
                                 <rect key="frame" x="0.0" y="135" width="760" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYJ-53-eAc" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="18" y="65" width="65" height="17"/>
@@ -1739,7 +1757,7 @@
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jUL-TV-12d" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="447" y="41" width="70" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Preview" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" state="on" inset="2" id="maA-DI-SYN">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1750,7 +1768,7 @@
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7X-lr-yJn" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="669" y="42" width="83" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0" id="HeG-Jb-4Dp">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1759,7 +1777,7 @@
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5u-xH-dAE" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="623" y="42" width="46" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frame:" id="0Hf-Ps-gnQ">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1768,7 +1786,7 @@
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGP-4d-WCQ" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="339" y="63" width="104" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="left" title="00:00:00" id="5f0-NG-bSl">
                                             <font key="font" metaFont="system" size="23"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1786,7 +1804,7 @@
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F3w-md-eV5" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="521" y="41" width="55" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Burst" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" state="on" inset="2" id="jbQ-AK-gwh">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1797,7 +1815,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MfB-PN-zam" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="452" y="64" width="40" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="+" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="uaZ-qA-oGO">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="20"/>
@@ -1808,7 +1826,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCL-mg-gQ4" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="293" y="64" width="40" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="-" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="r0M-FJ-5Sb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="20"/>
@@ -1830,7 +1848,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIF-6P-yi5" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="573" y="68" width="80" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="[ Trim In" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="hPd-Ja-UeS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1841,7 +1859,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aXc-aI-Pwf" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="663" y="68" width="80" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="Trim Out ]" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="pvd-rN-Rda">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1852,7 +1870,7 @@
                                     </button>
                                     <button fixedFrame="YES" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a74-VJ-5HK" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="341" y="38" width="100" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="Grab Frame" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="7UM-l4-XIU">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1863,7 +1881,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9T-sN-edw" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="447" y="18" width="61" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Sound" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" state="on" inset="2" id="SaC-F8-gVt">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1874,7 +1892,7 @@
                                     </button>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4FA-fx-Mah">
                                         <rect key="frame" x="318" y="37" width="29" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" image="buttonCell:xxJ-lZ-KD1:image" imagePosition="only" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="xxJ-lZ-KD1">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1888,11 +1906,11 @@
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwr-Vw-bfO">
                                 <rect key="frame" x="13" y="6" width="741" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FPV-Xo-Pf2" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="551" y="34" width="110" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Load New Clip" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" inset="2" id="vzv-pl-ghD">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1903,7 +1921,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ehO-5C-tuW" userLabel="Preserve Dates" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="551" y="3" width="158" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Preserve Original Date" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" state="on" inset="2" id="1FF-34-c6U">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1959,7 +1977,7 @@
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eOr-Ty-OPJ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="650" y="58" width="80" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="Cancel" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="5nM-yb-dPA">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1970,7 +1988,7 @@
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T5t-Kq-R5a" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="566" y="58" width="80" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" title="Save Clip" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="jza-8k-NKm">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1981,7 +1999,7 @@
                                     </button>
                                     <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="So1-Rg-wm8">
                                         <rect key="frame" x="337" y="62" width="221" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     </progressIndicator>
                                 </subviews>
                             </customView>
@@ -2005,15 +2023,15 @@
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jyr-sK-yWj">
                                 <rect key="frame" x="410" y="113" width="332" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" maxValue="32" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="161" allowsTickMarkValuesOnly="YES" sliderType="linear" id="VDm-1P-z3y"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" maxValue="8" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="161" allowsTickMarkValuesOnly="YES" sliderType="linear" id="VDm-1P-z3y"/>
                                 <connections>
                                     <action selector="rateSliderChanged:" target="tOh-RK-Pxk" id="aTm-cJ-PLE"/>
                                 </connections>
                             </slider>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gyp-bF-BTY" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="364" y="111" width="40" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" title="1" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="7sj-Ag-qp3">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemBold" size="20"/>
@@ -2024,7 +2042,7 @@
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk5-0q-Vgn" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="334" y="114" width="28" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="1.0" id="Gqb-As-YND">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2362,19 +2380,15 @@
                                 </subviews>
                             </customView>
                             <box hidden="YES" fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GbN-Dg-7g6">
-                                <rect key="frame" x="122" y="192" width="516" height="114"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="121.5" y="175" width="516" height="114"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <view key="contentView" ambiguous="YES" id="SsQ-ou-bsf">
                                     <rect key="frame" x="1" y="1" width="514" height="112"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" doubleValue="3" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Jns-jz-6JI">
-                                            <rect key="frame" x="241" y="10" width="32" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        </progressIndicator>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBf-xU-f1s">
-                                            <rect key="frame" x="17" y="48" width="480" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <rect key="frame" x="-53" y="47" width="620" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="Operation In Progress" id="xeW-ax-QE5">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -2388,7 +2402,6 @@
                     </view>
                     <connections>
                         <outlet property="VideoEditView" destination="w3f-NZ-8Jp" id="BcA-qb-s4a"/>
-                        <outlet property="messageSpinner" destination="Jns-jz-6JI" id="IIS-Pv-lsH"/>
                         <outlet property="playerMessageBox" destination="GbN-Dg-7g6" id="iWr-Do-rEK"/>
                         <outlet property="playerMessageBoxLabel" destination="PBf-xU-f1s" id="h32-cR-Bb9"/>
                         <outlet property="playerMessageBoxView" destination="SsQ-ou-bsf" id="JPo-ry-1ZS"/>
@@ -3836,11 +3849,25 @@
                                                 <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="grO-Kb-7jj">
                                                     <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" red="0.50002289" green="0.50002289" blue="0.50002289" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="WEp-or-sWK" id="1I5-8c-B4p"/>
                                                     </connections>
                                                 </ikImageView>
+                                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E14-qx-c5O">
+                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <ikImageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7UU-gK-QGC">
+                                                            <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="WEp-or-sWK" id="L0C-G9-ECQ"/>
+                                                            </connections>
+                                                        </ikImageView>
+                                                    </subviews>
+                                                </view>
                                             </subviews>
                                         </view>
                                     </subviews>
@@ -3860,6 +3887,7 @@
                     <connections>
                         <outlet property="imageEditorView" destination="t44-db-lTj" id="2MC-ek-hMV"/>
                         <outlet property="imageView" destination="grO-Kb-7jj" id="EGk-4b-Zh7"/>
+                        <outlet property="imageViewBackground" destination="7UU-gK-QGC" id="0F6-JS-61H"/>
                         <outlet property="scrollView" destination="hnq-8u-3zg" id="ACf-ZK-ZHk"/>
                     </connections>
                 </viewController>
@@ -3872,18 +3900,18 @@
             <objects>
                 <viewController id="Fb4-30-M8Y" customClass="FavoritesCollectionViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="vAw-jO-T45" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="771" height="759"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="637" height="759"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIP-mb-ywi">
-                                <rect key="frame" x="0.0" y="0.0" width="867" height="727"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="0.0" y="0.0" width="733" height="727"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="0Gy-Fe-d1W" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="867" height="727"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="733" height="727"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView ambiguous="YES" selectable="YES" id="O8S-QR-RLE" customClass="ThemeCollectionView" customModule="Drone_Files" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="867" height="727"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="733" height="727"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="YdH-eX-kTh">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -3907,23 +3935,12 @@
                                 </scroller>
                             </scrollView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8I4-ST-xXR" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="330" y="733" width="100" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="264" y="733" width="100" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" title="View External" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="cby-fd-kV2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                            </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Hu-og-v9G" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="651" y="734" width="100" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="GEg-DR-Teb">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="clearMediaBin:" target="Fb4-30-M8Y" id="RhT-4m-0we"/>
-                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wyc-8p-sh2">
                                 <rect key="frame" x="14" y="736" width="27" height="20"/>
@@ -3961,6 +3978,17 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Hu-og-v9G" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="503" y="731" width="100" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="GEg-DR-Teb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clearMediaBin:" target="Fb4-30-M8Y" id="RhT-4m-0we"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -3974,7 +4002,7 @@
                 </viewController>
                 <customObject id="ZnY-cN-6cU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-441.5" y="1435.5"/>
+            <point key="canvasLocation" x="-521.5" y="1400.5"/>
         </scene>
     </scenes>
     <resources>

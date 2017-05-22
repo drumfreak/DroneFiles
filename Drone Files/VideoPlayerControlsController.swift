@@ -230,7 +230,6 @@ class VideoPlayerControllsController: NSViewController {
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
             self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
         } else {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.play()
             self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
             
         }
@@ -676,7 +675,13 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     
-    func takeScreenShotFromKeyboard() {
+    func takeScreeShotFromKeyboard() {
+        //if(self.playerIsReady) {
+        self.takeScreenshot("" as AnyObject)
+        //}
+    }
+    
+    func takeBurstScreenshotFromKeyboard() {
         //if(self.playerIsReady) {
         self.takeScreenshot("" as AnyObject)
         //}
@@ -727,6 +732,11 @@ class VideoPlayerControllsController: NSViewController {
         
     }
     
+    
+    func doBurst() {
+        
+        
+    }
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         
         if(self.burstInProgress == true) {
@@ -799,20 +809,31 @@ class VideoPlayerControllsController: NSViewController {
                 
                 
                 if(playerWasPlaying) {
-                    DispatchQueue.main.async {
+                   DispatchQueue.main.async {
                     self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
                             self.updateTimerLabel()
+                        
+                         self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                        
                         })
-                        self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+                        
                         
                     }
                 }
                 
                 self.burstInProgress = false
                 self.messageBox(hidden: true)
-                if(self.appDelegate.appSettings.screenshotPreview == false) {
+//                if(self.appDelegate.appSettings.screenshotPreview == false) {
+//                    DispatchQueue.main.async {
+//                        self.appDelegate.screenShotSliderController.reloadContents()
+//                    }
+//                }
+                
+                DispatchQueue.main.async {
                     self.appDelegate.screenShotSliderController.reloadContents()
                 }
+
+                
             } else {
                 
                 DispatchQueue.main.async {
@@ -823,13 +844,14 @@ class VideoPlayerControllsController: NSViewController {
                 
                 if(playerWasPlaying) {
                     DispatchQueue.main.async {
-                        self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                    
+                    self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
                             self.updateTimerLabel()
-                        })
-                        
-                        
-                        
-                        self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+                            
+                            self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                            })
+                            
+                    
                     }
                     
                     
@@ -840,9 +862,12 @@ class VideoPlayerControllsController: NSViewController {
                 self.messageBox(hidden: true)
                 
                 if(self.appDelegate.appSettings.screenshotPreview == false) {
-                    self.appDelegate.screenShotSliderController.reloadContents()
+                    
                 }
 
+                DispatchQueue.main.async {
+                    self.appDelegate.screenShotSliderController.reloadContents()
+                }
             }
             
         }
@@ -887,6 +912,7 @@ class VideoPlayerControllsController: NSViewController {
             messageBox(hidden: false)
             
         }
+        
     }
     
     func showNotification(messageType: String, customMessage: String) -> Void {

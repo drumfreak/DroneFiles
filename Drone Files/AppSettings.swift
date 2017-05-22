@@ -86,6 +86,33 @@ struct AppSettings {
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
     
+    
+    // Video Player
+    
+    var videoPlayerLoop = Bool(true) {
+        didSet {
+            userDefaults.setValue(videoPlayerLoop, forKey: "videoPlayerLoop")
+        }
+    }
+    
+    var videoPlayerLoopAll = Bool(true) {
+        didSet {
+            userDefaults.setValue(videoPlayerLoopAll, forKey: "videoPlayerLoopAll")
+        }
+    }
+
+    var videoPlayerAutoPlay = Bool(true) {
+        didSet {
+            userDefaults.setValue(videoPlayerAutoPlay, forKey: "videoPlayerAutoPlay")
+        }
+    }
+    
+    var videoPlayerAlwaysPlay = Bool(true) {
+        didSet {
+            userDefaults.setValue(videoPlayerAlwaysPlay, forKey: "videoPlayerAlwaysPlay")
+        }
+    }
+    
 
     // Screenshots
     

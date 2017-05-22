@@ -112,8 +112,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(5, forKey: "screenshotFramesBefore")
             defaults.setValue(0.2, forKey: "mediaBinTimerInterval")
             defaults.setValue(false, forKey: "loadNewClip")
+            defaults.setValue(true, forKey: "videoPlayerAutoPlay")
+            defaults.setValue(true, forKey: "videoPlayerAlwaysPlay")
+            defaults.setValue(false, forKey: "videoPlayerLoop")
+            defaults.setValue(false, forKey: "videoPlayerLoopAll")
         }
         
+        
+       
         // print(defaults)
         
         if(defaults.value(forKey: "thumbnailDirectory") != nil) {
@@ -121,20 +127,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         
+        if(defaults.value(forKey: "videoPlayerAutoPlay") != nil) {
+            self.appSettings.videoPlayerAutoPlay = (defaults.value(forKey: "videoPlayerAutoPlay"))! as! Bool
+        }
+    
+        
+        if(defaults.value(forKey: "videoPlayerAlwaysPlay") != nil) {
+            self.appSettings.videoPlayerAlwaysPlay = (defaults.value(forKey: "videoPlayerAlwaysPlay"))! as! Bool
+        }
+    
+        
+        if(defaults.value(forKey: "videoPlayerLoop") != nil) {
+            self.appSettings.videoPlayerLoop = (defaults.value(forKey: "videoPlayerLoop"))! as! Bool
+        }
+        
+        
+        if(defaults.value(forKey: "videoPlayerLoopAll") != nil) {
+            self.appSettings.videoPlayerLoopAll = (defaults.value(forKey: "videoPlayerLoopAll"))! as! Bool
+        }
+        
         if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
             self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
         }
-    
     
         if(defaults.value(forKey: "screenshotPreserveVideoLocation") != nil) {
             self.appSettings.screenshotPreserveVideoLocation = (defaults.value(forKey: "screenshotPreserveVideoLocation"))! as! Bool
         }
         
-        
         if(defaults.value(forKey: "screenshotSound") != nil) {
             self.appSettings.screenshotSound = (defaults.value(forKey: "screenshotSound"))! as! Bool
         }
-        
         
         if(defaults.value(forKey: "screenShotBurstEnabled") != nil) {
             self.appSettings.screenShotBurstEnabled = (defaults.value(forKey: "screenShotBurstEnabled"))! as! Bool
@@ -359,7 +381,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func takeScreenShotAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.takeScreenshot(self);
+        self.videoPlayerControlsController?.takeBurstScreenshotFromKeyboard()
+    }
+    
+    @IBAction func takeScreenShotBurstAD(sender: AnyObject) {
+        // self.videoPlayerControlsController?.takeScreenshot(self);
+        self.videoPlayerControlsController?.takeBurstScreenshotFromKeyboard();
     }
     
     @IBAction func setVideoTrimInAD(sender: AnyObject) {
@@ -385,8 +412,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func videoLoopAD(sender: AnyObject) {
+        self.appSettings.videoPlayerLoop = !self.appSettings.videoPlayerLoop
     }
     
+    
+    @IBAction func videoLoopAllAD(sender: AnyObject) {
+        self.appSettings.videoPlayerLoopAll = !self.appSettings.videoPlayerLoopAll
+    }
+    
+    
+    @IBAction func videoAutoPlayAD(sender: AnyObject) {
+        self.appSettings.videoPlayerAutoPlay = !self.appSettings.videoPlayerAutoPlay
+    }
+    
+    @IBAction func videoAutoPlayAlwaysPlay(sender: AnyObject) {
+        self.appSettings.videoPlayerAlwaysPlay = !self.appSettings.videoPlayerAlwaysPlay
+    }
     
     @IBAction func addFavoriteAD(sender: AnyObject) {
         self.fileBrowserViewController.addFavorite(nil)
