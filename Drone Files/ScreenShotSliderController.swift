@@ -26,7 +26,7 @@ class ScreenShotSliderController: NSViewController {
     var currentSlide = 0
     let mediaBinLoader = MediaBinLoader()
     
-    var collectionViewLimit = 30
+    var collectionViewLimit = 400
     
     
     func loadDataForNewFolderWithUrl(_ folderURL: URL) {
@@ -87,10 +87,10 @@ class ScreenShotSliderController: NSViewController {
         
         var boo = [] as NSArray
         var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
-        foo = foo.reversed() as! NSMutableArray
+        // foo = foo.reversed() as! NSMutableArray
         
-        if(foo.count > 10) {
-            boo = Array(foo.prefix(10)) as NSArray
+        if(foo.count > self.collectionViewLimit) {
+            boo = Array(foo.prefix(self.collectionViewLimit)) as NSArray
             foo = boo.mutableCopy() as! NSMutableArray
             
             mediaBinLoader.loadDataFromUrls(foo)

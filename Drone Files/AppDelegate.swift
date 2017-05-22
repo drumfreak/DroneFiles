@@ -418,8 +418,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func addFavoriteAD(sender: AnyObject) {
         // self.videoPlayerControlsController?.p()
-        self.favoritesViewController.addFavorite(url: URL(string: "")!)
-        
+        self.fileBrowserViewController.addFavorite(nil)
     }
     
     

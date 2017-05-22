@@ -88,6 +88,12 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem title="Add/Remove Favorite" keyEquivalent="f" id="c8O-X8-K5c" userLabel="Favorite">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="addFavoriteADWithSender:" target="Voe-Tx-rLC" id="RMg-Nc-gu8"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="HGO-AX-Cb1"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
@@ -673,12 +679,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Image Editor" id="G5H-QV-4Mo" userLabel="Image Editor">
                                     <items>
-                                        <menuItem title="Add/Remove Favorite" keyEquivalent="f" id="c8O-X8-K5c" userLabel="Favorite">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="addToFavorites:" target="Ady-hI-5gd" id="dew-2R-Ooz"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Hand Tool" keyEquivalent="M" id="myo-kx-rZY">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
