@@ -24,4 +24,5 @@ class SecondWindowController: NSWindowController {
         // super.window?.backgroundColor = NSColor(calibratedRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
     
+
 }

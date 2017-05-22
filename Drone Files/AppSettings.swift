@@ -33,7 +33,6 @@ struct AppSettings {
     var projectDirectory = ""
     
     var blockScreenShotTabSwitch = false
-
     
     var outputDirectory: String! {
         didSet {

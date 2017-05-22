@@ -288,7 +288,14 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
     
         //  print(img.imageFile)
         
-         self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        if(self.appSettings.secondDisplayIsOpen) {
+            print("Displaying item on second screen...")
+            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+
+        } else {
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl!)!)
+        }
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
         
