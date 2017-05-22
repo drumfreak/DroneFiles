@@ -408,6 +408,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func videoPlayPauseAD(sender: AnyObject) {
         // self.videoPlayerControlsController?.p()
+        self.videoPlayerViewController?.playPause()
     }
     
     

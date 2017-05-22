@@ -76,6 +76,18 @@ class VideoPlayerViewController: NSViewController {
     }
 
     
+    func playPause() {
+        if(!self.playerIsReady) {
+            return
+        }
+        
+        if(self.playerView.player?.isPlaying)! {
+            self.playerView.player?.pause()
+        } else {
+            self.playerView.player?.play()
+        }
+    }
+    
     func setupPlayer() {
         // self.playerView.showsFrameSteppingButtons = true
         self.playerView.showsSharingServiceButton = true
