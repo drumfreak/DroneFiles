@@ -834,7 +834,7 @@
             <objects>
                 <splitViewController id="b22-3L-PpC" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem id="zN2-PK-eBD"/>
+                        <splitViewItem holdingPriority="252" id="zN2-PK-eBD"/>
                         <splitViewItem id="3Ga-2p-uj1"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="D7m-RF-pX8">
@@ -3846,14 +3846,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="grO-Kb-7jj">
-                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="WEp-or-sWK" id="1I5-8c-B4p"/>
-                                                    </connections>
-                                                </ikImageView>
                                                 <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E14-qx-c5O">
                                                     <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3868,6 +3860,14 @@
                                                         </ikImageView>
                                                     </subviews>
                                                 </view>
+                                                <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="grO-Kb-7jj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="WEp-or-sWK" id="1I5-8c-B4p"/>
+                                                    </connections>
+                                                </ikImageView>
                                             </subviews>
                                         </view>
                                     </subviews>

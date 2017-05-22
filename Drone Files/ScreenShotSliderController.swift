@@ -76,7 +76,7 @@ class ScreenShotSliderController: NSViewController {
         //  print(img.imageFile)
         
         if(self.appSettings.secondDisplayIsOpen) {
-            print("Displaying item on second screen...")
+            // print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
              self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
             
@@ -295,7 +295,7 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         //  print(img.imageFile)
         
         if(self.appSettings.secondDisplayIsOpen) {
-            print("Displaying item on second screen...")
+            //print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
             
              self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
@@ -322,7 +322,7 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         let img = (item as! ScreenShotCollectionViewItem)
         
         if(self.appSettings.secondDisplayIsOpen) {
-            print("Displaying item on second screen...")
+            //print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
             
              self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
