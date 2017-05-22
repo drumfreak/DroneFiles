@@ -69,10 +69,7 @@ class ImageEditorControllsController: NSViewController {
     
     var nowPlayingURLString: String!
     
-    
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         /// print("Controls viewDidLoad")
@@ -81,19 +78,15 @@ class ImageEditorControllsController: NSViewController {
         self.viewIsLoaded = true
         self.imageView = self.appDelegate.imageEditorViewController?.imageView
         self.appDelegate.imageEditorControlsController = self
-        
-        
-        //  self.appDelegate.imageEditorViewController?.imageView.delegate = self
-        //        [_imageView zoomImageToFit: self];
-        // self.filterPanel?.filterBrowserView(options: [:])
-        
-        // self.filterPanel?.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: Any!(), didEnd:Selector(("switchToolMode:")), contextInfo: nil)
-    
+
         self.controlsBox.isHidden = true
-
-
     }
     
+    
+//    override func viewDidLayout() {
+//        Swift.print("view has been resize to \(self.view.frame)")
+//         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(self)
+//    }
 
     
     override func viewDidAppear() {
@@ -394,10 +387,10 @@ class ImageEditorControllsController: NSViewController {
     }
     
     
-    func windowDidResize (notification: NSNotification?) {
-         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(self)
-    }
-    
+//    func windowDidResize (notification: NSNotification?) {
+//         self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(self)
+//    }
+//    
     
     /* IBActions. */
     @IBAction func doZoom (sender: AnyObject) {

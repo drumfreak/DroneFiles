@@ -65,6 +65,18 @@ class ImageEditorViewController: NSViewController {
 
     }
     
+    
+    func windowDidResize (notification: NSNotification?) {
+        self.imageView.zoomImageToFit(self)
+    }
+    
+    override func viewDidLayout() {
+        // Swift.print("view has been resize to \(self.view.frame)")
+        self.imageView.zoomImageToFit(nil)
+
+    }
+    
+
     override func viewWillAppear() {
         super.viewWillAppear()
         self.view.wantsLayer = true

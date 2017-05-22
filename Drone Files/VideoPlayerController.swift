@@ -57,9 +57,6 @@ class VideoPlayerViewController: NSViewController {
         self.playerMessageBoxView.wantsLayer = true
         self.playerMessageBoxView.layer?.backgroundColor = self.appSettings.messageBoxBackground.cgColor
         self.messageSpinner.startAnimation(self)
-        
-
-
 
     }
     
@@ -68,12 +65,16 @@ class VideoPlayerViewController: NSViewController {
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        
+       //  NotificationCenter.default.addObserver(self, selector: #selector(self.playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
+        
+        
+        print("Video appeared")
     }
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        // self.deallocObservers(playerItem: (self.playerView?.player)!)
-        
+
         if(self.playerView.player?.isPlaying)! {
             self.playerView.player?.pause()
         }
@@ -88,7 +89,7 @@ class VideoPlayerViewController: NSViewController {
         if(self.playerView.player?.isPlaying)! {
             self.playerView.player?.pause()
         } else {
-            self.playerView.player?.play()
+            self.playerView.player?.rate = Float(self.videoRate)
         }
     }
     
@@ -96,10 +97,13 @@ class VideoPlayerViewController: NSViewController {
         // self.playerView.showsFrameSteppingButtons = true
         self.playerView.showsSharingServiceButton = true
         self.playerView.showsFullScreenToggleButton = true
+   
+        
         self.playerView.player = AVPlayer(playerItem: self.playerItem)
-        
-        
+    
         self.playerView.player?.volume = 0.0
+        
+        
         
         self.playerView.player?.addObserver(self,
                                             forKeyPath: #keyPath(AVPlayerItem.status),
@@ -111,11 +115,30 @@ class VideoPlayerViewController: NSViewController {
                                             options: [.old, .new],
                                             context: &playerViewControllerKVOContext)
         
+        
+        
+//        self.playerView.player?.addObserver(self,
+//                                            forKeyPath: #keyPath(playerItemDidPlayToEndTime),
+//                                            options: [.old, .new],
+//                                            context: &playerViewControllerKVOContext)
+        
+   
+       
+        
         let avPlayerLayer = AVPlayerLayer(player: self.playerView.player!)
         avPlayerLayer.frame = self.view.bounds
         
         
     }
+    
+    func playerItemDidPlayToEndTime(sender: AnyObject) {
+        self.playerView.player?.seek(to: kCMTimeZero)
+        // self.playerView.player?.play()
+        self.playerView.player?.rate = Float(self.videoRate)
+        
+        
+    }
+    
     
     func playVideo(_url: URL, frame: CMTime, startPlaying: Bool) {
         // print("Play Video function")
@@ -155,6 +178,9 @@ class VideoPlayerViewController: NSViewController {
             self.playerItem = playerItem
             self.setupPlayer()
         } else {
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+
             self.playerView.player?.replaceCurrentItem(with: playerItem)
         }
 
@@ -248,11 +274,15 @@ class VideoPlayerViewController: NSViewController {
             case .readyToPlay:
                 // Player item is ready to play.
                 // print("Player Ready")
+                
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(self.playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
+
+                
                 self.playerIsReady = true
                 self.appDelegate.videoPlayerControlsController?.calculateClipLength()
                 
                 if(self.startPlayingVideo) {
-                    self.playerView.player?.play()
                     self.playerView.player?.rate = Float(self.videoRate)
                     self.startPlayingVideo = false
                 }
@@ -323,6 +353,15 @@ class VideoPlayerViewController: NSViewController {
         return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
 }
+
+//extension VideoPlayerViewController : AVPlayerItemDe {
+//    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        self.playerView.player?.seek(to: kCMTimeZero)
+//        self.playerView.player?.play()
+//    }
+//}
+
+
 
 extension AVPlayer {
     var isPlaying: Bool {

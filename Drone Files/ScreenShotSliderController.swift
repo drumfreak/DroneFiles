@@ -75,7 +75,16 @@ class ScreenShotSliderController: NSViewController {
         
         //  print(img.imageFile)
         
-        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        if(self.appSettings.secondDisplayIsOpen) {
+            print("Displaying item on second screen...")
+            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            
+        } else {
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+        }
+
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
     }
@@ -129,8 +138,6 @@ class ScreenShotSliderController: NSViewController {
     }
     
     @IBAction func mediaShowRateSliderChanged(_ sender: NSSlider) {
-        // let slider = sender as! NSSlider
-        // print(sender.doubleValue)
         self.appDelegate.appSettings.mediaBinTimerInterval = sender.doubleValue
     
        self.mediaShowRateLabel.doubleValue = sender.doubleValue
@@ -149,9 +156,7 @@ class ScreenShotSliderController: NSViewController {
         
         let screenRect = self.appDelegate.externalScreens[0].frame
         
-        
-
-         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
+        let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
         
         secondWindowController?.window = secondwindow
         
@@ -182,9 +187,7 @@ class ScreenShotSliderController: NSViewController {
     
     
     func startTimer() {
-        
         self.appDelegate.appSettings.mediaBinSlideshowRunning = true
-        
         self.currentSlide = 0
        // DispatchQueue.global().async() {
             self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
@@ -221,20 +224,20 @@ class ScreenShotSliderController: NSViewController {
             self.currentSlide = 0
         }
         
-        // print("Selecting : i \(self.currentSlide)")
-        
         DispatchQueue.main.async {
-        
             self.selectItemByIndex(int: self.currentSlide)
-            
             self.collectionView.reloadData()
-            
-            
-            
-
         }
-     
     }
+    
+    
+    @IBAction func hideScreenshotSlider (_ sender : AnyObject) {
+            print("Fuck")
+        
+        
+    }
+
+    
 }
 
 
@@ -294,10 +297,12 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         if(self.appSettings.secondDisplayIsOpen) {
             print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+            
+             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
 
         } else {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl!)!)
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
         }
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
@@ -320,9 +325,11 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
             print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
             
+             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            
         } else {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl!)!)
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
         }
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
@@ -358,4 +365,5 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
 
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
     }
+
 }

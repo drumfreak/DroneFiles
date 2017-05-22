@@ -35,35 +35,19 @@ class SlideShowController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("HEY WHAT THE FUCK  WHO WOKE ME UP???")
-        // NSApplication.shared().slideShowController = self
-        
+
         self.appDelegate.slideShowController = self
         
-        // print("mImagePaths")
-        
-        //print(self.mImagePaths)
         self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
         
         if(self.mImagePaths.count > 0) {
             self.mSlideshow?.run(with: self, inMode: IKSlideshowModeOther, options: nil)
-            // self.mSlideshow.start()
             
         }
     }
     
     func loadImages(items: NSMutableArray) {
-        print("This fucking happened...")
-        
-        // self.mSlideshow?.stop(self)
-        
         self.mImagePaths = items
-        
-//        self.mImagePaths.forEach({ m in
-//            print(m)
-//        })
-        
         self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
 
         if(self.mImagePaths.count > 0) {
