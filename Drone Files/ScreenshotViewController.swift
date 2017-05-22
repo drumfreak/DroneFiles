@@ -145,7 +145,8 @@ class ScreenshotViewController: NSViewController {
                 let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)
                 
                 self.appDelegate.appSettings.mediaBinUrls.append(url!)
-               
+                self.appDelegate.saveProject()
+
                 
 
                 if(self.appSettings.screenshotPreview) {

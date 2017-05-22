@@ -14,7 +14,8 @@ import Quartz
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var window: NSWindow!
-    
+    var defaults = UserDefaults.standard
+
     var externalScreens = [NSScreen]()
     
     var appSettings = AppSettings()
@@ -75,6 +76,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Variables setup for various usage.
 
+    func applicationWillResignActive(_ notification: Notification) {
+        
+    }
+    
+    func applicationWillHide(_ notification: Notification) {
+        
+    }
+    
+    func applicationDidUpdate(_ notification: Notification) {
+        
+    }
+    
+    func applicationDidResignActive(_ notification: Notification) {
+
+    }
+    
+    func saveProject() {
+        self.writeProjectFile(projectPath: self.appSettings.projectFolder)
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     
         // Swift.print(appSettings)
@@ -118,122 +139,129 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(false, forKey: "videoPlayerLoopAll")
         }
         
-        
+        if(defaults.value(forKey: "lastProjectfileOpened") != nil) {
+            self.readProjectFile(projectFile: defaults.value(forKey: "lastProjectfileOpened") as! String)
+        } else {
+            
+            
+            // print(defaults)
+            
+            if(defaults.value(forKey: "thumbnailDirectory") != nil) {
+                self.appSettings.thumbnailDirectory = (defaults.value(forKey: "thumbnailDirectory"))! as! String
+            }
+            
+            
+            if(defaults.value(forKey: "videoPlayerAutoPlay") != nil) {
+                self.appSettings.videoPlayerAutoPlay = (defaults.value(forKey: "videoPlayerAutoPlay"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "videoPlayerAlwaysPlay") != nil) {
+                self.appSettings.videoPlayerAlwaysPlay = (defaults.value(forKey: "videoPlayerAlwaysPlay"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "videoPlayerLoop") != nil) {
+                self.appSettings.videoPlayerLoop = (defaults.value(forKey: "videoPlayerLoop"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "videoPlayerLoopAll") != nil) {
+                self.appSettings.videoPlayerLoopAll = (defaults.value(forKey: "videoPlayerLoopAll"))! as! Bool
+            }
+            
+            if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
+                self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
+            }
+            
+            if(defaults.value(forKey: "screenshotPreserveVideoLocation") != nil) {
+                self.appSettings.screenshotPreserveVideoLocation = (defaults.value(forKey: "screenshotPreserveVideoLocation"))! as! Bool
+            }
+            
+            if(defaults.value(forKey: "screenshotSound") != nil) {
+                self.appSettings.screenshotSound = (defaults.value(forKey: "screenshotSound"))! as! Bool
+            }
+            
+            if(defaults.value(forKey: "screenShotBurstEnabled") != nil) {
+                self.appSettings.screenShotBurstEnabled = (defaults.value(forKey: "screenShotBurstEnabled"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "screenshotPreview") != nil) {
+                self.appSettings.screenshotPreview = (defaults.value(forKey: "screenshotPreview"))! as! Bool
+            }
+            
+            if(defaults.value(forKey: "screenshotPreserveVideoDate") != nil) {
+                self.appSettings.screenshotPreserveVideoDate = (defaults.value(forKey: "screenshotPreserveVideoDate"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "screenshotTypeJPG") != nil) {
+                self.appSettings.screenshotTypeJPG = (defaults.value(forKey: "screenshotTypeJPG"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "screenshotTypePNG") != nil) {
+                self.appSettings.screenshotTypePNG = (defaults.value(forKey: "screenshotTypePNG"))! as! Bool
+            }
+            
+            if(defaults.value(forKey: "screenshotFramesBefore") != nil) {
+                self.appSettings.screenshotFramesBefore = (defaults.value(forKey: "screenshotFramesBefore"))! as! Int32
+            }
+            
+            if(defaults.value(forKey: "screenshotFramesAfter") != nil) {
+                self.appSettings.screenshotFramesAfter = (defaults.value(forKey: "screenshotFramesAfter"))! as! Int32
+            }
+            
+            
+            if(defaults.value(forKey: "screenshotTypePNG") != nil) {
+                self.appSettings.screenshotTypePNG = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
+            }
+            
+            
+            if(defaults.value(forKey: "screenshotFramesInterval") != nil) {
+                self.appSettings.screenshotFramesInterval = (defaults.value(forKey: "screenshotFramesInterval"))! as! Double
+            }
+            
+            
+            if(defaults.value(forKey: "mediaBinTimerInterval") != nil) {
+                self.appSettings.mediaBinTimerInterval = (defaults.value(forKey: "mediaBinTimerInterval"))! as! Double
+            }
+            
+            if(defaults.value(forKey: "mediaBinUrls") != nil) {
+                if let data = defaults.value(forKey: "mediaBinUrls") as? NSData {
+                    self.appSettings.mediaBinUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
+                    // print(self.appSettings.mediaBinUrls)
+                }
+                
+                if(self.appSettings.mediaBinUrls.count > 0) {
+                    self.screenShotSliderController.reloadContents()
+                    self.screenShotSliderController.selectItemOne()
+                }
+            }
+            
+            if(defaults.value(forKey: "favoriteUrls") != nil) {
+                if let data = defaults.value(forKey: "favoriteUrls") as? NSData {
+                    self.appSettings.favoriteUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
+                    // print(self.appSettings.favoriteUrls)
+                }
+                
+                if(self.appSettings.favoriteUrls.count > 0) {
+                    // self.screenShotSliderController.reloadContents()
+                    // self.screenShotSliderController.selectItemOne()
+                }
+            }
+            
+            
+        }
        
-        // print(defaults)
-        
-        if(defaults.value(forKey: "thumbnailDirectory") != nil) {
-            self.appSettings.thumbnailDirectory = (defaults.value(forKey: "thumbnailDirectory"))! as! String
-        }
-        
-        
-        if(defaults.value(forKey: "videoPlayerAutoPlay") != nil) {
-            self.appSettings.videoPlayerAutoPlay = (defaults.value(forKey: "videoPlayerAutoPlay"))! as! Bool
-        }
-    
-        
-        if(defaults.value(forKey: "videoPlayerAlwaysPlay") != nil) {
-            self.appSettings.videoPlayerAlwaysPlay = (defaults.value(forKey: "videoPlayerAlwaysPlay"))! as! Bool
-        }
-    
-        
-        if(defaults.value(forKey: "videoPlayerLoop") != nil) {
-            self.appSettings.videoPlayerLoop = (defaults.value(forKey: "videoPlayerLoop"))! as! Bool
-        }
-        
-        
-        if(defaults.value(forKey: "videoPlayerLoopAll") != nil) {
-            self.appSettings.videoPlayerLoopAll = (defaults.value(forKey: "videoPlayerLoopAll"))! as! Bool
-        }
-        
-        if(defaults.value(forKey: "screenshotPreserveVideoName") != nil) {
-            self.appSettings.screenshotPreserveVideoName = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
-        }
-    
-        if(defaults.value(forKey: "screenshotPreserveVideoLocation") != nil) {
-            self.appSettings.screenshotPreserveVideoLocation = (defaults.value(forKey: "screenshotPreserveVideoLocation"))! as! Bool
-        }
-        
-        if(defaults.value(forKey: "screenshotSound") != nil) {
-            self.appSettings.screenshotSound = (defaults.value(forKey: "screenshotSound"))! as! Bool
-        }
-        
-        if(defaults.value(forKey: "screenShotBurstEnabled") != nil) {
-            self.appSettings.screenShotBurstEnabled = (defaults.value(forKey: "screenShotBurstEnabled"))! as! Bool
-        }
-        
-        
-        if(defaults.value(forKey: "screenshotPreview") != nil) {
-            self.appSettings.screenshotPreview = (defaults.value(forKey: "screenshotPreview"))! as! Bool
-        }
-        
-        if(defaults.value(forKey: "screenshotPreserveVideoDate") != nil) {
-            self.appSettings.screenshotPreserveVideoDate = (defaults.value(forKey: "screenshotPreserveVideoDate"))! as! Bool
-        }
-        
-        
-        if(defaults.value(forKey: "screenshotTypeJPG") != nil) {
-            self.appSettings.screenshotTypeJPG = (defaults.value(forKey: "screenshotTypeJPG"))! as! Bool
-        }
-        
-        
-        if(defaults.value(forKey: "screenshotTypePNG") != nil) {
-            self.appSettings.screenshotTypePNG = (defaults.value(forKey: "screenshotTypePNG"))! as! Bool
-        }
-        
-        if(defaults.value(forKey: "screenshotFramesBefore") != nil) {
-            self.appSettings.screenshotFramesBefore = (defaults.value(forKey: "screenshotFramesBefore"))! as! Int32
-        }
-        
-        if(defaults.value(forKey: "screenshotFramesAfter") != nil) {
-            self.appSettings.screenshotFramesAfter = (defaults.value(forKey: "screenshotFramesAfter"))! as! Int32
-        }
-        
-        
-        if(defaults.value(forKey: "screenshotTypePNG") != nil) {
-            self.appSettings.screenshotTypePNG = (defaults.value(forKey: "screenshotPreserveVideoName"))! as! Bool
-        }
-        
-        
-        if(defaults.value(forKey: "screenshotFramesInterval") != nil) {
-            self.appSettings.screenshotFramesInterval = (defaults.value(forKey: "screenshotFramesInterval"))! as! Double
-        }
-        
-        
-        if(defaults.value(forKey: "mediaBinTimerInterval") != nil) {
-            self.appSettings.mediaBinTimerInterval = (defaults.value(forKey: "mediaBinTimerInterval"))! as! Double
-        }
-        
-        if(defaults.value(forKey: "mediaBinUrls") != nil) {
-            if let data = defaults.value(forKey: "mediaBinUrls") as? NSData {
-                self.appSettings.mediaBinUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
-                   // print(self.appSettings.mediaBinUrls)
-            }
-            
-            if(self.appSettings.mediaBinUrls.count > 0) {
-                self.screenShotSliderController.reloadContents()
-                self.screenShotSliderController.selectItemOne()
-            }
-        }
-        
-        if(defaults.value(forKey: "favoriteUrls") != nil) {
-            if let data = defaults.value(forKey: "favoriteUrls") as? NSData {
-                self.appSettings.favoriteUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
-               // print(self.appSettings.favoriteUrls)
-            }
-            
-            if(self.appSettings.favoriteUrls.count > 0) {
-                // self.screenShotSliderController.reloadContents()
-                // self.screenShotSliderController.selectItemOne()
-            }
-        }
-        
     }
     
 
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        self.saveProject()
     }
 
     // MARK: - Core Data stack
@@ -420,7 +448,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.appSettings.videoPlayerLoopAll = !self.appSettings.videoPlayerLoopAll
     }
     
-    
     @IBAction func videoAutoPlayAD(sender: AnyObject) {
         self.appSettings.videoPlayerAutoPlay = !self.appSettings.videoPlayerAutoPlay
     }
@@ -448,6 +475,330 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 }
 
+extension AppDelegate {
+    
+    
+    func urlArraytoStrArray(input: [URL]) -> NSMutableArray {
+        let m = [] as NSMutableArray
+        input.forEach { url in
+            m.add(url.absoluteString)
+        }
+        return m
+    }
+    
+    func urlStrArraytoUrlArray(input: Array<Any>) -> [URL] {
+        var m = [URL]()
+        input.forEach { url in
+            let u = url as! String
+            m.append(URL(string:u)!)
+        }
+        return m
+    }
+
+    
+    func readProjectFile(projectFile: String) {
+        let path = URL(string: projectFile)
+        
+        // print("READING PRPOJECT FILE")
+        do {
+            let data = try Data(contentsOf: path!, options: .alwaysMapped)
+            let projectJson = try? JSONSerialization.jsonObject(with: data, options: [])
+            
+            
+            if let dictionary = projectJson as? [String: Any] {
+                if(dictionary["favoriteUrls"] != nil) {
+                    self.appSettings.favoriteUrls = urlStrArraytoUrlArray(input: dictionary["favoriteUrls"] as! Array<Any>)
+                    
+                    self.favoritesCollectionViewController?.reloadContents()
+
+                } else {
+                    self.appSettings.favoriteUrls = [URL]()
+                    self.favoritesCollectionViewController?.reloadContents()
+                }
+                
+                
+                if(dictionary["mediaBinUrls"] != nil) {
+                    self.appSettings.mediaBinUrls = urlStrArraytoUrlArray(input: dictionary["mediaBinUrls"] as! Array<Any>)
+                    self.screenShotSliderController?.reloadContents()
+
+                } else {
+                    self.appSettings.mediaBinUrls = [URL]()
+                    self.screenShotSliderController?.reloadContents()
+                }
+                
+                
+                if(dictionary["projectName"] != nil) {
+                    self.appSettings.fileSequenceName = dictionary["projectName"] as! String
+                }
+                
+                
+                if(dictionary["projectDirectory"] != nil) {
+                    self.appSettings.projectFolder = dictionary["projectDirectory"] as! String
+                }
+                
+                
+                if(dictionary["outputDirectory"] != nil) {
+                    self.appSettings.outputDirectory = dictionary["outputDirectory"] as! String
+                }
+                
+                
+                if(dictionary["currentDirectory"] != nil) {
+                    self.appSettings.folderURL = dictionary["currentDirectory"] as! String
+                }
+                
+                
+                if(dictionary["videosDirectory"] != nil) {
+                    self.appSettings.videoFolder = dictionary["videosDirectory"] as! String
+                }
+                
+                
+                if(dictionary["videoClipsDirectory"] != nil) {
+                    self.appSettings.videoClipsFolder = dictionary["videoClipsDirectory"] as! String
+                }
+                
+                if(dictionary["jpgDirectory"] != nil) {
+                    self.appSettings.jpgFolder = dictionary["jpgDirectory"] as! String
+                }
+                
+                
+                if(dictionary["rawDirectory"] != nil) {
+                    self.appSettings.rawFolder = dictionary["rawDirectory"] as! String
+                }
+                
+                if(dictionary["screenShotFolder"] != nil) {
+                    self.appSettings.screenShotFolder = dictionary["screenShotFolder"] as! String
+                }
+                
+                
+                if(dictionary["thumbnailDirectory"] != nil) {
+                    self.appSettings.thumbnailDirectory = dictionary["thumbnailDirectory"] as! String
+                }
+                
+                
+                if(dictionary["screenshotFramesAfter"] != nil) {
+                    self.appSettings.screenshotFramesAfter = dictionary["screenshotFramesAfter"] as! Int32
+                }
+                
+                
+                if(dictionary["screenshotFramesBefore"] != nil) {
+                    self.appSettings.screenshotFramesBefore = dictionary["screenshotFramesBefore"] as! Int32
+                }
+                
+
+                if(dictionary["screenshotSound"] != nil) {
+                    self.appSettings.screenshotSound = dictionary["screenshotSound"] as! Bool
+                }
+              
+               
+                if(dictionary["screenShotBurstEnabled"] != nil) {
+                    self.appSettings.screenShotBurstEnabled = dictionary["screenShotBurstEnabled"] as! Bool
+                }
+                
+                
+                if(dictionary["screenshotTypeJPG"] != nil) {
+                    self.appSettings.screenshotTypeJPG = dictionary["screenshotTypeJPG"] as! Bool
+                }
+                
+            
+                if(dictionary["screenshotTypePNG"] != nil) {
+                    self.appSettings.screenshotTypePNG = dictionary["screenshotTypePNG"] as! Bool
+                }
+                
+                if(dictionary["screenshotTypePNG"] != nil) {
+                    self.appSettings.screenshotTypePNG = dictionary["screenshotTypePNG"] as! Bool
+                }
+
+                
+                if(dictionary["screenshotPreview"] != nil) {
+                    self.appSettings.screenshotPreview = dictionary["screenshotPreview"] as! Bool
+                }
+
+                
+                if(dictionary["screenshotFramesInterval"] != nil) {
+                    self.appSettings.screenshotFramesInterval = dictionary["screenshotFramesInterval"] as! Double
+                }
+
+                
+                if(dictionary["screenshotPreserveVideoDate"] != nil) {
+                    self.appSettings.screenshotPreserveVideoDate = dictionary["screenshotPreserveVideoDate"] as! Bool
+                }
+
+                
+                if(dictionary["screenshotPreserveVideoLocation"] != nil) {
+                    self.appSettings.screenshotPreserveVideoLocation = dictionary["screenshotPreserveVideoLocation"] as! Bool
+                }
+
+                
+                if(dictionary["screenshotPreserveVideoName"] != nil) {
+                    self.appSettings.screenshotPreserveVideoName = dictionary["screenshotPreserveVideoName"] as! Bool
+                }
+                
+                if(dictionary["videoPlayerAlwaysPlay"] != nil) {
+                    self.appSettings.videoPlayerAlwaysPlay = dictionary["videoPlayerAlwaysPlay"] as! Bool
+                }
+                
+                if(dictionary["videoPlayerAutoPlay"] != nil) {
+                    self.appSettings.videoPlayerAutoPlay = dictionary["videoPlayerAutoPlay"] as! Bool
+                }
+                
+                if(dictionary["videoPlayerLoopAll"] != nil) {
+                    self.appSettings.videoPlayerLoopAll = dictionary["videoPlayerLoopAll"] as! Bool
+                }
+                
+                if(dictionary["videoPlayerLoop"] != nil) {
+                    self.appSettings.videoPlayerLoop = dictionary["videoPlayerLoop"] as! Bool
+                }
+                
+                
+                if(dictionary["videoPlayerLoopAll"] != nil) {
+                    self.appSettings.videoPlayerLoopAll = dictionary["videoPlayerLoopAll"] as! Bool
+                }
+                
+                
+                if(dictionary["createProjectDirectory"] != nil) {
+                    self.appSettings.createProjectDirectory = dictionary["createProjectDirectory"] as! Bool
+                }
+                
+                if(dictionary["createProjectSubDirectories"] != nil) {
+                    self.appSettings.createProjectSubDirectories = dictionary["createProjectSubDirectories"] as! Bool
+                }
+                
+                if(dictionary["lastFolderOpened"] != nil) {
+                    self.appSettings.lastFolderOpened = dictionary["lastFolderOpened"] as! String
+                    
+                    self.fileBrowserViewController?.sourceFolderOpened = URL(string: self.appSettings.lastFolderOpened)
+                    
+                } else {
+                    self.fileBrowserViewController?.sourceFolderOpened = URL(string: self.appSettings.projectFolder)
+                }
+                
+                if(dictionary["lastFileOpened"] != nil) {
+                    self.appSettings.lastFileOpened = dictionary["lastFileOpened"] as! String
+                    self.fileBrowserViewController?.openLastFile()
+                }
+            
+                 self.fileBrowserViewController?.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
+
+            }
+            
+            self.defaults.setValue(path?.absoluteString, forKey: "lastProjectfileOpened")
+
+            //  print(projectJson!)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func writeProjectFile (projectPath: String) {
+        if(checkFolderAndCreate(folderPath: projectPath)) {
+            
+            print("CREATING DRONE FILES PROJECT")
+            
+            let documentsDirectoryPath = NSURL(string: projectPath)!
+            
+            let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.appSettings.fileSequenceName + ".dronefiles")
+            
+            
+            // creating a .json file in the Documents folder
+            
+            let fileManager = FileManager.default
+            
+            var isDirectory: ObjCBool = false
+            var foo = jsonFilePath?.absoluteString.replacingOccurrences(of: "file://", with: "")
+            
+            foo = foo?.replacingOccurrences(of: "%20", with: " ")
+            
+            if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
+                let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
+                if created {
+                    print("File created ")
+                } else {
+                    print("Couldn't create file for some reason")
+                }
+            } else {
+                print("File already exists")
+            }
+            
+            
+            // creating an array of test data
+
+            let dic = NSMutableDictionary()
+            
+            dic.setValue(urlArraytoStrArray(input: self.appSettings.favoriteUrls), forKey: "favoriteUrls")
+            dic.setValue(urlArraytoStrArray(input: self.appSettings.mediaBinUrls), forKey: "mediaBinUrls")
+            
+            dic.setValue(self.appSettings.fileSequenceName, forKey: "projectName")
+            dic.setValue(self.appSettings.projectFolder, forKey: "projectDirectory")
+            dic.setValue(self.appSettings.videoFolder, forKey: "videosDirectory")
+            dic.setValue(self.appSettings.videoClipsFolder, forKey: "videoClipsDirectory")
+            dic.setValue(self.appSettings.jpgFolder, forKey: "jpgDirectory")
+            dic.setValue(self.appSettings.rawFolder, forKey: "rawDirectory")
+            dic.setValue(self.appSettings.outputDirectory, forKey: "outputDirectory")
+            dic.setValue(self.appSettings.thumbnailDirectory, forKey: "thumbnailDirectory")
+            
+            dic.setValue(self.appSettings.screenshotFramesAfter, forKey: "screenshotFramesAfter")
+            dic.setValue(self.appSettings.screenshotFramesBefore, forKey: "screenshotFramesBefore")
+            dic.setValue(self.appSettings.screenshotSound, forKey: "screenshotSound")
+            dic.setValue(self.appSettings.screenShotFolder, forKey: "screenShotFolder")
+            dic.setValue(self.appSettings.screenShotBurstEnabled, forKey: "screenShotBurstEnabled")
+            dic.setValue(self.appSettings.screenshotTypeJPG, forKey: "screenshotTypeJPG")
+            dic.setValue(self.appSettings.screenshotTypePNG, forKey: "screenshotTypePNG")
+            dic.setValue(self.appSettings.screenshotPreview, forKey: "screenshotPreview")
+            dic.setValue(self.appSettings.screenshotFramesInterval, forKey: "screenshotFramesInterval")
+            dic.setValue(self.appSettings.screenshotPreserveVideoDate, forKey: "screenshotPreserveVideoDate")
+            dic.setValue(self.appSettings.screenshotPreserveVideoLocation, forKey: "screenshotPreserveVideoLocation")
+            dic.setValue(self.appSettings.screenshotPreserveVideoName, forKey: "screenshotPreserveVideoName")
+            dic.setValue(self.appSettings.videoPlayerAlwaysPlay, forKey: "videoPlayerAlwaysPlay")
+            dic.setValue(self.appSettings.videoPlayerAutoPlay, forKey: "videoPlayerAutoPlay")
+            dic.setValue(self.appSettings.videoPlayerLoopAll, forKey: "videoPlayerLoopAll")
+            dic.setValue(self.appSettings.videoPlayerLoop, forKey: "videoPlayerLoop")
+            dic.setValue(self.appSettings.createProjectDirectory, forKey: "createProjectDirectory")
+            dic.setValue(self.appSettings.createProjectSubDirectories, forKey: "createProjectSubDirectories")
+            dic.setValue(self.appSettings.lastFolderOpened, forKey: "lastFolderOpened")
+            dic.setValue(self.appSettings.lastFileOpened, forKey: "lastFileOpened")
+            dic.setValue(self.appSettings.folderURL, forKey: "currentDirectory")
+        
+            // print(dic)
+            
+            print("Try this Path: \(String(describing: jsonFilePath))")
+            
+            var jsonData: Data!
+            
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+                
+                // Write that JSON to the file created earlier
+                do {
+                    let file = try FileHandle.init(forWritingTo: jsonFilePath!)
+                    file.write(jsonData)
+                    print("JSON data was written to the file successfully!")
+                    // readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
+                } catch let error as NSError {
+                    print("Couldn't write to file: \(error.localizedDescription)")
+                }
+                
+                // print("\(String(describing: jsonString))")
+                
+            } catch let error as NSError {
+                print("Array to JSON conversion failed: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    
+    func checkFolderAndCreate(folderPath: String) -> Bool {
+        do {
+            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
+            // print("Created Directory... " + folderPath)
+            return true
+        } catch _ as NSError {
+            print("Error while creating a folder.")
+            return false
+        }
+    }
+    
+}
 extension Array {
     mutating func delete(element: String) {
         self = self.filter() { $0 as! String != element }

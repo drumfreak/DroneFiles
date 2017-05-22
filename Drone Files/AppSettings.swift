@@ -10,7 +10,10 @@ import Foundation
 import Cocoa
 
 struct AppSettings {
-    
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+
     let userDefaults = UserDefaults.standard
 
     
@@ -70,6 +73,14 @@ struct AppSettings {
         }
     }
     
+    var lastProjectfileOpened: String! {
+        didSet {
+            if let output = lastProjectfileOpened {
+                userDefaults.setValue(output, forKey: "lastProjectfileOpened")
+            }
+        }
+    }
+    
 
     var createProjectDirectory = true
     var createProjectSubDirectories = true
@@ -92,24 +103,32 @@ struct AppSettings {
     var videoPlayerLoop = Bool(true) {
         didSet {
             userDefaults.setValue(videoPlayerLoop, forKey: "videoPlayerLoop")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var videoPlayerLoopAll = Bool(true) {
         didSet {
             userDefaults.setValue(videoPlayerLoopAll, forKey: "videoPlayerLoopAll")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
 
     var videoPlayerAutoPlay = Bool(true) {
         didSet {
             userDefaults.setValue(videoPlayerAutoPlay, forKey: "videoPlayerAutoPlay")
+           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var videoPlayerAlwaysPlay = Bool(true) {
         didSet {
             userDefaults.setValue(videoPlayerAlwaysPlay, forKey: "videoPlayerAlwaysPlay")
+           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
@@ -119,12 +138,16 @@ struct AppSettings {
     var screenShotBurstEnabled = Bool(true) {
         didSet {
             userDefaults.setValue(screenShotBurstEnabled, forKey: "screenShotBurstEnabled")
+           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var screenshotSound = Bool(true) {
         didSet {
             userDefaults.setValue(screenshotSound, forKey: "screenshotSound")
+           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
 
@@ -132,12 +155,16 @@ struct AppSettings {
     var screenshotPreview = Bool(false){
         didSet {
             userDefaults.setValue(screenshotPreview, forKey: "screenshotPreview")
+           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var screenshotPreserveVideoDate = Bool(true) {
         didSet {
             userDefaults.setValue(screenshotPreserveVideoDate, forKey: "screenshotPreserveVideoDate")
+           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
@@ -145,12 +172,16 @@ struct AppSettings {
     var screenshotPreserveVideoLocation = Bool(false) {
         didSet {
             userDefaults.setValue(screenshotPreserveVideoLocation, forKey: "screenshotPreserveVideoLocation")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var screenshotPreserveVideoName = Bool(true) {
         didSet {
             userDefaults.setValue(screenshotPreserveVideoName, forKey: "screenshotPreserveVideoName")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
@@ -158,18 +189,24 @@ struct AppSettings {
     var screenshotFramesBefore = Int32(5) {
         didSet {
             userDefaults.setValue(screenshotFramesBefore, forKey: "screenshotFramesBefore")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
 
     var screenshotFramesAfter = Int32(5) {
         didSet {
             userDefaults.setValue(screenshotFramesAfter, forKey: "screenshotFramesAfter")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var screenshotFramesInterval = Double(0.1) {
         didSet {
             userDefaults.setValue(screenshotFramesInterval, forKey: "screenshotFramesInterval")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
@@ -177,12 +214,16 @@ struct AppSettings {
     var screenshotTypeJPG = Bool(true) {
         didSet {
             userDefaults.setValue(screenshotTypeJPG, forKey: "screenshotTypeJPG")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
     var screenshotTypePNG = Bool(false) {
         didSet {
             userDefaults.setValue(screenshotTypePNG, forKey: "screenshotTypePNG")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
@@ -192,12 +233,43 @@ struct AppSettings {
     var mediaBinTimerInterval = Double(0.2) {
         didSet {
             userDefaults.setValue(mediaBinTimerInterval, forKey: "mediaBinTimerInterval")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
         }
     }
     
+   
+
+    // Media Bin stuff
+    var mediaBinUrls = [URL]() {
+        didSet {
+            let data = NSKeyedArchiver.archivedData(withRootObject: mediaBinUrls)
+            
+            userDefaults.setValue(data, forKey: "mediaBinUrls")
+            
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
+            
+        }
+    }
+    
+    // Favorites
+    var favoriteUrls = [URL]() {
+        didSet {
+            // print(favoriteUrls)
+            let data = NSKeyedArchiver.archivedData(withRootObject: favoriteUrls)
+            userDefaults.setValue(data, forKey: "favoriteUrls")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+
+        }
+    }
+
+    // THEMES
+    
+    
     // colors
     var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
-
+    
     var appViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
     var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
@@ -220,7 +292,7 @@ struct AppSettings {
     
     // tableHeaderRow
     var tableHeaderRowBackground =  NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
-
+    
     
     // Message Boxes
     // tableHeaderRow
@@ -228,26 +300,8 @@ struct AppSettings {
     var textLabelColor = NSColor.gray
     
     var messageBoxBackground =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
-
+    
     // Image thumbnail for collection View Backgrounds
     // tableHeaderRow
     var imageThumbnailHolder =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
-
-    // Media Bin stuff
-    var mediaBinUrls = [URL]() {
-        didSet {
-            let data = NSKeyedArchiver.archivedData(withRootObject: mediaBinUrls)
-            
-            userDefaults.setValue(data, forKey: "mediaBinUrls")
-        }
-    }
-    
-    // Favorites
-    var favoriteUrls = [URL]() {
-        didSet {
-            // print(favoriteUrls)
-            let data = NSKeyedArchiver.archivedData(withRootObject: favoriteUrls)
-            userDefaults.setValue(data, forKey: "favoriteUrls")
-        }
-    }
 }

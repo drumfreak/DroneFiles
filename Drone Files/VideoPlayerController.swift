@@ -75,10 +75,14 @@ class VideoPlayerViewController: NSViewController {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
+        self.appDelegate.saveProject()
 
-        if(self.player.isPlaying) {
-            self.player.pause()
+        if(self.playerView.player != nil) {
+            if(self.playerView.player?.isPlaying)! {
+                self.playerView.player?.pause()
+            }
         }
+       
     }
 
     

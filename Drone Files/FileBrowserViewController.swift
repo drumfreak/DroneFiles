@@ -116,7 +116,7 @@ class FileBrowserViewController: NSViewController {
         // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
         if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
             let previousPath = defaults.value(forKey: "lastOpenedProjectFile") as! String
-            self.readProjectFile(projectFile: previousPath)
+            self.appDelegate.readProjectFile(projectFile: previousPath)
         }
         
         
@@ -175,8 +175,9 @@ class FileBrowserViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-
-        self.openLastFile();
+        
+        self.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
+        // self.openLastFile();
         self.setupPathControl(control: self.currentFolderPathControl)
         
     }
@@ -220,61 +221,58 @@ class FileBrowserViewController: NSViewController {
     
     func openLastFile() {
         
-        let defaults = UserDefaults.standard
+        // let defaults = UserDefaults.standard
 
-        if(defaults.value(forKey: "lastFileOpened") != nil) {
+        if((self.appSettings.lastFileOpened) != nil) {
             //print("OPENING THE FUCKING File")
             
-           let lastFile =  URL(string: defaults.value(forKey: "lastFileOpened") as! String)!
+           let lastFile =  URL(string: self.appSettings.lastFileOpened!)
             
-            if(isMov(file:lastFile)) {
-                
-                
-                // print("LOADING MOV!!!!!!!")
-                
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
-                
-                // nowPlayingFile.stringValue = item.name;
-                var itemUrl = lastFile.absoluteString
-                itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
-                
-                
-                //self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
-                self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
-
-                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
-                
-                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = lastFile.absoluteString
-                
-                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
-                
-                // self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
-
-                
-            }
-            
-            if(isImage(file:lastFile)) {
-                
-                //  print("LOADING IMAGE!!!!!!!")
-
-                // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-                self.appDelegate.imageEditorViewController?.loadImage(_url:lastFile)
-                
-                // self.appDelegate.appSettings.lastFileOpened = lastFile.absoluteString
-                
-                
-
-            }
+//            if(isMov(file:lastFile!)) {
+//                
+//                
+//                // print("LOADING MOV!!!!!!!")
+//                
+//                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
+//                
+//                // nowPlayingFile.stringValue = item.name;
+//                var itemUrl = lastFile?.absoluteString
+//                itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
+//                
+//                
+//                //self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
+//                self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
+//
+//                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
+//                
+//                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = lastFile?.absoluteString
+//                
+//                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
+//                
+//                // self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
+//
+//                
+//            }
+//            
+//            if(isImage(file:lastFile!)) {
+//                
+//                //  print("LOADING IMAGE!!!!!!!")
+//
+//                // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
+//                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+//                self.appDelegate.imageEditorViewController?.loadImage(_url:lastFile!)
+//                
+//                // self.appDelegate.appSettings.lastFileOpened = lastFile.absoluteString
+//            }
             
             
-            self.reloadFilesWithSelected(fileName: lastFile.absoluteString)
+            self.reloadFilesWithSelected(fileName: (lastFile?.absoluteString)!)
             
             
             // print(lastFile)
             
             
-        }
+       }
     }
     
     func isMov(file: URL) -> Bool {
@@ -357,7 +355,11 @@ class FileBrowserViewController: NSViewController {
                 
                 if(openPanel.url?.pathExtension == "dronefiles") {
                     print ("HEY it's drone files!")
-                    self.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
+                    self.appDelegate.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
+                    
+                    self.setupProjectDirectory()
+                    self.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)
+                    
                     
                     //                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
                     //                        print("Fuck yeah \(String(describing: document))")
@@ -394,6 +396,8 @@ class FileBrowserViewController: NSViewController {
             }
            
         }
+        
+        self.appDelegate.saveProject()
         
         // self.addToFavoriteUrls.removeAll(keepingCapacity: false)
 
@@ -645,7 +649,7 @@ class FileBrowserViewController: NSViewController {
             let _extension = url.pathExtension
             
             if(_extension == "dronefiles") {
-                self.readProjectFile(projectFile: item.url.absoluteString)
+                self.appDelegate.readProjectFile(projectFile: item.url.absoluteString)
             }
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
@@ -668,6 +672,8 @@ class FileBrowserViewController: NSViewController {
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 
+                self.appDelegate.saveProject()
+                
             } else {
                 // self.editorTabViewController.videoPlayerViewController.VideoEditView.isHidden = true;
             }
@@ -686,6 +692,9 @@ class FileBrowserViewController: NSViewController {
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 
                  self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: item.url as URL)
+                
+                self.appDelegate.saveProject()
+
             //
                 
             } else {
@@ -787,159 +796,8 @@ class FileBrowserViewController: NSViewController {
             // NSWorkspace.shared().open(item.url as URL)
         }
     }
-        
-    func readProjectFile(projectFile: String) {
-        let path = URL(string: projectFile)
-        
-        UserDefaults.standard.setValue(path?.absoluteString, forKey: "lastOpenedProjectFile")
-        
-        // print("READING PRPOJECT FILE")
-        do {
-            let data = try Data(contentsOf: path!, options: .alwaysMapped)
-            let projectJson = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let dictionary = projectJson as? [String: Any] {
-                for (key, val) in dictionary {
-                    if(key == "projectName") {
-                        //print("LOADED projectName: \(val)")
-                        self.appDelegate.appSettings.fileSequenceName = val as! String
-                        self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
-                        UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
-                        
-                    }
-                    
-                    
-                    if(key == "projectDirectory") {
-                        //print("projectDirectory: \(val)")
-                        self.appDelegate.appSettings.projectFolder = val as! String
-                        // self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.projectFolder)
-                    }
-                    
-                    if(key == "outputDirectory") {
-                        //print("outputDirectory: \(val)")
-                        self.appDelegate.appSettings.outputDirectory = val as! String
-                        
-                    }
-                    
-                    if(key == "currentDirectory") {
-                        //print("currentDirectory: \(val)")
-                        
-                    }
-                    
-                    if(key == "videosDirectory") {
-                        //print("currentDirectory: \(val)")
-                        self.appDelegate.appSettings.videoFolder = val as! String
-                    }
-                    
-                    if(key == "jpgDirectory") {
-                        //print("jpgDirectory: \(val)")
-                        self.appDelegate.appSettings.jpgFolder = val as! String
-                    }
-                    
-                    if(key == "rawDirectory") {
-                        //print("rawDirectory: \(val)")
-                        self.appDelegate.appSettings.rawFolder = val as! String
-                    }
-                    
-                    if(key == "videoClipsDirectory") {
-                        //print("VideoClipsDirectory: \(val)")
-                        self.appDelegate.appSettings.videoClipsFolder = val as! String
-                    }
-                }
-                
-                self.setupProjectDirectory()
-                self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.projectDirectory)
-                
-            }
-            
-            //  print(projectJson!)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        
-    }
+   
     
-    func writeProjectFile (projectPath: String) {
-        if(checkFolderAndCreate(folderPath: projectPath)) {
-            
-            print("CREATING DRONE FILES PROJECT")
-            
-            let documentsDirectoryPath = NSURL(string: projectPath)!
-            
-            let jsonFilePath = documentsDirectoryPath.appendingPathComponent(self.appDelegate.appSettings.fileSequenceName + ".dronefiles")
-            
-            
-            // creating a .json file in the Documents folder
-            
-            let fileManager = FileManager.default
-            
-            var isDirectory: ObjCBool = false
-            var foo = jsonFilePath?.absoluteString.replacingOccurrences(of: "file://", with: "")
-            
-            foo = foo?.replacingOccurrences(of: "%20", with: " ")
-            
-            if !fileManager.fileExists(atPath: (jsonFilePath?.absoluteString)!, isDirectory: &isDirectory) {
-                let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
-                if created {
-                    print("File created ")
-                } else {
-                    print("Couldn't create file for some reason")
-                }
-            } else {
-                print("File already exists")
-            }
-            
-            
-            // creating an array of test data
-            
-            let dic = ["projectName" : self.appDelegate.appSettings.fileSequenceName,
-                       "projectDirectory": self.appDelegate.appSettings.projectFolder,
-                       "videosDirectory": self.appDelegate.appSettings.videoFolder,
-                       "videoClipsDirectory": self.appDelegate.appSettings.videoClipsFolder,
-                       "jpgDirectory": self.appDelegate.appSettings.jpgFolder,
-                       "rawDirectory": self.appDelegate.appSettings.rawFolder,
-                       "outputDirectory": self.appDelegate.appSettings.outputDirectory,
-                       "currentDirectory": self.appDelegate.appSettings.folderURL,
-                       ]
-            
-            // print(dic)
-            
-            print("Try this Path: \(String(describing: jsonFilePath))")
-            
-            var jsonData: Data!
-            
-            do {
-                jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-                
-                // Write that JSON to the file created earlier
-                do {
-                    let file = try FileHandle.init(forWritingTo: jsonFilePath!)
-                    file.write(jsonData)
-                    print("JSON data was written to the file successfully!")
-                    self.readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
-                } catch let error as NSError {
-                    print("Couldn't write to file: \(error.localizedDescription)")
-                }
-                
-                // print("\(String(describing: jsonString))")
-                
-            } catch let error as NSError {
-                print("Array to JSON conversion failed: \(error.localizedDescription)")
-            }
-            
-        }
-    }
-    
-    func checkFolderAndCreate(folderPath: String) -> Bool {
-        do {
-            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
-            // print("Created Directory... " + folderPath)
-            return true
-        } catch _ as NSError {
-            print("Error while creating a folder.")
-            return false
-        }
-    }
 }
 
 extension FileBrowserViewController: NSTableViewDataSource {

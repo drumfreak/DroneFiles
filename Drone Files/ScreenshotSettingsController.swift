@@ -227,7 +227,8 @@ class ScreenShotSettingsViewController: NSViewController {
         
         
         self.appDelegate.videoPlayerControlsController?.setupControls()
-        
+        self.appDelegate.saveProject()
+
         self.dismiss(nil)
         
         

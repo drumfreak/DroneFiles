@@ -124,7 +124,7 @@ class NewProjectViewController: NSViewController {
         
         self.appDelegate.fileBrowserViewController.setupProjectDirectory()
         
-        self.appDelegate.fileBrowserViewController.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
+        self.appDelegate.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
         
         self.view.window?.close()
         

@@ -209,6 +209,8 @@ class VideoPlayerControllsController: NSViewController {
         self.playerRateLabel.stringValue = String(format: "%02f", sender.doubleValue)
         
         
+        
+        
     }
     
     
@@ -443,9 +445,10 @@ class VideoPlayerControllsController: NSViewController {
         
         if(self.screenShotBurstEnabledButton.state == 1) {
             self.appDelegate.appSettings.screenShotBurstEnabled = true
-            
-            
         }
+        
+        self.appDelegate.saveProject()
+        
         
     }
     
@@ -460,6 +463,9 @@ class VideoPlayerControllsController: NSViewController {
             UserDefaults.standard.setValue(1, forKey: "clippedItemLoadNewItem")
         }
         
+        self.appDelegate.saveProject()
+        
+        
     }
     
     
@@ -471,6 +477,9 @@ class VideoPlayerControllsController: NSViewController {
         if(self.screenShotPreviewButton.state == 1) {
             self.appDelegate.appSettings.screenshotPreview = true
         }
+        
+        self.appDelegate.saveProject()
+        
     }
     
     
@@ -484,6 +493,9 @@ class VideoPlayerControllsController: NSViewController {
         if(self.screenshotPreserveClipNameButton.state == 1) {
             self.appDelegate.appSettings.screenshotPreserveVideoName = true
         }
+        
+        self.appDelegate.saveProject()
+        
     }
     
     @IBAction func setScreenShotSound(_ sender: AnyObject) {
@@ -494,6 +506,9 @@ class VideoPlayerControllsController: NSViewController {
         if(self.screenshotSoundButton.state == 1) {
             self.appDelegate.appSettings.screenshotSound = true
         }
+        
+        self.appDelegate.saveProject()
+        
     }
     
     
@@ -582,7 +597,12 @@ class VideoPlayerControllsController: NSViewController {
             
             self.saveTrimmedClipView.isHidden = true
             
+            // Load clip shit here.
             self.appDelegate.fileBrowserViewController.reloadFileList()
+            
+            
+            self.appDelegate.appSettings.mediaBinUrls.append(URL(string: self.clippedVideoNameFullURL)!)
+            self.appDelegate.saveProject()
             
         }
         
@@ -598,7 +618,6 @@ class VideoPlayerControllsController: NSViewController {
         // Move to a background thread to do some long running work
         DispatchQueue.global(qos: .userInitiated).async {
             self.exportSession.exportAsynchronously {
-                
                 switch self.exportSession.status {
                 case .completed:
                     DispatchQueue.main.async {
@@ -809,12 +828,12 @@ class VideoPlayerControllsController: NSViewController {
                 
                 
                 if(playerWasPlaying) {
-                   DispatchQueue.main.async {
-                    self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                    DispatchQueue.main.async {
+                        self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
                             self.updateTimerLabel()
-                        
-                         self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
-                        
+                            
+                            self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                            
                         })
                         
                         
@@ -823,16 +842,16 @@ class VideoPlayerControllsController: NSViewController {
                 
                 self.burstInProgress = false
                 self.messageBox(hidden: true)
-//                if(self.appDelegate.appSettings.screenshotPreview == false) {
-//                    DispatchQueue.main.async {
-//                        self.appDelegate.screenShotSliderController.reloadContents()
-//                    }
-//                }
+                //                if(self.appDelegate.appSettings.screenshotPreview == false) {
+                //                    DispatchQueue.main.async {
+                //                        self.appDelegate.screenShotSliderController.reloadContents()
+                //                    }
+                //                }
                 
                 DispatchQueue.main.async {
                     self.appDelegate.screenShotSliderController.reloadContents()
                 }
-
+                
                 
             } else {
                 
@@ -844,14 +863,14 @@ class VideoPlayerControllsController: NSViewController {
                 
                 if(playerWasPlaying) {
                     DispatchQueue.main.async {
-                    
-                    self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                        
+                        self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
                             self.updateTimerLabel()
                             
                             self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
-                            })
-                            
-                    
+                        })
+                        
+                        
                     }
                     
                     
@@ -864,7 +883,7 @@ class VideoPlayerControllsController: NSViewController {
                 if(self.appDelegate.appSettings.screenshotPreview == false) {
                     
                 }
-
+                
                 DispatchQueue.main.async {
                     self.appDelegate.screenShotSliderController.reloadContents()
                 }

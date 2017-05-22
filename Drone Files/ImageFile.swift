@@ -34,6 +34,7 @@ class ImageFile {
         self.fileName = url.lastPathComponent
         self.imgUrl = url
         
+        
         self.thumbnailFileName = url.deletingPathExtension().lastPathComponent
         self.thumbnailFileName += "-thumbnail"
         self.thumbnailFileName += "." + url.pathExtension
