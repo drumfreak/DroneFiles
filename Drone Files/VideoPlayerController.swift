@@ -26,7 +26,7 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet var player: AVPlayer!
     var nowPlayingURL: URL! {
         didSet {
-             self.playVideo(_url: nowPlayingURL, frame:kCMTimeZero, startPlaying: self.appSettings.videoPlayerAlwaysPlay);
+            self.playVideo(_url: nowPlayingURL, frame:kCMTimeZero, startPlaying: self.appSettings.videoPlayerAlwaysPlay);
         }
     }
     
@@ -38,13 +38,13 @@ class VideoPlayerViewController: NSViewController {
     
     @IBOutlet weak var playerMessageBox: NSBox!
     @IBOutlet weak var playerMessageBoxView: NSView!
-
+    
     @IBOutlet weak var playerMessageBoxLabel: NSTextField!
     var playerViewControllerKVOContext = 0
     
     @IBOutlet weak var messageSpinner: NSProgressIndicator!
     
-
+    
     // Allow view to receive keypress (remove the purr sound)
     override var acceptsFirstResponder : Bool {
         return true
@@ -55,13 +55,17 @@ class VideoPlayerViewController: NSViewController {
         super.viewDidLoad()
         // self.VideoEditView.isHidden = false
         self.appDelegate.videoPlayerViewController = self
-        view.wantsLayer = true
-        view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-
+        
+        //DispatchQueue.main.async {
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
         self.playerMessageBoxView.wantsLayer = true
         self.playerMessageBoxView.layer?.backgroundColor = self.appSettings.messageBoxBackground.cgColor
-       //  self.messageSpinner.startAnimation(self)
-
+        
+        // }
+        //  self.messageSpinner.startAnimation(self)
+        
     }
     
     override func viewDidAppear() {
@@ -69,22 +73,22 @@ class VideoPlayerViewController: NSViewController {
         addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-
+        
         print("Video appeared")
     }
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.appDelegate.saveProject()
-
+        
         if(self.playerView.player != nil) {
             if(self.playerView.player?.isPlaying)! {
                 self.playerView.player?.pause()
             }
         }
-       
+        
     }
-
+    
     
     func playPause() {
         if(!self.playerIsReady) {
@@ -102,12 +106,12 @@ class VideoPlayerViewController: NSViewController {
         // self.playerView.showsFrameSteppingButtons = true
         self.playerView.showsSharingServiceButton = true
         self.playerView.showsFullScreenToggleButton = true
-   
+        
         self.player = AVPlayer(playerItem: self.playerItem)
-    
+        
         self.player.volume = 0.0
         self.playerView.player = self.player
-
+        
         
         self.playerView.player?.addObserver(self,
                                             forKeyPath: #keyPath(AVPlayerItem.status),
@@ -149,7 +153,7 @@ class VideoPlayerViewController: NSViewController {
         self.appDelegate.videoPlayerControlsController?.metadataLocationLabel.stringValue = location
         
         // print("Location: \(location)")
-
+        
     }
     
     // Video Player Setup and Play
@@ -165,7 +169,7 @@ class VideoPlayerViewController: NSViewController {
         ]
         
         self.currentAsset = asset
-
+        
         let playerItem = AVPlayerItem(asset: asset,
                                       automaticallyLoadedAssetKeys: assetKeys)
         playerItem.reversePlaybackEndTime = kCMTimeZero
@@ -179,7 +183,7 @@ class VideoPlayerViewController: NSViewController {
             NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
             
             
-
+            
             self.playerView.player?.replaceCurrentItem(with: playerItem)
             
             
@@ -192,7 +196,7 @@ class VideoPlayerViewController: NSViewController {
                                                 forKeyPath: #keyPath(AVPlayer.rate),
                                                 options: [.old, .new],
                                                 context: &playerViewControllerKVOContext)
-
+            
             
             if(self.startPlayingVideo == true) {
                 self.player.rate = Float(self.videoRate)
@@ -205,10 +209,10 @@ class VideoPlayerViewController: NSViewController {
                 self.startPlayingVideo = false
                 
             }
-
+            
             
         }
-
+        
         self.appDelegate.videoPlayerControlsController?.calculateClipLength()
         
     }
@@ -302,7 +306,7 @@ class VideoPlayerViewController: NSViewController {
                 
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(self.playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
-
+                
                 
                 self.playerIsReady = true
                 self.appDelegate.videoPlayerControlsController?.calculateClipLength()
@@ -313,16 +317,16 @@ class VideoPlayerViewController: NSViewController {
                 } else {
                     
                     if(self.player.isPlaying) {
-                       self.player.rate = 0.0
+                        self.player.rate = 0.0
                     }
                     self.startPlayingVideo = false
-
+                    
                 }
                 
                 break
             case .failed:
                 // Player item failed. See error.
-
+                
                 print("Player Failed")
                 self.playerIsReady = false
                 break

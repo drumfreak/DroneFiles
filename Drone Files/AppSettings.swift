@@ -13,9 +13,9 @@ struct AppSettings {
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }
-
+    
     let userDefaults = UserDefaults.standard
-
+    
     
     var secondDisplayIsOpen = false {
         didSet {
@@ -64,7 +64,7 @@ struct AppSettings {
         }
     }
     
-
+    
     var lastFileOpened: String! {
         didSet {
             if let output = lastFileOpened {
@@ -81,13 +81,13 @@ struct AppSettings {
         }
     }
     
-
+    
     var createProjectDirectory = true
     var createProjectSubDirectories = true
-
+    
     var folderURL: String!
     var saveDirectoryName: String!
-
+    
     var projectFolder = "My Project"
     var screenShotFolder = " - Screenshots"
     var videoFolder = " - Videos"
@@ -104,7 +104,7 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(videoPlayerLoop, forKey: "videoPlayerLoop")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -112,68 +112,68 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(videoPlayerLoopAll, forKey: "videoPlayerLoopAll")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
-
+    
     var videoPlayerAutoPlay = Bool(true) {
         didSet {
             userDefaults.setValue(videoPlayerAutoPlay, forKey: "videoPlayerAutoPlay")
-           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
         }
     }
     
     var videoPlayerAlwaysPlay = Bool(true) {
         didSet {
             userDefaults.setValue(videoPlayerAlwaysPlay, forKey: "videoPlayerAlwaysPlay")
-           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
         }
     }
     
-
+    
     // Screenshots
     
     var screenShotBurstEnabled = Bool(true) {
         didSet {
             userDefaults.setValue(screenShotBurstEnabled, forKey: "screenShotBurstEnabled")
-           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
         }
     }
     
     var screenshotSound = Bool(true) {
         didSet {
             userDefaults.setValue(screenshotSound, forKey: "screenshotSound")
-           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
         }
     }
-
+    
     
     var screenshotPreview = Bool(false){
         didSet {
             userDefaults.setValue(screenshotPreview, forKey: "screenshotPreview")
-           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
         }
     }
     
     var screenshotPreserveVideoDate = Bool(true) {
         didSet {
             userDefaults.setValue(screenshotPreserveVideoDate, forKey: "screenshotPreserveVideoDate")
-           // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            // self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+            
         }
     }
     
-
+    
     var screenshotPreserveVideoLocation = Bool(false) {
         didSet {
             userDefaults.setValue(screenshotPreserveVideoLocation, forKey: "screenshotPreserveVideoLocation")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -181,7 +181,7 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(screenshotPreserveVideoName, forKey: "screenshotPreserveVideoName")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -190,15 +190,15 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(screenshotFramesBefore, forKey: "screenshotFramesBefore")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
-
+    
     var screenshotFramesAfter = Int32(5) {
         didSet {
             userDefaults.setValue(screenshotFramesAfter, forKey: "screenshotFramesAfter")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -206,7 +206,7 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(screenshotFramesInterval, forKey: "screenshotFramesInterval")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -215,7 +215,7 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(screenshotTypeJPG, forKey: "screenshotTypeJPG")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -223,7 +223,7 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(screenshotTypePNG, forKey: "screenshotTypePNG")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
@@ -234,12 +234,12 @@ struct AppSettings {
         didSet {
             userDefaults.setValue(mediaBinTimerInterval, forKey: "mediaBinTimerInterval")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
     
-   
-
+    
+    
     // Media Bin stuff
     var mediaBinUrls = [URL]() {
         didSet {
@@ -260,10 +260,10 @@ struct AppSettings {
             let data = NSKeyedArchiver.archivedData(withRootObject: favoriteUrls)
             userDefaults.setValue(data, forKey: "favoriteUrls")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
-
+            
         }
     }
-
+    
     // THEMES
     
     

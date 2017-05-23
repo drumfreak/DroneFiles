@@ -11,10 +11,10 @@ import Cocoa
 // typealias Callback = (NSEvent) -> ()
 
 class KeyCaptureWindow: NSWindow {
-
-   // var appDelegate = NSApplication.shared().delegate as! AppDelegate
     
-    var isCommandKeyPressed = false
-    var keyPressed = 0
+    //   // var appDelegate = NSApplication.shared().delegate as! AppDelegate
+    //
+    //    var isCommandKeyPressed = false
+    //    var keyPressed = 0
     
-   }
+}

@@ -9,7 +9,7 @@
 import Cocoa
 
 class FavoritesViewController: NSViewController {
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

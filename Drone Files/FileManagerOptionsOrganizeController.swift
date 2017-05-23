@@ -14,7 +14,7 @@ import AppKit
 import AVFoundation
 
 
-class FileManagerOptionsOrganizeController: NSViewController {    
+class FileManagerOptionsOrganizeController: NSViewController {
     @IBOutlet var projectDirectoryLabel: NSTextField!
     @IBOutlet var videosDirectoryLabel: NSTextField!
     @IBOutlet var jpgDirectoryLabel: NSTextField!
@@ -223,12 +223,12 @@ class FileManagerOptionsOrganizeController: NSViewController {
         
         // let url = NSURL(fileURLWithPath: urlPath)
         let _extension = url.pathExtension
-
+        
         
         let increment =  getFileIncrementAtPath(path: self.appSettings.videoFolder)
         
         var newMovieFile = self.appSettings.videoFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
-    
+        
         
         newMovieFile = newMovieFile.replacingOccurrences(of: " ", with: "%20")
         if(self.moveFile(from: url, toUrl: URL(string: newMovieFile)!)) {
@@ -246,7 +246,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
         
         // let url = NSURL(fileURLWithPath: urlPath)
         let _extension = url.pathExtension
-
+        
         let increment =  getFileIncrementAtPath(path: self.appSettings.jpgFolder)
         
         var newJPGFile = self.appSettings.jpgFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
@@ -266,7 +266,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
         print("Organizing Screenshot ... \(url)")
         
         let _extension = url.pathExtension
-
+        
         let increment =  getFileIncrementAtPath(path: self.appSettings.screenShotFolder)
         
         var newScreenshotFile = self.appSettings.screenShotFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
@@ -286,7 +286,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
         print("Organizing RAW ... \(url)")
         
         let _extension = url.pathExtension
-
+        
         let increment =  getFileIncrementAtPath(path: self.appSettings.rawFolder)
         
         var newRawFile = self.appSettings.rawFolder + "/" + self.appSettings.fileSequenceName + " - " + increment + "." + _extension
@@ -408,7 +408,7 @@ class FileManagerOptionsOrganizeController: NSViewController {
     }
     
     @IBAction func shareMultipleFiles(sender: AnyObject?) {
-            self.appDelegate.fileManagerViewController.shareMultipleFiles(receivedFiles: self.receivedFiles as! Array<Any>, s: sender)
+        self.appDelegate.fileManagerViewController.shareMultipleFiles(receivedFiles: self.receivedFiles as! Array<Any>, s: sender)
     }
     
 }

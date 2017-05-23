@@ -17,4 +17,4 @@ import Quartz
 
 class VideoPlayerMessageBox: NSViewController {
 }
-    
+

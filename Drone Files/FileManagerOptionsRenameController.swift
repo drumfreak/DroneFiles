@@ -44,9 +44,7 @@ class FileManagerOptionsRenameController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.viewIsLoaded = true
-        let count = String(format: "%2d", self.receivedFiles.count)
-        self.numberofFilesLabel.title = count
+        
         
         if(UserDefaults.standard.value(forKey: "renameSequenceName") == nil) {
             self.renameSequenceName = self.appSettings.fileSequenceName
@@ -62,9 +60,19 @@ class FileManagerOptionsRenameController: NSViewController {
             self.organizeFilesToFolder = UserDefaults.standard.value(forKey: "organizeFilesToFolder") as! Bool
         }
         
-        self.renameSequenceLabel.stringValue = self.renameSequenceName
         
-        self.organizeFilesButton.state = (self.organizeFilesToFolder) ? 1 : 0
+        
+        
+        
+        DispatchQueue.main.async {
+            self.viewIsLoaded = true
+            let count = String(format: "%2d", self.receivedFiles.count)
+            self.numberofFilesLabel.title = count
+            self.renameSequenceLabel.stringValue = self.renameSequenceName
+            self.organizeFilesButton.state = (self.organizeFilesToFolder) ? 1 : 0
+        }
+        
+        
         
     }
     
@@ -87,7 +95,9 @@ class FileManagerOptionsRenameController: NSViewController {
             let thisFileName = url?.lastPathComponent
             let fileExtension = url?.pathExtension
             self.renameSequenceName = (thisFileName?.replacingOccurrences(of: ("." + fileExtension!), with: ""))!
-            self.renameSequenceLabel.stringValue = self.renameSequenceName
+            DispatchQueue.main.async {
+                self.renameSequenceLabel.stringValue = self.renameSequenceName
+            }
         }
     }
     
@@ -102,7 +112,10 @@ class FileManagerOptionsRenameController: NSViewController {
         
         self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
         if(!errors) {
-            showAlert(text: "Files Renamed!", body: "The files have been renamed!", showCancel: false, messageType: "notice")
+            DispatchQueue.main.async {
+                
+                self.showAlert(text: "Files Renamed!", body: "The files have been renamed!", showCancel: false, messageType: "notice")
+            }
         }
     }
     
@@ -139,8 +152,8 @@ class FileManagerOptionsRenameController: NSViewController {
                 newFilePath = checkFileAndRename(filePath: newFilePath)
                 let newFile = URL(string: newFilePath)
                 
-//                print("New File: ")
-//                print(newFilePath)
+                //                print("New File: ")
+                //                print(newFilePath)
                 
                 DispatchQueue.global(qos: .userInitiated).async {
                     if(self.renameSingleFiles(from: url!, to: newFile!)) {
@@ -155,7 +168,9 @@ class FileManagerOptionsRenameController: NSViewController {
                 }
                 
             } else {
-                showAlert(text: "Could not create directory", body:"Check your permissions and settings", showCancel: false, messageType: "warning")
+                DispatchQueue.main.async {
+                    self.showAlert(text: "Could not create directory", body:"Check your permissions and settings", showCancel: false, messageType: "warning")
+                }
             }
         }
         
@@ -178,7 +193,7 @@ class FileManagerOptionsRenameController: NSViewController {
             }
             
             if(checkFolderAndCreate(folderPath: folderPath!.replacingOccurrences(of: " " , with: "%20"))) {
-
+                
                 DispatchQueue.global(qos: .userInitiated).async {
                     var i = 1
                     var incrementer = ""
@@ -187,9 +202,9 @@ class FileManagerOptionsRenameController: NSViewController {
                         let urlPath = m as! String
                         let url = URL(string: urlPath)
                         fileExtension = url?.pathExtension
-
-                       incrementer = String(format: "%3d", i)
-
+                        
+                        incrementer = String(format: "%3d", i)
+                        
                         var newFilePath = folderPath! + newName + " - " + incrementer + "." + fileExtension!
                         newFilePath = newFilePath.replacingOccurrences(of: " " , with: "%20")
                         newFilePath = self.checkFileAndRename(filePath: newFilePath)
@@ -209,7 +224,9 @@ class FileManagerOptionsRenameController: NSViewController {
                 }
                 
             } else {
-                showAlert(text: "Could not create directory", body:"Check your permissions and settings", showCancel: false, messageType: "warning")
+                DispatchQueue.main.async {
+                    self.showAlert(text: "Could not create directory", body:"Check your permissions and settings", showCancel: false, messageType: "warning")
+                }
             }
             
         }
@@ -358,9 +375,11 @@ class FileManagerOptionsRenameController: NSViewController {
         if(showCancel) {
             myPopup.addButton(withTitle: "Cancel")
         }
-        myPopup.runModal()
+        DispatchQueue.main.async {
+            myPopup.runModal()
+        }
     }
-
+    
     
     func setOpenPath1() {
         // doOpenFinder(urlString:self.moveToFolder)
@@ -374,7 +393,10 @@ class FileManagerOptionsRenameController: NSViewController {
             
             NSWorkspace.shared().open(url)
         } else {
-            showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
+            DispatchQueue.main.async {
+                
+                self.showAlert(text: "That Folder Doesn't Exist", body: "Select a folder and try again.", showCancel: false, messageType: "warning")
+            }
         }
     }
     

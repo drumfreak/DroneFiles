@@ -19,7 +19,7 @@ class NewProjectViewController: NSViewController {
     @IBOutlet var createProjectButton: ThemeButton!
     @IBOutlet var outputDirectoryButton: ThemeButton!
     @IBOutlet var outputDirectoryLabel: ThemeLabel!
-
+    
     @IBOutlet var thumbnailDirectoryButton: ThemeButton!
     @IBOutlet var thumbnailDirectoryLabel: ThemeLabel!
     
@@ -27,12 +27,12 @@ class NewProjectViewController: NSViewController {
         super.viewDidLoad()
         
         self.projectNameTextField.resignFirstResponder()
-
+        
         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.outputDirectory)
         
         self.projectNameTextField.stringValue = self.appSettings.fileSequenceName
         if(self.appSettings.thumbnailDirectory != nil) {
-
+            
             self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.thumbnailDirectory)
         }
         
@@ -58,9 +58,9 @@ class NewProjectViewController: NSViewController {
         } else {
             UserDefaults.standard.setValue(0, forKey: "createProjectSubDirectories")
         }
-       //  self.setupProjectDirectory()
+        //  self.setupProjectDirectory()
     }
-
+    
     
     
     // Open directory for tableview
@@ -104,7 +104,7 @@ class NewProjectViewController: NSViewController {
             
         })
     }
-
+    
     
     
     
@@ -129,7 +129,7 @@ class NewProjectViewController: NSViewController {
         self.view.window?.close()
         
     }
-
+    
     
     @IBAction func cancel(sender: AnyObject) {
         
@@ -137,7 +137,7 @@ class NewProjectViewController: NSViewController {
         self.view.window?.close()
         
     }
-
+    
     
     
     

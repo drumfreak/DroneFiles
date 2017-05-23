@@ -41,99 +41,94 @@ class ScreenShotSettingsViewController: NSViewController {
     
     @IBOutlet var frameIntervalLabel: ThemeLabel!
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOptions()
     }
     
     override func viewDidAppear() {
-        super.viewDidLoad()
+        super.viewDidAppear()
         setupOptions()
     }
     
-
-    
     
     func setupOptions() {
-
-        if(self.appSettings.screenshotPreserveVideoName) {
-            self.preserveNameCheckbox.state = 1
-        } else {
-            self.preserveNameCheckbox.state = 0
-        }
-        
-        if(self.appSettings.screenshotPreserveVideoLocation) {
-            self.preserveLocationCheckbox.state = 1
-        } else {
-            self.preserveLocationCheckbox.state = 0
-        }
-        
-        if(self.appSettings.screenshotSound) {
-            self.shutterSoundCheckbox.state = 1
-        } else {
-            self.shutterSoundCheckbox.state = 0
-        }
-        
-        
-        if(self.appSettings.screenShotBurstEnabled) {
-            self.screeshotBurstCheckbox.state = 1
-        } else {
-            self.screeshotBurstCheckbox.state = 0
-        }
-        
-        
-        if(self.appSettings.screenshotPreview) {
-            self.screenshotPreviewCheckbox.state = 1
-        } else {
-            self.screenshotPreviewCheckbox.state = 0
-        }
-        
-        
-        if(self.appSettings.screenshotPreserveVideoDate) {
-            self.preserveDateCheckbox.state = 1
-        } else {
-            self.preserveDateCheckbox.state = 0
-        }
-        
-        if(self.appSettings.screenshotTypeJPG) {
-            self.screenshotTypeJPGCheckbox.state = 1
-            self.screenshotTypePNGCheckbox.state = 0
+        DispatchQueue.main.async {
+            if(self.appSettings.screenshotPreserveVideoName) {
+                self.preserveNameCheckbox.state = 1
+            } else {
+                self.preserveNameCheckbox.state = 0
+            }
             
-        } else {
-            self.screenshotTypePNGCheckbox.state = 1
-            self.screenshotTypeJPGCheckbox.state = 0
+            if(self.appSettings.screenshotPreserveVideoLocation) {
+                self.preserveLocationCheckbox.state = 1
+            } else {
+                self.preserveLocationCheckbox.state = 0
+            }
+            
+            if(self.appSettings.screenshotSound) {
+                self.shutterSoundCheckbox.state = 1
+            } else {
+                self.shutterSoundCheckbox.state = 0
+            }
+            
+            
+            if(self.appSettings.screenShotBurstEnabled) {
+                self.screeshotBurstCheckbox.state = 1
+            } else {
+                self.screeshotBurstCheckbox.state = 0
+            }
+            
+            
+            if(self.appSettings.screenshotPreview) {
+                self.screenshotPreviewCheckbox.state = 1
+            } else {
+                self.screenshotPreviewCheckbox.state = 0
+            }
+            
+            
+            if(self.appSettings.screenshotPreserveVideoDate) {
+                self.preserveDateCheckbox.state = 1
+            } else {
+                self.preserveDateCheckbox.state = 0
+            }
+            
+            if(self.appSettings.screenshotTypeJPG) {
+                self.screenshotTypeJPGCheckbox.state = 1
+                self.screenshotTypePNGCheckbox.state = 0
+                
+            } else {
+                self.screenshotTypePNGCheckbox.state = 1
+                self.screenshotTypeJPGCheckbox.state = 0
+            }
+            
+            if(self.appSettings.screenshotTypePNG) {
+                self.screenshotTypePNGCheckbox.state = 1
+                self.screenshotTypeJPGCheckbox.state = 0
+            } else {
+                self.screenshotTypeJPGCheckbox.state = 1
+                self.screenshotTypePNGCheckbox.state = 0
+            }
+            
+            
+            if(self.appSettings.screenshotPreserveVideoName) {
+                self.sequenceNameTextField.isEnabled = false
+            } else {
+                self.sequenceNameTextField.stringValue = self.appSettings.fileSequenceName
+            }
+            
+            self.screenshotFolderLabel.stringValue = (URL(string: self.appSettings.screenShotFolder)?.lastPathComponent)!
+            
+            
+            self.screenshotFolderLabel.stringValue = (URL(string: self.appSettings.screenShotFolder)?.lastPathComponent
+                )!
+            
+            self.numShotSBeforeTextField.intValue = self.appSettings.screenshotFramesBefore
+            
+            self.numShotsAfterTextField.intValue = self.appSettings.screenshotFramesAfter
+            
+            self.frameIntervalLabel.doubleValue = self.appSettings.screenshotFramesInterval
         }
-        
-        if(self.appSettings.screenshotTypePNG) {
-            self.screenshotTypePNGCheckbox.state = 1
-            self.screenshotTypeJPGCheckbox.state = 0
-        } else {
-            self.screenshotTypeJPGCheckbox.state = 1
-            self.screenshotTypePNGCheckbox.state = 0
-        }
-        
-        
-        if(self.appSettings.screenshotPreserveVideoName) {
-            self.sequenceNameTextField.isEnabled = false
-        } else {
-            self.sequenceNameTextField.stringValue = self.appSettings.fileSequenceName
-        }
-        
-        self.screenshotFolderLabel.stringValue = (URL(string: self.appSettings.screenShotFolder)?.lastPathComponent)!
-        
-        
-        self.screenshotFolderLabel.stringValue = (URL(string: self.appSettings.screenShotFolder)?.lastPathComponent
-            )!
-        
-        self.numShotSBeforeTextField.intValue = self.appSettings.screenshotFramesBefore
-        
-        self.numShotsAfterTextField.intValue = self.appSettings.screenshotFramesAfter
-        
-        self.frameIntervalLabel.doubleValue = self.appSettings.screenshotFramesInterval
-
     }
     
     
@@ -146,7 +141,7 @@ class ScreenShotSettingsViewController: NSViewController {
         self.frameIntervalLabel.doubleValue = sender.doubleValue
     }
     
-
+    
     @IBAction func setInterval(_ sender: NSTextField) {
         // let slider = sender as! NSSlider
         print(sender.doubleValue)
@@ -160,12 +155,12 @@ class ScreenShotSettingsViewController: NSViewController {
     }
     
     
-
+    
     
     
     
     @IBAction func saveSettings(_ sender: AnyObject?) {
-    
+        
         if(self.screeshotBurstCheckbox.state == 0) {
             self.appDelegate.appSettings.screenShotBurstEnabled = false
         } else {
@@ -228,7 +223,7 @@ class ScreenShotSettingsViewController: NSViewController {
         
         self.appDelegate.videoPlayerControlsController?.setupControls()
         self.appDelegate.saveProject()
-
+        
         self.dismiss(nil)
         
         

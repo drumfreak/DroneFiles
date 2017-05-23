@@ -19,11 +19,13 @@ class ImageEditorSplitViewController: NSSplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mySplitView.adjustSubviews();
-        // self.appDelegate.videoSplitViewController = self
         
+        // mySplitView.adjustSubviews();
+        // self.appDelegate.videoSplitViewController = self
+        //DispatchQueue.main.async {
         self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        //}
     }
     
 }

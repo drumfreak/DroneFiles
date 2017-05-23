@@ -50,26 +50,9 @@ class ScreenshotViewController: NSViewController {
     var audioPlayer: AVAudioPlayer?
     var videoAsset: AVAsset?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            guard let audioPlayer = audioPlayer else { return }
-            
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-
         self.appDelegate.screenshotViewController = self
-
-        
     }
     
     func getLocationData(asset: AVAsset) -> String {
@@ -186,7 +169,7 @@ class ScreenshotViewController: NSViewController {
                 }
                 
                 self.appDelegate.appSettings.blockScreenShotTabSwitch = false
-
+                
             }
             
         }
@@ -472,7 +455,25 @@ class ScreenshotViewController: NSViewController {
     
     
     func playShutterSound() {
+        
+        let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let audioPlayer = audioPlayer else { return }
+            
+            self.audioPlayer = audioPlayer
+            self.audioPlayer?.prepareToPlay()
+            // self.audioPlayer?.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        
         self.audioPlayer?.play()
+        
+        
     }
     
 }

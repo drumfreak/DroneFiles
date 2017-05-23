@@ -11,11 +11,10 @@ import Foundation
 import AppKit
 
 class ThemeViewDark: NSView {
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         self.wantsLayer = true
-
+        
         self.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
     }
 }

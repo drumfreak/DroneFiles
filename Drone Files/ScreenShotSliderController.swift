@@ -17,11 +17,11 @@ class ScreenShotSliderController: NSViewController {
     @IBOutlet weak var countLabel: NSButton!
     @IBOutlet var mediaShowIntervalSlider: NSSlider!
     @IBOutlet weak var startShowButton: NSButton!
-
+    
     @IBOutlet weak var scrollView: ThemeScrollView!
     @IBOutlet var mediaShowRateLabel: NSTextField!
     @IBOutlet weak var mediaBinSlideshowTimer: Timer!
-
+    
     var viewConfigured = false
     var currentSlide = 0
     let mediaBinLoader = MediaBinLoader()
@@ -36,36 +36,37 @@ class ScreenShotSliderController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DispatchQueue.main.async {
+            self.view.wantsLayer = true
+            self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+            self.mediaShowIntervalSlider.doubleValue =  self.appDelegate.appSettings.mediaBinTimerInterval
+            self.mediaShowRateLabel.doubleValue = self.appDelegate.appSettings.mediaBinTimerInterval
+            self.countLabel.stringValue = "0"
+        }
         
-        self.countLabel.stringValue = "0"
-
         self.appDelegate.screenShotSliderController = self
         self.reloadContents()
-        self.collectionView.resignFirstResponder()
-        self.resignFirstResponder()
-
+        //        self.collectionView.resignFirstResponder()
+        //        self.resignFirstResponder()
         self.selectItemOne()
-
-        self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
-        
-        self.mediaShowIntervalSlider.doubleValue =  self.appDelegate.appSettings.mediaBinTimerInterval
-        
-        self.mediaShowRateLabel.doubleValue = self.appDelegate.appSettings.mediaBinTimerInterval
-        
     }
     
     
     func selectItemOne() {
         let path = NSIndexPath.init(forItem: 0, inSection: 0)
-        self.collectionView.selectItems(at: Set([path]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
+        DispatchQueue.main.async {
+            self.collectionView.selectItems(at: Set([path]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
+        }
     }
     
     
     func selectItemByIndex(int: Int) {
         let indexPath = NSIndexPath.init(forItem: int, inSection: 0)
-        
-        self.collectionView.selectItems(at: Set([indexPath]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
+        DispatchQueue.main.async {
+            
+            self.collectionView.selectItems(at: Set([indexPath]) as Set<IndexPath>, scrollPosition: NSCollectionViewScrollPosition.top)
+            
+        }
         
         guard let item = collectionView.item(at: indexPath as IndexPath) else {
             return
@@ -78,15 +79,15 @@ class ScreenShotSliderController: NSViewController {
         if(self.appSettings.secondDisplayIsOpen) {
             // print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
-             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
             
         } else {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
         }
-
-        
-        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        DispatchQueue.main.async {
+            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        }
     }
     
     
@@ -106,12 +107,13 @@ class ScreenShotSliderController: NSViewController {
         } else {
             mediaBinLoader.loadDataFromUrls(foo)
         }
-
+        
         self.configureCollectionView()
         self.collectionView.reloadData()
         
-        self.countLabel.title = String(format: "%1d", self.appSettings.mediaBinUrls.count)
-        
+        DispatchQueue.main.async {
+            self.countLabel.title = String(format: "%1d", self.appSettings.mediaBinUrls.count)
+        }
         self.collectionView.resignFirstResponder()
         self.resignFirstResponder()
     }
@@ -126,46 +128,72 @@ class ScreenShotSliderController: NSViewController {
     
     
     @IBAction func startMediaShow (_ sender : AnyObject) {
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        
+        let myAttribute = [NSForegroundColorAttributeName: NSColor.lightGray,
+                           NSParagraphStyleAttributeName: paragraph
+        ]
+        
+        
+        
         if(self.appSettings.mediaBinSlideshowRunning == true) {
             self.stopTimer()
-            self.startShowButton.stringValue = "Start Show"
+            DispatchQueue.main.async {
+                
+                let myAttrString = NSAttributedString(string:"Start Show", attributes: myAttribute)
+                
+                self.startShowButton.attributedTitle = myAttrString
+                
+                //stringValue = "Start Show"
+            }
         } else {
             self.startTimer()
-            self.startShowButton.stringValue = "Stop Show"
-
+            DispatchQueue.main.async {
+                
+                let myAttrString = NSAttributedString(string:"Stop Show", attributes: myAttribute)
+                
+                self.startShowButton.attributedTitle = myAttrString
+                
+                //stringValue = "Start Show"
+            }
+            
         }
         
     }
     
     @IBAction func mediaShowRateSliderChanged(_ sender: NSSlider) {
         self.appDelegate.appSettings.mediaBinTimerInterval = sender.doubleValue
-    
-       self.mediaShowRateLabel.doubleValue = sender.doubleValue
+        
+        DispatchQueue.main.async {
+            self.mediaShowRateLabel.doubleValue = sender.doubleValue
+        }
         
         if(self.appSettings.mediaBinSlideshowRunning) {
             self.stopTimer()
             self.startTimer()
         }
     }
-
- 
- 
-    @IBAction func openSecondDisplay (_ sender : AnyObject) {
-       /*
-        self.appDelegate.externalScreens = NSScreen.externalScreens()
-        
-        let screenRect = self.appDelegate.externalScreens[0].frame
-        
-        let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
-        
-        secondWindowController?.window = secondwindow
-        
-        secondwindow.makeKeyAndOrderFront(self)
-
-        
-        secondWindowController?.showWindow(self)
-        */
     
+    
+    
+    @IBAction func openSecondDisplay (_ sender : AnyObject) {
+        /*
+         self.appDelegate.externalScreens = NSScreen.externalScreens()
+         
+         let screenRect = self.appDelegate.externalScreens[0].frame
+         
+         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
+         
+         secondWindowController?.window = secondwindow
+         
+         secondwindow.makeKeyAndOrderFront(self)
+         
+         
+         secondWindowController?.showWindow(self)
+         */
+        
     }
     
     private func configureCollectionView() {
@@ -176,12 +204,15 @@ class ScreenShotSliderController: NSViewController {
             flowLayout.sectionInset = EdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
             flowLayout.minimumInteritemSpacing = 10.0
             flowLayout.minimumLineSpacing = 10.0
-            self.collectionView.collectionViewLayout = flowLayout
-            // 2
-            view.wantsLayer = true
-            // 3
-            self.collectionView.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
-            self.viewConfigured = true
+            
+            DispatchQueue.main.async {
+                self.collectionView.collectionViewLayout = flowLayout
+                // 2
+                self.view.wantsLayer = true
+                // 3
+                self.collectionView.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+                self.viewConfigured = true
+            }
         }
     }
     
@@ -189,13 +220,13 @@ class ScreenShotSliderController: NSViewController {
     func startTimer() {
         self.appDelegate.appSettings.mediaBinSlideshowRunning = true
         self.currentSlide = 0
-       // DispatchQueue.global().async() {
-            self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
+        // DispatchQueue.global().async() {
+        self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
         
-                RunLoop.current.add(self.mediaBinSlideshowTimer, forMode: RunLoopMode.commonModes)
+        RunLoop.current.add(self.mediaBinSlideshowTimer, forMode: RunLoopMode.commonModes)
         
-       // }
-
+        // }
+        
     }
     
     func stopTimer() {
@@ -212,9 +243,7 @@ class ScreenShotSliderController: NSViewController {
     
     func nextSlide() {
         
-        // print("Hey next slide!")
-        
-       self.currentSlide += 1
+        self.currentSlide += 1
         
         if(self.currentSlide <= self.collectionViewLimit) {
             if(self.currentSlide >= self.appDelegate.appSettings.mediaBinUrls.count) {
@@ -232,12 +261,8 @@ class ScreenShotSliderController: NSViewController {
     
     
     @IBAction func hideScreenshotSlider (_ sender : AnyObject) {
-            print("Fuck")
-        
-        
+        print("Fuck")
     }
-
-    
 }
 
 
@@ -262,13 +287,20 @@ extension ScreenShotSliderController : NSCollectionViewDataSource {
         
         // 5
         let imageFile = mediaBinLoader.imageFileForIndexPath(indexPath as IndexPath)
-        collectionViewItem.imageFile = imageFile
         
+        DispatchQueue.main.async {
+            collectionViewItem.imageFile = imageFile
+        }
         
         if let selectedIndexPath = collectionView.selectionIndexPaths.first, selectedIndexPath == indexPath {
-            collectionViewItem.setHighlight(selected: true)
+            
+            DispatchQueue.main.async {
+                collectionViewItem.setHighlight(selected: true)
+            }
         } else {
-            collectionViewItem.setHighlight(selected: false)
+            DispatchQueue.main.async {
+                collectionViewItem.setHighlight(selected: false)
+            }
         }
         
         
@@ -280,7 +312,6 @@ extension ScreenShotSliderController : NSCollectionViewDataSource {
 extension ScreenShotSliderController : NSCollectionViewDelegate {
     // 1
     
-    
     internal func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {
             return
@@ -291,24 +322,31 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         }
         let img = (item as! ScreenShotCollectionViewItem)
         
-    
+        
         //  print(img.imageFile)
         
         if(self.appSettings.secondDisplayIsOpen) {
-            //print("Displaying item on second screen...")
-            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+           // DispatchQueue.main.async {
+                //print("Displaying item on second screen...")
+                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+           // }
             
-             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-
         } else {
-            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+           // DispatchQueue.main.async {
+                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+                
+            //}
+            
         }
         
-        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        DispatchQueue.main.async {
+            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        }
         
     }
-
+    
     
     private func collectionView(collectionView: NSCollectionView, didSelectItemsAtIndexPaths indexPaths: Set<NSIndexPath>) {
         // 2
@@ -322,18 +360,21 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         let img = (item as! ScreenShotCollectionViewItem)
         
         if(self.appSettings.secondDisplayIsOpen) {
-            //print("Displaying item on second screen...")
-            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
-            
-             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            //DispatchQueue.main.async {
+                //print("Displaying item on second screen...")
+                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            //}
             
         } else {
-            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            //DispatchQueue.main.async {
+                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            //}
         }
-        
-        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
-
+        DispatchQueue.main.async {
+            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        }
     }
     
     // 4
@@ -346,8 +387,10 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         guard let item = collectionView.item(at: indexPath as IndexPath) else {
             return
         }
-        (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
-
+        DispatchQueue.main.async {
+            (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
+        }
+        
     }
     
     
@@ -358,12 +401,13 @@ extension ScreenShotSliderController : NSCollectionViewDelegate {
         guard let item = collectionView.item(at: indexPath as IndexPath) else {
             return
         }
-//        let img = (item as! ScreenShotCollectionViewItem)
-//        
-//        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        //        let img = (item as! ScreenShotCollectionViewItem)
+        //
+        //        self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
         
-
-        (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
+        DispatchQueue.main.async {
+            (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
+        }
     }
-
+    
 }

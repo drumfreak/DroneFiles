@@ -15,7 +15,7 @@ import Quartz
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var window: NSWindow!
     var defaults = UserDefaults.standard
-
+    
     var externalScreens = [NSScreen]()
     
     var appSettings = AppSettings()
@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
-  
+    
     @IBOutlet weak var fileManagerOptionsTabViewController : FileManagerOptionsTabViewController!
     @IBOutlet weak var fileManagerOptionsCopyController: FileManagerOptionsCopyController!
     @IBOutlet weak var fileManagerOptionsOrganizeController: FileManagerOptionsOrganizeController!
@@ -39,11 +39,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
     
     @IBOutlet weak var favoritesViewController: FavoritesViewController!
- 
+    
     let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
     
-//    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
+    //    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
     
     
     @IBOutlet weak var editorTabViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "editorTabViewController") as? EditorTabViewController
@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet var videoPlayerControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerControlsController") as? VideoPlayerControllsController
     
     @IBOutlet weak var videoPlayerViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerViewController") as? VideoPlayerViewController
-
+    
     @IBOutlet weak var imageEditorViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorViewController") as? ImageEditorViewController
     
     @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
@@ -61,21 +61,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
     //
     @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
-
+    
     
     
     @IBOutlet weak var secondWindowController = SecondWindowController()
     @IBOutlet weak var secondaryDisplayMediaViewController = SecondaryDisplayMediaViewController()
-
-        //NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
-
+    
+    //NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
+    
     
     var slideShowWindowController: SlideShowWindowController?
-
+    
     var slideshowUrls = NSMutableArray()
-
+    
     // Variables setup for various usage.
-
+    
     func applicationWillResignActive(_ notification: Notification) {
         
     }
@@ -89,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidResignActive(_ notification: Notification) {
-
+        
     }
     
     func saveProject() {
@@ -97,10 +97,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-    
+        
         // Swift.print(appSettings)
         setupOptions()
-       
+        
         let notification = NSUserNotification()
         notification.title = "Welcome to DroneFiles!"
         notification.informativeText = "Your life will never be the same"
@@ -108,17 +108,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSUserNotificationCenter.default.deliver(notification)
         
         self.externalScreens = NSScreen.externalScreens()
-
-       
+        
+        
     }
     
-
+    
     
     func setupOptions() {
         let defaults = UserDefaults.standard
         //defaults.setValue([], forKey: "mediaBinUrls")
         //defaults.setValue([], forKey: "favoriteUrls")
-
+        
         if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
             defaults.setValue(true, forKey: "screenshotSound")
             defaults.setValue(true, forKey: "screenshotPreserveVideoName")
@@ -248,7 +248,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.appSettings.favoriteUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
                     // print(self.appSettings.favoriteUrls)
                 }
-
+                
                 if(self.appSettings.favoriteUrls.count > 0) {
                     // self.screenShotSliderController.reloadContents()
                     // self.screenShotSliderController.selectItemOne()
@@ -257,31 +257,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             
         }
-       
+        
     }
     
-
-
+    
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         self.saveProject()
     }
-
+    
     // MARK: - Core Data stack
-
+    
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-        */
+         */
         let container = NSPersistentContainer(name: "Drone_Files")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -295,13 +295,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving and Undo support
-
+    
     @IBAction func saveAction(_ sender: AnyObject?) {
         // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
         let context = persistentContainer.viewContext
-
+        
         if !context.commitEditing() {
             NSLog("\(NSStringFromClass(type(of: self))) unable to commit editing before saving")
         }
@@ -315,12 +315,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-
+    
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {
         // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
         return persistentContainer.viewContext.undoManager
     }
-
+    
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
         // Save changes in the application's managed object context before the application terminates.
         let context = persistentContainer.viewContext
@@ -338,7 +338,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             try context.save()
         } catch {
             let nserror = error as NSError
-
+            
             // Customize this code block to include application-specific recovery steps.
             let result = sender.presentError(nserror)
             if (result) {
@@ -375,7 +375,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             newTool = (sender.tag)!
         }
-    
+        
         switch newTool {
         case 0:
             self.imageEditorControlsController?.imageView?.currentToolMode = IKToolModeMove
@@ -391,7 +391,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeRotate
             break;
         case 4:
-           self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeAnnotate
+            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeAnnotate
             break
         default:
             self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeNone
@@ -464,17 +464,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
-        return true
-    }
+    //    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
+    //        return true
+    //    }
     
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        return true
-    }
+    //    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    //        return true
+    //    }
     
     
-//    func openDocument(sender: AnyObject) {
-//    }
+    //    func openDocument(sender: AnyObject) {
+    //    }
     
 }
 
@@ -497,7 +497,7 @@ extension AppDelegate {
         }
         return m
     }
-
+    
     
     func readProjectFile(projectFile: String) {
         let path = URL(string: projectFile)
@@ -521,9 +521,9 @@ extension AppDelegate {
                 if(dictionary["favoriteUrls"] != nil) {
                     self.appSettings.favoriteUrls = urlStrArraytoUrlArray(input: dictionary["favoriteUrls"] as! Array<Any>)
                     //self.appSettings.favoriteUrls = []
-
+                    
                     self.favoritesCollectionViewController?.reloadContents()
-
+                    
                 } else {
                     self.appSettings.favoriteUrls = [URL]()
                     self.favoritesCollectionViewController?.reloadContents()
@@ -534,9 +534,9 @@ extension AppDelegate {
                     self.appSettings.mediaBinUrls = urlStrArraytoUrlArray(input: dictionary["mediaBinUrls"] as! Array<Any>)
                     
                     //self.appSettings.mediaBinUrls = []
-
+                    
                     self.screenShotSliderController?.reloadContents()
-
+                    
                 } else {
                     self.appSettings.mediaBinUrls = [URL]()
                     self.screenShotSliderController?.reloadContents()
@@ -597,12 +597,12 @@ extension AppDelegate {
                     self.appSettings.screenshotFramesBefore = dictionary["screenshotFramesBefore"] as! Int32
                 }
                 
-
+                
                 if(dictionary["screenshotSound"] != nil) {
                     self.appSettings.screenshotSound = dictionary["screenshotSound"] as! Bool
                 }
-              
-               
+                
+                
                 if(dictionary["screenShotBurstEnabled"] != nil) {
                     self.appSettings.screenShotBurstEnabled = dictionary["screenShotBurstEnabled"] as! Bool
                 }
@@ -612,7 +612,7 @@ extension AppDelegate {
                     self.appSettings.screenshotTypeJPG = dictionary["screenshotTypeJPG"] as! Bool
                 }
                 
-            
+                
                 if(dictionary["screenshotTypePNG"] != nil) {
                     self.appSettings.screenshotTypePNG = dictionary["screenshotTypePNG"] as! Bool
                 }
@@ -620,27 +620,27 @@ extension AppDelegate {
                 if(dictionary["screenshotTypePNG"] != nil) {
                     self.appSettings.screenshotTypePNG = dictionary["screenshotTypePNG"] as! Bool
                 }
-
+                
                 
                 if(dictionary["screenshotPreview"] != nil) {
                     self.appSettings.screenshotPreview = dictionary["screenshotPreview"] as! Bool
                 }
-
+                
                 
                 if(dictionary["screenshotFramesInterval"] != nil) {
                     self.appSettings.screenshotFramesInterval = dictionary["screenshotFramesInterval"] as! Double
                 }
-
+                
                 
                 if(dictionary["screenshotPreserveVideoDate"] != nil) {
                     self.appSettings.screenshotPreserveVideoDate = dictionary["screenshotPreserveVideoDate"] as! Bool
                 }
-
+                
                 
                 if(dictionary["screenshotPreserveVideoLocation"] != nil) {
                     self.appSettings.screenshotPreserveVideoLocation = dictionary["screenshotPreserveVideoLocation"] as! Bool
                 }
-
+                
                 
                 if(dictionary["screenshotPreserveVideoName"] != nil) {
                     self.appSettings.screenshotPreserveVideoName = dictionary["screenshotPreserveVideoName"] as! Bool
@@ -689,13 +689,13 @@ extension AppDelegate {
                     self.appSettings.lastFileOpened = dictionary["lastFileOpened"] as! String
                     self.fileBrowserViewController?.openLastFile()
                 }
-            
-                 self.fileBrowserViewController?.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
-
+                
+                self.fileBrowserViewController?.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
+                
             }
             
             self.defaults.setValue(path?.absoluteString, forKey: "lastProjectfileOpened")
-
+            
             //  print(projectJson!)
         } catch let error {
             print(error.localizedDescription)
@@ -726,17 +726,17 @@ extension AppDelegate {
                 
                 let created = fileManager.createFile(atPath: foo!, contents: nil, attributes: nil)
                 if created {
-                   // print("File created ")
+                    // print("File created ")
                 } else {
                     print("Couldn't create file for some reason")
                 }
             } else {
-               // print("File already exists")
+                // print("File already exists")
             }
             
             
             // creating an array of test data
-
+            
             let dic = NSMutableDictionary()
             
             dic.setValue(urlArraytoStrArray(input: self.appSettings.favoriteUrls), forKey: "favoriteUrls")
@@ -772,7 +772,7 @@ extension AppDelegate {
             dic.setValue(self.appSettings.lastFolderOpened, forKey: "lastFolderOpened")
             dic.setValue(self.appSettings.lastFileOpened, forKey: "lastFileOpened")
             dic.setValue(self.appSettings.folderURL, forKey: "currentDirectory")
-        
+            
             // print(dic)
             
             // print("Try this Path: \(String(describing: jsonFilePath))")
@@ -799,7 +799,7 @@ extension AppDelegate {
             }
         }
     }
-
+    
     
     func checkFolderAndCreate(folderPath: String) -> Bool {
         do {
@@ -835,7 +835,7 @@ extension NSViewController {
     func urlStringToDisplayPath(input: String) -> String {
         return input.replacingOccurrences(of: "file://", with: "").replacingOccurrences(of: "%20", with: " ")
     }
-
+    
 }
 
 extension NSWindowController {
@@ -861,7 +861,7 @@ extension NSWindow {
 extension NSView {
     
     //var setTranslatesAutoresizingMaskIntoConstraints = false
-
+    
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }

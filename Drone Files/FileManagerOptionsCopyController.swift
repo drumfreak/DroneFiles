@@ -110,7 +110,7 @@ class FileManagerOptionsCopyController: NSViewController {
         }
         
         self.copyDirectoryLabel5.stringValue = self.urlStringToDisplayPath(input: self.copyToFolder5)
-
+        
         // Click Gestures
         
         let tapGestureCopyFolder1 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath1))
@@ -121,7 +121,7 @@ class FileManagerOptionsCopyController: NSViewController {
         let tapGestureCopyFolder2 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath2))
         
         self.copyDirectoryLabel2.addGestureRecognizer(tapGestureCopyFolder2)
-    
+        
         let tapGestureCopyFolder3 = NSClickGestureRecognizer(target: self, action: #selector(setOpenPath3))
         
         self.copyDirectoryLabel3.addGestureRecognizer(tapGestureCopyFolder3)
@@ -301,13 +301,13 @@ class FileManagerOptionsCopyController: NSViewController {
         prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder1)
     }
     
-
+    
     @IBAction func copyFilesFolder2(_ sender: AnyObject) {
         let filesToCopy = self.receivedFiles
         prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder2)
     }
     
-
+    
     @IBAction func copyFilesFolder3(_ sender: AnyObject) {
         let filesToCopy = self.receivedFiles
         prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder3)
@@ -318,7 +318,7 @@ class FileManagerOptionsCopyController: NSViewController {
         let filesToCopy = self.receivedFiles
         prepareToCopy(filesToCopy: filesToCopy as! Array<Any>, copyFolder: self.copyToFolder4)
     }
-
+    
     
     @IBAction func copyFilesFolder5(_ sender: AnyObject) {
         let filesToCopy = self.receivedFiles
@@ -326,7 +326,7 @@ class FileManagerOptionsCopyController: NSViewController {
     }
     
     func prepareToCopy(filesToCopy: Array<Any>, copyFolder: String) {
-    
+        
         
         let manageFileURLS: NSMutableArray = []
         let fileUrls = filesToCopy
@@ -377,9 +377,9 @@ class FileManagerOptionsCopyController: NSViewController {
         } else {
             showAlert(text: "No Files Selected!", body: "Select files from the File Manager List and try again.", showCancel: false, messageType: "warning")
         }
-
         
-    
+        
+        
     }
     
     
@@ -405,7 +405,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         self.appDelegate.fileCopyProgressView.pauseTimer = true
         self.appDelegate.fileCopyProgressView.destinationCurrentFile = destinationURL.absoluteString
-
+        
         
         if !FileManager.default.fileExists(atPath: getPathFromURL(path: copyDestination)) {
             
@@ -429,7 +429,7 @@ class FileManagerOptionsCopyController: NSViewController {
         }
     }
     
-
+    
     
     func doCopyFile(from: URL, toUrl: URL) -> Bool {
         

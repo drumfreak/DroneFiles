@@ -18,13 +18,15 @@ class VideoSplitViewController: NSSplitViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mySplitView.adjustSubviews();
         self.appDelegate.videoSplitViewController = self
+        
+        //DispatchQueue.main.async {
+        // mySplitView.adjustSubviews();
         
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-
         
+        //}
     }
     
 }

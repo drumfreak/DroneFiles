@@ -12,14 +12,14 @@ import Cocoa
 
 class ImageFile {
     
- 
+    
     
     fileprivate(set) var thumbnail: NSImage?
     fileprivate(set) var fileName: String
     fileprivate(set) var imgUrl: URL!
     fileprivate(set) var thumbnailUrl: URL!
     fileprivate(set) var thumbnailFileName: String
-
+    
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }
@@ -28,7 +28,7 @@ class ImageFile {
         return appDelegate.appSettings
     }
     let fileManager = FileManager.default
-
+    
     
     init (url: URL) {
         self.fileName = url.lastPathComponent
@@ -41,7 +41,7 @@ class ImageFile {
         
         self.thumbnailUrl = URL(string: tmp)
         // var isDirectory: ObjCBool = false
-
+        
         if !fileManager.fileExists(atPath: getPathFromURL(path: self.thumbnailUrl.absoluteString)) {
             // No thumbnail exists.
             // print("Thumbnail does not exist")
@@ -76,7 +76,7 @@ class ImageFile {
         
         
         guard let thumbnailRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, thumbnailOptions as CFDictionary) else { return nil}
-
+        
         
         let img = NSImage(cgImage: thumbnailRef, size: NSSize.zero)
         
@@ -95,9 +95,9 @@ class ImageFile {
             // self.appDelegate.imageEditorViewController?.loadImage(_url: self.saveUrl!)
             
         }
-
         
-       
+        
+        
         
         
         return img

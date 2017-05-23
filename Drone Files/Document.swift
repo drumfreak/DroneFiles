@@ -15,6 +15,6 @@ class DroneFilesDocument: NSDocument {
 
 //
 //extension DroneFilesDocument: NSDocument {
-//    
-//    
+//
+//
 //}

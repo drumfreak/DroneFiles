@@ -107,12 +107,12 @@ class VideoPlayerControllsController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("Video Player Controller Loaded")
-        
-        self.clipTrimProgressBar.isHidden = true
-        self.saveTrimmedClipView.isHidden = true
-        self.saveTrimmedVideoButton.isHidden = true
-        // self.savingScreenShotMessageBox.isHidden = true
-        
+        DispatchQueue.main.async {
+            self.clipTrimProgressBar.isHidden = true
+            self.saveTrimmedClipView.isHidden = true
+            self.saveTrimmedVideoButton.isHidden = true
+            // self.savingScreenShotMessageBox.isHidden = true
+        }
         
         let tapGesture = NSClickGestureRecognizer(target: self, action: #selector(handlePlayerLabelClick))
         self.playerTimerLabel.addGestureRecognizer(tapGesture)
@@ -135,55 +135,46 @@ class VideoPlayerControllsController: NSViewController {
     //    }
     //
     func setupControls() {
-        
-        if(self.appDelegate.appSettings.screenShotBurstEnabled) {
-            self.screenShotBurstEnabledButton.state = 1
-        } else {
-            self.screenShotBurstEnabledButton.state = 0
-        }
-        
-        
-        if(self.appSettings.screenshotSound) {
-            self.screenshotSoundButton.state = 1
-        } else {
-            self.screenshotSoundButton.state = 0
-        }
-        
-        
-        if(self.appSettings.screenshotPreview) {
-            self.screenShotPreviewButton.state = 1
-        } else {
-            self.screenShotPreviewButton.state = 0
-        }
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func startTimer() {
         DispatchQueue.main.async {
-            if(self.playerTimer == nil) {
-                //print("Launching timer");
-                self.playerTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector:#selector(self.updateTimerLabel), userInfo:nil, repeats: true)
+            
+            if(self.appDelegate.appSettings.screenShotBurstEnabled) {
+                self.screenShotBurstEnabledButton.state = 1
+            } else {
+                self.screenShotBurstEnabledButton.state = 0
+            }
+            
+            
+            if(self.appSettings.screenshotSound) {
+                self.screenshotSoundButton.state = 1
+            } else {
+                self.screenshotSoundButton.state = 0
+            }
+            
+            
+            if(self.appSettings.screenshotPreview) {
+                self.screenShotPreviewButton.state = 1
+            } else {
+                self.screenShotPreviewButton.state = 0
             }
         }
+    }
+    
+    func startTimer() {
+        // DispatchQueue.main.async {
+        if(self.playerTimer == nil) {
+            //print("Launching timer");
+            self.playerTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector:#selector(self.updateTimerLabel), userInfo:nil, repeats: true)
+        }
+        // }
     }
     
     
     func stopTimer() {
-        DispatchQueue.main.async {
-            if(self.playerTimer != nil) {
-                self.playerTimer.invalidate()
-            }
+        // DispatchQueue.main.async {
+        if(self.playerTimer != nil) {
+            self.playerTimer.invalidate()
         }
+        // }
     }
     
     func updateTimerLabel() {
@@ -192,9 +183,13 @@ class VideoPlayerControllsController: NSViewController {
         let durationSeconds = CMTimeGetSeconds((cur)!)
         
         let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
-        self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
         
-        self.currentFrameLabel.stringValue = String(format: "%02f", durationSeconds)
+        DispatchQueue.main.async {
+            
+            self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
+            
+            self.currentFrameLabel.stringValue = String(format: "%02f", durationSeconds)
+        }
     }
     
     
@@ -206,11 +201,9 @@ class VideoPlayerControllsController: NSViewController {
         
         self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
         
-        self.playerRateLabel.stringValue = String(format: "%02f", sender.doubleValue)
-        
-        
-        
-        
+        DispatchQueue.main.async {
+            self.playerRateLabel.stringValue = String(format: "%02f", sender.doubleValue)
+        }
     }
     
     
@@ -218,17 +211,18 @@ class VideoPlayerControllsController: NSViewController {
         // let slider = sender as! NSSlider
         self.appDelegate.videoPlayerViewController?.videoRate = 1.0
         self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
-        
         self.videoRateSlider.doubleValue = 1.0
         
-        self.playerRateLabel.stringValue = String(format: "%02d", 1.0)
+        DispatchQueue.main.async {
+            self.playerRateLabel.stringValue = String(format: "%02d", 1.0)
+        }
         
         
     }
     
     
     func handlePlayerLabelClick() {
-        print("Play Pause")
+        // print("Play Pause")
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
             self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
         } else {
@@ -248,10 +242,12 @@ class VideoPlayerControllsController: NSViewController {
             let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
             
             let previousFrame = CMTimeSubtract(currentTime!, oneFrame);
-            self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: previousFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-                self.updateTimerLabel()
-            })
-            
+            DispatchQueue.main.async {
+                
+                self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: previousFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                    self.updateTimerLabel()
+                })
+            }
         }
         
     }
@@ -260,15 +256,16 @@ class VideoPlayerControllsController: NSViewController {
         
         if(self.appDelegate.videoPlayerViewController?.playerView.player != nil) {
             
-            
             let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
             self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
             let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
             let nextFrame = CMTimeAdd(currentTime!, oneFrame);
-            self.appDelegate.videoPlayerViewController?.playerView?.player?.seek(to: nextFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-                self.updateTimerLabel()
-            })
-            
+            DispatchQueue.main.async {
+                
+                self.appDelegate.videoPlayerViewController?.playerView?.player?.seek(to: nextFrame, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                    self.updateTimerLabel()
+                })
+            }
         }
     }
     
@@ -301,7 +298,7 @@ class VideoPlayerControllsController: NSViewController {
         self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
         
         if FileManager.default.fileExists(atPath: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: "")) {
-            print("Fuck that file exists..")
+            // print("Fuck that file exists..")
             let incrementer = "00000"
             self.clippedVideoName = self.appSettings.saveDirectoryName + " - Clip " + increment + " - " + incrementer + ".MOV"
             self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
@@ -362,11 +359,14 @@ class VideoPlayerControllsController: NSViewController {
     func startTrimming() {
         // user selected Trim button (AVPlayerViewTrimResult.okButton)...
         self.userTrimmed = true
-        self.saveTrimmedVideoButton.isHidden = false
         self.clippedVideoPath = self.getClippedVideoPath(_videoPath: " ")
-        self.cancelTrimmedVideoButton.isHidden = false
-        self.cancelTrimmedVideoButton.isEnabled = true
-        self.saveTrimmedVideoButton.isEnabled = true
+        
+        DispatchQueue.main.async {
+            self.saveTrimmedVideoButton.isHidden = false
+            self.cancelTrimmedVideoButton.isHidden = false
+            self.cancelTrimmedVideoButton.isEnabled = true
+            self.saveTrimmedVideoButton.isEnabled = true
+        }
         self.calculateClipLength()
         self.setupAvExportTrimmedClip()
     }
@@ -391,10 +391,16 @@ class VideoPlayerControllsController: NSViewController {
         
         if(durationSeconds > 0) {
             let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int(round(durationSeconds)))
-            self.videoLengthLabel.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
-            // + String(format: "%02d", ms) + ":ms"
+            
+            DispatchQueue.main.async {
+                
+                self.videoLengthLabel.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
+                // + String(format: "%02d", ms) + ":ms"
+            }
         } else {
-            self.videoLengthLabel.stringValue = "00:00:0000"
+            DispatchQueue.main.async {
+                self.videoLengthLabel.stringValue = "00:00:0000"
+            }
         }
         
     }
@@ -514,10 +520,15 @@ class VideoPlayerControllsController: NSViewController {
     
     @IBAction func cancelTrimmedClip(_ sender: AnyObject?) {
         self.isTrimming = false;
-        self.saveTrimmedClipView.isHidden = true
-        self.cancelTrimmedVideoButton.isHidden = true
-        self.userTrimmed = false
-        self.saveTrimmedVideoButton.isHidden = true
+        
+        DispatchQueue.main.async {
+            
+            self.saveTrimmedClipView.isHidden = true
+            self.cancelTrimmedVideoButton.isHidden = true
+            self.userTrimmed = false
+            self.saveTrimmedVideoButton.isHidden = true
+            
+        }
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime = kCMTimeZero
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.duration)!
         
@@ -529,21 +540,30 @@ class VideoPlayerControllsController: NSViewController {
     
     
     func updateProgressBar(session: Float) {
-        let progress = self.exportSession.progress
-        if(progress < 1.0) {
-            self.clipTrimProgressBar.doubleValue = Double(progress)
-        } else {
-            self.clipTrimProgressBar.doubleValue = 1.0
-            self.clipTrimProgressBar.stopAnimation(nil)
-            self.clipTrimProgressBar.isHidden = true
+        
+        DispatchQueue.main.async {
+            let progress = self.exportSession.progress
+            if(progress < 1.0) {
+                self.clipTrimProgressBar.doubleValue = Double(progress)
+            } else {
+                self.clipTrimProgressBar.doubleValue = 1.0
+                self.clipTrimProgressBar.stopAnimation(nil)
+                self.clipTrimProgressBar.isHidden = true
+            }
         }
     }
     
     func setupAvExportTrimmedClip() {
-        self.saveTrimmedClipView.isHidden = false
-        self.clipTrimProgressBar.isHidden = true
-        self.saveTrimmedVideoButton.isEnabled = true
-        self.cancelTrimmedVideoButton.isEnabled = true
+        
+        DispatchQueue.main.async {
+            
+            self.saveTrimmedClipView.isHidden = false
+            self.clipTrimProgressBar.isHidden = true
+            self.saveTrimmedVideoButton.isEnabled = true
+            self.cancelTrimmedVideoButton.isEnabled = true
+            
+            
+        }
         
         self.exportSession = AVAssetExportSession(asset: (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.asset)!, presetName: AVAssetExportPresetHighestQuality)!
         
@@ -559,28 +579,38 @@ class VideoPlayerControllsController: NSViewController {
         self.exportSession.timeRange = timeRange
         
         self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
-        self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
+        
+        DispatchQueue.main.async {
+            
+            self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
+            
+        }
     }
     
     @IBAction func saveTrimmedClip(_ sender: AnyObject?) {
         print ("Saving Trimmed Clip!!");
         
-        self.clipTrimProgressBar.isHidden = false
-        self.saveTrimmedVideoButton.isEnabled = false
-        self.cancelTrimmedVideoButton.isEnabled = true
-        
+        DispatchQueue.main.async {
+            
+            self.clipTrimProgressBar.isHidden = false
+            self.saveTrimmedVideoButton.isEnabled = false
+            self.cancelTrimmedVideoButton.isEnabled = true
+            
+            
+            self.clipTrimProgressBar.startAnimation(nil)
+            self.clipTrimProgressBar.minValue = 0.0
+            self.clipTrimProgressBar.maxValue = 1.0
+            self.clipTrimProgressBar.isIndeterminate = false
+            self.clipTrimProgressBar.doubleValue = 0.00
+            
+            
+        }
         do {
             try FileManager.default.createDirectory(atPath: self.clippedVideoPath, withIntermediateDirectories: true, attributes: nil)
         } catch _ as NSError {
             print("Error while creating a folder.")
         }
         
-        
-        self.clipTrimProgressBar.startAnimation(nil)
-        self.clipTrimProgressBar.minValue = 0.0
-        self.clipTrimProgressBar.maxValue = 1.0
-        self.clipTrimProgressBar.isIndeterminate = false
-        self.clipTrimProgressBar.doubleValue = 0.00
         
         func saveClippedFileCompleted() {
             print("Session Completed")
@@ -592,13 +622,18 @@ class VideoPlayerControllsController: NSViewController {
             if(self.clippedItemPreserveFileDates) {
                 self.setFileDate(originalFile: (self.nowPlayingURLString)!, newFile: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: ""))
             }
-            self.clipTrimProgressBar.isHidden = true
-            self.isTrimming = false
             
-            self.saveTrimmedClipView.isHidden = true
+            DispatchQueue.main.async {
+                
+                self.clipTrimProgressBar.isHidden = true
+                self.isTrimming = false
+                
+                self.saveTrimmedClipView.isHidden = true
+                
+            }
             
             // Load clip shit here.
-            self.appDelegate.fileBrowserViewController.reloadFileList()
+            // self.appDelegate.fileBrowserViewController.reloadFileList()
             
             
             self.appDelegate.appSettings.mediaBinUrls.append(URL(string: self.clippedVideoNameFullURL)!)
@@ -608,7 +643,9 @@ class VideoPlayerControllsController: NSViewController {
         
         func saveClippedFileFailed() {
             print("Session FAILED")
-            self.saveTrimmedVideoButton.isEnabled = true
+            DispatchQueue.main.async {
+                self.saveTrimmedVideoButton.isEnabled = true
+            }
         }
         
         func saveClippedFileUnknown() {
@@ -676,18 +713,14 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func getScreenShotDate(originalFile: String) -> Date {
-        
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
         let date = Date()
         do {
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: original)
             let modificationDate = fileAttributes[FileAttributeKey.modificationDate] as! Date
-            
             let newDate = Calendar.current.date(byAdding: .second, value: Int(self.trimOffset), to: modificationDate)
-            
             return newDate!
-            
         } catch let error {
             print("Error getting file modification attribute date: \(error.localizedDescription)")
             return date
@@ -757,6 +790,7 @@ class VideoPlayerControllsController: NSViewController {
         
         
     }
+    
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         
         if(self.burstInProgress == true) {
@@ -770,10 +804,8 @@ class VideoPlayerControllsController: NSViewController {
             self.messageBox(hidden: false)
             
             if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
-                
                 self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
                 playerWasPlaying = true
-                
             }
             
             
@@ -788,7 +820,6 @@ class VideoPlayerControllsController: NSViewController {
                 
                 var i = Int(self.appSettings.screenshotFramesBefore)
                 
-                
                 while(i > 0) {
                     let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), playerTime!.timescale);
                     
@@ -797,9 +828,6 @@ class VideoPlayerControllsController: NSViewController {
                     self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime1)
                     
                     burstsTaken += 1
-                    
-                    
-                    
                     
                     i -= 1
                 }
@@ -812,7 +840,6 @@ class VideoPlayerControllsController: NSViewController {
                     
                     playerTime1 = CMTimeAdd(playerTime!, oneFrame);
                     
-                    
                     // do this before calling takeScreenshot
                     if(burstsTaken + 1 == numBursts) {
                         self.burstInProgress = false
@@ -822,7 +849,6 @@ class VideoPlayerControllsController: NSViewController {
                     self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime1)
                     
                     burstsTaken += 1
-                    
                     
                     i += 1
                 }
@@ -836,8 +862,6 @@ class VideoPlayerControllsController: NSViewController {
                             self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
                             
                         })
-                        
-                        
                     }
                 }
                 
@@ -864,17 +888,12 @@ class VideoPlayerControllsController: NSViewController {
                 
                 if(playerWasPlaying) {
                     DispatchQueue.main.async {
-                        
                         self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
                             self.updateTimerLabel()
                             
                             self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
                         })
-                        
-                        
                     }
-                    
-                    
                 }
                 
                 
@@ -907,10 +926,11 @@ class VideoPlayerControllsController: NSViewController {
         
         print("Taking Screenshot");
         
-        
-        self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-            self.updateTimerLabel()
-        })
+        DispatchQueue.main.async {
+            self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                self.updateTimerLabel()
+            })
+        }
         
         
         

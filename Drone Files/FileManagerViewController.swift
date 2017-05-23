@@ -67,15 +67,17 @@ class FileManagerViewController: NSViewController {
         reloadFileList()
         
         self.appDelegate.fileManagerViewController = self
-    
-
+        
+        
     }
     
     override func viewWillAppear() {
+        super.viewWillAppear()
         self.viewIsLoaded = true
     }
     
     override func viewDidDisappear() {
+        super.viewDidDisappear()
         self.viewIsLoaded = false
     }
     
@@ -164,7 +166,7 @@ class FileManagerViewController: NSViewController {
         let url = URL(string: urlPath)
         var attributes = NSMutableDictionary()
         let path = getPathFromURL(path: (url?.absoluteString)!)
-    
+        
         
         do {
             try attributes = FileManager.default.attributesOfItem(atPath: path) as! NSMutableDictionary
@@ -176,7 +178,7 @@ class FileManagerViewController: NSViewController {
             
             print("Calculating size for \(String(describing: path))")
             print("Calculating size for \(totalSize)")
-
+            
         } catch _ as NSError {
             // do nothing...
         }
@@ -358,7 +360,7 @@ class FileManagerViewController: NSViewController {
             let picker = NSSharingServicePicker.init(items: shareItems as! [Any])
             
             picker.show(relativeTo: s!.bounds, of: s as! NSView, preferredEdge: NSRectEdge.minY)
-
+            
         }
     }
     

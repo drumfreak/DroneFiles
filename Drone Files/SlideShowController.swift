@@ -31,11 +31,11 @@ class SlideShowController: NSViewController {
     var slideshowRunning = false
     
     
-   //  var dataSource: IKSlideshowDataSource!
-
+    //  var dataSource: IKSlideshowDataSource!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.appDelegate.slideShowController = self
         
         self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
@@ -49,14 +49,14 @@ class SlideShowController: NSViewController {
     func loadImages(items: NSMutableArray) {
         self.mImagePaths = items
         self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
-
+        
         if(self.mImagePaths.count > 0) {
             self.mSlideshow?.run(with: self, inMode: IKSlideshowModeOther, options: nil)
         }
         
         if(self.slideshowRunning) {
             self.mSlideshow?.reloadData()
-
+            
         }
     }
     
@@ -67,22 +67,22 @@ class SlideShowController: NSViewController {
     }
     
     
-//    func slideshowItem(at: Int) -> String {
-//        
-//        return "Foo"
-//        
-//    }
+    //    func slideshowItem(at: Int) -> String {
+    //
+    //        return "Foo"
+    //
+    //    }
     
-//    func nameOfSlideshowItem(at: Int) -> String {
-//        
-//        return "String"
-//    }
+    //    func nameOfSlideshowItem(at: Int) -> String {
+    //
+    //        return "String"
+    //    }
     
 }
 
 
 extension SlideShowController: IKSlideshowDataSource {
-    /*! 
+    /*!
      @method slideshowItemAtIndex:
      @abstract return the item for a given index.
      @discussion The item can be either: NSImage, NSString, NSURL, CGImageRef, or PDFPage.
@@ -96,16 +96,16 @@ extension SlideShowController: IKSlideshowDataSource {
     
     
     /*
-    @method nameOfSlideshowItemAtIndex:
-    @abstract Display name for item at index.
-    */
+     @method nameOfSlideshowItemAtIndex:
+     @abstract Display name for item at index.
+     */
     
-//    private func nameOfSlideshowItem(at index: Int) -> String! {
-//        print("Foo")
-//        
-//        return "Foo"
-//    }
-//    
+    //    private func nameOfSlideshowItem(at index: Int) -> String! {
+    //        print("Foo")
+    //
+    //        return "Foo"
+    //    }
+    //
     
     /*!
      @method canExportSlideshowItemAtIndex:toApplication:
@@ -142,7 +142,7 @@ extension SlideShowController: IKSlideshowDataSource {
      @method slideshowDidChangeCurrentIndex:
      @abstract Slideshow did change current item index.
      */
-
+    
     
 }
 

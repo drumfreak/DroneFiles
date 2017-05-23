@@ -13,16 +13,17 @@ class SecondWindowController: NSWindowController {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        
-        self.window?.titlebarAppearsTransparent = true
-        self.window?.isMovableByWindowBackground = true
-        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
-    
+        DispatchQueue.main.async {
+            
+            self.window?.titlebarAppearsTransparent = true
+            self.window?.isMovableByWindowBackground = true
+            self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+            self.window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
+        }
         // self.window?.screen = self.appDelegate.externalScreens[0]
         
         // super.window?.backgroundColor = NSColor(calibratedRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
     
-
+    
 }

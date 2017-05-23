@@ -29,11 +29,11 @@ class FileBrowserViewController: NSViewController {
                 // print("Source Folder Opened: \(url)")
                 directory = Directory(folderURL: url)
                 
-               
+                
                 self.reloadFileList()
-               
+                
                 self.appDelegate.appSettings.folderURL = url.absoluteString
-               
+                
                 self.currentFolderPathControl.url = URL(string: self.appDelegate.appSettings.folderURL)
                 
                 UserDefaults.standard.setValue(self.appDelegate.appSettings.folderURL, forKey: "sourceDirectory")
@@ -50,7 +50,7 @@ class FileBrowserViewController: NSViewController {
     
     // URL
     
-   // var currentDir: URL!
+    // var currentDir: URL!
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
     
@@ -66,7 +66,7 @@ class FileBrowserViewController: NSViewController {
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
     @IBOutlet var favoriteButton: NSButton!
-
+    
     
     var selectedFileURLS: NSMutableArray = []
     var addToFavoriteUrls = [URL]()
@@ -103,15 +103,6 @@ class FileBrowserViewController: NSViewController {
         
         let defaults = UserDefaults.standard
         
-        if(defaults.value(forKey: "sourceDirectory") == nil) {
-            defaults.setValue("file:///Volumes/", forKey: "sourceDirectory")
-            defaults.setValue("file:///Volumes/", forKey: "outputDirectory")
-            defaults.setValue("My Project", forKey: "fileSequenceNameTag")
-            defaults.setValue(1, forKey: "createProjectDirectory")
-            defaults.setValue(1, forKey: "createProjectSubDirectories")
-            defaults.setValue(1, forKey: "createProjectDirectory")
-            defaults.setValue(1, forKey: "createProjectSubDirectories")
-        }
         
         // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
         if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
@@ -121,41 +112,37 @@ class FileBrowserViewController: NSViewController {
         
         
         if(defaults.value(forKey: "lastFolderOpened") != nil) {
-           // print("OPENING THE FUCKING FOLDER")
-            
             self.sourceFolderOpened =  URL(string: defaults.value(forKey: "lastFolderOpened") as! String)
-            
         }
-       
-    
+        
+        
         self.appDelegate.appSettings.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
         self.appDelegate.appSettings.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
         
         
         self.appDelegate.appSettings.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
-
+        
         // self.appDelegate.appSettings.sourceFolder)
-
+        
         self.appDelegate.appSettings.fileSequenceName = self.appDelegate.appSettings.fileSequenceNameTag
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.statusLabel.stringValue = "0 Items Selected"
+        
+        DispatchQueue.main.async {
+            
+            self.statusLabel.stringValue = "0 Items Selected"
+            self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
+            self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
+        }
+        
         self.tableView.target = self
         self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
-        self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
-        
-        self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
-        
-        //videoView.
-        // self.showNotification(messageType: "default", customMessage: "");
-
         self.currentFolderPathControl.delegate = self
         
-
         setupProjectDirectory()
-       
+        
         
         let descriptorName = NSSortDescriptor(key: Directory.FileOrder.Name.rawValue, ascending: true)
         let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: true)
@@ -184,86 +171,87 @@ class FileBrowserViewController: NSViewController {
     
     @IBAction func openCurrentPathControlMenu(_ sender: AnyObject?) {
         self.currentFolderPathControl.menu?.popUp(positioning: self.currentFolderPathControl.menu?.item(at:0), at: NSPoint(dictionaryRepresentation: 0 as! CFDictionary)!, in: self.view)
-    
+        
     }
     
     func setupPathControl(control: NSPathControl) {
         var i = 0
-        control.backgroundColor = NSColor.clear
-        control.pathItems.forEach {m in
-            var colorRanges: [NSRange] = []
-            m.attributedTitle.enumerateAttribute(NSForegroundColorAttributeName, in: NSRange(0..<m.attributedTitle.length), options: .longestEffectiveRangeNotRequired) {
-                value, range, stop in
-                
-                
-                //Confirm the attribute value is actually a color
-                if (value as? NSColor) != nil {
-                    // print(color)
-                    colorRanges.append(range)
+        
+        DispatchQueue.main.async {
+            control.backgroundColor = NSColor.clear
+            control.pathItems.forEach {m in
+                var colorRanges: [NSRange] = []
+                m.attributedTitle.enumerateAttribute(NSForegroundColorAttributeName, in: NSRange(0..<m.attributedTitle.length), options: .longestEffectiveRangeNotRequired) {
+                    value, range, stop in
+                    
+                    
+                    //Confirm the attribute value is actually a color
+                    if (value as? NSColor) != nil {
+                        // print(color)
+                        colorRanges.append(range)
+                    }
                 }
+                
+                
+                //Replace their colors.
+                let mutableAttributedText = m.attributedTitle.mutableCopy() as! NSMutableAttributedString
+                
+                for colorRange in colorRanges {
+                    mutableAttributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor.darkGray, range: colorRange)
+                }
+                m.attributedTitle = mutableAttributedText
+                control.pathItems[i] = m
+                
+                i += 1
             }
-            
-            
-            //Replace their colors.
-            let mutableAttributedText = m.attributedTitle.mutableCopy() as! NSMutableAttributedString
-            
-            for colorRange in colorRanges {
-                mutableAttributedText.addAttribute(NSForegroundColorAttributeName, value: NSColor.darkGray, range: colorRange)
-            }
-            m.attributedTitle = mutableAttributedText
-            control.pathItems[i] = m
-            
-            i += 1
-            
         }
-
     }
     
     func openLastFile() {
         
         // let defaults = UserDefaults.standard
-
+        
         if((self.appSettings.lastFileOpened) != nil) {
             //print("OPENING THE FUCKING File")
             
-           let lastFile =  URL(string: self.appSettings.lastFileOpened!)
+            let lastFile =  URL(string: self.appSettings.lastFileOpened!)
             
-//            if(isMov(file:lastFile!)) {
-//                
-//                
-//                // print("LOADING MOV!!!!!!!")
-//                
-//                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
-//                
-//                // nowPlayingFile.stringValue = item.name;
-//                var itemUrl = lastFile?.absoluteString
-//                itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
-//                
-//                
-//                //self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
-//                self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
-//
-//                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
-//                
-//                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = lastFile?.absoluteString
-//                
-//                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
-//                
-//                // self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
-//
-//                
-//            }
-//            
-//            if(isImage(file:lastFile!)) {
-//                
-//                //  print("LOADING IMAGE!!!!!!!")
-//
-//                // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
-//                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-//                self.appDelegate.imageEditorViewController?.loadImage(_url:lastFile!)
-//                
-//                // self.appDelegate.appSettings.lastFileOpened = lastFile.absoluteString
-//            }
+            //            if(isMov(file:lastFile!)) {
+            //
+            //
+            //                // print("LOADING MOV!!!!!!!")
+            //
+            //                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
+            //
+            //                // nowPlayingFile.stringValue = item.name;
+            //                var itemUrl = lastFile?.absoluteString
+            //                itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
+            //
+            //
+            //                //self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
+            //                self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
+            //
+            //                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
+            //
+            //                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = lastFile?.absoluteString
+            //
+            //                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
+            //
+            //                // self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
+            //
+            //
+            //            }
+            //
+            //            if(isImage(file:lastFile!)) {
+            //
+            //                //  print("LOADING IMAGE!!!!!!!")
+            //
+            //                // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
+            //                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            //                self.appDelegate.imageEditorViewController?.loadImage(_url:lastFile!)
+            //
+            //                // self.appDelegate.appSettings.lastFileOpened = lastFile.absoluteString
+            //            }
             
             
             self.reloadFilesWithSelected(fileName: (lastFile?.absoluteString)!)
@@ -272,7 +260,7 @@ class FileBrowserViewController: NSViewController {
             // print(lastFile)
             
             
-       }
+        }
     }
     
     func isMov(file: URL) -> Bool {
@@ -293,7 +281,7 @@ class FileBrowserViewController: NSViewController {
             return false
         }
     }
-
+    
     
     func getPathsFromURL(url: URL!) -> NSMutableDictionary {
         let startingDir = url.absoluteString.replacingOccurrences(of: "file:///", with: "")
@@ -384,29 +372,35 @@ class FileBrowserViewController: NSViewController {
             // print(f)
             
             if(self.appDelegate.appSettings.favoriteUrls.contains(f as URL)) {
-               // print("Removing URL to from favorites: \(f)")
+                // print("Removing URL to from favorites: \(f)")
                 let index = self.appDelegate.appSettings.favoriteUrls.index(of: f as URL)
                 self.appDelegate.appSettings.favoriteUrls.remove(at: index!)
-                self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
+                
+                DispatchQueue.main.async {
+                    
+                    self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
+                }
             } else {
-                self.favoriteButton.image = NSImage(named: "heart-active.png")!
-
-               // print("Adding URL to favorites: \(f)")
+                DispatchQueue.main.async {
+                    
+                    self.favoriteButton.image = NSImage(named: "heart-active.png")!
+                }
+                // print("Adding URL to favorites: \(f)")
                 self.appDelegate.appSettings.favoriteUrls.append(f)
             }
-           
+            
         }
         
         self.appDelegate.saveProject()
         
         // self.addToFavoriteUrls.removeAll(keepingCapacity: false)
-
+        
         // print(self.appDelegate.appSettings.favoriteUrls)
         
     }
-
     
-
+    
+    
     // Helper Functions
     func setupProjectDirectory() {
         self.appDelegate.appSettings.saveDirectoryName =  self.appDelegate.appSettings.fileSequenceName
@@ -485,126 +479,71 @@ class FileBrowserViewController: NSViewController {
     @IBAction func projectControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.projectFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
-
     }
     
     @IBAction func videosPathControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.videoFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
-
     }
     
     @IBAction func clipsControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.videoClipsFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
-
     }
     
     
     @IBAction func framesControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
-
+        
     }
     
     
     @IBAction func rawControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.rawFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
-
     }
     
     
     @IBAction func jpgControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.jpgFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
-
     }
     
     
     
     @IBAction func favoritesControlSingleClick(sender: AnyObject) {
-        // self.sourceFolderOpened = URL(string: self.appSettings.jpgFolder)
-        // self.setupPathControl(control: self.currentFolderPathControl)
         
     }
-//    @IBAction func fileSequenceNameSetButtonClicked(sender: AnyObject) {
-//        
-//        self.fileSequenceNameTextField.resignFirstResponder()
-//        
-//        self.appDelegate.appSettings.fileSequenceName = self.fileSequenceNameTextField.stringValue
-//        // self.newFileNamePath.stringValue = self.fileSequenceName
-//        print("New Sequence Name \( self.appDelegate.appSettings.fileSequenceName)")
-//        
-//        UserDefaults.standard.setValue(self.appDelegate.appSettings.fileSequenceName, forKey: "fileSequenceNameTag")
-//        
-//        self.setupProjectDirectory()
-//        self.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
-//    }
     
-    
-//    func showNotification(messageType: String, customMessage: String) -> Void {
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            if(messageType == "VideoTrimComplete") {
-//                // DispatchQueue.main.async {
-//                // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
-//                let notification = NSUserNotification()
-//                notification.title = "Video Trimming Complete"
-//                notification.informativeText = "Your clip has been saved. " + customMessage.replacingOccurrences(of: "%20", with: " ")
-//                
-//                notification.soundName = NSUserNotificationDefaultSoundName
-//                // NSUserNotificationCenter.default.deliver(notification)
-//                NSUserNotificationCenter.default.deliver(notification);
-//                // }
-//            }
-//            
-//            if(messageType == "default") {
-//                // DispatchQueue.main.async {
-//                
-//                // print("Message Type Welcome: " + messageType);
-//                let notification = NSUserNotification()
-//                notification.title = "Welcome to DroneFiles!"
-//                notification.informativeText = "Your life will never be the same"
-//                notification.soundName = NSUserNotificationDefaultSoundName
-//                NSUserNotificationCenter.default.deliver(notification)
-//                
-//                //  }
-//            }
-//        }
-//    }
-//    
     
     func reloadFilesWithSelected(fileName: String) {
         
         
         // self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.folderURL)
         
-       // DispatchQueue.main.async {
-            self.directory = Directory(folderURL: self.sourceFolderOpened)
-            self.reloadFileList()
+        // DispatchQueue.main.async {
+        self.directory = Directory(folderURL: self.sourceFolderOpened)
+        self.reloadFileList()
+        
+        let url = URL(string: fileName)
+        var i = 0
+        
+        self.directoryItems?.forEach({ directoryItem in
             
-            let url = URL(string: fileName)
-            var i = 0
+            let turl = directoryItem.url
             
-            self.directoryItems?.forEach({ directoryItem in
+            if(turl.absoluteString == url?.absoluteString) {
+                let indexSet =  NSIndexSet(index: i) as IndexSet
                 
-                let turl = directoryItem.url
-                
-                
-                if(turl.absoluteString == url?.absoluteString) {
-                    //print(directoryItem.url)
-                    //print("HOLLLY FUCK")
-                    
-                    let indexSet =  NSIndexSet(index: i) as IndexSet
+                DispatchQueue.main.async {
                     self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
-                    
-                    // self.tableView.selectRowIndexes(<#T##indexes: IndexSet##IndexSet#>, byExtendingSelection: <#T##Bool#>)
-                    
                 }
-                i += Int(1)
-                
-            })
-       // }
+            }
+            i += Int(1)
+            
+        })
+        // }
         
     }
     
@@ -612,9 +551,9 @@ class FileBrowserViewController: NSViewController {
     
     func reloadFileList() {
         //DispatchQueue.main.async {
-            self.directoryItems = self.directory?.contentsOrderedBy(self.sortOrder, ascending: self.sortAscending)
-            self.tableView.reloadData()
-       // }
+        self.directoryItems = self.directory?.contentsOrderedBy(self.sortOrder, ascending: self.sortAscending)
+        self.tableView.reloadData()
+        // }
     }
     
     
@@ -627,11 +566,15 @@ class FileBrowserViewController: NSViewController {
             let item = directoryItems?[self.tableView.selectedRow] else {
                 return
         }
-    
+        
         if(self.appSettings.favoriteUrls.contains(item.url as URL)) {
-            self.favoriteButton.image = NSImage(named: "heart-active.png")!
+            DispatchQueue.main.async {
+                self.favoriteButton.image = NSImage(named: "heart-active.png")!
+            }
         } else {
-            self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
+            DispatchQueue.main.async {
+                self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
+            }
         }
         
         if item.isFolder {
@@ -654,15 +597,21 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
                 
+                //DispatchQueue.main.async {
                 self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
+                //}
                 
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = url.absoluteString
                 itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
                 // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
                 
-                self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
-                self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
+                DispatchQueue.main.async {
+                    
+                    self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
+                    self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
+                    
+                }
                 
                 self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
                 
@@ -685,19 +634,22 @@ class FileBrowserViewController: NSViewController {
                 // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
                 
                 if(!self.appDelegate.appSettings.blockScreenShotTabSwitch) {
-
+                    // DispatchQueue.main.async {
+                    
                     self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                    
+                    // }
                 }
                 
                 self.appDelegate.imageEditorViewController?.loadImage(_url: item.url as URL)
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 
-                 self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: item.url as URL)
+                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: item.url as URL)
                 
                 self.appDelegate.saveProject()
-
-            //
+                
+                //
                 
             } else {
                 // self.videoPlayerViewController.VideoEditView.isHidden = true;
@@ -725,7 +677,9 @@ class FileBrowserViewController: NSViewController {
         }
         
         if(showTab) {
+            //DispatchQueue.main.async {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 2
+            //}
         }
         
         self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS
@@ -740,7 +694,7 @@ class FileBrowserViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "slideShow" {
             
-            print("Doing the segue....")
+            // print("Doing the segue....")
             
             self.appDelegate.slideShowWindowController = segue.destinationController as? SlideShowWindowController
             
@@ -769,8 +723,9 @@ class FileBrowserViewController: NSViewController {
         }
         
         // 3
-        statusLabel.stringValue = text
-        // print("Selected Text : \(text)");
+        DispatchQueue.main.async {
+            self.statusLabel.stringValue = text
+        }
         
         if(itemsSelected > 1) {
             self.sendItemsToFileManager(showTab: true)
@@ -798,7 +753,7 @@ class FileBrowserViewController: NSViewController {
             // NSWorkspace.shared().open(item.url as URL)
         }
     }
-   
+    
     
 }
 
@@ -809,7 +764,7 @@ extension FileBrowserViewController: NSTableViewDataSource {
     }
     
     
-
+    
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         // 1
         guard let sortDescriptor = tableView.sortDescriptors.first else {
@@ -826,7 +781,6 @@ extension FileBrowserViewController: NSTableViewDataSource {
 }
 
 extension FileBrowserViewController: NSTableViewDelegate {
-    
     fileprivate enum CellIdentifiers {
         static let NameCell = "NameCellID"
         static let DateCell = "DateCellID"
@@ -834,13 +788,13 @@ extension FileBrowserViewController: NSTableViewDelegate {
         static let KindCell = "KindCellID"
     }
     
-
+    
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        
+        //DispatchQueue.main.async {
         tableColumn!.headerCell = ThemeTableHeaderCell(textCell: tableColumn!.title)
-        
+        //}
         // tableColumn!.headerCell.backgroundColor = self.appSettings.tableRowSelectedBackGroundColor
         
         var image: NSImage?
@@ -862,48 +816,39 @@ extension FileBrowserViewController: NSTableViewDelegate {
         let rowView = self.tableView.rowView(atRow: row, makeIfNecessary: false)
         
         if(row % 2 == 0) {
-            
+            //DispatchQueue.main.async {
             rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
-            
-           // cell.backgroundStyle = NSBackgroundStyle.light
+            //}
+            // cell.backgroundStyle = NSBackgroundStyle.light
         } else {
-           // cell.backgroundStyle = NSBackgroundStyle.dark
-            
+            // cell.backgroundStyle = NSBackgroundStyle.dark
+            //DispatchQueue.main.async {
             rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+            //}
         }
         
-       
-        
-        
-        // print(item);
         
         // 2
         if tableColumn == tableView.tableColumns[0] {
-            // print("IMage ICON FOR TABLE: \(item.icon)")
-            
             image = item.icon
             text = item.name
             cellIdentifier = CellIdentifiers.NameCell
-            
         } else if tableColumn == tableView.tableColumns[1] {
-            
             text = dateFormatter.string(from: item.date)
             cellIdentifier = CellIdentifiers.DateCell
-            
         } else if tableColumn == tableView.tableColumns[2] {
-            
             text = item.isFolder ? "--" : sizeFormatter.string(fromByteCount: item.size)
-          
             cellIdentifier = CellIdentifiers.SizeCell
-        
+            
         }
         
         // 3
         if let cell = tableView.make(withIdentifier: cellIdentifier, owner: nil) as? NSTableCellView {
-            
+            //DispatchQueue.main.async {
             cell.textField?.stringValue = text
             cell.imageView?.image = image ?? nil
-
+            //}
+            
             return cell
         }
         return nil
@@ -913,48 +858,50 @@ extension FileBrowserViewController: NSTableViewDelegate {
         updateStatus()
         
         var i = Int(0)
-        
-        while(i < self.tableView.numberOfRows) {
+        DispatchQueue.main.async {
             
-            let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
-            
-            // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
-
-
-            let f = self.tableView.selectedRowIndexes.index(of: i)
-            if((f) != nil) {
-                //print("INDEX OF SELECTED ROW: \(i)")
-                 rowView?.backgroundColor = self.appDelegate.appSettings.tableRowSelectedBackGroundColor
+            while(i < self.tableView.numberOfRows) {
+                
+                let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
+                
+                // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
                 
                 
-            } else {
-                //print("Unselected Row... (i)")
-                
-                // Back to alternating colors...
-                
-                if(i % 2 == 0) {
-                     rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+                let f = self.tableView.selectedRowIndexes.index(of: i)
+                if((f) != nil) {
+                    //print("INDEX OF SELECTED ROW: \(i)")
+                    rowView?.backgroundColor = self.appDelegate.appSettings.tableRowSelectedBackGroundColor
+                    
+                    
                 } else {
-                     rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+                    //print("Unselected Row... (i)")
+                    
+                    // Back to alternating colors...
+                    
+                    if(i % 2 == 0) {
+                        rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+                    } else {
+                        rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+                    }
+                    
                 }
+                
+                i += 1
                 
             }
             
-            i += 1
+            let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
             
+            // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+            
+            // Current row selected color
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
         }
-        
-        let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
-        
-        // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
-        
-        // Current row selected color
-        rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
         
     }
     
     
-   // public func tableView
+    // public func tableView
     
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return ThemeTableRowView()
@@ -969,9 +916,9 @@ extension FileBrowserViewController: NSPathControlDelegate {
         return false
         
     }
- //   - (void)insertItemWithTitle:(NSString *)title atIndex:(NSInteger)index;
-
-   //  public func
+    //   - (void)insertItemWithTitle:(NSString *)title atIndex:(NSInteger)index;
+    
+    //  public func
     
     public func pathControl(_ pathControl: NSPathControl, shouldDrag pathComponentCell: NSPathComponentCell, with pasteboard: NSPasteboard) -> Bool {
         

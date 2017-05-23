@@ -9,31 +9,38 @@
 import Cocoa
 
 class ScreenShotCollectionViewItem: NSCollectionViewItem {
-        
-        // 1
-        var imageFile: ImageFile? {
-            didSet {
-                guard isViewLoaded else { return }
-                if let imageFile = imageFile {
-                    imageView?.image = imageFile.thumbnail
-                    textField?.stringValue = imageFile.fileName
+    
+    // 1
+    var imageFile: ImageFile? {
+        didSet {
+            guard isViewLoaded else { return }
+            
+            DispatchQueue.main.async {
+                
+                if let imageFile = self.imageFile {
+                    self.imageView?.image = imageFile.thumbnail
+                    self.textField?.stringValue = imageFile.fileName
                 } else {
-                    imageView?.image = nil
-                    textField?.stringValue = ""
+                    self.imageView?.image = nil
+                    self.textField?.stringValue = ""
                 }
             }
         }
-        
-        // 2
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            view.wantsLayer = true
-            view.layer?.backgroundColor = self.appSettings.imageThumbnailHolder.cgColor
+    }
+    
+    // 2
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        DispatchQueue.main.async {
             
-            view.layer?.borderWidth = 0.0
+            self.view.wantsLayer = true
+            self.view.layer?.backgroundColor = self.appSettings.imageThumbnailHolder.cgColor
+            
+            self.view.layer?.borderWidth = 0.0
             // 2
-            view.layer?.borderColor = self.appSettings.tableRowActiveBackGroundColor.cgColor
+            self.view.layer?.borderColor = self.appSettings.tableRowActiveBackGroundColor.cgColor
         }
+    }
     
     
     func setHighlight(selected: Bool) {

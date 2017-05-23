@@ -146,16 +146,16 @@ class MediaBinLoader: NSObject {
     
     
     func loadDataFromUrls(_ urls: NSMutableArray) {
-//        // let urls = getFilesURLFromFolder(folderURL)
-//        if let urls = urls {
-//            print("\(urls.count) images found in directory \(folderURL.lastPathComponent)")
-//            for url in urls {
-//                print("\(url.lastPathComponent)")
-//            }
-//        }
+        //        // let urls = getFilesURLFromFolder(folderURL)
+        //        if let urls = urls {
+        //            print("\(urls.count) images found in directory \(folderURL.lastPathComponent)")
+        //            for url in urls {
+        //                print("\(url.lastPathComponent)")
+        //            }
+        //        }
         
         setupDataForUrls(urls.reversed() as? [URL])
     }
-
+    
     
 }

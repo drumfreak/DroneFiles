@@ -80,37 +80,37 @@ class FavoritesCollectionViewController: NSViewController {
         }
         
         (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
-
+        
     }
     
     
     func reloadContents() {
         
         // mediaBinLoader.loadDataForFolderWithUrl(initialFolderUrl)
-       
+        
         // var boo = [] as NSArray
         var foo = self.appDelegate.appSettings.favoriteUrls as! NSMutableArray
         foo = foo.reversed() as! NSMutableArray
         
-//        if(foo.count > 10) {
-//            boo = Array(foo.prefix(10)) as NSArray
-//            foo = boo.mutableCopy() as! NSMutableArray
-//            
-//            mediaBinLoader.loadDataFromUrls(foo)
-//        } else {
-      //   }
+        //        if(foo.count > 10) {
+        //            boo = Array(foo.prefix(10)) as NSArray
+        //            foo = boo.mutableCopy() as! NSMutableArray
+        //
+        //            mediaBinLoader.loadDataFromUrls(foo)
+        //        } else {
+        //   }
         
         
         self.mediaBinLoader.loadDataFromUrls(foo)
-
+        
         self.configureCollectionView()
         
         DispatchQueue.main.async {
-
-        self.collectionView.reloadData()
-        
             
-        self.countLabel.title = String(format: "%1d", self.appSettings.favoriteUrls.count)
+            self.collectionView.reloadData()
+            
+            
+            self.countLabel.title = String(format: "%1d", self.appSettings.favoriteUrls.count)
         }
         
         //self.collectionView.resignFirstResponder()

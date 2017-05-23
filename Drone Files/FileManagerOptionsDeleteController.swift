@@ -93,7 +93,7 @@ class FileManagerOptionsDeleteController: NSViewController {
         let fileName = url.lastPathComponent
         
         print("Deleting FROM filename: \(fileName)")
-
+        
         
         if(self.doDeleteFile(from: url)) {
             print("Succes... file moved")
@@ -122,7 +122,7 @@ class FileManagerOptionsDeleteController: NSViewController {
             return false
         }
     }
-
+    
     func showAlert(text: String, body: String, showCancel: Bool, messageType: String) {
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = text
@@ -134,7 +134,7 @@ class FileManagerOptionsDeleteController: NSViewController {
         }
         myPopup.runModal()
     }
-
+    
     
     @IBAction func shareMultipleFiles(sender: AnyObject?) {
         self.appDelegate.fileManagerViewController.shareMultipleFiles(receivedFiles: self.receivedFiles as! Array<Any>, s: sender)

@@ -20,6 +20,6 @@ class SlideShowWindowController: NSWindowController {
     
     @IBOutlet weak var slidwshowwindow: NSWindow?
     
-
-
+    
+    
 }

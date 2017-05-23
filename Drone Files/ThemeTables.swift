@@ -15,7 +15,7 @@ public class ThemeTableRowView: NSTableRowView {
         // Swift.print("ThemeTableRowView HEY (self.selectionHighlightStyle)")
         
         if self.selectionHighlightStyle != .none {
- 
+            
             
             //
             //            let selectionRect = NSInsetRect(self.bounds, 2.5, 2.5)

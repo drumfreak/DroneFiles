@@ -26,16 +26,16 @@ class FileManagerOptionsTabViewController: NSTabViewController {
                 self.appDelegate.fileManagerOptionsDeleteController.receivedFiles = receivedFiles
                 
                 self.fileSizes = (self.appDelegate.fileManagerViewController?.calculateFileSizesToDestination(fileUrls: self.receivedFiles as! Array<Any>))!
-
+                
             }
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       //  self.tabView.
+        //  self.tabView.
         // print("FileManagerOptionsTabViewController loaded")
         
         self.appDelegate.fileManagerOptionsOrganizeController = self.childViewControllers[0] as! FileManagerOptionsOrganizeController
