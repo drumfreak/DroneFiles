@@ -33,8 +33,6 @@ class ImageFile {
     init (url: URL) {
         self.fileName = url.lastPathComponent
         self.imgUrl = url
-        
-        
         self.thumbnailFileName = url.deletingPathExtension().lastPathComponent
         self.thumbnailFileName += "-thumbnail"
         self.thumbnailFileName += "." + url.pathExtension
@@ -45,7 +43,6 @@ class ImageFile {
         // var isDirectory: ObjCBool = false
 
         if !fileManager.fileExists(atPath: getPathFromURL(path: self.thumbnailUrl.absoluteString)) {
-            
             // No thumbnail exists.
             // print("Thumbnail does not exist")
             let imageSource = CGImageSourceCreateWithURL(url.absoluteURL as CFURL, nil)
@@ -54,21 +51,12 @@ class ImageFile {
                 thumbnail = getThumbnailImage(imageSource, url: self.thumbnailUrl)
             }
         } else {
-            
             let imageSource = CGImageSourceCreateWithURL(self.thumbnailUrl.absoluteURL as CFURL, nil)
-            
             if let imageSource = imageSource {
-            
                 guard CGImageSourceGetType(imageSource) != nil else { return }
-            
                 thumbnail = NSImage.init(contentsOf: self.thumbnailUrl.absoluteURL)
-                
-            
             }
         }
-        
-       
-
     }
     
     fileprivate func getPathFromURL(path: String) -> String {

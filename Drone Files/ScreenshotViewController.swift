@@ -53,7 +53,23 @@ class ScreenshotViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let audioPlayer = audioPlayer else { return }
+            
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+
         self.appDelegate.screenshotViewController = self
+
+        
     }
     
     func getLocationData(asset: AVAsset) -> String {
@@ -146,9 +162,7 @@ class ScreenshotViewController: NSViewController {
                 
                 self.appDelegate.appSettings.mediaBinUrls.append(url!)
                 self.appDelegate.saveProject()
-
                 
-
                 if(self.appSettings.screenshotPreview) {
                     
                     DispatchQueue.main.async {
@@ -179,6 +193,9 @@ class ScreenshotViewController: NSViewController {
     }
     
     func setFileDate(originalFile: String) {
+        
+        // print("ORIGINAL FILE.... \(originalFile)")
+        
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
         do {
@@ -377,7 +394,7 @@ class ScreenshotViewController: NSViewController {
                 print("File saved")
                 
                 if(self.appSettings.screenshotPreserveVideoDate) {
-                    self.setFileDate(originalFile: self.screenshotNameFull.replacingOccurrences(of: "file://", with: ""))
+                    self.setFileDate(originalFile: self.screenshotNameFullURL.replacingOccurrences(of: "file://", with: ""))
                 }
                 
                 
@@ -455,17 +472,7 @@ class ScreenshotViewController: NSViewController {
     
     
     func playShutterSound() {
-        let url = Bundle.main.url(forResource: "Shutter", withExtension: "aif")!
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            guard let audioPlayer = audioPlayer else { return }
-            
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        self.audioPlayer?.play()
     }
     
 }

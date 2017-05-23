@@ -516,11 +516,7 @@ extension AppDelegate {
                     self.appSettings.thumbnailDirectory = dictionary["thumbnailDirectory"] as! String
                 } else {
                     self.appSettings.thumbnailDirectory = dictionary["projectDirectory"] as! String
-                    
                 }
-
-                
-                
                 
                 if(dictionary["favoriteUrls"] != nil) {
                     self.appSettings.favoriteUrls = urlStrArraytoUrlArray(input: dictionary["favoriteUrls"] as! Array<Any>)

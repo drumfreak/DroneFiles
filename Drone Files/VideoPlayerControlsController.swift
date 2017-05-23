@@ -676,6 +676,7 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func getScreenShotDate(originalFile: String) -> Date {
+        
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");
         let date = Date()
@@ -915,7 +916,7 @@ class VideoPlayerControllsController: NSViewController {
         
         self.trimOffset = CMTimeGetSeconds(playerTime)
         
-        let newDate = getScreenShotDate(originalFile: self.nowPlayingURLString)
+        let newDate = getScreenShotDate(originalFile: (self.appDelegate.videoPlayerViewController?.nowPlayingURL.absoluteString)!)
         
         
         if(self.appSettings.screenshotPreview) {
