@@ -848,7 +848,7 @@
                 </splitViewController>
                 <customObject id="qci-jc-jNX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="680" y="-86"/>
+            <point key="canvasLocation" x="659" y="-27"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="Mji-nT-U6E">
@@ -2594,7 +2594,7 @@
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="lzS-0R-DjC">
-                                            <rect key="frame" x="1" y="-16" width="47" height="16"/>
+                                            <rect key="frame" x="1" y="477" width="770" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Xym-8n-3nn">
@@ -3868,6 +3868,10 @@
                                                         <outlet property="delegate" destination="WEp-or-sWK" id="1I5-8c-B4p"/>
                                                     </connections>
                                                 </ikImageView>
+                                                <avPlayerView fixedFrame="YES" controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="peH-xG-jbY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="404"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </avPlayerView>
                                             </subviews>
                                         </view>
                                     </subviews>
@@ -3888,6 +3892,7 @@
                         <outlet property="imageEditorView" destination="t44-db-lTj" id="2MC-ek-hMV"/>
                         <outlet property="imageView" destination="grO-Kb-7jj" id="EGk-4b-Zh7"/>
                         <outlet property="imageViewBackground" destination="7UU-gK-QGC" id="0F6-JS-61H"/>
+                        <outlet property="playerView" destination="peH-xG-jbY" id="D44-ZE-Ylw"/>
                         <outlet property="scrollView" destination="hnq-8u-3zg" id="ACf-ZK-ZHk"/>
                     </connections>
                 </viewController>

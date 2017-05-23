@@ -38,7 +38,7 @@ class ImageFile {
         self.thumbnailFileName = url.deletingPathExtension().lastPathComponent
         self.thumbnailFileName += "-thumbnail"
         self.thumbnailFileName += "." + url.pathExtension
-        var  tmp = self.appDelegate.appSettings.thumbnailDirectory + self.thumbnailFileName
+        var  tmp = self.appDelegate.appSettings.thumbnailDirectory! + self.thumbnailFileName
         tmp =  tmp.replacingOccurrences(of: " ", with: "%20")
         
         self.thumbnailUrl = URL(string: tmp)
@@ -47,7 +47,7 @@ class ImageFile {
         if !fileManager.fileExists(atPath: getPathFromURL(path: self.thumbnailUrl.absoluteString)) {
             
             // No thumbnail exists.
-            print("Thumbnail does not exist")
+            // print("Thumbnail does not exist")
             let imageSource = CGImageSourceCreateWithURL(url.absoluteURL as CFURL, nil)
             if let imageSource = imageSource {
                 guard CGImageSourceGetType(imageSource) != nil else { return }

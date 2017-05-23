@@ -116,8 +116,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func setupOptions() {
         let defaults = UserDefaults.standard
-        // defaults.setValue([], forKey: "mediaBinUrls")
-        
+        //defaults.setValue([], forKey: "mediaBinUrls")
+        //defaults.setValue([], forKey: "favoriteUrls")
+
         if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
             defaults.setValue(true, forKey: "screenshotSound")
             defaults.setValue(true, forKey: "screenshotPreserveVideoName")
@@ -234,6 +235,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     // print(self.appSettings.mediaBinUrls)
                 }
                 
+                //self.appSettings.mediaBinUrls = []
+                
                 if(self.appSettings.mediaBinUrls.count > 0) {
                     self.screenShotSliderController.reloadContents()
                     self.screenShotSliderController.selectItemOne()
@@ -245,7 +248,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.appSettings.favoriteUrls = (NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? [URL])!
                     // print(self.appSettings.favoriteUrls)
                 }
-                
+
                 if(self.appSettings.favoriteUrls.count > 0) {
                     // self.screenShotSliderController.reloadContents()
                     // self.screenShotSliderController.selectItemOne()
@@ -506,9 +509,23 @@ extension AppDelegate {
             
             
             if let dictionary = projectJson as? [String: Any] {
+                
+                
+                // Keep this guy at the top...
+                if(dictionary["thumbnailDirectory"] != nil) {
+                    self.appSettings.thumbnailDirectory = dictionary["thumbnailDirectory"] as! String
+                } else {
+                    self.appSettings.thumbnailDirectory = dictionary["projectDirectory"] as! String
+                    
+                }
+
+                
+                
+                
                 if(dictionary["favoriteUrls"] != nil) {
                     self.appSettings.favoriteUrls = urlStrArraytoUrlArray(input: dictionary["favoriteUrls"] as! Array<Any>)
-                    
+                    //self.appSettings.favoriteUrls = []
+
                     self.favoritesCollectionViewController?.reloadContents()
 
                 } else {
@@ -519,6 +536,9 @@ extension AppDelegate {
                 
                 if(dictionary["mediaBinUrls"] != nil) {
                     self.appSettings.mediaBinUrls = urlStrArraytoUrlArray(input: dictionary["mediaBinUrls"] as! Array<Any>)
+                    
+                    //self.appSettings.mediaBinUrls = []
+
                     self.screenShotSliderController?.reloadContents()
 
                 } else {
@@ -570,9 +590,6 @@ extension AppDelegate {
                 }
                 
                 
-                if(dictionary["thumbnailDirectory"] != nil) {
-                    self.appSettings.thumbnailDirectory = dictionary["thumbnailDirectory"] as! String
-                }
                 
                 
                 if(dictionary["screenshotFramesAfter"] != nil) {

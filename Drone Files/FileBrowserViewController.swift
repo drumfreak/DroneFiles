@@ -672,6 +672,8 @@ class FileBrowserViewController: NSViewController {
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 
+                self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: item.url as URL)
+                
                 self.appDelegate.saveProject()
                 
             } else {
