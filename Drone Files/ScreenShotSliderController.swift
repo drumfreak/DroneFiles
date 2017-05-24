@@ -114,7 +114,6 @@ class ScreenShotSliderController: NSViewController {
     
     
     func reloadContents() {
-        
         // mediaBinLoader.loadDataForFolderWithUrl(initialFolderUrl)
         
         var boo = [] as NSArray
@@ -130,8 +129,16 @@ class ScreenShotSliderController: NSViewController {
             mediaBinLoader.loadDataFromUrls(foo)
         }
         
-        self.configureCollectionView()
-        self.collectionView.reloadData()
+        
+       // DispatchQueue.main.async {
+            NSAnimationContext.runAnimationGroup({context in
+                context.duration = 1.0
+                // self.configureCollectionView()
+                self.collectionView.reloadData()
+            }) {
+            }
+       // }
+        
         
         DispatchQueue.main.async {
             self.countLabel.title = String(format: "%1d", self.appSettings.mediaBinUrls.count)
@@ -289,13 +296,27 @@ class ScreenShotSliderController: NSViewController {
         self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
 
         if(self.splitItem.isCollapsed) {
-            self.splitItem.isCollapsed = false
+           self.unHideMediaBin()
         } else {
-            self.splitItem.isCollapsed = true
+            self.hideMediaBin()
         }
-        
+    }
+    
+    func hideMediaBin() {
+        self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
+        self.splitItem.isCollapsed = true
         self.splitItem.holdingPriority = 250
         self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+
+    }
+    
+    func unHideMediaBin() {
+        self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
+        self.splitItem.isCollapsed = false
+        self.splitItem.holdingPriority = 250
+        self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+        
+        
     }
     
     
@@ -309,7 +330,6 @@ class ScreenShotSliderController: NSViewController {
     
     func deselectAll() {
         self.collectionView.deselectAll(nil)
-        
     }
 }
 

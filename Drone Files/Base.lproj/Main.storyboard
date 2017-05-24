@@ -1138,21 +1138,21 @@
                                             </button>
                                         </subviews>
                                     </customView>
-                                    <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="110" horizontalPageScroll="10" verticalLineScroll="110" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="GHP-OC-WAh" userLabel="File List">
+                                    <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="GHP-OC-WAh" userLabel="File List">
                                         <rect key="frame" x="0.0" y="58" width="636" height="494"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="7R8-yL-CRv">
                                             <rect key="frame" x="0.0" y="0.0" width="636" height="494"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="108" rowSizeStyle="automatic" headerView="gZ4-DF-70f" viewBased="YES" id="aqc-Ti-zl8" customClass="ThemeTableView" customModule="Drone_Files" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="649" height="471"/>
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="gZ4-DF-70f" viewBased="YES" id="aqc-Ti-zl8" customClass="ThemeTableView" customModule="Drone_Files" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="636" height="471"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" red="0.084371132429999995" green="0.084371132429999995" blue="0.084371132429999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="291.5" minWidth="40" maxWidth="1000" id="Pta-8u-sph">
+                                                        <tableColumn width="320" minWidth="200" maxWidth="1000" id="Pta-8u-sph">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1166,18 +1166,18 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="NameCellID" id="JhN-ep-U7D" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="291.5" height="108"/>
+                                                                    <rect key="frame" x="1" y="1" width="320" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T9p-vk-KMT">
-                                                                            <rect key="frame" x="3" y="45" width="17" height="17"/>
+                                                                            <rect key="frame" x="3" y="0.0" width="17" height="17"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="17" id="N4X-cC-xYi"/>
                                                                             </constraints>
                                                                             <imageCell key="cell" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="c3B-gT-3kV"/>
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYz-vv-r3n">
-                                                                            <rect key="frame" x="25" y="45" width="266" height="17"/>
+                                                                            <rect key="frame" x="25" y="0.0" width="295" height="17"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="pOg-Ln-KxG">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1200,7 +1200,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="188.5" minWidth="40" maxWidth="500" id="3Bs-k5-25d">
+                                                        <tableColumn width="170" minWidth="170" maxWidth="200" id="3Bs-k5-25d">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Date Modified">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1214,11 +1214,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="DateCellID" id="eVb-jg-JcE" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="295.5" y="1" width="188.5" height="108"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <rect key="frame" x="324" y="1" width="170" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0r-ja-7at">
-                                                                            <rect key="frame" x="0.0" y="45" width="188" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="170" height="17"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="J4X-Cc-A66">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1237,7 +1237,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="57" minWidth="40" maxWidth="1000" id="ZuW-Un-1Fn">
+                                                        <tableColumn width="50" minWidth="40" maxWidth="50" id="ZuW-Un-1Fn">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Favorite">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1250,40 +1250,35 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="FavoriteCellID" misplaced="YES" id="ZOp-kV-0PW" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="487" y="1" width="57" height="108"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <subviews>
-                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HCY-ZB-FcZ">
-                                                                            <rect key="frame" x="0.0" y="39" width="30" height="30"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" constant="30" id="cdT-cV-Qor"/>
-                                                                                <constraint firstAttribute="width" constant="30" id="sgZ-TF-8UV"/>
-                                                                            </constraints>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="heart-active" id="pB0-cS-wOI"/>
-                                                                        </imageView>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="HCY-ZB-FcZ" secondAttribute="trailing" id="4d4-qS-mGL"/>
-                                                                        <constraint firstItem="HCY-ZB-FcZ" firstAttribute="centerY" secondItem="ZOp-kV-0PW" secondAttribute="centerY" id="KiI-r0-Gxa"/>
-                                                                        <constraint firstItem="HCY-ZB-FcZ" firstAttribute="leading" secondItem="ZOp-kV-0PW" secondAttribute="leading" id="gPR-F4-Gie"/>
-                                                                    </constraints>
-                                                                    <connections>
-                                                                        <outlet property="imageView" destination="HCY-ZB-FcZ" id="TZv-2S-LOG"/>
-                                                                    </connections>
-                                                                </tableCellView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" id="5uH-nX-H1B">
-                                                                    <rect key="frame" x="487" y="111" width="57" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <rect key="frame" x="497" y="1" width="50" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="sdn-5G-XVC">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
+                                                                <tableCellView identifier="FavoriteCellID" id="ZOp-kV-0PW" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
+                                                                    <rect key="frame" x="497" y="20" width="50" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HCY-ZB-FcZ">
+                                                                            <rect key="frame" x="22.5" y="0.0" width="17" height="17"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="heart-active" id="pB0-cS-wOI"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="HCY-ZB-FcZ" firstAttribute="centerY" secondItem="ZOp-kV-0PW" secondAttribute="centerY" id="SrH-e0-B8O"/>
+                                                                        <constraint firstItem="HCY-ZB-FcZ" firstAttribute="centerX" secondItem="ZOp-kV-0PW" secondAttribute="centerX" id="X3V-ae-QFw"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="imageView" destination="HCY-ZB-FcZ" id="TZv-2S-LOG"/>
+                                                                    </connections>
+                                                                </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="100" minWidth="100" maxWidth="1000" id="722-ab-3zR">
+                                                        <tableColumn width="70" minWidth="70" maxWidth="1000" id="722-ab-3zR">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Size">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1297,11 +1292,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="SizeCellID" id="rrQ-6F-Rdw" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="547" y="1" width="100" height="108"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <rect key="frame" x="550" y="1" width="70" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uT-Bc-4aM">
-                                                                            <rect key="frame" x="0.0" y="45" width="100" height="17"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uT-Bc-4aM">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="54" height="17"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="ee4-AD-aAi">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1329,7 +1324,7 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.79139019695479451" colorSpace="custom" customColorSpace="sRGB"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Vs9-pL-nim">
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Vs9-pL-nim">
                                             <rect key="frame" x="0.0" y="478" width="636" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -1338,7 +1333,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="gZ4-DF-70f" customClass="ThemeTableHeaderView" customModule="Drone_Files" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="649" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="636" height="23"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>

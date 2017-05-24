@@ -63,22 +63,24 @@ class FileManagerViewController: NSViewController {
         tableView.tableColumns[0].sortDescriptorPrototype = descriptorName
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
         tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
-        
         reloadFileList()
-        
-        self.appDelegate.fileManagerViewController = self
-        
-        
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         self.viewIsLoaded = true
+        self.appDelegate.screenShotSliderController.hideMediaBin()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.appDelegate.screenShotSliderController.hideMediaBin()
     }
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.viewIsLoaded = false
+        self.appDelegate.screenShotSliderController.unHideMediaBin()
     }
     
     func reloadFileList() {
