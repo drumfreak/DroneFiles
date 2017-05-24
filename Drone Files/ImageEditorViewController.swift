@@ -93,37 +93,75 @@ class ImageEditorViewController: NSViewController {
         }
     }
     
-    func loadImage(_url: URL) {
-        
-        // print("Loading IMAGES: \(_url)")
-        
-        // imageView.show
-        self.imageUrl = _url
-        
+//    func loadImage(_url: URL) {
+//        
+//        // print("Loading IMAGES: \(_url)")
+//        
+//        // imageView.show
+//        self.imageUrl = _url
+//    
+//    }
+//    
+    
+    
+    func loadImage (_url: URL) {
+        // self.imageViewBackground.isHidden = true
         DispatchQueue.main.async {
+            
+            // self.playerView.isHidden = true
+           // self.imageView.isHidden = false
+            //self.imageViewBackground.isHidden = true
+            
+            self.imageUrl = _url
+            self.transitionFade()
+            
+            // self.imageView.setImage(self.appDelegate.imageEditorViewController?.imageView?.image()?.takeRetainedValue(), imageProperties: [:])
+            
+        }
+    }
+    
+    
+    func transitionNone() {
+        self.imageView.setImageWith(self.imageUrl)
+        self.imageView.zoomImageToFit(self)
+    }
+    
+    
+    func transitionFade() {
+        NSAnimationContext.runAnimationGroup({context in
+            context.duration = 0.15
+            self.imageView.alphaValue = 0.0
+        }) {
+            self.imageView.setImageWith(self.imageUrl)
+            self.imageView.zoomImageToFit(self)
             NSAnimationContext.runAnimationGroup({context in
                 context.duration = 0.15
-                self.imageView.alphaValue = 0.25
+                self.imageView.alphaValue = 1.0
             }) {
-                self.imageView.setImageWith(_url)
-                self.imageView.zoomImageToFit(self)
-                NSAnimationContext.runAnimationGroup({context in
-                    context.duration = 0.15
-                    self.imageView.alphaValue = 1.0
-                    
-                }) {
-                }
             }
-            self.nowPlayingURL = _url
-            self.appDelegate.imageEditorControlsController?.nowPlayingFile?.stringValue = self.nowPlayingURL.lastPathComponent
         }
-        
-        self.appDelegate.imageEditorControlsController?.nowPlayingURLString = _url.absoluteString.replacingOccurrences(of: "file://", with: "")
-        
-        if(self.appDelegate.imageEditorControlsController?.viewIsLoaded)! {
-            //print("Resetting..")
-            self.appDelegate.imageEditorControlsController?.resetImage(self)
-        }
-        
     }
+    
+//    func transitionCrossFade() {
+//        var lastImage: CGImage!
+//        self.imageView.setImageWith(self.imageUrl)
+//        self.imageView.zoomImageToFit(self)
+//        NSAnimationContext.runAnimationGroup({context1 in
+//            context1.duration = 0.5
+//            self.imageView.isHidden = true
+//            if(self.imageView.image() != nil) {
+//                lastImage = self.imageView.image().takeUnretainedValue()
+//            }
+//        }) {
+//            NSAnimationContext.runAnimationGroup({context2 in
+//                context2.duration = 2.5
+//                self.imageView.isHidden = false
+//            }) {
+//                self.imageViewBackground.setImage(lastImage, imageProperties: nil)
+//                self.imageViewBackground.zoomImageToFit(self)
+//            }
+//        }
+//    }
+    
+
 }
