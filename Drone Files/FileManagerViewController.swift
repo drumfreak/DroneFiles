@@ -29,6 +29,8 @@ class FileManagerViewController: NSViewController {
     @IBOutlet var moveButton: NSButton!
     @IBOutlet var tableView: NSTableView!
     
+    @IBOutlet var splitview: NSSplitView!
+    
     @IBOutlet var organizeOptionsView: NSTextField!
     
     var viewIsLoaded = false
@@ -47,6 +49,17 @@ class FileManagerViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+        
+       //  self.splitview.view.wantsLayer = true
+        self.splitview.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+        //}
+
         
         // print("~~~~~~~ Showing Table View")
         self.tableView.delegate = self
@@ -255,7 +268,7 @@ class FileManagerViewController: NSViewController {
             text = "\(itemsSelected) of \(fileItems!.count) selected"
             let sendFilesToControllers = NSMutableArray()
             
-            if(tableView.selectedRowIndexes.count > 0) {
+            if(itemsSelected > 0) {
                 for (_, index) in tableView.selectedRowIndexes.enumerated() {
                     guard index >= 0,
                         let item = fileItems?[index] else {
@@ -347,9 +360,6 @@ class FileManagerViewController: NSViewController {
         return path
     }
     
-    
-    
-    
     func shareMultipleFiles(receivedFiles: Array<Any>, s: AnyObject?) {
         let shareItems: NSMutableArray = []
         receivedFiles.forEach({ m in
@@ -391,10 +401,14 @@ extension FileManagerViewController: NSTableViewDelegate {
         static let NameCell = "NameCellID"
         static let DateCell = "DateCellID"
         static let SizeCell = "SizeCellID"
+        static let FavoriteCell = "FavoriteCellID"
         static let KindCell = "KindCellID"
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        tableColumn!.headerCell = ThemeTableHeaderCell(textCell: tableColumn!.title)
+        
         var image: NSImage?
         var text: String = ""
         var cellIdentifier: String = ""
@@ -411,7 +425,20 @@ extension FileManagerViewController: NSTableViewDelegate {
             return nil
         }
         
-        // print(item);
+        let rowView = self.tableView.rowView(atRow: row, makeIfNecessary: false)
+        
+        if(row % 2 == 0) {
+            //DispatchQueue.main.async {
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+            //}
+            // cell.backgroundStyle = NSBackgroundStyle.light
+        } else {
+            // cell.backgroundStyle = NSBackgroundStyle.dark
+            //DispatchQueue.main.async {
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+            //}
+        }
+
         
         // 2
         if tableColumn == tableView.tableColumns[0] {
@@ -422,6 +449,21 @@ extension FileManagerViewController: NSTableViewDelegate {
             text = dateFormatter.string(from: item.date)
             cellIdentifier = CellIdentifiers.DateCell
         } else if tableColumn == tableView.tableColumns[2] {
+            //image = item.isFavorite
+            
+            var isFavorite = false
+            if(self.appSettings.favoriteUrls.contains(item.url)) {
+                isFavorite = true
+            }  else {
+                isFavorite = false
+            }
+            if(isFavorite) {
+                image = NSImage.init(named: "heart-table-active.png")
+            } else {
+                image = NSImage.init(named: "heart-table-inactive.png")
+            }
+            cellIdentifier = CellIdentifiers.FavoriteCell
+        } else if tableColumn == tableView.tableColumns[3] {
             text = item.isFolder ? "--" : sizeFormatter.string(fromByteCount: item.size)
             cellIdentifier = CellIdentifiers.SizeCell
         }
@@ -437,6 +479,54 @@ extension FileManagerViewController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateStatus()
+        
+        
+        var i = Int(0)
+        //DispatchQueue.main.async {
+        
+        while(i < self.tableView.numberOfRows) {
+            
+            let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
+            
+            // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+            
+            
+            let f = self.tableView.selectedRowIndexes.index(of: i)
+            if((f) != nil) {
+                //print("INDEX OF SELECTED ROW: \(i)")
+                rowView?.backgroundColor = self.appDelegate.appSettings.tableRowSelectedBackGroundColor
+                
+                
+            } else {
+                //print("Unselected Row... (i)")
+                
+                // Back to alternating colors...
+                
+                if(i % 2 == 0) {
+                    rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+                } else {
+                    rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+                }
+                
+            }
+            
+            i += 1
+            
+        }
+        
+        let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
+        
+        // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+        
+        // Current row selected color
+        rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
+        // }
+    }
+    
+    // public func tableView
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return ThemeTableRowView()
     }
     
 }

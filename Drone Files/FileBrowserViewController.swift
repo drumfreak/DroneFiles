@@ -839,13 +839,11 @@ class FileBrowserViewController: NSViewController {
 }
 
 extension FileBrowserViewController: NSTableViewDataSource {
-    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return directoryItems?.count ?? 0
     }
     
-    
-    
+
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         // 1
         guard let sortDescriptor = tableView.sortDescriptors.first else {
@@ -869,8 +867,6 @@ extension FileBrowserViewController: NSTableViewDelegate {
         static let FavoriteCell = "FavoriteCellID"
         static let KindCell = "KindCellID"
     }
-    
-    
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
@@ -935,7 +931,6 @@ extension FileBrowserViewController: NSTableViewDelegate {
         } else if tableColumn == tableView.tableColumns[3] {
             text = item.isFolder ? "--" : sizeFormatter.string(fromByteCount: item.size)
             cellIdentifier = CellIdentifiers.SizeCell
-            
         }
         
         // 3

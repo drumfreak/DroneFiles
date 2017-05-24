@@ -223,12 +223,7 @@ class VideoPlayerControllsController: NSViewController {
     
     func handlePlayerLabelClick() {
         // print("Play Pause")
-        if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
-        } else {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
-            
-        }
+        self.appDelegate.videoPlayerViewController?.playPause()
     }
     
     // Play / Pause / Increment / Decrement
@@ -335,7 +330,8 @@ class VideoPlayerControllsController: NSViewController {
         self.startTrimming();
         
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying == false) {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+            self.appDelegate.videoPlayerViewController?.playPause()
+            
         }
     }
     
@@ -350,7 +346,7 @@ class VideoPlayerControllsController: NSViewController {
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = currentVideoTime
         
         if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying == false) {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.play()
+            self.appDelegate.videoPlayerViewController?.playPause()
         }
         
         self.startTrimming()

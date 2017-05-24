@@ -35,6 +35,11 @@ class FileManagerOptionsTabViewController: NSTabViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+ 
+        
         //  self.tabView.
         // print("FileManagerOptionsTabViewController loaded")
         

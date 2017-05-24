@@ -62,6 +62,8 @@
 		18A3AD9E1ED50B8300F09727 /* RightPanelSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */; };
 		18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3AD9F1ED5402500F09727 /* heart-table-active.png */; };
 		18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3ADA01ED5402500F09727 /* heart-table-inactive.png */; };
+		18A3ADA61ED55D5000F09727 /* FileManagerSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ADA41ED55D5000F09727 /* FileManagerSplitViewController.swift */; };
+		18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A3ADA51ED55D5000F09727 /* FileManagerSplitViewController.xib */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
 		18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */; };
 		18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */; };
@@ -175,6 +177,8 @@
 		18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightPanelSplitViewController.swift; sourceTree = "<group>"; };
 		18A3AD9F1ED5402500F09727 /* heart-table-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-table-active.png"; path = "../../../../Graphics/Drone The Moment/heart-table-active.png"; sourceTree = "<group>"; };
 		18A3ADA01ED5402500F09727 /* heart-table-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-table-inactive.png"; path = "../../../../Graphics/Drone The Moment/heart-table-inactive.png"; sourceTree = "<group>"; };
+		18A3ADA41ED55D5000F09727 /* FileManagerSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerSplitViewController.swift; sourceTree = "<group>"; };
+		18A3ADA51ED55D5000F09727 /* FileManagerSplitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileManagerSplitViewController.xib; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
 		18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsMoveController.swift; sourceTree = "<group>"; };
 		18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsRenameController.swift; sourceTree = "<group>"; };
@@ -243,7 +247,7 @@
 			name = Favorites;
 			sourceTree = "<group>";
 		};
-		18740B6D1ECD54EB003803B4 /* MediaBin Collection */ = {
+		18740B6D1ECD54EB003803B4 /* Screenshot Sliders */ = {
 			isa = PBXGroup;
 			children = (
 				18DD9F561ECE8E0F008E9E02 /* Image Collection View */,
@@ -252,13 +256,12 @@
 				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 			);
-			name = "MediaBin Collection";
+			name = "Screenshot Sliders";
 			sourceTree = "<group>";
 		};
 		187843A81EB3CE8300BCD214 /* Video Player */ = {
 			isa = PBXGroup;
 			children = (
-				187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */,
 				18740B721ECE06A3003803B4 /* VideoPlayerMessageBox.swift */,
 				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
 				187843A91EB3E26100BCD214 /* VideoPlayerController.swift */,
@@ -334,10 +337,22 @@
 				1836DB861EC824550000F749 /* SlideShowWindow.swift */,
 				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
-				18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */,
-				18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */,
 			);
 			name = "Image Editor";
+			sourceTree = "<group>";
+		};
+		18A3ADA31ED55D1000F09727 /* Split Views */ = {
+			isa = PBXGroup;
+			children = (
+				187843A41EB3CB1D00BCD214 /* VideoSplitViewController.swift */,
+				18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */,
+				18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */,
+				18A3ADA41ED55D5000F09727 /* FileManagerSplitViewController.swift */,
+				18A3ADA51ED55D5000F09727 /* FileManagerSplitViewController.xib */,
+				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
+				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
+			);
+			name = "Split Views";
 			sourceTree = "<group>";
 		};
 		18A483031EAFFE8B007F735B /* File Manager */ = {
@@ -391,12 +406,11 @@
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
-				18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */,
-				18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */,
+				18A3ADA31ED55D1000F09727 /* Split Views */,
 				1860F0171ED0C7CD00928FD7 /* Favorites */,
 				18976E031ED08CCD00A04CD2 /* Camera Import */,
 				18A483031EAFFE8B007F735B /* File Manager */,
-				18740B6D1ECD54EB003803B4 /* MediaBin Collection */,
+				18740B6D1ECD54EB003803B4 /* Screenshot Sliders */,
 				189D40BA1EC244D700E1298C /* Image Editor */,
 				1882722B1ECA7A4A00EE50D0 /* Theme Customizations */,
 				18DD9F5D1ECEB0E9008E9E02 /* Window Controllers */,
@@ -572,6 +586,7 @@
 				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
+				18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */,
 				18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */,
 				1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */,
 				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
@@ -635,6 +650,7 @@
 				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
 				18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */,
 				188272311ECA939300EE50D0 /* ThemePathControl.swift in Sources */,
+				18A3ADA61ED55D5000F09727 /* FileManagerSplitViewController.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
 				188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */,
 				187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */,

@@ -62,7 +62,7 @@ class VideoPlayerViewController: NSViewController {
         
         self.playerMessageBoxView.wantsLayer = true
         self.playerMessageBoxView.layer?.backgroundColor = self.appSettings.messageBoxBackground.cgColor
-        self.playerView.becomeFirstResponder()
+        //self.playerView.becomeFirstResponder()
 
         // }
         //  self.messageSpinner.startAnimation(self)
@@ -75,7 +75,7 @@ class VideoPlayerViewController: NSViewController {
         addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
         addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
         
-        self.playerView.becomeFirstResponder()
+        //self.playerView.becomeFirstResponder()
 
         print("Video appeared")
     }
@@ -87,6 +87,7 @@ class VideoPlayerViewController: NSViewController {
         if(self.playerView.player != nil) {
             if(self.playerView.player?.isPlaying)! {
                 self.playerView.player?.pause()
+                self.playerView.resignFirstResponder()
             }
         }
         
@@ -94,17 +95,19 @@ class VideoPlayerViewController: NSViewController {
     
     
     func playPause() {
-        if(!self.playerIsReady) {
-            return
-        }
+        //        if(!self.playerIsReady) {
+        //            return
+        //        }
         
         if(self.player.isPlaying) {
             self.player.pause()
+            self.playerView.resignFirstResponder()
         } else {
             self.player.rate = Float(self.videoRate)
+            self.playerView.becomeFirstResponder()
         }
         
-        self.playerView.becomeFirstResponder()
+        
 
     }
     
@@ -112,7 +115,7 @@ class VideoPlayerViewController: NSViewController {
         // self.playerView.showsFrameSteppingButtons = true
         self.playerView.showsSharingServiceButton = false
         self.playerView.showsFullScreenToggleButton = true
-        self.playerView.becomeFirstResponder()
+        //self.playerView.becomeFirstResponder()
         
         self.player = AVPlayer(playerItem: self.playerItem)
         
@@ -132,7 +135,7 @@ class VideoPlayerViewController: NSViewController {
         let avPlayerLayer = AVPlayerLayer(player: self.player!)
         avPlayerLayer.frame = self.view.bounds
         
-        self.playerView.becomeFirstResponder()
+        //self.playerView.becomeFirstResponder()
 
         
         
@@ -163,7 +166,7 @@ class VideoPlayerViewController: NSViewController {
         self.appDelegate.videoPlayerControlsController?.metadataLocationLabel.stringValue = location
         
         // print("Location: \(location)")
-        self.playerView.becomeFirstResponder()
+        //self.playerView.becomeFirstResponder()
 
         
     }
@@ -324,6 +327,7 @@ class VideoPlayerViewController: NSViewController {
                 self.appDelegate.videoPlayerControlsController?.calculateClipLength()
                 
                 if(self.startPlayingVideo == true) {
+                    // self.playerView.becomeFirstResponder()
                     self.player.rate = Float(self.videoRate)
                     self.startPlayingVideo = false
                 } else {

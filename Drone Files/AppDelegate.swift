@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var defaults = UserDefaults.standard
     
     var externalScreens = [NSScreen]()
-    
+      
     var appSettings = AppSettings()
     var documentController = NSDocumentController.shared()
     
@@ -443,7 +443,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func videoFrameIncrementAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.frameDecrementFromKeyboard()
+        self.videoPlayerControlsController?.frameIncrementFromKeyboard()
     }
     
     
