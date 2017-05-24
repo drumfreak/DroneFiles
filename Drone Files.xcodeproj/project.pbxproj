@@ -60,6 +60,8 @@
 		18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A3AD9E1ED50B8300F09727 /* RightPanelSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */; };
+		18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3AD9F1ED5402500F09727 /* heart-table-active.png */; };
+		18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3ADA01ED5402500F09727 /* heart-table-inactive.png */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
 		18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */; };
 		18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */; };
@@ -171,6 +173,8 @@
 		18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraBrowserController.swift; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightPanelSplitViewController.swift; sourceTree = "<group>"; };
+		18A3AD9F1ED5402500F09727 /* heart-table-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-table-active.png"; path = "../../../../Graphics/Drone The Moment/heart-table-active.png"; sourceTree = "<group>"; };
+		18A3ADA01ED5402500F09727 /* heart-table-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-table-inactive.png"; path = "../../../../Graphics/Drone The Moment/heart-table-inactive.png"; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
 		18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsMoveController.swift; sourceTree = "<group>"; };
 		18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsRenameController.swift; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				188272191ECA704F00EE50D0 /* appicon-64px.png */,
+				18A3AD9F1ED5402500F09727 /* heart-table-active.png */,
+				18A3ADA01ED5402500F09727 /* heart-table-inactive.png */,
 				1882721A1ECA704F00EE50D0 /* appicon-1024px.png */,
 				1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */,
 				1860F0131ED0C6FC00928FD7 /* heart-inactive.png */,
@@ -566,6 +572,7 @@
 				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
+				18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */,
 				1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */,
 				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
 				18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */,
@@ -575,6 +582,7 @@
 				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,
+				18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */,
 				1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */,
 				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,

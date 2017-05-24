@@ -9,8 +9,9 @@ public struct Metadata: CustomDebugStringConvertible, Equatable {
     let color: NSColor
     let isFolder: Bool
     let url: URL
+    let isFavorite: Bool
     
-    init(fileURL: URL, name: String, date: Date, size: Int64, icon: NSImage, isFolder: Bool, color: NSColor ) {
+    init(fileURL: URL, name: String, date: Date, size: Int64, icon: NSImage, isFolder: Bool, color: NSColor, favorite: Bool ) {
         self.name = name
         self.date = date
         self.size = size
@@ -18,6 +19,7 @@ public struct Metadata: CustomDebugStringConvertible, Equatable {
         self.color = color
         self.isFolder = isFolder
         self.url = fileURL
+        self.isFavorite = favorite
     }
     
     public var debugDescription: String {
@@ -41,6 +43,7 @@ public struct Directory  {
     public enum FileOrder: String {
         case Name
         case Date
+        case Favorite
         case Size
     }
     
@@ -84,7 +87,7 @@ public struct Directory  {
                     //
                     //            }
                     
-                    
+                    let isFavorite = true
                     
                     files.append(Metadata(fileURL: url,
                                           name: properties[URLResourceKey.localizedNameKey] as? String ?? "",
@@ -92,7 +95,9 @@ public struct Directory  {
                                           size: (properties[URLResourceKey.fileSizeKey] as? NSNumber)?.int64Value ?? 0,
                                           icon: icon,
                                           isFolder: (properties[URLResourceKey.isDirectoryKey] as? NSNumber)?.boolValue ?? false,
-                                          color: NSColor()))
+                                            color: NSColor(),
+                                           favorite: isFavorite
+                                          ))
                 }
                 catch {
                     print("Error reading file attributes")
@@ -120,7 +125,19 @@ public struct Directory  {
                 return sortMetadata(lhsIsFolder:true, rhsIsFolder: true, ascending:ascending,
                                     attributeComparation:itemComparator(lhs:$0.date, rhs: $1.date, ascending:ascending))
             }
+            
+        case .Favorite:
+            sortedFiles = files.sorted {
+                return sortMetadata(lhsIsFolder:true, rhsIsFolder: true, ascending: ascending,
+                                    attributeComparation:itemComparator(lhs:$0.name, rhs: $1.name, ascending:ascending))
+            }
+            
+            
+            
+            
         }
+        
+        
         return sortedFiles
     }
 }

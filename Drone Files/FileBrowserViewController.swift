@@ -85,6 +85,8 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var rawFolderPathControl: NSPathControl!
     
     
+    var blockFileLoad = false
+    
     // var pathControlDelegate: NSPathControlDelegate!
     
     // Tableviews - File List
@@ -130,7 +132,6 @@ class FileBrowserViewController: NSViewController {
         self.tableView.dataSource = self
         
         DispatchQueue.main.async {
-            
             self.statusLabel.stringValue = "0 Items Selected"
             self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
             self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
@@ -148,9 +149,14 @@ class FileBrowserViewController: NSViewController {
         let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: true)
         let descriptorSize = NSSortDescriptor(key: Directory.FileOrder.Size.rawValue, ascending: true)
         
+         let descriptorFavorite = NSSortDescriptor(key: Directory.FileOrder.Favorite.rawValue, ascending: true)
+        
         self.tableView.tableColumns[0].sortDescriptorPrototype = descriptorName
         self.tableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
-        self.tableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
+        self.tableView.tableColumns[2].sortDescriptorPrototype = descriptorFavorite
+        
+        self.tableView.tableColumns[3].sortDescriptorPrototype = descriptorSize
+        
         
         // self.sourceFolderOpened = self.startingDirectory
         
@@ -205,7 +211,7 @@ class FileBrowserViewController: NSViewController {
             
             let i = self.tableView.selectedRow
             
-            if(i > 1) {
+            if(i > 0) {
                 let indexSet =  NSIndexSet(index: i - 1) as IndexSet
                 
                 DispatchQueue.main.async {
@@ -410,6 +416,7 @@ class FileBrowserViewController: NSViewController {
     @IBAction func addFavorite(_ sender: AnyObject?) {
         // print("Fuck yeah")
         
+        var lastUrl: URL!
         self.addToFavoriteUrls.forEach { furl in
             let f = furl
             // print(f)
@@ -432,9 +439,33 @@ class FileBrowserViewController: NSViewController {
                 self.appDelegate.appSettings.favoriteUrls.append(f)
             }
             
+            lastUrl = f as URL
         }
         
         self.appDelegate.saveProject()
+        self.tableView.reloadData()
+        
+        var i = 0
+        
+        self.directoryItems?.forEach({ directoryItem in
+            
+            let turl = directoryItem.url
+            
+            if(turl.absoluteString == lastUrl?.absoluteString) {
+                let indexSet =  NSIndexSet(index: i) as IndexSet
+                
+                DispatchQueue.main.async {
+                    self.blockFileLoad = true
+                    self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                    self.blockFileLoad = false
+
+                }
+            }
+            i += Int(1)
+            
+        })
+
+        
         
         // self.addToFavoriteUrls.removeAll(keepingCapacity: false)
         
@@ -560,6 +591,8 @@ class FileBrowserViewController: NSViewController {
     }
     
     
+    
+    
     func reloadFilesWithSelected(fileName: String) {
         
         
@@ -602,6 +635,9 @@ class FileBrowserViewController: NSViewController {
     
     func loadItemFromTable() {
         
+        if(self.blockFileLoad) {
+            return
+        }
         // print("SELECTED ROW \(self.tableView.selectedRow)")
         
         // 1
@@ -830,6 +866,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
         static let NameCell = "NameCellID"
         static let DateCell = "DateCellID"
         static let SizeCell = "SizeCellID"
+        static let FavoriteCell = "FavoriteCellID"
         static let KindCell = "KindCellID"
     }
     
@@ -880,6 +917,22 @@ extension FileBrowserViewController: NSTableViewDelegate {
             text = dateFormatter.string(from: item.date)
             cellIdentifier = CellIdentifiers.DateCell
         } else if tableColumn == tableView.tableColumns[2] {
+            //image = item.isFavorite
+            
+            var isFavorite = false
+            if(self.appSettings.favoriteUrls.contains(item.url)) {
+                    isFavorite = true
+                }  else {
+                    isFavorite = false
+                }
+            if(isFavorite) {
+                image = NSImage.init(named: "heart-table-active.png")
+            } else {
+                image = NSImage.init(named: "heart-table-inactive.png")
+            }
+
+            cellIdentifier = CellIdentifiers.FavoriteCell
+        } else if tableColumn == tableView.tableColumns[3] {
             text = item.isFolder ? "--" : sizeFormatter.string(fromByteCount: item.size)
             cellIdentifier = CellIdentifiers.SizeCell
             
