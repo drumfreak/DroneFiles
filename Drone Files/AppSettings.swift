@@ -202,7 +202,7 @@ struct AppSettings {
         }
     }
     
-    var screenshotFramesInterval = Double(0.1) {
+    var screenshotFramesInterval = Double(2.0) {
         didSet {
             userDefaults.setValue(screenshotFramesInterval, forKey: "screenshotFramesInterval")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
@@ -230,7 +230,7 @@ struct AppSettings {
     
     // Media Bin Stuff
     
-    var mediaBinTimerInterval = Double(0.2) {
+    var mediaBinTimerInterval = Double(2.0) {
         didSet {
             userDefaults.setValue(mediaBinTimerInterval, forKey: "mediaBinTimerInterval")
             //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)

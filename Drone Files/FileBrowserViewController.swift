@@ -104,11 +104,11 @@ class FileBrowserViewController: NSViewController {
         let defaults = UserDefaults.standard
         
         
-        // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
-        if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
-            let previousPath = defaults.value(forKey: "lastOpenedProjectFile") as! String
-            self.appDelegate.readProjectFile(projectFile: previousPath)
-        }
+//        // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
+//        if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
+//            let previousPath = defaults.value(forKey: "lastOpenedProjectFile") as! String
+//            self.appDelegate.readProjectFile(projectFile: previousPath)
+//        }
         
         
         if(defaults.value(forKey: "lastFolderOpened") != nil) {
@@ -171,6 +171,49 @@ class FileBrowserViewController: NSViewController {
     
     @IBAction func openCurrentPathControlMenu(_ sender: AnyObject?) {
         self.currentFolderPathControl.menu?.popUp(positioning: self.currentFolderPathControl.menu?.item(at:0), at: NSPoint(dictionaryRepresentation: 0 as! CFDictionary)!, in: self.view)
+        
+    }
+    
+    
+    func selectNextItem() {
+        if(self.tableView.selectedRow > -1) {
+            
+            let i = self.tableView.selectedRow
+            
+            if(i < self.tableView.numberOfRows) {
+                let indexSet =  NSIndexSet(index: i + 1) as IndexSet
+                
+                DispatchQueue.main.async {
+                    self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                }
+            }
+            
+        } else {
+            
+            let indexSet =  NSIndexSet(index: 0) as IndexSet
+            
+            DispatchQueue.main.async {
+                self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+            }
+        }
+        
+    }
+    
+    
+    func selectPreviousItem() {
+        if(self.tableView.selectedRow < self.tableView.numberOfRows) {
+            
+            let i = self.tableView.selectedRow
+            
+            if(i > 1) {
+                let indexSet =  NSIndexSet(index: i - 1) as IndexSet
+                
+                DispatchQueue.main.async {
+                    self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                }
+            }
+            
+        }        
         
     }
     
@@ -597,9 +640,9 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
                 
-                //DispatchQueue.main.async {
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
-                //}
+                if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 0) {
+                    self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
+                }
                 
                 // nowPlayingFile.stringValue = item.name;
                 var itemUrl = url.absoluteString
@@ -636,7 +679,9 @@ class FileBrowserViewController: NSViewController {
                 if(!self.appDelegate.appSettings.blockScreenShotTabSwitch) {
                     // DispatchQueue.main.async {
                     
-                    self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                    if( self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
+                        self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                    }
                     
                     // }
                 }
@@ -811,8 +856,6 @@ extension FileBrowserViewController: NSTableViewDelegate {
             return nil
         }
         
-        
-        
         let rowView = self.tableView.rowView(atRow: row, makeIfNecessary: false)
         
         if(row % 2 == 0) {
@@ -858,7 +901,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
         updateStatus()
         
         var i = Int(0)
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             
             while(i < self.tableView.numberOfRows) {
                 
@@ -896,7 +939,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
             
             // Current row selected color
             rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
-        }
+       // }
         
     }
     

@@ -33,7 +33,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileManagerOptionsMoveController: FileManagerOptionsMoveController!
     @IBOutlet weak var fileManagerOptionsRenameController: FileManagerOptionsRenameController!
     @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
-    
+    @IBOutlet weak var imageEditorSplitViewController: ImageEditorSplitViewController!
+    @IBOutlet weak var rightPanelSplitViewController: RightPanelSplitViewController!
+
     @IBOutlet weak var screenShotSliderController: ScreenShotSliderController!
     
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
@@ -96,20 +98,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.writeProjectFile(projectPath: self.appSettings.projectFolder)
     }
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationWillBecomeActive(_ notification: Notification) {
+
         
+    }
+    
+    
+    
+    func applicationWillFinishLaunching(_ notification: Notification) {
         // Swift.print(appSettings)
         setupOptions()
-        
+
+    }
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    
         let notification = NSUserNotification()
         notification.title = "Welcome to DroneFiles!"
         notification.informativeText = "Your life will never be the same"
         notification.soundName = NSUserNotificationDefaultSoundName
         NSUserNotificationCenter.default.deliver(notification)
         
-        self.externalScreens = NSScreen.externalScreens()
-        
-        
+        // self.externalScreens = NSScreen.externalScreens()
+ 
     }
     
     
@@ -132,7 +142,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(0.1, forKey: "screenshotFramesInterval")
             defaults.setValue(5, forKey: "screenshotFramesAfter")
             defaults.setValue(5, forKey: "screenshotFramesBefore")
-            defaults.setValue(0.2, forKey: "mediaBinTimerInterval")
+            defaults.setValue(2.0, forKey: "mediaBinTimerInterval")
             defaults.setValue(false, forKey: "loadNewClip")
             defaults.setValue(true, forKey: "videoPlayerAutoPlay")
             defaults.setValue(true, forKey: "videoPlayerAlwaysPlay")
@@ -464,6 +474,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+    @IBAction func toggleFavorites(sender: AnyObject) {
+        //self.fileBrowserViewController.addFavorite(nil)
+    }
+    
+    @IBAction func toggleMediaBin(sender: AnyObject) {
+        self.screenShotSliderController.hideScreenshotSlider(self)
+    }
+    
+    
+    @IBAction func fileBrowserPrevious(sender: AnyObject) {
+        self.fileBrowserViewController.selectPreviousItem()
+    }
+    
+    @IBAction func fileBrowserNext(sender: AnyObject) {
+        self.fileBrowserViewController.selectNextItem()
+    }
+    
+    
     //    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
     //        return true
     //    }
@@ -509,6 +537,8 @@ extension AppDelegate {
             
             
             if let dictionary = projectJson as? [String: Any] {
+                
+                self.appSettings.lastProjectfileOpened = path?.absoluteString
                 
                 
                 // Keep this guy at the top...
@@ -586,7 +616,9 @@ extension AppDelegate {
                 }
                 
                 
-                
+                if(dictionary["mediaBinTimerInterval"] != nil) {
+                    self.appSettings.mediaBinTimerInterval = dictionary["mediaBinTimerInterval"] as! Double
+                }
                 
                 if(dictionary["screenshotFramesAfter"] != nil) {
                     self.appSettings.screenshotFramesAfter = dictionary["screenshotFramesAfter"] as! Int32
@@ -630,6 +662,9 @@ extension AppDelegate {
                 if(dictionary["screenshotFramesInterval"] != nil) {
                     self.appSettings.screenshotFramesInterval = dictionary["screenshotFramesInterval"] as! Double
                 }
+                
+               
+                
                 
                 
                 if(dictionary["screenshotPreserveVideoDate"] != nil) {
@@ -694,7 +729,6 @@ extension AppDelegate {
                 
             }
             
-            self.defaults.setValue(path?.absoluteString, forKey: "lastProjectfileOpened")
             
             //  print(projectJson!)
         } catch let error {
@@ -773,7 +807,11 @@ extension AppDelegate {
             dic.setValue(self.appSettings.lastFileOpened, forKey: "lastFileOpened")
             dic.setValue(self.appSettings.folderURL, forKey: "currentDirectory")
             
-            // print(dic)
+            dic.setValue(self.appSettings.mediaBinTimerInterval, forKey: "mediaBinTimerInterval")
+
+            dic.setValue(self.appSettings.lastProjectfileOpened, forKey: "lastProjectfileOpened")
+
+            
             
             // print("Try this Path: \(String(describing: jsonFilePath))")
             

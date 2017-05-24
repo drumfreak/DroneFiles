@@ -59,6 +59,7 @@
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
+		18A3AD9E1ED50B8300F09727 /* RightPanelSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */; };
 		18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */; };
 		18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */; };
 		18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */; };
@@ -169,6 +170,7 @@
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraBrowserController.swift; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
+		18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightPanelSplitViewController.swift; sourceTree = "<group>"; };
 		18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsTabViewController.swift; sourceTree = "<group>"; };
 		18A483081EAFFEDB007F735B /* FileManagerOptionsMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsMoveController.swift; sourceTree = "<group>"; };
 		18A4830A1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsRenameController.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				1836DB861EC824550000F749 /* SlideShowWindow.swift */,
 				1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
+				18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */,
 				18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */,
 			);
 			name = "Image Editor";
@@ -645,6 +648,7 @@
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18740B6F1ECD5522003803B4 /* ScreenShotSliderController.swift in Sources */,
 				18A483051EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift in Sources */,
+				18A3AD9E1ED50B8300F09727 /* RightPanelSplitViewController.swift in Sources */,
 				18DD9F5F1ECEB10E008E9E02 /* SecondWindowController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,

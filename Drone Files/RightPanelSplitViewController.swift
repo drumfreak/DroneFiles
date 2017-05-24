@@ -1,27 +1,27 @@
 //
-//  ImageEditorSplitViewController.swift
+//  RightPanelSlitViewController.swift
 //  Drone Files
 //
-//  Created by Eric Rosebrock on 5/17/17.
+//  Created by Eric Rosebrock on 5/23/17.
 //  Copyright © 2017 The Web Freaks, INC. All rights reserved.
 //
+
 
 import Foundation
 import Cocoa
 
-class ImageEditorSplitViewController: NSSplitViewController {
+class RightPanelSplitViewController: NSSplitViewController {
     
     @IBOutlet var mySplitView: NSSplitView!
     @IBOutlet var leftView: NSSplitViewItem!
     @IBOutlet var rightView: NSSplitViewItem!
-    @IBOutlet weak var splitViewRightController: SplitViewRightViewController!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // mySplitView.adjustSubviews();
-        self.appDelegate.imageEditorSplitViewController = self
+        self.appDelegate.rightPanelSplitViewController = self
         //DispatchQueue.main.async {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
@@ -29,3 +29,4 @@ class ImageEditorSplitViewController: NSSplitViewController {
     }
     
 }
+
