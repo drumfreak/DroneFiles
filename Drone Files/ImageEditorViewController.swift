@@ -113,7 +113,7 @@ class ImageEditorViewController: NSViewController {
             //self.imageViewBackground.isHidden = true
             
             self.imageUrl = _url
-            self.transitionFade()
+            self.transitionNone()
             
             // self.imageView.setImage(self.appDelegate.imageEditorViewController?.imageView?.image()?.takeRetainedValue(), imageProperties: [:])
             

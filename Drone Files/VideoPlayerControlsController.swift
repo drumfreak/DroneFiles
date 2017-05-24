@@ -798,7 +798,6 @@ class VideoPlayerControllsController: NSViewController {
             
             self.messageBoxLabel(string: "Screen Shot Starting...")
             self.messageBox(hidden: false)
-            
             if(self.appDelegate.videoPlayerViewController?.playerView.player?.isPlaying)! {
                 self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
                 playerWasPlaying = true
