@@ -892,14 +892,14 @@
                                         <action selector="openProjectFile:" target="nrN-2e-1nS" id="IUU-oS-yrA"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E5B3F2A0-5620-4F7B-B918-769D8D62496E" label="" paletteLabel="Import" image="darkbackground" id="PmK-Sr-Pha">
+                                <toolbarItem implicitItemIdentifier="E5B3F2A0-5620-4F7B-B918-769D8D62496E" label="" paletteLabel="Import" image="NSActionTemplate" id="PmK-Sr-Pha">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="60" height="25"/>
-                                    <size key="maxSize" width="60" height="25"/>
+                                    <size key="minSize" width="60" height="20"/>
+                                    <size key="maxSize" width="72" height="45"/>
                                     <button key="view" id="peQ-9H-V3z" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14" width="60" height="25"/>
+                                        <rect key="frame" x="0.0" y="14" width="72" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Import" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="TBH-N3-j3E">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSActionTemplate" imagePosition="overlaps" alignment="center" alternateImage="darkbackground-3" refusesFirstResponder="YES" inset="2" id="TBH-N3-j3E">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1337,7 +1337,7 @@
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYz-vv-r3n">
                                                                             <rect key="frame" x="25" y="0.0" width="275" height="17"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="pOg-Ln-KxG">
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Table View Cell" usesSingleLineMode="YES" id="pOg-Ln-KxG">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -4269,6 +4269,7 @@ CiEKKQosCjEKOQo8Ck4KUQpWAAAAAAAAAgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAClg
 </mutableData>
         </image>
         <image name="darkbackground" width="1200" height="1000"/>
+        <image name="darkbackground-3" width="1920" height="1080"/>
         <image name="heart-active" width="30" height="30"/>
         <image name="heart-inactive" width="30" height="30"/>
         <image name="heart-table-active" width="17" height="17"/>
