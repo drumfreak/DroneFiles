@@ -57,7 +57,7 @@ class FileBrowserViewController: NSViewController {
     var directoryItems: [Metadata]?
     
     @IBOutlet weak var newFileNamePath: NSTextField!
-    @IBOutlet weak var fileSequenceNameTextField: NSTextField!
+    // @IBOutlet weak var fileSequenceNameTextField: NSTextField!
     @IBOutlet weak var folderURLDisplay: NSTextField!
     @IBOutlet var outputDirectoryLabel: NSTextField!
     @IBOutlet var createProjectDirectoryButton: NSButton!
@@ -106,13 +106,7 @@ class FileBrowserViewController: NSViewController {
         self.appDelegate.appSettings.fileSequenceName = now + " - " + self.appDelegate.appSettings.fileSequenceNameTag
         
         let defaults = UserDefaults.standard
-        
-        
-//        // UserDefaults.standard.setValue(path, forKey: "lastOpenedProjectFile")
-//        if(defaults.value(forKey: "lastOpenedProjectFile") != nil) {
-//            let previousPath = defaults.value(forKey: "lastOpenedProjectFile") as! String
-//            self.appDelegate.readProjectFile(projectFile: previousPath)
-//        }
+
         
         
         if(defaults.value(forKey: "lastFolderOpened") != nil) {
@@ -135,7 +129,7 @@ class FileBrowserViewController: NSViewController {
         
         DispatchQueue.main.async {
             self.statusLabel.stringValue = "0 Items Selected"
-            self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
+            // self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
             self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
         }
         
@@ -171,7 +165,7 @@ class FileBrowserViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        self.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
+        // self.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
         // self.openLastFile();
         self.setupPathControl(control: self.currentFolderPathControl)
         

@@ -64,6 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     //
     @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
     
+    @IBOutlet weak var toolBarViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "toolBarViewController") as? ToolBarViewController
     
     
     @IBOutlet weak var secondWindowController = SecondWindowController()
@@ -725,7 +726,7 @@ extension AppDelegate {
                     self.fileBrowserViewController?.openLastFile()
                 }
                 
-                self.fileBrowserViewController?.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
+                self.toolBarViewController?.projectNameTextField.stringValue = self.appSettings.fileSequenceName
                 
             }
             
