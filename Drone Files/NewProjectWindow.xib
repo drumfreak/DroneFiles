@@ -10,7 +10,7 @@
         <customObject id="-2" userLabel="File's Owner"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="New Project" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="New Project" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="NewProjectWindow" customModule="Drone_Files" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -53,17 +53,6 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-G8-ACD" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                    <rect key="frame" x="113" y="141" width="93" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" title="Choose" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="4I4-gx-CXK">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="chooseOutputDirectory:" target="gf6-9f-ohV" id="nBb-LR-QGE"/>
-                                    </connections>
-                                </button>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cIe-XI-w4Y" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                                     <rect key="frame" x="109" y="83" width="152" height="18"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -106,9 +95,29 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zkk-xR-PfU" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="111" y="137" width="127" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Choose" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="VJw-Ld-aGO">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="chooseOutputDirectory:" target="gf6-9f-ohV" id="eLs-q3-UKf"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </view>
                     </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZM-uZ-5rV" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                        <rect key="frame" x="265" y="253" width="159" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Create a New Project" id="YiE-tf-8OJ">
+                            <font key="font" metaFont="system" size="15"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DUn-2z-Uq9" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="24" id="1N3-0W-QWc"/>
@@ -123,13 +132,13 @@
             </toolbar>
             <connections>
                 <outlet property="initialFirstResponder" destination="EiT-Mj-1SZ" id="jo1-gb-7Rl"/>
+                <outlet property="toolBar" destination="syo-Rs-fOK" id="sas-pq-BGj"/>
             </connections>
             <point key="canvasLocation" x="247" y="-118"/>
         </window>
         <viewController id="gf6-9f-ohV" customClass="NewProjectViewController" customModule="Drone_Files" customModuleProvider="target">
             <connections>
                 <outlet property="createProjectButton" destination="o1m-S6-p3a" id="NHY-BQ-3kC"/>
-                <outlet property="outputDirectoryButton" destination="hbJ-G8-ACD" id="vmW-GT-zLT"/>
                 <outlet property="outputDirectoryLabel" destination="U7x-Lp-fAz" id="RjI-TR-lIh"/>
                 <outlet property="projectNameTextField" destination="vNh-Zv-bfC" id="4mg-xc-bg6"/>
                 <outlet property="useProjectDirectoryCheckbox" destination="cIe-XI-w4Y" id="H7N-ka-F5i"/>

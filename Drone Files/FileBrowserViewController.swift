@@ -826,17 +826,17 @@ class FileBrowserViewController: NSViewController {
     }
     
     
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if segue.identifier == "slideShow" {
-            
-            // print("Doing the segue....")
-            
-            self.appDelegate.slideShowWindowController = segue.destinationController as? SlideShowWindowController
-            
-            self.appDelegate.slideShowController?.loadImages(items: self.selectedFileURLS)
-            
-        }
-    }
+//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "slideShow" {
+//            
+//            // print("Doing the segue....")
+//            
+//           // self.appDelegate.slideShowWindowController = segue.destinationController as? SlideShowWindowController
+//            
+//            //self.appDelegate.slideShowController?.loadImages(items: self.selectedFileURLS)
+//            
+//        }
+//    }
     
     
     func updateStatus() {

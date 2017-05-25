@@ -36,7 +36,7 @@ class SlideShowController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.appDelegate.slideShowController = self
+        //self.appDelegate.slideShowController = self
         
         self.mSlideshow?.autoPlayDelay = TimeInterval(Int(0))
         

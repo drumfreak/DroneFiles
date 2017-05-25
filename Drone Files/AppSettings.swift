@@ -274,6 +274,14 @@ struct AppSettings {
     
     var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
+    
+    // Selected row
+    var windowTitleBarBackgroundColor = NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
+    
+    
+    
+    
+    
     var patternColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
     var tableViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)

@@ -13,48 +13,30 @@ import Cocoa
 
 class NewProjectWindowController: NSWindowController {
     override var windowNibName: String? {
-        return "NewProject" // no extension .xib here
+        return "NewProjectWindow" // no extension .xib here
     }
     
-//    var mainW: NSWindow = NSWindow()
-//    // @IBOutlet var window: NSWindow?
+//    override func windowDidLoad() {
+//        super.windowDidLoad()
+//    }
+//
+//    override init(window: NSWindow!) {
+//        super.init(window: window)
+//     }
 //    
-    override init(window: NSWindow!) {
-        super.init(window: window)
-        //Initialization code here.
-        window?.titlebarAppearsTransparent = true
-        window?.isMovableByWindowBackground = true
-        window?.titleVisibility = NSWindowTitleVisibility.hidden
-        window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
-//        self.window?.titlebarAppearsTransparent = true
-//        self.window?.isMovableByWindowBackground = true
-//        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-//        self.window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
-//
-//        
 //    }
    
-    
-    override func windowDidLoad() {
-        super.windowDidLoad()
-       //  self.showWindow(self)
-        
-        self.window?.titlebarAppearsTransparent = true
-        //        self.window?.isMovableByWindowBackground = true
-        //        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-    }
 }
 
-
-
+class NewProjectWindow: NSWindow {
+    @IBOutlet weak var toolBar: NSToolbar!
+}
 
 
 class NewProjectViewController: NSViewController {
@@ -67,9 +49,6 @@ class NewProjectViewController: NSViewController {
     @IBOutlet var outputDirectoryButton: ThemeButton!
     @IBOutlet var outputDirectoryLabel: ThemeLabel!
     
-    //@IBOutlet var thumbnailDirectoryButton: ThemeButton!
-    //@IBOutlet var thumbnailDirectoryLabel: ThemeLabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,21 +57,29 @@ class NewProjectViewController: NSViewController {
         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.outputDirectory)
         
         self.projectNameTextField.stringValue = self.appSettings.fileSequenceName
-//        if(self.appSettings.thumbnailDirectory != nil) {
-//            
-//           // self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.thumbnailDirectory)
-//        }
-        
-        
+
         self.view.wantsLayer = true
         
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+
         
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
+        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+        self.window?.orderFront(self.view.window)
+        self.window?.becomeFirstResponder()
+        self.window?.titlebarAppearsTransparent = true
+
+    
         self.projectNameTextField.becomeFirstResponder()
+
     }
     
     @IBAction func createProjectDirectoryCheckbox(_ sender: AnyObject?) {
@@ -102,10 +89,6 @@ class NewProjectViewController: NSViewController {
         } else {
             UserDefaults.standard.setValue(0, forKey: "createProjectDirectory")
         }
-        
-        // self.setupProjectDirectory()
-        
-        
     }
     
     @IBAction func createProjectSubDirectoriesCheckbox(_ sender: AnyObject?) {
@@ -115,7 +98,6 @@ class NewProjectViewController: NSViewController {
         } else {
             UserDefaults.standard.setValue(0, forKey: "createProjectSubDirectories")
         }
-        //  self.setupProjectDirectory()
     }
     
     
@@ -181,10 +163,7 @@ class NewProjectViewController: NSViewController {
         self.appDelegate.appSettings.favoriteUrls.removeAll(keepingCapacity: false)
         
         self.appDelegate.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder,loadNewFile: true)
-        
-        
-        
-        
+
         self.view.window?.close()
         
     }

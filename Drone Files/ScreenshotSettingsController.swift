@@ -9,7 +9,32 @@
 import Foundation
 import Cocoa
 
+class ScreenshotSettingsWindowController: NSWindowController {
+    override var windowNibName: String? {
+        return "ScreenshotSettingsWindow" // no extension .xib here
+    }
+    
+    //    override func windowDidLoad() {
+    //        super.windowDidLoad()
+    //    }
+    //
+    //    override init(window: NSWindow!) {
+    //        super.init(window: window)
+    //     }
+    //
+    //    required init?(coder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
+    //
+    //    override func awakeFromNib() {
+    //        super.awakeFromNib()
+    //    }
+    
+}
+
+
 class ScreenShotSettingsViewController: NSViewController {
+    @IBOutlet var window: NSWindow!
     
     @IBOutlet var sequenceNameTextField: ThemeLabelTextField!
     
@@ -42,6 +67,19 @@ class ScreenShotSettingsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupOptions()
+        
+        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+        
+        self.window?.orderFront(self.view.window)
+        self.window?.becomeFirstResponder()
+        self.window?.titlebarAppearsTransparent = true
+        
+        self.view.wantsLayer = true
+        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+
+        
     }
     
     override func viewDidAppear() {
@@ -126,6 +164,8 @@ class ScreenShotSettingsViewController: NSViewController {
             self.numShotsAfterTextField.intValue = self.appSettings.screenshotFramesAfter
             
             self.frameIntervalLabel.doubleValue = self.appSettings.screenshotFramesInterval
+            
+            self.frameIntervalSlider.doubleValue = self.appSettings.screenshotFramesInterval
         }
     }
     
@@ -218,17 +258,10 @@ class ScreenShotSettingsViewController: NSViewController {
         self.appDelegate.appSettings.screenshotFramesAfter = self.numShotsAfterTextField.intValue
         
         
-        
-        self.appDelegate.videoPlayerControlsController?.setupControls()
         self.appDelegate.saveProject()
+
+        self.appDelegate.videoPlayerControlsController?.setupControls()
         
-        self.dismiss(nil)
-        
-        
-        
+        self.view.window?.close()
     }
-    
-    
-    
-    
 }

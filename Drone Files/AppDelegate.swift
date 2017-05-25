@@ -62,10 +62,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
     
     var screenshotViewController = ScreenshotViewController()
+    var screenshotSettingsWindowController = ScreenshotSettingsWindowController()
     
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
     //
-    @IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
+    //@IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
     
     @IBOutlet weak var toolBarViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "toolBarViewController") as? ToolBarViewController
     

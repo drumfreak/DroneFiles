@@ -549,6 +549,12 @@ class VideoPlayerControllsController: NSViewController {
         }
     }
     
+    
+    @IBAction func openScreenshotSettings(sender : AnyObject) {
+        self.appDelegate.screenshotSettingsWindowController = ScreenshotSettingsWindowController()
+        self.appDelegate.screenshotSettingsWindowController.window?.makeKeyAndOrderFront(self)
+    }
+    
     func setupAvExportTrimmedClip() {
         
         DispatchQueue.main.async {

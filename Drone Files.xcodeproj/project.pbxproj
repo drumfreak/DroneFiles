@@ -17,7 +17,8 @@
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AD80C1ED69954001209F5 /* ToolBarController.swift */; };
 		184AD80F1ED736BC001209F5 /* MediaBinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD80E1ED736BC001209F5 /* MediaBinView.xib */; };
-		184AD8121ED739E6001209F5 /* NewProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD8111ED739E6001209F5 /* NewProject.xib */; };
+		184AD8121ED739E6001209F5 /* NewProjectWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD8111ED739E6001209F5 /* NewProjectWindow.xib */; };
+		184BB2361ED77AE300D73B8A /* ScreenshotSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */; };
 		1850908F1ED664CF007933FC /* ToolBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850908E1ED664CF007933FC /* ToolBarViewController.swift */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -136,7 +137,8 @@
 		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		184AD80C1ED69954001209F5 /* ToolBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarController.swift; sourceTree = "<group>"; };
 		184AD80E1ED736BC001209F5 /* MediaBinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaBinView.xib; sourceTree = "<group>"; };
-		184AD8111ED739E6001209F5 /* NewProject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewProject.xib; sourceTree = "<group>"; };
+		184AD8111ED739E6001209F5 /* NewProjectWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewProjectWindow.xib; sourceTree = "<group>"; };
+		184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenshotSettingsWindow.xib; sourceTree = "<group>"; };
 		1850908E1ED664CF007933FC /* ToolBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarViewController.swift; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -252,7 +254,10 @@
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
 				184AD80E1ED736BC001209F5 /* MediaBinView.xib */,
-				184AD8111ED739E6001209F5 /* NewProject.xib */,
+				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
+				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
+				184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */,
+				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 			);
 			name = Interfaces;
@@ -293,7 +298,6 @@
 				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
 				187843A91EB3E26100BCD214 /* VideoPlayerController.swift */,
 				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
-				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 			);
 			name = "Video Player";
 			sourceTree = "<group>";
@@ -387,7 +391,6 @@
 			children = (
 				18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */,
 				18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */,
-				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				188272151ECA5FD300EE50D0 /* Document.swift */,
 				188272171ECA61F000EE50D0 /* DocumentController.swift */,
 				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
@@ -609,6 +612,7 @@
 				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
 				188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */,
 				184AD80F1ED736BC001209F5 /* MediaBinView.xib in Resources */,
+				184BB2361ED77AE300D73B8A /* ScreenshotSettingsWindow.xib in Resources */,
 				188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */,
 				188272231ECA704F00EE50D0 /* appicon-256px.png in Resources */,
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
@@ -627,7 +631,7 @@
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,
 				18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */,
-				184AD8121ED739E6001209F5 /* NewProject.xib in Resources */,
+				184AD8121ED739E6001209F5 /* NewProjectWindow.xib in Resources */,
 				1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */,
 				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,

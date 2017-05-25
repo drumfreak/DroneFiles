@@ -22,17 +22,10 @@ class ToolBarController: NSToolbar {
         super.init(identifier: identifier)
     }
     
-    //    let secondNibController = SecondNibController()
-    //
+ 
     @IBAction func openNewProjectWindow(sender : AnyObject) {
         self.newProjectWindowController = NewProjectWindowController()
         self.newProjectWindowController.window?.makeKeyAndOrderFront(self)
-        // self.newProjectWindowController.window?.orderFront(self)
-       // self.newProjectWindowController.showWindow(self)
-        
-        // self.newProjectWindowController.window?.becomeMain()
-        
-        // self.newProjectWindowController.window?.beginSheet(self.appDelegate.window, completionHandler: nil)
     }
     
     
@@ -54,13 +47,7 @@ class ToolBarController: NSToolbar {
                     
                     self.appDelegate.fileBrowserViewController?.setupProjectDirectory()
                     self.appDelegate.fileBrowserViewController?.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)
-                    
-                    
-                    //                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
-                    //                        print("Fuck yeah \(String(describing: document))")
-                    //                        print("Error: \(String(describing: err))")
-                    //                    })
-                    
+        
                 }
             }
             
