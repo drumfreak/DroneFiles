@@ -96,7 +96,7 @@ struct AppSettings {
     var rawFolder = " - RAW"
     var videoClipsFolder = " - Video Clips"
     var previousUrlString = "file://"
-    
+
     
     // Video Player
     

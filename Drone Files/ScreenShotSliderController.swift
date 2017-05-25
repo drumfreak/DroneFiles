@@ -47,20 +47,23 @@ class ScreenShotSliderController: NSViewController {
         
         self.mediaShowIntervalSlider.doubleValue =  self.appSettings.mediaBinTimerInterval
         self.mediaShowRateLabel.doubleValue = self.appSettings.mediaBinTimerInterval
-        print(self.appSettings.mediaBinTimerInterval)
+        
+        // print(self.appSettings.mediaBinTimerInterval)
         
 
         
         self.appDelegate.screenShotSliderController = self
-        self.reloadContents()
         //        self.collectionView.resignFirstResponder()
         //        self.resignFirstResponder()
-        self.selectItemOne()
+        self.reloadContents()
+        
+        if(self.appSettings.mediaBinUrls.count > 0) {
+            self.selectItemOne()
+        }
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        
         self.mediaShowIntervalSlider.doubleValue =  self.appSettings.mediaBinTimerInterval
         self.mediaShowRateLabel.doubleValue = self.appSettings.mediaBinTimerInterval
         print(self.appSettings.mediaBinTimerInterval)
@@ -120,10 +123,13 @@ class ScreenShotSliderController: NSViewController {
         var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
         // foo = foo.reversed() as! NSMutableArray
         
+//        if(foo.count == 0) {
+//            return
+//        }
+        
         if(foo.count > self.collectionViewLimit) {
             boo = Array(foo.prefix(self.collectionViewLimit)) as NSArray
             foo = boo.mutableCopy() as! NSMutableArray
-            
             mediaBinLoader.loadDataFromUrls(foo)
         } else {
             mediaBinLoader.loadDataFromUrls(foo)
@@ -207,25 +213,7 @@ class ScreenShotSliderController: NSViewController {
     }
     
     
-    
-    @IBAction func openSecondDisplay (_ sender : AnyObject) {
-        /*
-         self.appDelegate.externalScreens = NSScreen.externalScreens()
-         
-         let screenRect = self.appDelegate.externalScreens[0].frame
-         
-         let secondWindowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
-         
-         secondWindowController?.window = secondwindow
-         
-         secondwindow.makeKeyAndOrderFront(self)
-         
-         
-         secondWindowController?.showWindow(self)
-         */
-        
-    }
-    
+
     private func configureCollectionView() {
         if(!self.viewConfigured) {
             // 1
@@ -272,8 +260,7 @@ class ScreenShotSliderController: NSViewController {
     }
     
     func nextSlide() {
-        
-        
+    
         if(self.currentSlide <= self.collectionViewLimit) {
             if(self.currentSlide >= self.appDelegate.appSettings.mediaBinUrls.count) {
                 self.currentSlide = 0
@@ -282,11 +269,14 @@ class ScreenShotSliderController: NSViewController {
             self.currentSlide = 0
         }
 
-        DispatchQueue.main.async {
-            self.selectItemByIndex(int: self.currentSlide)
-            // self.collectionView.reloadData()
+        if(self.currentSlide > -1) {
+            DispatchQueue.main.async {
+                self.selectItemByIndex(int: self.currentSlide)
+                // self.collectionView.reloadData()
+            }
+            self.currentSlide += 1
         }
-        self.currentSlide += 1
+       
     }
     
     

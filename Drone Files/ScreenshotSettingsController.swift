@@ -11,8 +11,6 @@ import Cocoa
 
 class ScreenShotSettingsViewController: NSViewController {
     
-    
-    
     @IBOutlet var sequenceNameTextField: ThemeLabelTextField!
     
     @IBOutlet var screenshotFolderLabel: ThemeLabel!

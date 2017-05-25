@@ -16,6 +16,7 @@ class MediaBinLoader: NSObject {
     fileprivate(set) var numberOfSections = 1   // Read       by ViewController
     var singleSectionMode = true            // Read/Write by ViewController
     
+    var mediaBinUrlsCount = 0
     fileprivate struct SectionAttributes {
         var sectionOffset: Int  // the index of the first image of this section in the imageFiles array
         var sectionLength: Int  // number of images in the section
@@ -25,12 +26,17 @@ class MediaBinLoader: NSObject {
     // sectionLengthArray[0] is 7, i.e. put the first 7 images from the imageFiles array into section 0
     // sectionLengthArray[1] is 5, i.e. put the next 5 images from the imageFiles array into section 1
     // and so on...
-    fileprivate let sectionLengthArray = [400]
+    fileprivate let sectionLengthArray = [2000]
     fileprivate var sectionsAttributesArray = [SectionAttributes]()
     
     func setupDataForUrls(_ urls: [URL]?) {
         
         if let urls = urls {                    // When new folder
+            self.mediaBinUrlsCount = urls.count
+
+//            if(urls.count == 0) {
+//                return
+//            }
             createImageFilesForUrls(urls)
         }
         
@@ -124,7 +130,10 @@ class MediaBinLoader: NSObject {
     }
     
     func numberOfItemsInSection(_ section: Int) -> Int {
-        return sectionsAttributesArray[section].sectionLength
+        
+        return self.mediaBinUrlsCount
+        
+        // return self.sectionsAttributesArray[section].sectionLength
     }
     
     func imageFileForIndexPath(_ indexPath: IndexPath) -> ImageFile {
@@ -154,7 +163,9 @@ class MediaBinLoader: NSObject {
         //            }
         //        }
         
-        setupDataForUrls(urls.reversed() as? [URL])
+        //if(urls.count > 0) {
+            setupDataForUrls(urls.reversed() as? [URL])
+        //}
     }
     
     

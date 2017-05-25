@@ -99,15 +99,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func saveProject() {
-        self.writeProjectFile(projectPath: self.appSettings.projectFolder)
+        self.writeProjectFile(projectPath: self.appSettings.projectFolder, loadNewFile: false)
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {
 
         
     }
-    
-    
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         // Swift.print(appSettings)
@@ -251,10 +249,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 //self.appSettings.mediaBinUrls = []
                 
+                self.screenShotSliderController.reloadContents()
                 if(self.appSettings.mediaBinUrls.count > 0) {
-                    self.screenShotSliderController.reloadContents()
+
                     self.screenShotSliderController.selectItemOne()
                 }
+            } else {
+                self.appSettings.mediaBinUrls = []
+                self.screenShotSliderController.reloadContents()
+                // self.screenShotSliderController.selectItemOne()
             }
             
             if(defaults.value(forKey: "favoriteUrls") != nil) {
@@ -268,8 +271,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     // self.screenShotSliderController.selectItemOne()
                 }
             }
-            
-            
         }
         
     }
@@ -552,6 +553,10 @@ extension AppDelegate {
                     self.appSettings.thumbnailDirectory = dictionary["projectDirectory"] as! String
                 }
                 
+                if(checkFolderAndCreate(folderPath: self.appSettings.thumbnailDirectory)) {
+                    print("Created thumbnail directory")
+                }
+                
                 if(dictionary["favoriteUrls"] != nil) {
                     self.appSettings.favoriteUrls = urlStrArraytoUrlArray(input: dictionary["favoriteUrls"] as! Array<Any>)
                     //self.appSettings.favoriteUrls = []
@@ -741,7 +746,7 @@ extension AppDelegate {
         
     }
     
-    func writeProjectFile (projectPath: String) {
+    func writeProjectFile (projectPath: String, loadNewFile: Bool) {
         if(checkFolderAndCreate(folderPath: projectPath)) {
             
             //print("CREATING DRONE FILES PROJECT")
@@ -829,7 +834,11 @@ extension AppDelegate {
                     let file = try FileHandle.init(forWritingTo: jsonFilePath!)
                     file.write(jsonData)
                     // print("JSON data was written to the file successfully!")
-                    // readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
+                    
+                    if(loadNewFile) {
+                        self.readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
+                    }
+                    
                 } catch let error as NSError {
                     print("Couldn't write to file: \(error.localizedDescription)")
                 }

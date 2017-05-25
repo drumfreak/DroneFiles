@@ -93,7 +93,7 @@ class FileCopyProgressIndicatorController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         print("Hey fucker... copy progress indicator is loaded")
-        self.okayButton.isHidden = true
+        // self.okayButton.isHidden = true
         self.startTimer()
     }
     
@@ -160,7 +160,7 @@ class FileCopyProgressIndicatorController: NSViewController {
                     self.fileCopyProgressIndicator.doubleValue = 100.0
                     self.fileCopyProgressIndicator.stopAnimation(nil)
                     // self.fileCopyProgressIndicator.isHidden = true
-                    self.okayButton.isHidden = false
+                    // self.okayButton.isHidden = false
                 }
             }
         }

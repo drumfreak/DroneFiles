@@ -16,6 +16,8 @@
 		1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB861EC824550000F749 /* SlideShowWindow.swift */; };
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
 		184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AD80C1ED69954001209F5 /* ToolBarController.swift */; };
+		184AD80F1ED736BC001209F5 /* MediaBinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD80E1ED736BC001209F5 /* MediaBinView.xib */; };
+		184AD8121ED739E6001209F5 /* NewProject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD8111ED739E6001209F5 /* NewProject.xib */; };
 		1850908F1ED664CF007933FC /* ToolBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850908E1ED664CF007933FC /* ToolBarViewController.swift */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -133,6 +135,8 @@
 		1836DB861EC824550000F749 /* SlideShowWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowWindow.swift; sourceTree = "<group>"; };
 		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		184AD80C1ED69954001209F5 /* ToolBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarController.swift; sourceTree = "<group>"; };
+		184AD80E1ED736BC001209F5 /* MediaBinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaBinView.xib; sourceTree = "<group>"; };
+		184AD8111ED739E6001209F5 /* NewProject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewProject.xib; sourceTree = "<group>"; };
 		1850908E1ED664CF007933FC /* ToolBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarViewController.swift; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -242,6 +246,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		184AD8101ED737FE001209F5 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				18B001D51EA69C92003C3214 /* Main.storyboard */,
+				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
+				184AD80E1ED736BC001209F5 /* MediaBinView.xib */,
+				184AD8111ED739E6001209F5 /* NewProject.xib */,
+				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
+			);
+			name = Interfaces;
+			sourceTree = "<group>";
+		};
 		1850908D1ED66456007933FC /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,16 +276,14 @@
 			name = Favorites;
 			sourceTree = "<group>";
 		};
-		18740B6D1ECD54EB003803B4 /* Screenshot Sliders */ = {
+		18740B6D1ECD54EB003803B4 /* Media Bin */ = {
 			isa = PBXGroup;
 			children = (
 				18DD9F561ECE8E0F008E9E02 /* Image Collection View */,
 				18740B6E1ECD5522003803B4 /* ScreenShotSliderController.swift */,
 				18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */,
-				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
-				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 			);
-			name = "Screenshot Sliders";
+			name = "Media Bin";
 			sourceTree = "<group>";
 		};
 		187843A81EB3CE8300BCD214 /* Video Player */ = {
@@ -415,7 +429,7 @@
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
 				188272131EC9E19800EE50D0 /* AppSettings.swift */,
-				18B001D51EA69C92003C3214 /* Main.storyboard */,
+				184AD8101ED737FE001209F5 /* Interfaces */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
@@ -424,7 +438,7 @@
 				1860F0171ED0C7CD00928FD7 /* Favorites */,
 				18976E031ED08CCD00A04CD2 /* Camera Import */,
 				18A483031EAFFE8B007F735B /* File Manager */,
-				18740B6D1ECD54EB003803B4 /* Screenshot Sliders */,
+				18740B6D1ECD54EB003803B4 /* Media Bin */,
 				189D40BA1EC244D700E1298C /* Image Editor */,
 				1882722B1ECA7A4A00EE50D0 /* Theme Customizations */,
 				18DD9F5D1ECEB0E9008E9E02 /* Window Controllers */,
@@ -594,6 +608,7 @@
 				188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */,
 				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
 				188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */,
+				184AD80F1ED736BC001209F5 /* MediaBinView.xib in Resources */,
 				188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */,
 				188272231ECA704F00EE50D0 /* appicon-256px.png in Resources */,
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
@@ -612,6 +627,7 @@
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,
 				18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */,
+				184AD8121ED739E6001209F5 /* NewProject.xib in Resources */,
 				1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */,
 				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,

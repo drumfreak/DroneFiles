@@ -16,10 +16,19 @@ class ToolBarController: NSToolbar {
     @IBOutlet weak var loadProjectButton: NSButton!
     @IBOutlet weak var importFromCameraButton: NSButton!
 
+    var newProjectWindow: NewProjectWindow!
     
     override init(identifier: String) {
         super.init(identifier: identifier)
     }
+    
+    //    let secondNibController = SecondNibController()
+    //
+    @IBAction func openNewProjectWindow(sender : AnyObject) {
+        self.newProjectWindow = NewProjectWindow()
+        self.newProjectWindow.showWindow(self)
+    }
+    
     
     // Open directory for tableview
     @IBAction func openProjectFile(_ sender: AnyObject?) {
@@ -64,6 +73,7 @@ class ToolBarController: NSToolbar {
             }
     }
     
+
     
     @IBAction func showImageEditorTab(_ sender: AnyObject?) {
         

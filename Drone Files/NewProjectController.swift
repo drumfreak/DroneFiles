@@ -10,9 +10,43 @@ import Foundation
 
 import Cocoa
 
+
+class NewProjectWindow: NSWindowController {
+    override var windowNibName: String? {
+        return "NewProject" // no extension .xib here
+    }
+    
+    var mainW: NSWindow = NSWindow()
+    
+//    init() {
+//        super.init()
+//    }
+    
+    override init(window: NSWindow!) {
+        super.init(window: window)
+        //Initialization code here.
+    }
+    
+    required init(coder: NSCoder){
+        super.init(coder: coder)!;
+    }
+    
+    override func windowDidLoad() {
+        super.windowDidLoad()
+        self.window?.titlebarAppearsTransparent = true
+        self.window?.isMovableByWindowBackground = true
+        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
+        
+       //  self.showWindow(self)
+    }
+}
+
+
+
 class NewProjectViewController: NSViewController {
     
-    
+    @IBOutlet var window: NSWindow!
     @IBOutlet var useSubDirectoriesCheckbox: ThemeCheckbox!
     @IBOutlet var useProjectDirectoryCheckbox: ThemeCheckbox!
     @IBOutlet var projectNameTextField: NSTextField!
@@ -20,8 +54,8 @@ class NewProjectViewController: NSViewController {
     @IBOutlet var outputDirectoryButton: ThemeButton!
     @IBOutlet var outputDirectoryLabel: ThemeLabel!
     
-    @IBOutlet var thumbnailDirectoryButton: ThemeButton!
-    @IBOutlet var thumbnailDirectoryLabel: ThemeLabel!
+    //@IBOutlet var thumbnailDirectoryButton: ThemeButton!
+    //@IBOutlet var thumbnailDirectoryLabel: ThemeLabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +65,10 @@ class NewProjectViewController: NSViewController {
         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.outputDirectory)
         
         self.projectNameTextField.stringValue = self.appSettings.fileSequenceName
-        if(self.appSettings.thumbnailDirectory != nil) {
-            
-            self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.thumbnailDirectory)
-        }
+//        if(self.appSettings.thumbnailDirectory != nil) {
+//            
+//           // self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.thumbnailDirectory)
+//        }
         
     }
     
@@ -97,7 +131,7 @@ class NewProjectViewController: NSViewController {
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
                 self.appDelegate.appSettings.thumbnailDirectory = (openPanel.url?.absoluteString)!
-                self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.thumbnailDirectory)
+                //self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appDelegate.appSettings.thumbnailDirectory)
                 // UserDefaults.standard.setValue(self.appDelegate.appSettings.thumbnailDirectory, forKey: "thumbnailDirectory")
                 // self.setupProjectDirectory()
             }
@@ -106,12 +140,7 @@ class NewProjectViewController: NSViewController {
     }
     
     
-    
-    
-    
-    
     @IBAction func createNewProject(sender: AnyObject) {
-        
         // self.projectNameTextField.resignFirstResponder()
         
         self.appDelegate.appSettings.fileSequenceName = self.projectNameTextField.stringValue
@@ -124,7 +153,14 @@ class NewProjectViewController: NSViewController {
         
         self.appDelegate.fileBrowserViewController.setupProjectDirectory()
         
-        self.appDelegate.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder)
+        self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
+        
+        self.appDelegate.appSettings.favoriteUrls.removeAll(keepingCapacity: false)
+        
+        self.appDelegate.writeProjectFile(projectPath: self.appDelegate.appSettings.projectFolder,loadNewFile: true)
+        
+        
+        
         
         self.view.window?.close()
         

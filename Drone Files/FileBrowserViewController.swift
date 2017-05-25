@@ -514,30 +514,56 @@ class FileBrowserViewController: NSViewController {
         // self.projectDirectoryLabel.stringValue = self.appDelegate.appSettings.projectDirectory
         
         if(self.appDelegate.appSettings.createProjectSubDirectories) {
+            
             self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Videos"
+            
             self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Video Clips"
+            
             self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - JPG"
+            
             self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Frames"
+            
             self.appDelegate.appSettings.rawFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - RAW"
+            
             self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - RAW"
+            
+            self.appDelegate.appSettings.thumbnailDirectory = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Thumbnails"
+            
         } else {
+            
             self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.projectFolder + "/"
+            
             self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            
             self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            
             self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            
             self.appDelegate.appSettings.rawFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            
             self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            
+            self.appDelegate.appSettings.thumbnailDirectory = self.appDelegate.appSettings.projectFolder  + "/thumbnails"
         }
         
         self.appDelegate.appSettings.projectFolder = self.appDelegate.appSettings.projectFolder.replacingOccurrences(of: " ", with: "%20")
+        
         self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.videoFolder.replacingOccurrences(of: " ", with: "%20")
+        
         self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
+        
         self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.jpgFolder.replacingOccurrences(of: " ", with: "%20")
+        
         self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.screenShotFolder.replacingOccurrences(of: " ", with: "%20")
+        
         self.appDelegate.appSettings.rawFolder = self.appDelegate.appSettings.rawFolder.replacingOccurrences(of: " ", with: "%20")
+        
         self.appDelegate.appSettings.dngFolder = self.appDelegate.appSettings.dngFolder.replacingOccurrences(of: " ", with: "%20")
         
-        self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
+        self.appDelegate.appSettings.thumbnailDirectory = self.appDelegate.appSettings.thumbnailDirectory.replacingOccurrences(of: " ", with: "%20")
+        
+
+    self.appDelegate.fileManagerOptionsOrganizeController?.setupProjectPaths()
         
         //self.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)!
         

@@ -40,7 +40,7 @@ class FavoritesCollectionViewController: NSViewController {
         self.appDelegate.favoritesCollectionViewController = self
         self.reloadContents()
         
-        self.selectItemOne()
+        // self.selectItemOne()
         
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
