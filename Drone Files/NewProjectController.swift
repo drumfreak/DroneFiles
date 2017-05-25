@@ -11,36 +11,49 @@ import Foundation
 import Cocoa
 
 
-class NewProjectWindow: NSWindowController {
+class NewProjectWindowController: NSWindowController {
     override var windowNibName: String? {
         return "NewProject" // no extension .xib here
     }
     
-    var mainW: NSWindow = NSWindow()
-    
-//    init() {
-//        super.init()
-//    }
-    
+//    var mainW: NSWindow = NSWindow()
+//    // @IBOutlet var window: NSWindow?
+//    
     override init(window: NSWindow!) {
         super.init(window: window)
         //Initialization code here.
+        window?.titlebarAppearsTransparent = true
+        window?.isMovableByWindowBackground = true
+        window?.titleVisibility = NSWindowTitleVisibility.hidden
+        window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
     }
     
-    required init(coder: NSCoder){
-        super.init(coder: coder)!;
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        self.window?.titlebarAppearsTransparent = true
+//        self.window?.isMovableByWindowBackground = true
+//        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+//        self.window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
+//
+//        
+//    }
+   
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        self.window?.titlebarAppearsTransparent = true
-        self.window?.isMovableByWindowBackground = true
-        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.window?.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor
-        
        //  self.showWindow(self)
+        
+        self.window?.titlebarAppearsTransparent = true
+        //        self.window?.isMovableByWindowBackground = true
+        //        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
     }
 }
+
+
 
 
 
@@ -60,7 +73,7 @@ class NewProjectViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.projectNameTextField.resignFirstResponder()
+        // self.projectNameTextField.resignFirstResponder()
         
         self.outputDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.outputDirectory)
         
@@ -70,6 +83,16 @@ class NewProjectViewController: NSViewController {
 //           // self.thumbnailDirectoryLabel.stringValue = self.urlStringToDisplayPath(input: self.appSettings.thumbnailDirectory)
 //        }
         
+        
+        self.view.wantsLayer = true
+        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.projectNameTextField.becomeFirstResponder()
     }
     
     @IBAction func createProjectDirectoryCheckbox(_ sender: AnyObject?) {

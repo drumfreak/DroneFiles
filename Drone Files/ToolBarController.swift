@@ -16,7 +16,7 @@ class ToolBarController: NSToolbar {
     @IBOutlet weak var loadProjectButton: NSButton!
     @IBOutlet weak var importFromCameraButton: NSButton!
 
-    var newProjectWindow: NewProjectWindow!
+    var newProjectWindowController: NewProjectWindowController!
     
     override init(identifier: String) {
         super.init(identifier: identifier)
@@ -25,8 +25,14 @@ class ToolBarController: NSToolbar {
     //    let secondNibController = SecondNibController()
     //
     @IBAction func openNewProjectWindow(sender : AnyObject) {
-        self.newProjectWindow = NewProjectWindow()
-        self.newProjectWindow.showWindow(self)
+        self.newProjectWindowController = NewProjectWindowController()
+        self.newProjectWindowController.window?.makeKeyAndOrderFront(self)
+        // self.newProjectWindowController.window?.orderFront(self)
+       // self.newProjectWindowController.showWindow(self)
+        
+        // self.newProjectWindowController.window?.becomeMain()
+        
+        // self.newProjectWindowController.window?.beginSheet(self.appDelegate.window, completionHandler: nil)
     }
     
     

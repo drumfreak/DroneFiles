@@ -12,16 +12,16 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="New Project" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="690" height="270"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="690" height="270"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                 <subviews>
-                    <box fixedFrame="YES" title="Project Settings" translatesAutoresizingMaskIntoConstraints="NO" id="DUn-2z-Uq9" customClass="ThemeViewDarkBox1" customModule="Drone_Files" customModuleProvider="target">
+                    <box title="Project Settings" translatesAutoresizingMaskIntoConstraints="NO" id="DUn-2z-Uq9" customClass="ThemeViewDarkBox1" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="21" y="13" width="652" height="240"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="jRB-fj-cfa">
                             <rect key="frame" x="2" y="2" width="648" height="223"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,17 +53,8 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7x-Lp-fAz" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                    <rect key="frame" x="202" y="144" width="229" height="17"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="output directory" id="Wnq-zP-FR8">
-                                        <font key="font" metaFont="systemBold" size="10"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hbJ-G8-ACD" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                    <rect key="frame" x="111" y="141" width="80" height="25"/>
+                                    <rect key="frame" x="113" y="141" width="93" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" title="Choose" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="4I4-gx-CXK">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -106,11 +97,30 @@
                                         <action selector="createNewProjectWithSender:" target="gf6-9f-ohV" id="emG-6T-mQc"/>
                                     </connections>
                                 </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7x-Lp-fAz" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="252" y="141" width="229" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="output directory" id="Wnq-zP-FR8">
+                                        <font key="font" metaFont="systemBold" size="10"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                         </view>
                     </box>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="DUn-2z-Uq9" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="24" id="1N3-0W-QWc"/>
+                    <constraint firstAttribute="trailing" secondItem="DUn-2z-Uq9" secondAttribute="trailing" constant="20" symbolic="YES" id="5Sh-Zd-1um"/>
+                    <constraint firstItem="DUn-2z-Uq9" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="17" id="5at-mG-hFj"/>
+                    <constraint firstItem="DUn-2z-Uq9" firstAttribute="centerY" secondItem="EiT-Mj-1SZ" secondAttribute="centerY" id="wb6-p9-s1E"/>
+                </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="B0A8328B-330E-4898-AD71-EC15D787B39D" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="syo-Rs-fOK">
+                <allowedToolbarItems/>
+                <defaultToolbarItems/>
+            </toolbar>
             <connections>
                 <outlet property="initialFirstResponder" destination="EiT-Mj-1SZ" id="jo1-gb-7Rl"/>
             </connections>
