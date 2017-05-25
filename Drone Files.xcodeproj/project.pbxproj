@@ -15,6 +15,7 @@
 		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
 		1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB861EC824550000F749 /* SlideShowWindow.swift */; };
 		1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */; };
+		184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184AD80C1ED69954001209F5 /* ToolBarController.swift */; };
 		1850908F1ED664CF007933FC /* ToolBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850908E1ED664CF007933FC /* ToolBarViewController.swift */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -131,6 +132,7 @@
 		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
 		1836DB861EC824550000F749 /* SlideShowWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowWindow.swift; sourceTree = "<group>"; };
 		1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
+		184AD80C1ED69954001209F5 /* ToolBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarController.swift; sourceTree = "<group>"; };
 		1850908E1ED664CF007933FC /* ToolBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarViewController.swift; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				1850908E1ED664CF007933FC /* ToolBarViewController.swift */,
+				184AD80C1ED69954001209F5 /* ToolBarController.swift */,
 			);
 			name = Toolbar;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */,
 				188272411ECAD55400EE50D0 /* ThemeTabViewItem.swift in Sources */,
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
+				184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
 				18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */,
 				1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */,

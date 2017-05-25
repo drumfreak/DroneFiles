@@ -818,26 +818,195 @@
             <objects>
                 <windowController storyboardIdentifier="windowController" id="IEP-Un-MKo" customClass="WindowController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Drone Files" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Qsl-Tl-lxg">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" rightStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="0.0" y="607" width="1590" height="533"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
+                        <rect key="contentRect" x="-150" y="344" width="1590" height="533"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <toolbar key="toolbar" implicitIdentifier="98B1565A-0319-4B9C-9F6A-D75F37B2638F" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="nrN-2e-1nS" customClass="ToolBarController" customModule="Drone_Files" customModuleProvider="target">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="DD5153EF-E671-4763-8E7C-DBAB3F5DBE35" label="" paletteLabel="" tag="-1" id="pH3-yb-aeY" userLabel="Icon">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="30" height="30"/>
+                                    <size key="maxSize" width="30" height="30"/>
+                                    <customView key="view" id="qrJ-3L-DsN">
+                                        <rect key="frame" x="0.0" y="14" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RR9-C7-fe4">
+                                                <rect key="frame" x="0.0" y="-3" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="appicon-1024px" id="vqf-EC-xg4"/>
+                                            </imageView>
+                                        </subviews>
+                                    </customView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="08A3500C-7C9E-4494-BD1C-F11BD453B2C2" label="" paletteLabel="" tag="-1" id="6cw-PT-ILm" userLabel="Project Name">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="300" height="30"/>
+                                    <size key="maxSize" width="300" height="96"/>
+                                    <customView key="view" id="Lw4-Xc-GT2">
+                                        <rect key="frame" x="0.0" y="14" width="300" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cU2-bK-bgL" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                <rect key="frame" x="-2" y="9" width="303" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Welcome to Drone Files!" usesSingleLineMode="YES" id="jrj-oo-6q2">
+                                                    <font key="font" metaFont="systemBold" size="14"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                    </customView>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="CB7EF3FA-B0E1-4EF7-AA88-27EE0BD6626A" label="" paletteLabel="New" image="darkbackground" id="ar7-TW-PoJ" userLabel="New Button">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="60" height="25"/>
+                                    <button key="view" springLoaded="YES" id="DE2-Gs-epZ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="60" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="only" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Zpv-LO-KT7">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <segue destination="Ghq-DC-VIS" kind="show" id="zoz-Kv-3Ia"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="D97719FE-F766-42F5-8BF2-721F1ACC0B02" label="" paletteLabel="Open" image="darkbackground" id="UbB-yM-1XI" userLabel="Open Button">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="60" height="25"/>
+                                    <button key="view" id="pm8-XI-baH" userLabel="Open" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="60" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="Open" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Rn9-94-xdO" userLabel="Open">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="openProjectFile:" target="nrN-2e-1nS" id="IUU-oS-yrA"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="E5B3F2A0-5620-4F7B-B918-769D8D62496E" label="" paletteLabel="Import" image="darkbackground" id="PmK-Sr-Pha">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="60" height="25"/>
+                                    <button key="view" id="peQ-9H-V3z" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="60" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="Import" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="TBH-N3-j3E">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <segue destination="7YC-hG-SJa" kind="show" id="UwD-PW-5xv"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="AA3F6233-B2A8-4224-AFFB-4E221C9D56A9" label="" paletteLabel="Video Editor" image="darkbackground" id="6H5-RZ-C6I">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="108" height="25"/>
+                                    <button key="view" id="jsw-2W-iSI" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="108" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="Video Editor" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="5Zg-62-2k7">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showVideoEditorTab:" target="nrN-2e-1nS" id="E7H-9Y-PT8"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="5F308E84-85B7-4193-B886-DAD8BEF7A12F" label="" paletteLabel="Image Editor" image="darkbackground" id="rFN-Y9-f6r">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="116" height="25"/>
+                                    <button key="view" id="RYw-5n-F8W" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="116" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="Image Editor" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Tnr-Ef-NhH">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="showImageEditorTab:" target="nrN-2e-1nS" id="ZqJ-Ve-WdB"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="A62C1A7D-091C-4B29-A432-C4C31275719F" label="" paletteLabel="File Manager" image="darkbackground" id="uiA-bm-yKj">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="106" height="25"/>
+                                    <button key="view" id="KYu-UZ-AYd" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="106" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="File Manager" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="ZPh-95-xxM">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showFileManagerTab:" target="nrN-2e-1nS" id="M9p-nK-k3d"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="8B6607E0-A0A0-4D27-81D6-FD9F7D35AEBE" label="" paletteLabel="Display" image="darkbackground" id="bDO-zM-2PQ">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="106" height="25"/>
+                                    <button key="view" id="uLr-m5-5HQ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="100" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="Display" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="b3p-td-jD1">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <segue destination="j3G-sP-691" kind="show" id="Iwx-7B-JpD"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="7NP-7X-bYd"/>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="pH3-yb-aeY"/>
+                                <toolbarItem reference="6cw-PT-ILm"/>
+                                <toolbarItem reference="ar7-TW-PoJ"/>
+                                <toolbarItem reference="UbB-yM-1XI"/>
+                                <toolbarItem reference="PmK-Sr-Pha"/>
+                                <toolbarItem reference="7NP-7X-bYd"/>
+                                <toolbarItem reference="6H5-RZ-C6I"/>
+                                <toolbarItem reference="rFN-Y9-f6r"/>
+                                <toolbarItem reference="uiA-bm-yKj"/>
+                                <toolbarItem reference="bDO-zM-2PQ"/>
+                            </defaultToolbarItems>
+                            <connections>
+                                <outlet property="projectNameTextField" destination="cU2-bK-bgL" id="o76-jS-SB5"/>
+                            </connections>
+                        </toolbar>
                     </window>
                     <connections>
+                        <outlet property="toolBar" destination="nrN-2e-1nS" id="0kF-N6-Ni3"/>
                         <outlet property="window" destination="Qsl-Tl-lxg" id="gCV-Ne-xHR"/>
                         <segue destination="DA8-a8-kQI" kind="relationship" relationship="window.shadowedContentViewController" id="6CC-Sa-n0S"/>
                     </connections>
                 </windowController>
                 <customObject id="Niq-tg-5QG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="431" y="-1917"/>
+            <point key="canvasLocation" x="432" y="-1870"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="dby-KM-a1C">
             <objects>
                 <splitViewController id="DA8-a8-kQI" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="252" id="UtV-3t-eDH"/>
+                        <splitViewItem collapsed="YES" holdingPriority="252" id="UtV-3t-eDH"/>
                         <splitViewItem id="OPA-P4-PrL"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="eJS-Lm-dwy">
@@ -865,56 +1034,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1371" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nZX-WX-S7q">
-                                        <rect key="frame" x="5" y="13" width="48" height="48"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="appicon-64px" imagePosition="only" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyUpOrDown" inset="2" id="N2H-Ps-rPx">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                    </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bBH-lp-x0E" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="409" y="24" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="only" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="QFN-iB-Cci">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <segue destination="Ghq-DC-VIS" kind="show" id="sXM-j1-CPn"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="588-jv-apY" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="473" y="24" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Open" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="aoq-IZ-B3h">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="openProjectFile:" target="CUd-4f-o8S" id="O6a-s3-gYM"/>
-                                        </connections>
-                                    </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFM-5f-Flh" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="54" y="29" width="303" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Welcome to Drone Files!" id="CP3-p9-2xa">
-                                            <font key="font" metaFont="systemBold" size="14"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KmV-rs-RzJ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="536" y="24" width="60" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Import" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="1NB-Va-OC9">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <segue destination="RO2-fX-A7o" kind="show" id="wEy-Me-Umc"/>
-                                        </connections>
-                                    </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwr-gb-r9I" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="1026" y="24" width="100" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
@@ -963,13 +1082,10 @@
                             </customView>
                         </subviews>
                     </view>
-                    <connections>
-                        <outlet property="projectNameTextField" destination="PFM-5f-Flh" id="VLh-eY-GJi"/>
-                    </connections>
                 </viewController>
                 <customObject id="F7F-dj-4Zr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="323" y="-1534"/>
+            <point key="canvasLocation" x="323" y="-1471"/>
         </scene>
         <!--Drone Files-->
         <scene sceneID="gEo-8d-0fu">
@@ -1033,7 +1149,7 @@
                 </windowController>
                 <customObject id="Im8-gz-va1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-798" y="-1095"/>
+            <point key="canvasLocation" x="-675" y="-1688"/>
         </scene>
         <!--New Project-->
         <scene sceneID="WuM-cZ-3DQ">
@@ -1168,26 +1284,7 @@
                 </viewController>
                 <customObject id="mkc-8U-MtM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-798" y="-723"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="KFR-P8-gRh">
-            <objects>
-                <viewController storyboardIdentifier="cameraDeviceBrowser" id="RO2-fX-A7o" sceneMemberID="viewController">
-                    <view key="view" id="RlI-99-9Vq">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <ikDeviceBrowserView fixedFrame="YES" displaysNetworkCameras="YES" mode="icon" translatesAutoresizingMaskIntoConstraints="NO" id="p1e-qH-7tz" customClass="CameraBrowserController" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                            </ikDeviceBrowserView>
-                        </subviews>
-                    </view>
-                </viewController>
-                <customObject id="TKm-GG-yOc" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-256" y="-1110"/>
+            <point key="canvasLocation" x="-666" y="-1348"/>
         </scene>
         <!--File Browser View Controller-->
         <scene sceneID="xVd-9D-m54">
@@ -1214,7 +1311,7 @@
                                                     <color key="backgroundColor" red="0.084371132429999995" green="0.084371132429999995" blue="0.084371132429999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="320" minWidth="200" maxWidth="1000" id="Pta-8u-sph">
+                                                        <tableColumn width="300" minWidth="200" maxWidth="1000" id="Pta-8u-sph">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1228,7 +1325,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="NameCellID" id="JhN-ep-U7D" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="320" height="17"/>
+                                                                    <rect key="frame" x="1" y="1" width="300" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T9p-vk-KMT">
@@ -1239,7 +1336,7 @@
                                                                             <imageCell key="cell" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="c3B-gT-3kV"/>
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYz-vv-r3n">
-                                                                            <rect key="frame" x="25" y="0.0" width="295" height="17"/>
+                                                                            <rect key="frame" x="25" y="0.0" width="275" height="17"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="pOg-Ln-KxG">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1276,7 +1373,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="DateCellID" id="eVb-jg-JcE" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="324" y="1" width="170" height="17"/>
+                                                                    <rect key="frame" x="304" y="1" width="170" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0r-ja-7at">
@@ -1313,7 +1410,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="FavoriteCellID" id="ZOp-kV-0PW" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="497" y="1" width="50" height="17"/>
+                                                                    <rect key="frame" x="477" y="1" width="50" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
                                                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5d-8e-I1v" customClass="FavoriteButtonTable" customModule="Drone_Files" customModuleProvider="target">
@@ -1334,7 +1431,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="70" minWidth="70" maxWidth="1000" id="722-ab-3zR">
+                                                        <tableColumn width="80" minWidth="70" maxWidth="1000" id="722-ab-3zR">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Size">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1348,11 +1445,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="SizeCellID" id="rrQ-6F-Rdw" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="550" y="1" width="70" height="17"/>
+                                                                    <rect key="frame" x="530" y="1" width="80" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uT-Bc-4aM">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="54" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="ee4-AD-aAi">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1380,7 +1477,7 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.79139019695479451" colorSpace="custom" customColorSpace="sRGB"/>
                                         </clipView>
-                                        <edgeInsets key="scrollerInsets" left="10" right="0.0" top="0.0" bottom="0.0"/>
+                                        <edgeInsets key="scrollerInsets" left="16" right="0.0" top="0.0" bottom="0.0"/>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Vs9-pL-nim">
                                             <rect key="frame" x="0.0" y="478" width="636" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1747,17 +1844,6 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIW-Gg-8BT" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="330" y="281" width="100" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="View External" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Qo1-ot-cvI">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <segue destination="j3G-sP-691" kind="show" id="xwy-hM-eMt"/>
-                                </connections>
-                            </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EeQ-AS-d5T" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                 <rect key="frame" x="651" y="282" width="100" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
@@ -1847,7 +1933,7 @@
                 </windowController>
                 <customObject id="aUD-EN-KNy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1662" y="307"/>
+            <point key="canvasLocation" x="1727" y="-2230"/>
         </scene>
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
@@ -3996,7 +4082,7 @@
                 </viewController>
                 <customObject id="IEk-Mk-Weh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1735" y="809"/>
+            <point key="canvasLocation" x="1800" y="-1728"/>
         </scene>
         <!--Favorites Collection View Controller-->
         <scene sceneID="LTo-tP-mnp">
@@ -4107,11 +4193,30 @@
             </objects>
             <point key="canvasLocation" x="-383" y="1413"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="pfm-cL-34b">
+            <objects>
+                <viewController storyboardIdentifier="cameraDeviceBrowser" id="7YC-hG-SJa" sceneMemberID="viewController">
+                    <view key="view" id="KsH-xO-Mgt">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <ikDeviceBrowserView fixedFrame="YES" displaysNetworkCameras="YES" mode="icon" translatesAutoresizingMaskIntoConstraints="NO" id="Ba5-KM-OaM" customClass="CameraBrowserController" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                            </ikDeviceBrowserView>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="Zb0-Sw-TSg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-703" y="-2203"/>
+        </scene>
     </scenes>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSFolder" width="32" height="32"/>
-        <image name="appicon-64px" width="64" height="64"/>
+        <image name="appicon-1024px" width="1024" height="1024"/>
         <image name="buttonCell:xxJ-lZ-KD1:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU

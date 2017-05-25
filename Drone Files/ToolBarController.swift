@@ -1,28 +1,25 @@
 //
-//  ToolBarViewController.swift
+//  ToolBarController.swift
 //  Drone Files
 //
-//  Created by Eric Rosebrock on 5/24/17.
+//  Created by Eric Rosebrock on 5/25/17.
 //  Copyright © 2017 The Web Freaks, INC. All rights reserved.
 //
 
 import Cocoa
+import Foundation
 
-class ToolBarViewController: NSViewController {
+class ToolBarController: NSToolbar {
+    @IBOutlet weak var newProjectItem: NSToolbarItem?
+    @IBOutlet weak var projectNameTextField: NSTextField!
+    @IBOutlet weak var newProjectButton: NSButton!
+    @IBOutlet weak var loadProjectButton: NSButton!
+    @IBOutlet weak var importFromCameraButton: NSButton!
 
-   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-        DispatchQueue.main.async {
-            // self.statusLabel.stringValue = "0 Items Selected"
-            // self.projectNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
-            
-            self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
-        }
-
-    }
     
+    override init(identifier: String) {
+        super.init(identifier: identifier)
+    }
     
     // Open directory for tableview
     @IBAction func openProjectFile(_ sender: AnyObject?) {
@@ -59,24 +56,50 @@ class ToolBarViewController: NSViewController {
     
     
     @IBAction func showVideoEditorTab(_ sender: AnyObject?) {
-
-    
+        
+        if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 0) {
+            
+                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex  = 0
+        
+            }
     }
     
     
     @IBAction func showImageEditorTab(_ sender: AnyObject?) {
         
-        
+        if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
+            
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex  = 1
+            
+        }
     }
     
     @IBAction func showFileManagerTab(_ sender: AnyObject?) {
-        
+        if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 2) {
+            
+            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex  = 2
+        }
         
     }
     
-    @IBAction func sshowSecondDisplayTab(_ sender: AnyObject?) {
+    @IBAction func showSecondDisplayTab(_ sender: AnyObject?) {
         
         
     }
     
 }
+
+
+
+
+class ThemeToolBarItem: NSToolbarItem {
+
+    // view = self.app
+    // required override init(itemIdentifier: String) {
+        
+        
+    // }
+}
+
+
+

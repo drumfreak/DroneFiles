@@ -35,6 +35,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var fileManagerOptionsDeleteController: FileManagerOptionsDeleteController!
     @IBOutlet weak var imageEditorSplitViewController: ImageEditorSplitViewController!
     @IBOutlet weak var rightPanelSplitViewController: RightPanelSplitViewController!
+    
+    @IBOutlet weak var toolBarController: ToolBarController!
+    
 
     @IBOutlet weak var screenShotSliderController: ScreenShotSliderController!
     
@@ -726,7 +729,7 @@ extension AppDelegate {
                     self.fileBrowserViewController?.openLastFile()
                 }
                 
-                self.toolBarViewController?.projectNameTextField.stringValue = self.appSettings.fileSequenceName
+                self.toolBarController?.projectNameTextField.stringValue = self.appSettings.fileSequenceName
                 
             }
             
@@ -920,6 +923,17 @@ extension NSTableHeaderCell {
     }
 }
 
+extension NSToolbar {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }
+}
+
+
 
 extension String {
     func trim() -> String {
@@ -937,3 +951,6 @@ extension NSScreen {
         }
     }
 }
+
+
+
