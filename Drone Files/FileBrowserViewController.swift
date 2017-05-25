@@ -134,7 +134,7 @@ class FileBrowserViewController: NSViewController {
         }
         
         self.tableView.target = self
-        // self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
+        self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
         self.currentFolderPathControl.delegate = self
         
@@ -222,9 +222,10 @@ class FileBrowserViewController: NSViewController {
             
             if(i > -1) {
                 let indexSet =  NSIndexSet(index: i - 1) as IndexSet
-                
-                DispatchQueue.main.async {
-                    self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                if((i - 1) > -1) {
+                    DispatchQueue.main.async {
+                        self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+                    }
                 }
             }
         }
@@ -669,13 +670,13 @@ class FileBrowserViewController: NSViewController {
         }
         
         if(self.appSettings.favoriteUrls.contains(item.url as URL)) {
-            DispatchQueue.main.async {
+           // DispatchQueue.main.async {
                 self.favoriteButton.image = NSImage(named: "heart-active.png")!
-            }
+           // }
         } else {
-            DispatchQueue.main.async {
+           // DispatchQueue.main.async {
                 self.favoriteButton.image = NSImage(named: "heart-inactive.png")!
-            }
+           // }
         }
         
         if item.isFolder {
