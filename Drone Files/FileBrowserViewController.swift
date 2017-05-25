@@ -19,6 +19,8 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
     
+    var doSaveFavorites = false
+    
     @IBOutlet var backgroundImage: NSImageView!
     // Directories!
     var directory: Directory?
@@ -138,7 +140,7 @@ class FileBrowserViewController: NSViewController {
         }
         
         self.tableView.target = self
-        self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
+        // self.tableView.doubleAction = #selector(tableViewDoubleClick(_:))
         
         self.currentFolderPathControl.delegate = self
         
@@ -180,6 +182,19 @@ class FileBrowserViewController: NSViewController {
         
     }
     
+    @IBAction func selectHeart(button: FavoriteButtonTable) {
+//        print("Fuck yeah \(button.itemIndex)")
+//        
+//        print(button.buttonUrl)
+        self.doSaveFavorites = true
+        
+        if(self.tableView.selectedRow == button.itemIndex) {
+            self.sendItemsToFileManager(showTab: false)
+        } else {
+            self.selectRowAtIndex(index: button.itemIndex, false)
+        }
+    }
+    
     
     func selectNextItem() {
         if(self.tableView.selectedRow > -1) {
@@ -211,16 +226,30 @@ class FileBrowserViewController: NSViewController {
             
             let i = self.tableView.selectedRow
             
-            if(i > 0) {
+            if(i > -1) {
                 let indexSet =  NSIndexSet(index: i - 1) as IndexSet
                 
                 DispatchQueue.main.async {
                     self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
                 }
             }
-            
         }
-        
+    }
+    
+    
+    func selectRowAtIndex(index: Int, _ extend: Bool) {
+        if(index < self.tableView.numberOfRows) {
+            
+            let i = index
+            
+            if(i > -1) {
+                let indexSet =  NSIndexSet(index: i) as IndexSet
+                
+               // DispatchQueue.main.async {
+                    self.tableView.selectRowIndexes(indexSet, byExtendingSelection: false)
+               // }
+            }
+        }
     }
     
     func setupPathControl(control: NSPathControl) {
@@ -537,7 +566,6 @@ class FileBrowserViewController: NSViewController {
         
     }
     
-    
     @IBAction func pathControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = self.currentFolderPathControl.clickedPathItem?.url
     }
@@ -757,6 +785,11 @@ class FileBrowserViewController: NSViewController {
             
         }
         
+        if(self.doSaveFavorites) {
+            self.addFavorite(self)
+            self.doSaveFavorites = false
+        }
+        
         if(showTab) {
             //DispatchQueue.main.async {
             self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 2
@@ -868,6 +901,16 @@ extension FileBrowserViewController: NSTableViewDelegate {
         static let KindCell = "KindCellID"
     }
     
+    
+    internal func tableView(_ tableView: NSTableView, didClick tableColumn: NSTableColumn) {
+        
+        // print(tableColumn)
+        
+        
+    }
+    
+    // private func tableView(_ tableView: NSTableView, )
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         //DispatchQueue.main.async {
@@ -878,6 +921,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
         var image: NSImage?
         var text: String = ""
         var cellIdentifier: String = ""
+        var buttonImage = NSImage.init(named: "heart-table-inactive.png")
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -922,9 +966,9 @@ extension FileBrowserViewController: NSTableViewDelegate {
                     isFavorite = false
                 }
             if(isFavorite) {
-                image = NSImage.init(named: "heart-table-active.png")
+                buttonImage = NSImage.init(named: "heart-table-active.png")
             } else {
-                image = NSImage.init(named: "heart-table-inactive.png")
+                buttonImage = NSImage.init(named: "heart-table-inactive.png")
             }
 
             cellIdentifier = CellIdentifiers.FavoriteCell
@@ -934,12 +978,13 @@ extension FileBrowserViewController: NSTableViewDelegate {
         }
         
         // 3
-        if let cell = tableView.make(withIdentifier: cellIdentifier, owner: nil) as? NSTableCellView {
+        if let cell = tableView.make(withIdentifier: cellIdentifier, owner: nil) as? FileBrowserTableCellView {
             //DispatchQueue.main.async {
             cell.textField?.stringValue = text
             cell.imageView?.image = image ?? nil
-            //}
-            
+            cell.buttonView?.image = buttonImage
+            cell.buttonView?.itemIndex = row
+            cell.buttonView?.buttonUrl = item.url
             return cell
         }
         return nil
@@ -947,6 +992,9 @@ extension FileBrowserViewController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateStatus()
+        
+        // print(notification)
+        
         
         var i = Int(0)
         //DispatchQueue.main.async {
@@ -980,7 +1028,8 @@ extension FileBrowserViewController: NSTableViewDelegate {
                 i += 1
                 
             }
-            
+        
+        
             let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
             
             // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
@@ -1024,5 +1073,33 @@ extension FileBrowserViewController: NSPathControlDelegate {
         
     }
 }
+
+
+public class FileBrowserTableCellView: NSTableCellView {
+    // @IBOutlet var buttonView: NSButton?
+    @IBOutlet open var buttonView: FavoriteButtonTable?
+    var cellItemUrl: URL!
+    
+    //override to change background color on highlight
+    override public var backgroundStyle:NSBackgroundStyle{
+        //check value when the style was setted
+        didSet{
+            
+            self.wantsLayer = true
+            
+            // DO NOT CHANGE THE FUCKING COLOR!! DO IT TO THE ROW
+            
+            self.textField?.textColor = self.appSettings.textLabelColor
+            
+        }
+    }
+}
+
+public class FavoriteButtonTable: NSButton {
+    // @IBOutlet var buttonView: NSButton?
+    var buttonUrl: URL!
+    var itemIndex: Int = 0
+}
+
 
 

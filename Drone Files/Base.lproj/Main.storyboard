@@ -661,32 +661,32 @@
                                                 <action selector="videoPlayPauseADWithSender:" target="Voe-Tx-rLC" id="s1u-s6-u11"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Loop" keyEquivalent="L" id="OIX-yo-CwH">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Loop" keyEquivalent="a" id="OIX-yo-CwH">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="videoLoopADWithSender:" target="Voe-Tx-rLC" id="i1z-Q6-CCV"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Auto Advance" keyEquivalent="A" id="brk-EF-TS8">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Auto Advance" keyEquivalent="a" id="brk-EF-TS8">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="videoAutoPlayADWithSender:" target="Voe-Tx-rLC" id="5tf-kf-qAM"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Auto Play" id="icX-AD-hYl">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Auto Play" keyEquivalent="p" id="icX-AD-hYl">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="videoAutoPlayAlwaysPlayWithSender:" target="Voe-Tx-rLC" id="05P-Ou-p8c"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save Frame" keyEquivalent="F" id="Edm-fs-YRA">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Save Frame" keyEquivalent="f" id="Edm-fs-YRA">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="takeScreenShotADWithSender:" target="Voe-Tx-rLC" id="L7D-WP-BP0"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save Frame Burst" keyEquivalent="B" id="kSd-CA-OTk">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Save Frame Burst" keyEquivalent="b" id="kSd-CA-OTk">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>
                                                 <action selector="takeScreenShotBurstADWithSender:" target="Voe-Tx-rLC" id="fJ5-tI-Q0O"/>
                                             </connections>
@@ -704,7 +704,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Reset Trim" keyEquivalent="]" id="Phk-Yy-jLv" userLabel="Reset Trim">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                         </menuItem>
                                         <menuItem title="Previous Frame" keyEquivalent="," id="vbf-bg-7r2" userLabel="Reset Trim">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1146,7 +1146,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="NameCellID" id="JhN-ep-U7D" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
+                                                                <tableCellView identifier="NameCellID" id="JhN-ep-U7D" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="1" y="1" width="320" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
@@ -1194,7 +1194,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="DateCellID" id="eVb-jg-JcE" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
+                                                                <tableCellView identifier="DateCellID" id="eVb-jg-JcE" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="324" y="1" width="170" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                                     <subviews>
@@ -1231,34 +1231,24 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="NO" id="5uH-nX-H1B">
+                                                                <tableCellView identifier="FavoriteCellID" id="ZOp-kV-0PW" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="497" y="1" width="50" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="sdn-5G-XVC">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <tableCellView identifier="FavoriteCellID" id="ZOp-kV-0PW" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
-                                                                    <rect key="frame" x="497" y="20" width="50" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
-                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HCY-ZB-FcZ">
-                                                                            <rect key="frame" x="10" y="0.0" width="17" height="17"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" constant="17" id="Jtp-5I-Qdm"/>
-                                                                                <constraint firstAttribute="width" constant="17" id="pIL-mb-Cp1"/>
-                                                                            </constraints>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="heart-active" id="pB0-cS-wOI"/>
-                                                                        </imageView>
+                                                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5d-8e-I1v" customClass="FavoriteButtonTable" customModule="Drone_Files" customModuleProvider="target">
+                                                                            <rect key="frame" x="16" y="0.0" width="17" height="17"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="heart-table-active" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Fwa-Xs-ut9">
+                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="selectHeartWithButton:" target="ZvK-30-Mbm" id="aCb-Y2-93C"/>
+                                                                            </connections>
+                                                                        </button>
                                                                     </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="HCY-ZB-FcZ" firstAttribute="leading" secondItem="ZOp-kV-0PW" secondAttribute="leading" constant="10" id="S25-mP-6w6"/>
-                                                                        <constraint firstItem="HCY-ZB-FcZ" firstAttribute="top" secondItem="ZOp-kV-0PW" secondAttribute="top" id="qGp-n2-WRD"/>
-                                                                    </constraints>
                                                                     <connections>
-                                                                        <outlet property="imageView" destination="HCY-ZB-FcZ" id="TZv-2S-LOG"/>
+                                                                        <outlet property="buttonView" destination="E5d-8e-I1v" id="DxN-SE-xgh"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>
@@ -1276,7 +1266,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="SizeCellID" id="rrQ-6F-Rdw" customClass="ThemeTableViewCell" customModule="Drone_Files" customModuleProvider="target">
+                                                                <tableCellView identifier="SizeCellID" id="rrQ-6F-Rdw" customClass="FileBrowserTableCellView" customModule="Drone_Files" customModuleProvider="target">
                                                                     <rect key="frame" x="550" y="1" width="70" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                                                     <subviews>
@@ -4096,5 +4086,6 @@ CiEKKQosCjEKOQo8Ck4KUQpWAAAAAAAAAgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAClg
         <image name="darkbackground" width="1200" height="1000"/>
         <image name="heart-active" width="30" height="30"/>
         <image name="heart-inactive" width="30" height="30"/>
+        <image name="heart-table-active" width="17" height="17"/>
     </resources>
 </document>
