@@ -131,10 +131,10 @@ class MediaBinCollectionView: NSViewController {
             foo = boo.mutableCopy() as! NSMutableArray
             self.mediaBinLoader.loadDataFromUrls(foo)
             
-            self.collectionView.reloadData()
+            self.collectionView?.reloadData()
         } else {
             self.mediaBinLoader.loadDataFromUrls(foo)
-            self.collectionView.reloadData()
+            self.collectionView?.reloadData()
         }
     
         //DispatchQueue.main.async {
@@ -150,7 +150,7 @@ class MediaBinCollectionView: NSViewController {
         DispatchQueue.main.async {
             self.countLabel.title = String(format: "%1d", self.appSettings.mediaBinUrls.count)
         }
-        self.collectionView.resignFirstResponder()
+        self.collectionView?.resignFirstResponder()
         self.resignFirstResponder()
     }
     
@@ -225,11 +225,11 @@ class MediaBinCollectionView: NSViewController {
             flowLayout.minimumLineSpacing = 10.0
             
             DispatchQueue.main.async {
-                self.collectionView.collectionViewLayout = flowLayout
+                self.collectionView?.collectionViewLayout = flowLayout
                 // 2
                 self.view.wantsLayer = true
                 // 3
-                self.collectionView.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+                self.collectionView?.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
                 self.viewConfigured = true
             }
         }

@@ -1,5 +1,5 @@
 //
-//  VideoPlayerControlsController.swift
+//  videoControlsController.swift
 //  Drone Files
 //
 //  Created by Eric Rosebrock on 4/28/17.
@@ -117,23 +117,17 @@ class VideoPlayerControllsController: NSViewController {
         let tapGesture = NSClickGestureRecognizer(target: self, action: #selector(handlePlayerLabelClick))
         self.playerTimerLabel.addGestureRecognizer(tapGesture)
         
-        self.appDelegate.videoPlayerControlsController = self
+        self.appDelegate.videoControlsController = self
         
         self.setupControls()
         
     }
-    //
-    //
+
     override func viewDidAppear() {
         super.viewDidAppear()
         self.setupControls()
     }
-    //
-    //
-    //    override func viewDidDisappear() {
-    //        super.viewDidDisappear()
-    //    }
-    //
+
     func setupControls() {
         DispatchQueue.main.async {
             
@@ -186,9 +180,9 @@ class VideoPlayerControllsController: NSViewController {
         
         DispatchQueue.main.async {
             
-            self.playerTimerLabel.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
+            self.playerTimerLabel?.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
             
-            self.currentFrameLabel.stringValue = String(format: "%02f", durationSeconds)
+            self.currentFrameLabel?.stringValue = String(format: "%02f", durationSeconds)
         }
     }
     
@@ -390,12 +384,12 @@ class VideoPlayerControllsController: NSViewController {
             
             DispatchQueue.main.async {
                 
-                self.videoLengthLabel.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
+                self.videoLengthLabel?.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
                 // + String(format: "%02d", ms) + ":ms"
             }
         } else {
             DispatchQueue.main.async {
-                self.videoLengthLabel.stringValue = "00:00:0000"
+                self.videoLengthLabel?.stringValue = "00:00:0000"
             }
         }
         

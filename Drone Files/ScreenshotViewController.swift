@@ -274,7 +274,7 @@ class ScreenshotViewController: NSViewController {
         
         if(self.appSettings.screenshotPreserveVideoName) {
             
-            let assetUrl = self.appDelegate.videoPlayerControlsController?.currentVideoURL
+            let assetUrl = self.appDelegate.videoControlsController.currentVideoURL
             
             let filename = assetUrl?.deletingPathExtension()
             

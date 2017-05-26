@@ -22,19 +22,27 @@ class RightPanelSplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        print("1~~~~~~~~~~ This happened rightSplitView")
+        
+        
         self.appDelegate.rightPanelSplitViewController = self
-        //DispatchQueue.main.async {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-        //}
         
         self.mediaBinSplitView = NSSplitViewItem.init(viewController: self.appDelegate.mediaBinCollectionView)
-
+        //let f2 = NSLayoutPriority.init(exactly: 300)
+//
+//        let f = NSLayoutPriority.init(exactly: 100)
+//        
+//        self.splitView.setHoldingPriority(f2!, forSubviewAt: 0)
+//        
+       
+      
         self.addSplitViewItem(self.mediaBinSplitView)
         self.appDelegate.mediaBinCollectionView.reloadContents()
-
-        // self.splitView.addSubview(self.appDelegate.mediaBinCollectionView!.view)
-        
+        // self.splitView.setHoldingPriority(f!, forSubviewAt: 1)
+        self.splitView.adjustSubviews()
     }
     
 }

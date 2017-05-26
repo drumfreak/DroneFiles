@@ -30,6 +30,7 @@
 		1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0141ED0C6FC00928FD7 /* heart-active.png */; };
 		1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */; };
 		1869FBE91ED884A800EC639E /* FavoritesCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */; };
+		1869FBEB1ED88C8800EC639E /* VideoPlayerControllsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */; };
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
 		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
 		18740B6F1ECD5522003803B4 /* MediaBinCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */; };
@@ -152,6 +153,7 @@
 		1860F0141ED0C6FC00928FD7 /* heart-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-active.png"; path = "../../../Dronefiles/heart-active.png"; sourceTree = "<group>"; };
 		1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesCollectionView.xib; sourceTree = "<group>"; };
+		1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerControllsController.xib; sourceTree = "<group>"; };
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
 		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
 		18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaBinCollectionView.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */,
 				184AD80E1ED736BC001209F5 /* MediaBinCollectionView.xib */,
 				18590E351ED7E55100305E68 /* VideoPlayerView.xib */,
+				1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */,
 				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
 				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */,
@@ -647,6 +650,7 @@
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
 				1882722A1ECA74C300EE50D0 /* darkbackground.png in Resources */,
 				18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */,
+				1869FBEB1ED88C8800EC639E /* VideoPlayerControllsController.xib in Resources */,
 				188272481ECB897E00EE50D0 /* darkbrownbackground-light.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -301,12 +301,12 @@ class FileBrowserViewController: NSViewController {
             //                itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
             //
             //
-            //                //self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
+            //                //self.appDelegate.videoControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
             //                self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
             //
-            //                self.appDelegate.videoPlayerControlsController?.currentVideoURL = lastFile
+            //                self.appDelegate.videoControlsController?.currentVideoURL = lastFile
             //
-            //                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = lastFile?.absoluteString
+            //                self.appDelegate.videoControlsController?.nowPlayingURLString = lastFile?.absoluteString
             //
             //                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
             //
@@ -737,15 +737,15 @@ class FileBrowserViewController: NSViewController {
                 DispatchQueue.main.async {
                     
                     self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
-                    self.appDelegate.videoPlayerControlsController?.nowPlayingFile.stringValue = item.name
+                    self.appDelegate.videoControlsController.nowPlayingFile?.stringValue = item.name
                     
                 }
                 
-                self.appDelegate.videoPlayerControlsController?.currentVideoURL = item.url as URL
+                self.appDelegate.videoControlsController.currentVideoURL = item.url as URL
                 
                 self.appDelegate.videoPlayerViewController?.nowPlayingURL = (item.url as URL)
                 
-                self.appDelegate.videoPlayerControlsController?.nowPlayingURLString = itemUrl
+                self.appDelegate.videoControlsController.nowPlayingURLString = itemUrl
                 
                 self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
                 

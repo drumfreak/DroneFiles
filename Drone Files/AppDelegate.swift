@@ -38,8 +38,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var toolBarController: ToolBarController!
     
+    var videoControlsController = VideoPlayerControllsController()
 
     var mediaBinCollectionView = MediaBinCollectionView()
+    
+
     
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
     
@@ -56,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var editorTabViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "editorTabViewController") as? EditorTabViewController
     
-    @IBOutlet var videoPlayerControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerControlsController") as? VideoPlayerControllsController
+    // @IBOutlet var videoControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoControlsController") as? VideoPlayerControllsController
     
     @IBOutlet weak var videoPlayerViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerViewController") as? VideoPlayerViewController
     
@@ -429,28 +432,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func takeScreenShotAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.takeBurstScreenshotFromKeyboard()
+        self.videoControlsController.takeBurstScreenshotFromKeyboard()
     }
     
     @IBAction func takeScreenShotBurstAD(sender: AnyObject) {
-        // self.videoPlayerControlsController?.takeScreenshot(self);
-        self.videoPlayerControlsController?.takeBurstScreenshotFromKeyboard();
+        // self.videoControlsController?.takeScreenshot(self);
+        self.videoControlsController.takeBurstScreenshotFromKeyboard();
     }
     
     @IBAction func setVideoTrimInAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.setTrimInFromKeyboard()
+        self.videoControlsController.setTrimInFromKeyboard()
     }
     
     @IBAction func setVideoTrimOutAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.setTrimOutFromKeyboard()
+        self.videoControlsController.setTrimOutFromKeyboard()
     }
     
     @IBAction func videoFrameDecrementAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.frameDecrementFromKeyboard()
+        self.videoControlsController.frameDecrementFromKeyboard()
     }
     
     @IBAction func videoFrameIncrementAD(sender: AnyObject) {
-        self.videoPlayerControlsController?.frameIncrementFromKeyboard()
+        self.videoControlsController.frameIncrementFromKeyboard()
     }
     
     

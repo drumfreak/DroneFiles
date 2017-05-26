@@ -20,22 +20,22 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="699" height="204"/>
+            <rect key="frame" x="0.0" y="0.0" width="699" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e8u-Lp-QOU" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="699" height="204"/>
+                    <rect key="frame" x="0.0" y="0.0" width="699" height="132"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prw-XW-0xf" customClass="ThemeScrollView" customModule="Drone_Files" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="699" height="172"/>
+                            <rect key="frame" x="0.0" y="0.0" width="699" height="100"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="cYM-Jd-nih" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="699" height="172"/>
+                                <rect key="frame" x="0.0" y="0.0" width="699" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <collectionView ambiguous="YES" selectable="YES" id="Nh9-1C-2z9" customClass="ThemeCollectionView" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="699" height="172"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="699" height="100"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="i85-Ie-z5h">
                                             <size key="itemSize" width="50" height="50"/>
@@ -59,7 +59,7 @@
                             </scroller>
                         </scrollView>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="piL-xA-cbj" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                            <rect key="frame" x="590" y="179" width="100" height="25"/>
+                            <rect key="frame" x="590" y="107" width="100" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" title="Clear" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="fif-Ff-43p">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,7 +70,7 @@
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tc-uH-COT">
-                            <rect key="frame" x="1" y="181" width="52" height="17"/>
+                            <rect key="frame" x="1" y="109" width="52" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="inline" title="23" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="MAe-Pc-Gdz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -78,7 +78,7 @@
                             </buttonCell>
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhh-7d-8TM" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                            <rect key="frame" x="57" y="178" width="100" height="25"/>
+                            <rect key="frame" x="57" y="106" width="100" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" title="Start Show" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="88x-so-T3L">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -89,7 +89,7 @@
                             </connections>
                         </button>
                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Qt-Wp-EQB">
-                            <rect key="frame" x="161" y="181" width="96" height="19"/>
+                            <rect key="frame" x="161" y="109" width="96" height="19"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" refusesFirstResponder="YES" state="on" userInterfaceLayoutDirection="rightToLeft" alignment="left" minValue="0.20000000000000001" maxValue="5" doubleValue="2" tickMarkPosition="above" sliderType="linear" id="8c8-Df-u8w"/>
                             <connections>
@@ -97,7 +97,7 @@
                             </connections>
                         </slider>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V08-Kj-Wbr" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                            <rect key="frame" x="480" y="179" width="100" height="25"/>
+                            <rect key="frame" x="480" y="107" width="100" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" title="Hide" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="CvD-He-cIH">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -108,7 +108,7 @@
                             </connections>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kL-8W-XPL" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                            <rect key="frame" x="261" y="183" width="42" height="17"/>
+                            <rect key="frame" x="261" y="111" width="42" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="2.0" id="usU-U7-otA">
                                 <font key="font" metaFont="system"/>
@@ -119,7 +119,7 @@
                     </subviews>
                 </view>
             </subviews>
-            <point key="canvasLocation" x="248.5" y="135"/>
+            <point key="canvasLocation" x="248.5" y="99"/>
         </customView>
     </objects>
     <resources>

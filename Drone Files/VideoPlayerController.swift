@@ -163,7 +163,7 @@ class VideoPlayerViewController: NSViewController {
         prepareToPlay(_url: _url, startTime: frame)
         
         let location = self.getLocationData(asset: self.currentAsset)
-        self.appDelegate.videoPlayerControlsController?.metadataLocationLabel.stringValue = location
+        self.appDelegate.videoControlsController.metadataLocationLabel?.stringValue = location
         
         // print("Location: \(location)")
         //self.playerView.becomeFirstResponder()
@@ -228,7 +228,7 @@ class VideoPlayerViewController: NSViewController {
             
         }
         
-        self.appDelegate.videoPlayerControlsController?.calculateClipLength()
+        self.appDelegate.videoControlsController.calculateClipLength()
         
     }
     
@@ -324,7 +324,7 @@ class VideoPlayerViewController: NSViewController {
                 
                 
                 self.playerIsReady = true
-                self.appDelegate.videoPlayerControlsController?.calculateClipLength()
+                self.appDelegate.videoControlsController.calculateClipLength()
                 
                 if(self.startPlayingVideo == true) {
                     // self.playerView.becomeFirstResponder()
@@ -369,9 +369,9 @@ class VideoPlayerViewController: NSViewController {
             
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             if(newRate != 0.0) {
-                self.appDelegate.videoPlayerControlsController?.startTimer()
+                self.appDelegate.videoControlsController.startTimer()
             } else {
-                self.appDelegate.videoPlayerControlsController?.stopTimer()
+                self.appDelegate.videoControlsController.stopTimer()
             }
         }
         else if keyPath == #keyPath(AVPlayerItem.status) {
