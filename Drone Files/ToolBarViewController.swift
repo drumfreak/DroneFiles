@@ -73,10 +73,6 @@ class ToolBarViewController: NSViewController {
         
         
     }
-    
-    @IBAction func sshowSecondDisplayTab(_ sender: AnyObject?) {
-        
-        
-    }
+
     
 }

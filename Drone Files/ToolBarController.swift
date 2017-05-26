@@ -17,7 +17,8 @@ class ToolBarController: NSToolbar {
     @IBOutlet weak var importFromCameraButton: NSButton!
 
     var newProjectWindowController: NewProjectWindowController!
-    
+    var secondWindowController: SecondWindowController!
+
     override init(identifier: String) {
         super.init(identifier: identifier)
     }
@@ -87,6 +88,12 @@ class ToolBarController: NSToolbar {
     
     @IBAction func showSecondDisplayTab(_ sender: AnyObject?) {
         
+        if(self.appDelegate.appSettings.secondDisplayIsOpen == false) {
+            self.secondWindowController = SecondWindowController()
+            self.secondWindowController?.showWindow(self)
+        } else {
+             self.appDelegate.secondaryDisplayMediaViewController?.view.window?.close()
+        }
         
     }
     
