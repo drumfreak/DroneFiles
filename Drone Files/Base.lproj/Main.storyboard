@@ -1565,7 +1565,7 @@
                 </splitViewController>
                 <customObject id="K03-Hg-yfB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-606" y="2704"/>
+            <point key="canvasLocation" x="-293" y="2680"/>
         </scene>
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
@@ -1841,9 +1841,9 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jyr-sK-yWj">
-                                <rect key="frame" x="410" y="236" width="332" height="24"/>
+                                <rect key="frame" x="410" y="237" width="332" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" maxValue="42" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="161" sliderType="linear" id="VDm-1P-z3y"/>
+                                <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" minValue="-10" maxValue="60" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="71" allowsTickMarkValuesOnly="YES" sliderType="linear" id="VDm-1P-z3y"/>
                                 <connections>
                                     <action selector="rateSliderChanged:" target="tOh-RK-Pxk" id="aTm-cJ-PLE"/>
                                 </connections>
@@ -1895,7 +1895,7 @@
                 </viewController>
                 <customObject id="zYz-ZO-4e8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-909" y="3298"/>
+            <point key="canvasLocation" x="-1513" y="3084"/>
         </scene>
         <!--Video Player-->
         <scene sceneID="NSP-20-XAr">
@@ -1946,7 +1946,7 @@
                 </viewController>
                 <customObject id="PWZ-uy-RXA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1994" y="2196"/>
+            <point key="canvasLocation" x="-1507" y="2649"/>
         </scene>
         <!--Editor Tab View Controller-->
         <scene sceneID="L4k-hf-rra">
@@ -2931,7 +2931,7 @@
                 </viewController>
                 <customObject id="NBJ-iB-Fbv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1170" y="2881.5"/>
+            <point key="canvasLocation" x="935" y="2680"/>
         </scene>
         <!--Image Editor Controlls Controller-->
         <scene sceneID="EJ3-kw-fdF">
@@ -3296,7 +3296,7 @@
                 </splitViewController>
                 <customObject id="7us-QD-jfK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1534" y="2236"/>
+            <point key="canvasLocation" x="1805" y="1185"/>
         </scene>
         <!--Favorites Collection View Controller-->
         <scene sceneID="LTo-tP-mnp">
