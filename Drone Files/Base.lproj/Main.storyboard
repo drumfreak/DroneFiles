@@ -1025,19 +1025,23 @@
             <objects>
                 <splitViewController id="b22-3L-PpC" customClass="RightPanelSplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem id="zN2-PK-eBD"/>
+                        <splitViewItem id="ds9-Oo-TA6"/>
+                        <splitViewItem id="w8e-D9-KGG"/>
+                        <splitViewItem id="d1G-nD-IyL"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="D7m-RF-pX8">
-                        <rect key="frame" x="0.0" y="0.0" width="954" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="954" height="978"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
-                        <segue destination="fa8-kS-UDX" kind="relationship" relationship="splitItems" id="PEq-RF-so3"/>
+                        <segue destination="Ree-Ez-cKD" kind="relationship" relationship="splitItems" id="8z9-oH-UqK"/>
+                        <segue destination="QRC-NX-MOR" kind="relationship" relationship="splitItems" id="Ihj-ai-Qm4"/>
+                        <segue destination="NjL-Wo-Kn8" kind="relationship" relationship="splitItems" id="jQI-KN-ote"/>
                     </connections>
                 </splitViewController>
                 <customObject id="qci-jc-jNX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="814" y="-557"/>
+            <point key="canvasLocation" x="814" y="-218"/>
         </scene>
         <!--File Browser View Controller-->
         <scene sceneID="xVd-9D-m54">
@@ -1509,7 +1513,7 @@
                         <splitViewItem id="Fn6-7k-a9w"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" dividerStyle="thin" id="CMf-he-Wrs">
-                        <rect key="frame" x="0.0" y="0.0" width="981" height="1001"/>
+                        <rect key="frame" x="0.0" y="0.0" width="981" height="1172"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     </splitView>
                     <connections>
@@ -1518,22 +1522,22 @@
                 </splitViewController>
                 <customObject id="K03-Hg-yfB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-97.5" y="991.5"/>
+            <point key="canvasLocation" x="-97.5" y="1077"/>
         </scene>
         <!--Video Player-->
         <scene sceneID="NSP-20-XAr">
             <objects>
                 <viewController title="Video Editor" storyboardIdentifier="videoPlayerViewController" id="MAv-UR-Xgu" userLabel="Video Player" customClass="VideoPlayerViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="e5W-hb-WNW">
-                        <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="510"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w3f-NZ-8Jp" userLabel="Video Editor View">
-                                <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                                <rect key="frame" x="0.0" y="0.0" width="760" height="510"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <avPlayerView fixedFrame="YES" controlsStyle="floating" showsFrameSteppingButtons="YES" showsFullScreenToggleButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wwg-vP-poZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="760" height="510"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </avPlayerView>
                                 </subviews>
@@ -1569,32 +1573,7 @@
                 </viewController>
                 <customObject id="PWZ-uy-RXA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-98" y="1886"/>
-        </scene>
-        <!--Editor Tab View Controller-->
-        <scene sceneID="L4k-hf-rra">
-            <objects>
-                <tabViewController storyboardIdentifier="editorTabViewController" selectedTabViewItemIndex="0" tabStyle="unspecified" id="fa8-kS-UDX" customClass="EditorTabViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabViewItems>
-                        <tabViewItem id="7YO-L8-htw" customClass="ThemeTabViewItem" customModule="Drone_Files" customModuleProvider="target"/>
-                        <tabViewItem id="g2z-Ky-UCr"/>
-                        <tabViewItem id="Qjo-2D-PEL"/>
-                    </tabViewItems>
-                    <tabView key="tabView" misplaced="YES" type="noTabsNoBorder" id="4zA-k8-0f3" customClass="ThemeTabView" customModule="Drone_Files" customModuleProvider="target">
-                        <rect key="frame" x="-2" y="0.0" width="955" height="618"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <font key="font" metaFont="message"/>
-                        <tabViewItems/>
-                    </tabView>
-                    <connections>
-                        <segue destination="Ree-Ez-cKD" kind="relationship" relationship="tabItems" id="DHM-Pl-5BM"/>
-                        <segue destination="QRC-NX-MOR" kind="relationship" relationship="tabItems" id="CbB-ws-qoJ"/>
-                        <segue destination="NjL-Wo-Kn8" kind="relationship" relationship="tabItems" id="7yR-hE-2ww"/>
-                    </connections>
-                </tabViewController>
-                <customObject id="1vV-02-af2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="815" y="-35"/>
+            <point key="canvasLocation" x="-98" y="2094"/>
         </scene>
         <!--Image Editor Split View Controller-->
         <scene sceneID="R6v-hc-jbr">
@@ -1604,7 +1583,7 @@
                         <splitViewItem id="Fuq-VN-3QC"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="Oal-AJ-cvn">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="-28" y="0.0" width="758" height="1179"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
@@ -1613,7 +1592,7 @@
                 </splitViewController>
                 <customObject id="RGx-nW-dOr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="641"/>
+            <point key="canvasLocation" x="907" y="1080.5"/>
         </scene>
         <!--File Manager-->
         <scene sceneID="GYP-4x-9bJ">
@@ -2514,22 +2493,22 @@
             <objects>
                 <viewController storyboardIdentifier="imageEditorViewController" id="396-wX-C6I" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="OkA-ZN-JiK">
-                        <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="511"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="32T-ds-Veb">
-                                <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                                <rect key="frame" x="0.0" y="0.0" width="760" height="511"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="47z-VB-8Kv">
-                                    <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="760" height="511"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KCv-MI-ady">
-                                            <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="511"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <ikImageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3j-ea-Bma">
-                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="464"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="511"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="0.50002289" green="0.50002289" blue="0.50002289" alpha="1" colorSpace="deviceRGB"/>
                                                     <connections>
@@ -2560,7 +2539,7 @@
                 </viewController>
                 <customObject id="DWn-oI-Ga5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="872" y="1162"/>
+            <point key="canvasLocation" x="906" y="2094"/>
         </scene>
     </scenes>
     <resources>

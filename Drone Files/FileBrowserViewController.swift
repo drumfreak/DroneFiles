@@ -725,8 +725,8 @@ class FileBrowserViewController: NSViewController {
             
             if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
                 
-                if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 0) {
-                    self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
+                if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
+                    self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
                 }
                 
                 // nowPlayingFile.stringValue = item.name;
@@ -764,11 +764,11 @@ class FileBrowserViewController: NSViewController {
                 if(!self.appDelegate.appSettings.blockScreenShotTabSwitch) {
                     // DispatchQueue.main.async {
                     
-                    if( self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
-                        self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+                    if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+                        self.appDelegate.rightPanelSplitViewController?.showImageEditorSplitView()
                     }
                     
-                    // }
+                    
                 }
                 
                 self.appDelegate.imageEditorViewController?.loadImage(_url: item.url as URL)
@@ -812,9 +812,9 @@ class FileBrowserViewController: NSViewController {
         }
         
         if(showTab) {
-            //DispatchQueue.main.async {
-            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 2
-            //}
+            if(!self.appDelegate.appSettings.fileManagerSplitViewIsOpen) {
+                self.appDelegate.rightPanelSplitViewController?.showFileManagerSplitView()
+            }
         }
         
         self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS

@@ -103,8 +103,9 @@ class MediaBinCollectionView: NSViewController {
             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
             
         } else {
-            if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            
+            if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+                self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
             }
             
             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
@@ -398,14 +399,12 @@ extension MediaBinCollectionView : NSCollectionViewDelegate {
            // }
             
         } else {
-           // DispatchQueue.main.async {
-            if( self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
-                 self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-            }
             
+            if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+                self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
+            }
+
             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-                
-            //}
             
         }
         

@@ -75,7 +75,7 @@ class FavoritesCollectionViewController: NSViewController {
             //print("Displaying item on second screen...")
             self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
         } else {
-            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+            self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
             self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl!)!)
         }
         

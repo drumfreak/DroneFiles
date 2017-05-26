@@ -32,6 +32,7 @@
 		1869FBE91ED884A800EC639E /* FavoritesCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */; };
 		1869FBEB1ED88C8800EC639E /* VideoPlayerControllsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */; };
 		1869FBED1ED8A0F500EC639E /* ImageEditorControlsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */; };
+		1869FBEF1ED8B64C00EC639E /* FileManagerOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */; };
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
 		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
 		18740B6F1ECD5522003803B4 /* MediaBinCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */; };
@@ -156,6 +157,7 @@
 		1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesCollectionView.xib; sourceTree = "<group>"; };
 		1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerControllsController.xib; sourceTree = "<group>"; };
 		1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageEditorControlsController.xib; sourceTree = "<group>"; };
+		1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileManagerOptionsViewController.xib; sourceTree = "<group>"; };
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
 		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
 		18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaBinCollectionView.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
 				1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */,
+				1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */,
 				18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */,
 				184AD80E1ED736BC001209F5 /* MediaBinCollectionView.xib */,
 				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
@@ -643,6 +646,7 @@
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
 				18590E361ED7E55100305E68 /* VideoPlayerView.xib in Resources */,
 				184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */,
+				1869FBEF1ED8B64C00EC639E /* FileManagerOptionsViewController.xib in Resources */,
 				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,

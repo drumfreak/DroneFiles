@@ -16,7 +16,7 @@ class EditorTabViewController: NSTabViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.appDelegate.editorTabViewController = self
+        // self.appDelegate.editorTabViewController = self
         
         //        view.wantsLayer = true
         //        // change the background color of the layer

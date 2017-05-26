@@ -13,7 +13,10 @@ import Cocoa
 class RightPanelSplitViewController: NSSplitViewController {
 
     @IBOutlet var mediaBinSplitView: NSSplitViewItem!
-    
+    var videoSplitview: NSSplitViewItem!
+    var imageEditorSplitView: NSSplitViewItem!
+    var fileManagerSplitView: NSSplitViewItem!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +33,59 @@ class RightPanelSplitViewController: NSSplitViewController {
         self.appDelegate.mediaBinCollectionView.reloadContents()
         
         self.splitView.adjustSubviews()
+        
+        
+        self.videoSplitview =  self.splitViewItem(for: self.appDelegate.videoSplitViewController!)!
+        
+        self.fileManagerSplitView =  self.splitViewItem(for: self.appDelegate.fileManagerViewController!)!
+        
+        self.imageEditorSplitView =  self.splitViewItem(for: self.appDelegate.imageEditorSplitViewController!)!
+        
+        self.showVideoSplitView()
     }
     
+    
+    func showVideoSplitView() {
+        if(self.appDelegate.appSettings.videoSplitViewIsOpen == false) {
+            self.appDelegate.appSettings.videoSplitViewIsOpen = true
+            self.fileManagerSplitView.isCollapsed = true
+            self.imageEditorSplitView.isCollapsed = true
+            self.videoSplitview.isCollapsed = false
+            self.splitView.adjustSubviews()
+        
+        }
+        self.appDelegate.appSettings.imageEditorSplitViewIsOpen = false
+        self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false
+        
+
+    }
+    
+    func showImageEditorSplitView() {
+        
+        if(self.appDelegate.appSettings.imageEditorSplitViewIsOpen == false) {
+            self.appDelegate.appSettings.imageEditorSplitViewIsOpen = true
+            self.fileManagerSplitView.isCollapsed = true
+            self.imageEditorSplitView.isCollapsed = false
+            self.videoSplitview.isCollapsed = true
+            self.splitView.adjustSubviews()
+        }
+        self.appDelegate.appSettings.videoSplitViewIsOpen = false
+        self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false
+
+    }
+    
+    func showFileManagerSplitView() {
+        if(self.appDelegate.appSettings.fileManagerSplitViewIsOpen == false) {
+            self.appDelegate.appSettings.fileManagerSplitViewIsOpen = true
+            
+            self.appDelegate.appSettings.imageEditorSplitViewIsOpen = true
+            self.fileManagerSplitView.isCollapsed = false
+            self.imageEditorSplitView.isCollapsed = true
+            self.videoSplitview.isCollapsed = true
+            self.splitView.adjustSubviews()
+        }
+        self.appDelegate.appSettings.videoSplitViewIsOpen = false
+        self.appDelegate.appSettings.imageEditorSplitViewIsOpen = false
+    }
 }
 

@@ -59,29 +59,22 @@ class ToolBarController: NSToolbar {
     
     
     @IBAction func showVideoEditorTab(_ sender: AnyObject?) {
-        
-        if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 0) {
-            
-                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex  = 0
-        
-            }
+        if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
+            self.appDelegate.rightPanelSplitViewController.showVideoSplitView()
+        }
     }
     
 
     
     @IBAction func showImageEditorTab(_ sender: AnyObject?) {
-        
-        if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
-            
-            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex  = 1
-            
+        if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+            self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
         }
     }
     
     @IBAction func showFileManagerTab(_ sender: AnyObject?) {
-        if(self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 2) {
-            
-            self.appDelegate.editorTabViewController?.selectedTabViewItemIndex  = 2
+        if(!self.appDelegate.appSettings.fileManagerSplitViewIsOpen) {
+            self.appDelegate.rightPanelSplitViewController.showFileManagerSplitView()
         }
         
     }

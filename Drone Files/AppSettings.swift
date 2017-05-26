@@ -308,4 +308,12 @@ struct AppSettings {
     // Image thumbnail for collection View Backgrounds
     // tableHeaderRow
     var imageThumbnailHolder =  NSColor.init(patternImage: NSImage(named: "messagewindow.png")!)
+    
+    
+    // Split view management
+    
+    var videoSplitViewIsOpen = false
+    var imageEditorSplitViewIsOpen = false
+    var fileManagerSplitViewIsOpen = false
+
 }
