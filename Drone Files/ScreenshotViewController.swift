@@ -150,11 +150,10 @@ class ScreenshotViewController: NSViewController {
                     
                     DispatchQueue.main.async {
                         
-                        self.appDelegate.screenShotSliderController.reloadContents()
-                        
+                       self.appDelegate.mediaBinCollectionView.reloadContents()
                         self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: url!)
                         
-                        self.appDelegate.screenShotSliderController.selectItemOne()
+                        self.appDelegate.mediaBinCollectionView.selectItemOne()
                         
                         //                        if(self.appDelegate.fileBrowserViewController.sourceFolderOpened.absoluteString != self.appSettings.screenShotFolder) {
                         //                                 self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)

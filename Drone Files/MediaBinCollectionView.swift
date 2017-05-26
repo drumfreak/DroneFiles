@@ -10,9 +10,8 @@ import Foundation
 import Cocoa
 
 
-class ScreenShotSliderController: NSViewController {
+class MediaBinCollectionView: NSViewController {
     // View controllers
-    
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var countLabel: NSButton!
     @IBOutlet var mediaShowIntervalSlider: NSSlider!
@@ -44,22 +43,19 @@ class ScreenShotSliderController: NSViewController {
       
         // }
         
-        
         self.mediaShowIntervalSlider.doubleValue =  self.appSettings.mediaBinTimerInterval
         self.mediaShowRateLabel.doubleValue = self.appSettings.mediaBinTimerInterval
         
         // print(self.appSettings.mediaBinTimerInterval)
-        
-
-        
-        self.appDelegate.screenShotSliderController = self
-        //        self.collectionView.resignFirstResponder()
-        //        self.resignFirstResponder()
-        self.reloadContents()
-        
         if(self.appSettings.mediaBinUrls.count > 0) {
+            self.reloadContents()
             self.selectItemOne()
         }
+
+        
+        self.appDelegate.mediaBinCollectionView = self
+        //        self.collectionView.resignFirstResponder()
+        //        self.resignFirstResponder()
     }
     
     override func viewWillAppear() {
@@ -69,7 +65,11 @@ class ScreenShotSliderController: NSViewController {
         print(self.appSettings.mediaBinTimerInterval)
         
         self.countLabel.stringValue = "0"
-        
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+    
     }
     
     
@@ -119,31 +119,32 @@ class ScreenShotSliderController: NSViewController {
     func reloadContents() {
         // mediaBinLoader.loadDataForFolderWithUrl(initialFolderUrl)
         
+        if(self.appDelegate.appSettings.mediaBinUrls.count == 0) {
+            return
+        }
         var boo = [] as NSArray
         var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
-        // foo = foo.reversed() as! NSMutableArray
         
-//        if(foo.count == 0) {
-//            return
-//        }
-        
+       
         if(foo.count > self.collectionViewLimit) {
             boo = Array(foo.prefix(self.collectionViewLimit)) as NSArray
             foo = boo.mutableCopy() as! NSMutableArray
-            mediaBinLoader.loadDataFromUrls(foo)
+            self.mediaBinLoader.loadDataFromUrls(foo)
+            
+            self.collectionView.reloadData()
         } else {
-            mediaBinLoader.loadDataFromUrls(foo)
+            self.mediaBinLoader.loadDataFromUrls(foo)
+            self.collectionView.reloadData()
         }
-        
-        
-       // DispatchQueue.main.async {
+    
+        //DispatchQueue.main.async {
             NSAnimationContext.runAnimationGroup({context in
                 context.duration = 1.0
-                // self.configureCollectionView()
-                self.collectionView.reloadData()
+                 self.configureCollectionView()
+        
             }) {
             }
-       // }
+       //  }
         
         
         DispatchQueue.main.async {
@@ -284,12 +285,15 @@ class ScreenShotSliderController: NSViewController {
         // print("Fuck")
         // self.view.isHidden = true
         self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
-
-        if(self.splitItem.isCollapsed) {
-           self.unHideMediaBin()
-        } else {
-            self.hideMediaBin()
+        if(self.splitItem != nil) {
+            if(self.splitItem.isCollapsed) {
+                self.appDelegate.mediaBinCollectionView.reloadContents()
+                self.unHideMediaBin()
+            } else {
+                self.hideMediaBin()
+            }
         }
+       
     }
     
     func hideMediaBin() {
@@ -324,7 +328,7 @@ class ScreenShotSliderController: NSViewController {
 }
 
 
-extension ScreenShotSliderController : NSCollectionViewDataSource {
+extension MediaBinCollectionView : NSCollectionViewDataSource {
     
     // 1
     func numberOfSectionsInCollectionView(collectionView: NSCollectionView) -> Int {
@@ -367,7 +371,7 @@ extension ScreenShotSliderController : NSCollectionViewDataSource {
     
 }
 
-extension ScreenShotSliderController : NSCollectionViewDelegate {
+extension MediaBinCollectionView : NSCollectionViewDelegate {
     // 1
     
     internal func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {

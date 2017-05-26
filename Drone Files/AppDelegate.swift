@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var toolBarController: ToolBarController!
     
 
-    @IBOutlet weak var screenShotSliderController: ScreenShotSliderController!
+    var mediaBinCollectionView = MediaBinCollectionView()
     
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
     
@@ -159,8 +159,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if(defaults.value(forKey: "lastProjectfileOpened") != nil) {
             self.readProjectFile(projectFile: defaults.value(forKey: "lastProjectfileOpened") as! String)
         } else {
-            
-            
+        
             // print(defaults)
             
             if(defaults.value(forKey: "thumbnailDirectory") != nil) {
@@ -253,15 +252,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 //self.appSettings.mediaBinUrls = []
                 
-                self.screenShotSliderController.reloadContents()
+                self.mediaBinCollectionView.reloadContents()
                 if(self.appSettings.mediaBinUrls.count > 0) {
-
-                    self.screenShotSliderController.selectItemOne()
+                   self.mediaBinCollectionView.selectItemOne()
                 }
             } else {
                 self.appSettings.mediaBinUrls = []
-                self.screenShotSliderController.reloadContents()
-                // self.screenShotSliderController.selectItemOne()
+                self.mediaBinCollectionView.reloadContents()
+               //  self.mediaBinCollectionView.selectItemOne()
             }
             
             if(defaults.value(forKey: "favoriteUrls") != nil) {
@@ -488,7 +486,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func toggleMediaBin(sender: AnyObject) {
-        self.screenShotSliderController.hideScreenshotSlider(self)
+        self.mediaBinCollectionView.hideScreenshotSlider(self)
     }
     
     
@@ -578,11 +576,11 @@ extension AppDelegate {
                     
                     //self.appSettings.mediaBinUrls = []
                     
-                    self.screenShotSliderController?.reloadContents()
+                    self.mediaBinCollectionView.reloadContents()
                     
                 } else {
                     self.appSettings.mediaBinUrls = [URL]()
-                    self.screenShotSliderController?.reloadContents()
+                    self.mediaBinCollectionView.reloadContents()
                 }
                 
                 

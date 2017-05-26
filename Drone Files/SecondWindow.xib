@@ -13,29 +13,29 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
-            <rect key="contentRect" x="25" y="427" width="720" height="500"/>
+            <rect key="contentRect" x="25" y="427" width="720" height="400"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="lZb-4f-9ro">
-                        <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" id="iWb-Om-Dmd">
-                            <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                            <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lyz-OC-tzq">
-                                    <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFb-LP-1yo">
-                                            <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="OG2-2I-aqe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
@@ -45,12 +45,12 @@
                                             </subviews>
                                         </view>
                                         <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="1Ah-RG-fOw">
-                                            <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </ikImageView>
                                         <avPlayerView fixedFrame="YES" controlsStyle="floating" videoGravity="resizeAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vp-sd-Ywb">
-                                            <rect key="frame" x="0.0" y="0.0" width="720" height="500"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </avPlayerView>
                                     </subviews>

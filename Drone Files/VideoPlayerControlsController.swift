@@ -875,7 +875,7 @@ class VideoPlayerControllsController: NSViewController {
                 //                }
                 
                 DispatchQueue.main.async {
-                    self.appDelegate.screenShotSliderController.reloadContents()
+                    self.appDelegate.mediaBinCollectionView.reloadContents()
                 }
                 
                 
@@ -906,7 +906,7 @@ class VideoPlayerControllsController: NSViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    self.appDelegate.screenShotSliderController.reloadContents()
+                    self.appDelegate.mediaBinCollectionView.reloadContents()
                 }
             }
             

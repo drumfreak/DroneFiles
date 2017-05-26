@@ -82,18 +82,18 @@ class FileManagerViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         self.viewIsLoaded = true
-        self.appDelegate.screenShotSliderController.hideMediaBin()
+        self.appDelegate.mediaBinCollectionView.hideMediaBin()
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.appDelegate.screenShotSliderController.hideMediaBin()
+        self.appDelegate.mediaBinCollectionView.hideMediaBin()
     }
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.viewIsLoaded = false
-        self.appDelegate.screenShotSliderController.unHideMediaBin()
+        self.appDelegate.mediaBinCollectionView.unHideMediaBin()
     }
     
     func reloadFileList() {
