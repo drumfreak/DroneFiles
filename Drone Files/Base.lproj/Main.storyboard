@@ -1021,7 +1021,7 @@
                 </splitViewController>
                 <customObject id="N0k-GW-Bci" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="491" y="-847"/>
+            <point key="canvasLocation" x="432" y="-1172"/>
         </scene>
         <!--Right Panel Split View Controller-->
         <scene sceneID="ydp-vB-cOd">
@@ -1031,7 +1031,7 @@
                         <splitViewItem id="zN2-PK-eBD"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" id="D7m-RF-pX8">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="954" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
                     <connections>
@@ -1040,7 +1040,7 @@
                 </splitViewController>
                 <customObject id="qci-jc-jNX" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="804" y="195"/>
+            <point key="canvasLocation" x="814" y="-557"/>
         </scene>
         <!--File Browser View Controller-->
         <scene sceneID="xVd-9D-m54">
@@ -1502,7 +1502,7 @@
                 </viewController>
                 <customObject id="NnT-2V-riI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-534" y="539"/>
+            <point key="canvasLocation" x="15" y="-220"/>
         </scene>
         <!--Video Editor-->
         <scene sceneID="y5n-du-UaX">
@@ -1524,7 +1524,7 @@
                 </splitViewController>
                 <customObject id="K03-Hg-yfB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-293" y="2680"/>
+            <point key="canvasLocation" x="-97" y="992"/>
         </scene>
         <!--Video Player Controlls Controller-->
         <scene sceneID="px2-MB-SDI">
@@ -1854,7 +1854,7 @@
                 </viewController>
                 <customObject id="zYz-ZO-4e8" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1513" y="3084"/>
+            <point key="canvasLocation" x="-98" y="2413"/>
         </scene>
         <!--Video Player-->
         <scene sceneID="NSP-20-XAr">
@@ -1905,7 +1905,7 @@
                 </viewController>
                 <customObject id="PWZ-uy-RXA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1507" y="2649"/>
+            <point key="canvasLocation" x="-98" y="1886"/>
         </scene>
         <!--Editor Tab View Controller-->
         <scene sceneID="L4k-hf-rra">
@@ -1917,7 +1917,7 @@
                         <tabViewItem id="5gS-78-PU7" customClass="ThemeTabViewItem" customModule="Drone_Files" customModuleProvider="target"/>
                     </tabViewItems>
                     <tabView key="tabView" misplaced="YES" type="noTabsNoBorder" id="4zA-k8-0f3" customClass="ThemeTabView" customModule="Drone_Files" customModuleProvider="target">
-                        <rect key="frame" x="-2" y="0.0" width="867" height="618"/>
+                        <rect key="frame" x="-2" y="0.0" width="955" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="message"/>
                         <tabViewItems/>
@@ -1930,7 +1930,7 @@
                 </tabViewController>
                 <customObject id="1vV-02-af2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="814" y="893"/>
+            <point key="canvasLocation" x="815" y="-35"/>
         </scene>
         <!--File Manager-->
         <scene sceneID="GYP-4x-9bJ">
@@ -2189,7 +2189,7 @@
                 </viewController>
                 <customObject id="xpE-3s-qD4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="269" y="3939"/>
+            <point key="canvasLocation" x="2024" y="1006"/>
         </scene>
         <!--File Manager Options Tab View Controller-->
         <scene sceneID="pKn-Lr-XAT">
@@ -2218,7 +2218,7 @@
                 </tabViewController>
                 <customObject id="jAu-lD-Ozk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3925" y="2834"/>
+            <point key="canvasLocation" x="3192" y="2440"/>
         </scene>
         <!--Organize-->
         <scene sceneID="PH9-ic-RI5">
@@ -2376,7 +2376,7 @@
                 </viewController>
                 <customObject id="edT-XX-oEi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5114" y="2037.5"/>
+            <point key="canvasLocation" x="3927" y="2447"/>
         </scene>
         <!--Move-->
         <scene sceneID="K8z-0T-rEY">
@@ -2449,7 +2449,7 @@
                 </viewController>
                 <customObject id="wAS-qS-xZY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5061" y="1119.5"/>
+            <point key="canvasLocation" x="3920" y="2890"/>
         </scene>
         <!--Copy-->
         <scene sceneID="Up4-z5-joE">
@@ -2660,7 +2660,7 @@
                 </viewController>
                 <customObject id="Vu5-l1-dJi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4664" y="3313.5"/>
+            <point key="canvasLocation" x="3920" y="3329"/>
         </scene>
         <!--Rename-->
         <scene sceneID="GVB-ac-eqx">
@@ -2762,7 +2762,7 @@
                 </viewController>
                 <customObject id="S7g-Yv-I4s" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4664" y="3718.5"/>
+            <point key="canvasLocation" x="3920" y="3790"/>
         </scene>
         <!--Delete Files-->
         <scene sceneID="aSr-Cd-05K">
@@ -2824,7 +2824,7 @@
                 </viewController>
                 <customObject id="Kdn-tS-Ugd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4664" y="4138.5"/>
+            <point key="canvasLocation" x="3920" y="4201"/>
         </scene>
         <!--Image Editor View Controller-->
         <scene sceneID="x47-FK-JoV">
@@ -2877,7 +2877,7 @@
                 </viewController>
                 <customObject id="NBJ-iB-Fbv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="935" y="2680"/>
+            <point key="canvasLocation" x="897" y="1899"/>
         </scene>
         <!--Image Editor Controlls Controller-->
         <scene sceneID="EJ3-kw-fdF">
@@ -3217,7 +3217,7 @@
                 </viewController>
                 <customObject id="dv0-9k-nOr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="935" y="3133"/>
+            <point key="canvasLocation" x="897" y="2402"/>
         </scene>
         <!--Image Editor-->
         <scene sceneID="hEf-FO-LsI">
@@ -3242,7 +3242,7 @@
                 </splitViewController>
                 <customObject id="7us-QD-jfK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1805" y="1185"/>
+            <point key="canvasLocation" x="1008" y="992"/>
         </scene>
     </scenes>
     <resources>
