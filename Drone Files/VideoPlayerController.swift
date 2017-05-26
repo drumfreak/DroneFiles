@@ -77,7 +77,7 @@ class VideoPlayerViewController: NSViewController {
         
         //self.playerView.becomeFirstResponder()
 
-        print("Video appeared")
+        // print("Video appeared")
     }
     
     override func viewDidDisappear() {

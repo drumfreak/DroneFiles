@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var documentController = NSDocumentController.shared()
     
     // TODO: Eventually load all these view controllers from storyboard
-    // @IBOutlet var editorTabViewController: EditorTabViewController!
+  
     @IBOutlet var splitViewController: SplitViewController!
     @IBOutlet var fileBrowserViewController: FileBrowserViewController!
     @IBOutlet var fileManagerViewController: FileManagerViewController!
@@ -38,10 +38,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var toolBarController: ToolBarController!
     
+    var imageEditorControlsController = ImageEditorControlsController()
+
     var videoControlsController = VideoPlayerControllsController()
 
     var mediaBinCollectionView = MediaBinCollectionView()
-    
 
     
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
@@ -50,37 +51,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var fileCopyProgressView = FileCopyProgressIndicatorController()
     var fileCopyProgressViewWindowController = FileCopyProgressWindowController()
-    
-   //  let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
-    
-    
-    //    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
-    
+
     
     @IBOutlet weak var editorTabViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "editorTabViewController") as? EditorTabViewController
     
-    // @IBOutlet var videoControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoControlsController") as? VideoPlayerControllsController
     
     @IBOutlet weak var videoPlayerViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoPlayerViewController") as? VideoPlayerViewController
     
     @IBOutlet weak var imageEditorViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorViewController") as? ImageEditorViewController
     
-    @IBOutlet weak var imageEditorControlsController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "imageEditorControlsController") as? ImageEditorControllsController
-    
     var screenshotViewController = ScreenshotViewController()
     var screenshotSettingsWindowController = ScreenshotSettingsWindowController()
     
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
-    //
-    //@IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
-    
-    // @IBOutlet weak var toolBarViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "toolBarViewController") as? ToolBarViewController
+
     
     
     @IBOutlet weak var secondWindowController = SecondWindowController()
     @IBOutlet weak var secondaryDisplayMediaViewController = SecondaryDisplayMediaViewController()
-    
-    //NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "secondWindowController") as? SecondWindowController
+
     
     
     var slideShowWindowController: SlideShowWindowController?
@@ -137,6 +126,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let defaults = UserDefaults.standard
         //defaults.setValue([], forKey: "mediaBinUrls")
         //defaults.setValue([], forKey: "favoriteUrls")
+        
+        defaults.setValue(true, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
         
         if(defaults.value(forKey: "screenshotPreserveVideoName") == nil) {
             defaults.setValue(true, forKey: "screenshotSound")
@@ -398,23 +389,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         switch newTool {
         case 0:
-            self.imageEditorControlsController?.imageView?.currentToolMode = IKToolModeMove
+            self.imageEditorControlsController.imageView?.currentToolMode = IKToolModeMove
             break
         case 1:
-            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeSelect
+            self.imageEditorControlsController.imageView?.currentToolMode = IKToolModeSelect
             break
         case 2:
-            self.imageEditorControlsController?.cropImage(self)
+            self.imageEditorControlsController.cropImage(self)
             
             break
         case 3:
-            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeRotate
+            self.imageEditorControlsController.imageView?.currentToolMode = IKToolModeRotate
             break;
         case 4:
-            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeAnnotate
+            self.imageEditorControlsController.imageView?.currentToolMode = IKToolModeAnnotate
             break
         default:
-            self.imageEditorControlsController?.imageView.currentToolMode = IKToolModeNone
+            self.imageEditorControlsController.imageView?.currentToolMode = IKToolModeNone
             break
             
         }
@@ -559,7 +550,7 @@ extension AppDelegate {
                 }
                 
                 if(checkFolderAndCreate(folderPath: self.appSettings.thumbnailDirectory)) {
-                    print("Created thumbnail directory")
+                    // print("Created thumbnail directory")
                 }
                 
                 if(dictionary["favoriteUrls"] != nil) {

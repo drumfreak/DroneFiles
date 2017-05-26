@@ -15,7 +15,7 @@ import AVFoundation
 import Quartz
 import QuartzCore
 
-class ImageEditorControllsController: NSViewController {
+class ImageEditorControlsController: NSViewController {
     
     var zoomFactor =  0.0
     var rotationAngle = 0.0
@@ -94,7 +94,7 @@ class ImageEditorControllsController: NSViewController {
         
         let filterPanel = IKFilterBrowserPanel()
         
-        filterPanel.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: self, didEnd: #selector(ImageEditorControllsController.modalEnded), contextInfo: nil)
+        filterPanel.beginSheet(options: [:], modalFor: self.appDelegate.window, modalDelegate: self, didEnd: #selector(ImageEditorControlsController.modalEnded), contextInfo: nil)
         
         let nc = NotificationCenter.default
         
@@ -176,7 +176,7 @@ class ImageEditorControllsController: NSViewController {
             
             self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().width)! / 2), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 2)))
             self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
-            self.zoomVerticalSlider.doubleValue = self.zoomFactor
+            self.zoomVerticalSlider?.doubleValue = self.zoomFactor
             //  self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
             print("Setting Rotation to: \(self.rotationAngle)")
         }
@@ -192,7 +192,7 @@ class ImageEditorControllsController: NSViewController {
             
             self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().width)! / 2), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 2)))
             self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
-            self.zoomSlider.doubleValue = self.zoomFactor
+            self.zoomSlider?.doubleValue = self.zoomFactor
             
             //  self.appDelegate.imageEditorViewController?.imageView.zoomImageToFit(nil)
             print("Setting Rotation to: \(self.rotationAngle)")
@@ -291,7 +291,7 @@ class ImageEditorControllsController: NSViewController {
             self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat(0), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 3)))
             
             
-            self.zoomSlider.doubleValue = self.zoomFactor
+            self.zoomSlider?.doubleValue = self.zoomFactor
         }
     }
     
@@ -300,7 +300,7 @@ class ImageEditorControllsController: NSViewController {
             
             self.zoomFactor = self.zoomFactor - self.zoomOutFactor
             self.appDelegate.imageEditorViewController?.imageView.setImageZoomFactor(CGFloat(self.zoomFactor), center: NSPoint(x: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().width)! / 2), y: CGFloat( (self.appDelegate.imageEditorViewController?.imageView.imageSize().height)! / 2)))
-            self.zoomSlider.doubleValue = self.zoomFactor
+            self.zoomSlider?.doubleValue = self.zoomFactor
         }
     }
     
@@ -390,7 +390,7 @@ class ImageEditorControllsController: NSViewController {
             let angle = CGFloat(-(degrees / 180) * CGFloat(Double.pi))
             //print("Setting Angle to: \(angle)")
             self.appDelegate.imageEditorViewController?.imageView.rotationAngle = angle
-            self.rotationSlider.doubleValue = self.rotationAngle
+            self.rotationSlider?.doubleValue = self.rotationAngle
         }
     }
     
@@ -474,8 +474,8 @@ class ImageEditorControllsController: NSViewController {
                 break
             }
             
-            self.zoomSlider.doubleValue = self.zoomFactor
-            self.zoomVerticalSlider.doubleValue = self.zoomFactor
+            self.zoomSlider?.doubleValue = self.zoomFactor
+            self.zoomVerticalSlider?.doubleValue = self.zoomFactor
         }
         
     }

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ImageEditorControlsController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="controlsBox" destination="svg-dn-ScT" id="BGc-ye-Gi4"/>
+                <outlet property="nowPlayingFile" destination="6L6-9B-bfl" id="zuT-5L-VsD"/>
+                <outlet property="view" destination="set-fe-p7b" id="MOl-8O-daY"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view identifier="imageEditorControlsController" id="set-fe-p7b" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="759" height="338"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6L6-9B-bfl" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="22" y="294" width="315" height="33"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Image Name" id="hdO-ps-XUh">
+                        <font key="font" metaFont="systemBold" size="15"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCH-ar-OwS" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="379" y="299" width="80" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Edit" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="5dt-IG-ddl">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggleEditorControls:" target="-2" id="9dA-DE-fB6"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFX-C7-SuX" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="477" y="299" width="80" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Airdrop" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="292-FX-p1f">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="shareAirdropWithSender:" target="-2" id="njf-wO-B0G"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hal-av-HV3" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="575" y="299" width="80" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Share" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="aIv-kI-jSZ">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="shareFacebookWithSender:" target="-2" id="f7w-3i-Vwr"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kbe-zP-dNJ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="673" y="299" width="80" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Preview" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="C6h-Zc-oDi">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openPreviewWithSender:" target="-2" id="Q8d-aD-HjW"/>
+                    </connections>
+                </button>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="svg-dn-ScT">
+                    <rect key="frame" x="0.0" y="0.0" width="759" height="286"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q2Q-I2-JsU">
+                            <rect key="frame" x="395" y="151" width="51" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="+0.1" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-tC-ob8">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotateRight:" target="-2" id="9uj-q9-9nB"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dol-nW-Q0D" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="672" y="253" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Save" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="zGc-bu-Jo1">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="saveImage:" target="-2" id="btq-CD-0Qp"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hEN-ge-t7t">
+                            <rect key="frame" x="247" y="151" width="51" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="-1.0" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qh3-7i-4PL">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotateLeft1:" target="-2" id="qia-bM-MY3"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RBw-ZO-YUR">
+                            <rect key="frame" x="341" y="151" width="51" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="0" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xyZ-3M-IYE">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="resetImage:" target="-2" id="7FV-9s-pWC"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Jr-B6-2Xm" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="282" y="72" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Zoom Out" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="xBJ-jv-8RN">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="zoomOut:" target="-2" id="chL-HF-pVj"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y5T-84-o4e" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="281" y="253" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Move" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Ecf-bL-kbv">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="moveImage:" target="-2" id="UUy-Pv-kAf"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hmE-uZ-UAr" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="175" y="72" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Zoom In" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="PxU-XO-cs3">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="zoomIn:" target="-2" id="Fl5-hW-8Hd"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Q4-kp-X1q" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="376" y="253" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Appaearance" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="D8w-gC-6B9">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X07-Vy-dyk">
+                            <rect key="frame" x="630" y="69" width="19" height="92.5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="right" sliderType="linear" id="gTW-TR-UbD"/>
+                            <connections>
+                                <action selector="zoomVerticalSliderChanged:" target="-2" id="34w-gs-gRo"/>
+                            </connections>
+                        </slider>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FMJ-Od-OBk">
+                            <rect key="frame" x="443" y="151" width="55" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="+1.0" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eI1-JR-1Zw">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotateRight1:" target="-2" id="eVW-ta-QmI"/>
+                            </connections>
+                        </button>
+                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Exk-CQ-R0s">
+                            <rect key="frame" x="168" y="37" width="423" height="19"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="cRi-wV-wvj"/>
+                            <connections>
+                                <action selector="zoomSliderChanged:" target="-2" id="7cD-gS-Xm7"/>
+                            </connections>
+                        </slider>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jqe-aF-kRn" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="504" y="72" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Fit" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="xGy-wF-VJk">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cP2-Ce-VnO" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="670" y="216" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Filters" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="tR6-1y-hV2">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showFilterWindow:" target="-2" id="h7G-2x-cMC"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WaN-hy-bZB">
+                            <rect key="frame" x="493" y="151" width="51" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="+90" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MGG-AQ-yMU">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotateRight90:" target="-2" id="2bN-2c-oB5"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uu9-C5-Jnl" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="474" y="253" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Reset" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Uce-Gx-Mxq">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="resetImage:" target="-2" id="QA5-5e-2oV"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95u-u3-LBk" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="577" y="253" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Cancel" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="QnX-Qs-ftd">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="cancelImage:" target="-2" id="B2r-4Y-KZ8"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZL-W3-oAC">
+                            <rect key="frame" x="293" y="151" width="51" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="-0.1" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7gx-fQ-PEe">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotateLeft:" target="-2" id="48P-ah-jsf"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fxs-Ar-uN8" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="392" y="72" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Zoom Full" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="6It-ZX-G2V">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GNW-sw-Aah" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="578" y="216" width="80" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Crop" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="SEq-CE-Mwa">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="cropImage:" target="-2" id="f9S-Zf-f60"/>
+                            </connections>
+                        </button>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRu-Zf-fwB" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="358" y="113" width="43" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="right" title="Zoom:" id="ped-0k-bB2">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cYp-aS-9Tp">
+                            <rect key="frame" x="168" y="183" width="423" height="19"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <sliderCell key="cell" refusesFirstResponder="YES" state="on" alignment="left" minValue="-180" maxValue="180" doubleValue="23.636893656716438" tickMarkPosition="above" sliderType="linear" id="ZAz-8S-jV7"/>
+                            <connections>
+                                <action selector="rotationSliderChanged:" target="-2" id="4n4-RE-iWz"/>
+                            </connections>
+                        </slider>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trB-wu-7Xt">
+                            <rect key="frame" x="203" y="151" width="49" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="-90" bezelStyle="rounded" alignment="center" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yoj-DS-5Sp">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="rotateLeft90:" target="-2" id="Jh0-NV-068"/>
+                            </connections>
+                        </button>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXM-yr-rdS" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="350" y="216" width="59" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="right" title="Rotation:" id="Jvo-0Q-5Eg">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz5-g1-ub8" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="18" y="261" width="83" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Edit Controls" id="tSC-3k-ev9">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="-128.5" y="187"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="darkbackground" width="1200" height="1000"/>
+    </resources>
+</document>

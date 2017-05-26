@@ -1021,7 +1021,9 @@ extension FileBrowserViewController: NSTableViewDelegate {
         //DispatchQueue.main.async {
             
             while(i < self.tableView.numberOfRows) {
-                
+                if(i < 0) {
+                    return
+                }
                 let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
                 
                 // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor

@@ -10,22 +10,26 @@ import Foundation
 import Cocoa
 
 class ImageEditorSplitViewController: NSSplitViewController {
-    
-    @IBOutlet var mySplitView: NSSplitView!
-    @IBOutlet var leftView: NSSplitViewItem!
-    @IBOutlet var rightView: NSSplitViewItem!
-    @IBOutlet weak var splitViewRightController: SplitViewRightViewController!
-    
-    
+    // @IBOutlet weak var splitViewRightController: SplitViewRightViewController!
+    @IBOutlet var imageEditorControlsSplitView: NSSplitViewItem!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // mySplitView.adjustSubviews();
         self.appDelegate.imageEditorSplitViewController = self
-        //DispatchQueue.main.async {
+        
         self.view.wantsLayer = true
+        
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-        //}
-    }
+        
+        self.imageEditorControlsSplitView = NSSplitViewItem.init(viewController: self.appDelegate.imageEditorControlsController)
+        
+        self.imageEditorControlsSplitView.holdingPriority = 10
+        
+        self.addSplitViewItem(self.imageEditorControlsSplitView)
+        
+        self.splitView.adjustSubviews()
+        
+        self.appDelegate.rightPanelSplitViewController?.splitView.adjustSubviews()    }
     
 }
