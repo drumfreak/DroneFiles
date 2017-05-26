@@ -16,11 +16,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view identifier="imageEditorControlsController" id="set-fe-p7b" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="759" height="338"/>
+            <rect key="frame" x="0.0" y="0.0" width="759" height="450"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6L6-9B-bfl" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="22" y="294" width="315" height="33"/>
+                    <rect key="frame" x="22" y="406" width="315" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Image Name" id="hdO-ps-XUh">
                         <font key="font" metaFont="systemBold" size="15"/>
@@ -29,7 +29,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCH-ar-OwS" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="379" y="299" width="80" height="25"/>
+                    <rect key="frame" x="379" y="411" width="80" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Edit" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="5dt-IG-ddl">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -40,7 +40,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFX-C7-SuX" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="477" y="299" width="80" height="25"/>
+                    <rect key="frame" x="477" y="411" width="80" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Airdrop" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="292-FX-p1f">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,7 +51,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hal-av-HV3" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="575" y="299" width="80" height="25"/>
+                    <rect key="frame" x="575" y="411" width="80" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Share" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="aIv-kI-jSZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -62,7 +62,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kbe-zP-dNJ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="673" y="299" width="80" height="25"/>
+                    <rect key="frame" x="673" y="411" width="80" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Preview" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="C6h-Zc-oDi">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -73,7 +73,7 @@
                     </connections>
                 </button>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="svg-dn-ScT">
-                    <rect key="frame" x="0.0" y="0.0" width="759" height="286"/>
+                    <rect key="frame" x="0.0" y="112" width="759" height="286"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q2Q-I2-JsU">

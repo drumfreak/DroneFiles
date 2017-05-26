@@ -55,16 +55,12 @@ class ToolBarController: NSToolbar {
         })
     }
     
-    
-    
-    
+
     @IBAction func showVideoEditorTab(_ sender: AnyObject?) {
         if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
             self.appDelegate.rightPanelSplitViewController.showVideoSplitView()
         }
     }
-    
-
     
     @IBAction func showImageEditorTab(_ sender: AnyObject?) {
         if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
@@ -88,6 +84,10 @@ class ToolBarController: NSToolbar {
              self.appDelegate.secondaryDisplayMediaViewController?.view.window?.close()
         }
         
+    }
+    
+    @IBAction func toggleMediaBin(_ sender: AnyObject?) {
+        self.appDelegate.mediaBinCollectionView.hideScreenshotSlider(self)
     }
     
 }

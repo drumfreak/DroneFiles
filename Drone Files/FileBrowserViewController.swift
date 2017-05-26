@@ -723,7 +723,7 @@ class FileBrowserViewController: NSViewController {
                 self.appDelegate.readProjectFile(projectFile: item.url.absoluteString)
             }
             
-            if(_extension == "MOV" || _extension == "mov" || _extension == "mp4" || _extension == "MP4" || _extension == "m4v" || _extension == "M4V") {
+            if(isMov(file:item.url)) {
                 
                 if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
                     self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
@@ -757,7 +757,7 @@ class FileBrowserViewController: NSViewController {
                 // self.editorTabViewController.videoPlayerViewController.VideoEditView.isHidden = true;
             }
             
-            if(_extension == "JPG" || _extension == "jpg" || _extension == "DNG" || _extension == "dng" || _extension == "png" || _extension == "PNG") {
+            if(isImage(file: item.url)) {
                 
                 // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
                 

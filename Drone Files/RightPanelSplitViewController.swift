@@ -56,8 +56,6 @@ class RightPanelSplitViewController: NSSplitViewController {
         }
         self.appDelegate.appSettings.imageEditorSplitViewIsOpen = false
         self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false
-        
-
     }
     
     func showImageEditorSplitView() {
