@@ -29,6 +29,7 @@
 		1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0131ED0C6FC00928FD7 /* heart-inactive.png */; };
 		1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0141ED0C6FC00928FD7 /* heart-active.png */; };
 		1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */; };
+		1869FBE91ED884A800EC639E /* FavoritesCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */; };
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
 		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
 		18740B6F1ECD5522003803B4 /* MediaBinCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */; };
@@ -150,6 +151,7 @@
 		1860F0131ED0C6FC00928FD7 /* heart-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-inactive.png"; path = "../../../Dronefiles/heart-inactive.png"; sourceTree = "<group>"; };
 		1860F0141ED0C6FC00928FD7 /* heart-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-active.png"; path = "../../../Dronefiles/heart-active.png"; sourceTree = "<group>"; };
 		1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesCollectionView.xib; sourceTree = "<group>"; };
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
 		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
 		18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaBinCollectionView.swift; sourceTree = "<group>"; };
@@ -256,6 +258,9 @@
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */,
 				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
+				1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */,
+				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
+				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
 				18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */,
 				184AD80E1ED736BC001209F5 /* MediaBinCollectionView.xib */,
 				18590E351ED7E55100305E68 /* VideoPlayerView.xib */,
@@ -282,8 +287,6 @@
 		1860F0171ED0C7CD00928FD7 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
-				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
 			);
 			name = Favorites;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1869FBE91ED884A800EC639E /* FavoritesCollectionView.xib in Resources */,
 				188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */,
 				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
 				188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */,

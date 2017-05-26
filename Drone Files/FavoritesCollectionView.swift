@@ -118,9 +118,6 @@ class FavoritesCollectionViewController: NSViewController {
         // }
     }
     
-    
-    
-    
     @IBAction func clearMediaBin (_ sender : AnyObject) {
         self.appDelegate.appSettings.favoriteUrls.removeAll(keepingCapacity: false)
         self.reloadContents()
@@ -128,7 +125,7 @@ class FavoritesCollectionViewController: NSViewController {
     
     
     @IBAction func startMediaShow (_ sender : AnyObject) {
-        //  self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
+        //self.appDelegate.appSettings.mediaBinUrls.removeAll(keepingCapacity: false)
         
         // self.reloadContents()
         

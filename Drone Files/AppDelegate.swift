@@ -71,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     //
     //@IBOutlet weak var slideShowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "slideShowController") as? SlideShowController
     
-    @IBOutlet weak var toolBarViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "toolBarViewController") as? ToolBarViewController
+    // @IBOutlet weak var toolBarViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "toolBarViewController") as? ToolBarViewController
     
     
     @IBOutlet weak var secondWindowController = SecondWindowController()
