@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="File Copy Progress" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gn-dB-mav" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                        <rect key="frame" x="33" y="122" width="414" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="0 Files Copied / Total Size: 0mb" id="Ep5-6c-CGT">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="tYl-CV-q6l">
+                        <rect key="frame" x="35" y="146" width="410" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </progressIndicator>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fS3-Ww-00t" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                        <rect key="frame" x="160" y="173" width="161" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="File Operation In Progress" id="7Kx-f3-93C">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctB-jL-YBY" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                        <rect key="frame" x="188" y="80" width="100" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Ok!" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Bbr-ot-VtZ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closeWindow:" target="kFt-hm-NYP" id="6iB-A7-TgV"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+        <viewController id="kFt-hm-NYP" customClass="FileCopyProgressIndicatorController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="fileCopyProgressIndicator" destination="tYl-CV-q6l" id="Jw4-3V-QjW"/>
+                <outlet property="fileCopyStatusLabel" destination="8gn-dB-mav" id="Nbn-jB-x6A"/>
+                <outlet property="okayButton" destination="ctB-jL-YBY" id="WFm-8D-EPG"/>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="R9w-Ff-vej"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="pFy-Yk-O8O"/>
+            </connections>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="darkbackground" width="1200" height="1000"/>
+    </resources>
+</document>

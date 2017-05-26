@@ -15,7 +15,37 @@ import AVFoundation
 import Quartz
 
 
+class FileCopyProgressWindowController: NSWindowController {
+    override var windowNibName: String? {
+        return "FileCopyProgressWindow" // no extension .xib here
+    }
+    
+    //    override func windowDidLoad() {
+    //        super.windowDidLoad()
+    //    }
+    //
+    //    override init(window: NSWindow!) {
+    //        super.init(window: window)
+    //     }
+    //
+    //    required init?(coder: NSCoder) {
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
+    //
+    //    override func awakeFromNib() {
+    //        super.awakeFromNib()
+    //    }
+    
+}
+
+
+
+
 class FileCopyProgressIndicatorController: NSViewController {
+    
+    @IBOutlet var window: NSWindow!
+
+    
     @IBOutlet var fileCopyProgressIndicator: NSProgressIndicator!
     @IBOutlet var fileCopyStatusLabel: NSTextField!
     @IBOutlet weak var whatTheFucktimer: Timer!
@@ -83,12 +113,26 @@ class FileCopyProgressIndicatorController: NSViewController {
     
     var tmpSize = Int(0)
     
-    @IBOutlet var okayButton: NSButton!
-    
-    
+    @IBOutlet var okayButton: NSButton!    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
+        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+        
+        self.window?.orderFront(self.view.window)
+        self.window?.becomeFirstResponder()
+        self.window?.titlebarAppearsTransparent = true
+        
+        self.view.wantsLayer = true
+        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+        self.appDelegate.fileCopyProgressView = self
+
     }
+    
+   // 08RDE1G00101X9
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -114,7 +158,9 @@ class FileCopyProgressIndicatorController: NSViewController {
         
         let numFilestotal =  String(format: "%2d", self.totalNumfiles)
         
-        let foo = self.appDelegate.fileManagerViewController?.calculateSingleFileSize(fileUrl: self.destinationCurrentFile)
+        let destination = self.destinationCurrentFile
+        
+        let foo = self.appDelegate.fileManagerViewController?.calculateSingleFileSize(fileUrl: destination)
         
         let tmpSize = self.destinationCurrentFileSize
         
@@ -146,8 +192,6 @@ class FileCopyProgressIndicatorController: NSViewController {
         // }
         
         if(!self.pauseTimer) {
-            
-            
             self.progress = ceil(Double(Double(self.bytesTransferred) / Double(self.destinationSize))*100)
             
             DispatchQueue.main.async {
@@ -167,7 +211,7 @@ class FileCopyProgressIndicatorController: NSViewController {
     }
     
     @IBAction func closeWindow(_ sender: AnyObject) {
-        self.appDelegate.fileManagerOptionsCopyController.dismissViewController(self)
+        self.view.window?.close()
     }
     
     func startTimer() {

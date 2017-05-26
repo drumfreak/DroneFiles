@@ -19,6 +19,7 @@
 		184AD80F1ED736BC001209F5 /* MediaBinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD80E1ED736BC001209F5 /* MediaBinView.xib */; };
 		184AD8121ED739E6001209F5 /* NewProjectWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184AD8111ED739E6001209F5 /* NewProjectWindow.xib */; };
 		184BB2361ED77AE300D73B8A /* ScreenshotSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */; };
+		184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */; };
 		1850908F1ED664CF007933FC /* ToolBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850908E1ED664CF007933FC /* ToolBarViewController.swift */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -139,6 +140,7 @@
 		184AD80E1ED736BC001209F5 /* MediaBinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaBinView.xib; sourceTree = "<group>"; };
 		184AD8111ED739E6001209F5 /* NewProjectWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewProjectWindow.xib; sourceTree = "<group>"; };
 		184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenshotSettingsWindow.xib; sourceTree = "<group>"; };
+		184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileCopyProgressWindow.xib; sourceTree = "<group>"; };
 		1850908E1ED664CF007933FC /* ToolBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarViewController.swift; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -256,6 +258,8 @@
 				184AD80E1ED736BC001209F5 /* MediaBinView.xib */,
 				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
 				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
+				184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */,
+				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
 				184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */,
 				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
@@ -394,7 +398,6 @@
 				188272151ECA5FD300EE50D0 /* Document.swift */,
 				188272171ECA61F000EE50D0 /* DocumentController.swift */,
 				18A483041EAFFEB3007F735B /* FileManagerOptionsTabViewController.swift */,
-				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
 				185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */,
 				185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */,
 				185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */,
@@ -627,6 +630,7 @@
 				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
 				188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */,
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
+				184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */,
 				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
 				1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */,

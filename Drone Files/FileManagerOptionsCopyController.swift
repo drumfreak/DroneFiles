@@ -333,6 +333,10 @@ class FileManagerOptionsCopyController: NSViewController {
         
         if(fileUrls.count > 0) {
             
+            self.appDelegate.fileCopyProgressViewWindowController = FileCopyProgressWindowController()
+            
+            self.appDelegate.fileCopyProgressView = FileCopyProgressIndicatorController()
+            
             self.appDelegate.fileCopyProgressView.totalNumfilesTransferred = 0
             
             self.appDelegate.fileCopyProgressView.currentFileNumber = 0
@@ -344,7 +348,9 @@ class FileManagerOptionsCopyController: NSViewController {
             
             self.appDelegate.fileCopyProgressView.totalNumfiles = fileSizes?["totalFiles"] as! Int
             
-            self.presentViewControllerAsModalWindow(self.appDelegate.fileCopyProgressView)
+            self.appDelegate.fileCopyProgressViewWindowController.window?.makeKeyAndOrderFront(self)
+            
+            // self.presentViewControllerAsModalWindow(self.appDelegate.fileCopyProgressView)
             
             var errors = false
             

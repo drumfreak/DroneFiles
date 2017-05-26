@@ -180,6 +180,10 @@ class FileManagerViewController: NSViewController {
         let urlPath = fileUrl
         let url = URL(string: urlPath)
         var attributes = NSMutableDictionary()
+        
+        print(url!.absoluteString)
+        
+        
         let path = getPathFromURL(path: (url?.absoluteString)!)
         
         

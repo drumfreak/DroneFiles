@@ -45,7 +45,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var favoritesViewController: FavoritesViewController!
     
-    let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
+    var fileCopyProgressView = FileCopyProgressIndicatorController()
+    var fileCopyProgressViewWindowController = FileCopyProgressWindowController()
+    
+   //  let fileCopyProgressView = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "fileCopyProgressView") as! FileCopyProgressIndicatorController
     
     
     //    @IBOutlet weak var windowController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "windowController") as? WindowController
