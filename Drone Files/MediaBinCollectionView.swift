@@ -300,8 +300,8 @@ class MediaBinCollectionView: NSViewController {
     func hideMediaBin() {
         self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
         self.splitItem.isCollapsed = true
-        self.splitItem.holdingPriority = 250
-        self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+       // self.splitItem.holdingPriority = 250
+       // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
 
     }
     
@@ -320,7 +320,7 @@ class MediaBinCollectionView: NSViewController {
         // self.view.isHidden = true
         
               //  foo.isCollapsed = false
-        self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+       // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
     }
     
     func deselectAll() {

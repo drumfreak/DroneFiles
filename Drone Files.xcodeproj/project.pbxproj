@@ -25,7 +25,6 @@
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
 		185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */; };
-		185F4C361EB124440046C452 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C351EB124440046C452 /* Window.swift */; };
 		1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0131ED0C6FC00928FD7 /* heart-inactive.png */; };
 		1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 1860F0141ED0C6FC00928FD7 /* heart-active.png */; };
 		1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */; };
@@ -150,7 +149,6 @@
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
 		185F4C331EB0398F0046C452 /* FileManagerOptionsDeleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsDeleteController.swift; sourceTree = "<group>"; };
-		185F4C351EB124440046C452 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		1860F0131ED0C6FC00928FD7 /* heart-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-inactive.png"; path = "../../../Dronefiles/heart-inactive.png"; sourceTree = "<group>"; };
 		1860F0141ED0C6FC00928FD7 /* heart-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-active.png"; path = "../../../Dronefiles/heart-active.png"; sourceTree = "<group>"; };
 		1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -510,7 +508,6 @@
 			isa = PBXGroup;
 			children = (
 				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
-				185F4C351EB124440046C452 /* Window.swift */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -689,7 +686,6 @@
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
 				18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */,
 				18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */,
-				185F4C361EB124440046C452 /* Window.swift in Sources */,
 				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
 				1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */,

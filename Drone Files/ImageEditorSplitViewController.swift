@@ -24,12 +24,16 @@ class ImageEditorSplitViewController: NSSplitViewController {
         
         self.imageEditorControlsSplitView = NSSplitViewItem.init(viewController: self.appDelegate.imageEditorControlsController)
         
-        self.imageEditorControlsSplitView.holdingPriority = 10
+        self.imageEditorControlsSplitView.holdingPriority = 40
+        
+
         
         self.addSplitViewItem(self.imageEditorControlsSplitView)
         
         self.splitView.adjustSubviews()
         
-        self.appDelegate.rightPanelSplitViewController?.splitView.adjustSubviews()    }
+
+        // self.appDelegate.rightPanelSplitViewController?.splitView.adjustSubviews()
+    }
     
 }

@@ -15,12 +15,8 @@ class ToolBarViewController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         DispatchQueue.main.async {
-            // self.statusLabel.stringValue = "0 Items Selected"
-            // self.projectNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
-            
             self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
         }
-
     }
     
     
@@ -42,13 +38,6 @@ class ToolBarViewController: NSViewController {
                     
                     self.appDelegate.fileBrowserViewController?.setupProjectDirectory()
                     self.appDelegate.fileBrowserViewController?.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)
-                    
-                    
-                    //                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
-                    //                        print("Fuck yeah \(String(describing: document))")
-                    //                        print("Error: \(String(describing: err))")
-                    //                    })
-                    
                 }
             }
             

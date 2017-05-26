@@ -25,10 +25,12 @@ class VideoSplitViewController: NSSplitViewController {
     
         self.videoControlsSplitView.holdingPriority = 10
 
+        self.splitView.setPosition(CGFloat(464.0), ofDividerAt: 0)
+        
         self.addSplitViewItem(self.videoControlsSplitView)
         
         self.splitView.adjustSubviews()
     
-        self.appDelegate.rightPanelSplitViewController?.splitView.adjustSubviews()
+        //self.appDelegate.rightPanelSplitViewController?.splitView.adjustSubviews()
     }
 }

@@ -22,6 +22,11 @@ class SplitViewController: NSSplitViewController {
         self.leftView = self.splitViewItem(for: self.appDelegate.fileBrowserViewController)
         self.rightView = self.splitViewItem(for: self.appDelegate.rightPanelSplitViewController)
 
+        self.view.wantsLayer = true
+        
+        self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+
             
     }
 

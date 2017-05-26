@@ -21,6 +21,7 @@ class ToolBarController: NSToolbar {
 
     override init(identifier: String) {
         super.init(identifier: identifier)
+        
     }
     
  
@@ -47,6 +48,7 @@ class ToolBarController: NSToolbar {
                     self.appDelegate.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
                     
                     self.appDelegate.fileBrowserViewController?.setupProjectDirectory()
+                    
                     self.appDelegate.fileBrowserViewController?.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)
         
                 }
@@ -76,7 +78,6 @@ class ToolBarController: NSToolbar {
     }
     
     @IBAction func showSecondDisplayTab(_ sender: AnyObject?) {
-        
         if(self.appDelegate.appSettings.secondDisplayIsOpen == false) {
             self.secondWindowController = SecondWindowController()
             self.secondWindowController?.showWindow(self)
@@ -96,12 +97,6 @@ class ToolBarController: NSToolbar {
 
 
 class ThemeToolBarItem: NSToolbarItem {
-
-    // view = self.app
-    // required override init(itemIdentifier: String) {
-        
-        
-    // }
 }
 
 

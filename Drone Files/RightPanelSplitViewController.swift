@@ -32,9 +32,7 @@ class RightPanelSplitViewController: NSSplitViewController {
         
         self.appDelegate.mediaBinCollectionView.reloadContents()
         
-        self.splitView.adjustSubviews()
-        
-        
+    
         self.videoSplitview =  self.splitViewItem(for: self.appDelegate.videoSplitViewController!)!
         
         self.fileManagerSplitView =  self.splitViewItem(for: self.appDelegate.fileManagerViewController!)!
@@ -42,6 +40,7 @@ class RightPanelSplitViewController: NSSplitViewController {
         self.imageEditorSplitView =  self.splitViewItem(for: self.appDelegate.imageEditorSplitViewController!)!
         
         self.showVideoSplitView()
+        self.splitView.adjustSubviews()
     }
     
     
@@ -51,8 +50,8 @@ class RightPanelSplitViewController: NSSplitViewController {
             self.fileManagerSplitView.isCollapsed = true
             self.imageEditorSplitView.isCollapsed = true
             self.videoSplitview.isCollapsed = false
-            self.splitView.adjustSubviews()
-        
+            self.appDelegate.videoSplitViewController?.splitView.setPosition(CGFloat(464.0), ofDividerAt:0)
+           // self.splitView.adjustSubviews()
         }
         self.appDelegate.appSettings.imageEditorSplitViewIsOpen = false
         self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false
@@ -65,7 +64,9 @@ class RightPanelSplitViewController: NSSplitViewController {
             self.fileManagerSplitView.isCollapsed = true
             self.imageEditorSplitView.isCollapsed = false
             self.videoSplitview.isCollapsed = true
-            self.splitView.adjustSubviews()
+            //self.splitView.setPosition(CGFloat(464), ofDividerAt:1)
+            self.appDelegate.imageEditorSplitViewController?.splitView.setPosition(CGFloat(464.0), ofDividerAt:0)
+           // self.splitView.adjustSubviews()
         }
         self.appDelegate.appSettings.videoSplitViewIsOpen = false
         self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false
@@ -80,7 +81,7 @@ class RightPanelSplitViewController: NSSplitViewController {
             self.fileManagerSplitView.isCollapsed = false
             self.imageEditorSplitView.isCollapsed = true
             self.videoSplitview.isCollapsed = true
-            self.splitView.adjustSubviews()
+           // self.splitView.adjustSubviews()
         }
         self.appDelegate.appSettings.videoSplitViewIsOpen = false
         self.appDelegate.appSettings.imageEditorSplitViewIsOpen = false
