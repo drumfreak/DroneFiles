@@ -24,7 +24,8 @@ class FileManagerOptionsTabViewController: NSTabViewController {
                 self.appDelegate.fileManagerOptionsMoveController.receivedFiles = receivedFiles
                 self.appDelegate.fileManagerOptionsRenameController.receivedFiles = receivedFiles
                 self.appDelegate.fileManagerOptionsDeleteController.receivedFiles = receivedFiles
-                
+                self.appDelegate.timeLapseViewController.receivedFiles = receivedFiles
+
                 self.fileSizes = (self.appDelegate.fileManagerViewController?.calculateFileSizesToDestination(fileUrls: self.receivedFiles as! Array<Any>))!
                 
             }
@@ -34,12 +35,9 @@ class FileManagerOptionsTabViewController: NSTabViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
  
-        
         //  self.tabView.
         // print("FileManagerOptionsTabViewController loaded")
         
@@ -52,6 +50,9 @@ class FileManagerOptionsTabViewController: NSTabViewController {
         self.appDelegate.fileManagerOptionsRenameController = self.childViewControllers[3] as! FileManagerOptionsRenameController
         
         self.appDelegate.fileManagerOptionsDeleteController = self.childViewControllers[4] as! FileManagerOptionsDeleteController
+        
+         self.appDelegate.timeLapseViewController = self.childViewControllers[5] as! TimeLapseViewController
+        
     }
     
 }

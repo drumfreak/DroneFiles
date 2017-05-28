@@ -8,7 +8,7 @@
 
 import Foundation
 import Cocoa
-
+import AVFoundation
 
 class MediaBinCollectionView: NSViewController {
     // View controllers
@@ -21,6 +21,7 @@ class MediaBinCollectionView: NSViewController {
     @IBOutlet var mediaShowRateLabel: NSTextField!
     @IBOutlet weak var mediaBinSlideshowTimer: Timer!
     
+    var slideshowPausedForVideo = false
     var splitItem: NSSplitViewItem!
     
     var viewConfigured = false
@@ -38,9 +39,9 @@ class MediaBinCollectionView: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //DispatchQueue.main.async {
-            self.view.wantsLayer = true
-            self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
-      
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = self.appSettings.appBackgroundColor.cgColor
+        
         // }
         
         self.mediaShowIntervalSlider.doubleValue =  self.appSettings.mediaBinTimerInterval
@@ -51,7 +52,7 @@ class MediaBinCollectionView: NSViewController {
             self.reloadContents()
             self.selectItemOne()
         }
-
+        
         
         self.appDelegate.mediaBinCollectionView = self
         //        self.collectionView.resignFirstResponder()
@@ -69,7 +70,7 @@ class MediaBinCollectionView: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-    
+        
     }
     
     
@@ -94,26 +95,67 @@ class MediaBinCollectionView: NSViewController {
         }
         let img = (item as! ScreenShotCollectionViewItem)
         
-        
-        //  print(img.imageFile)
-        
-        if(self.appSettings.secondDisplayIsOpen) {
-            // print("Displaying item on second screen...")
-            self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+        let url = img.imageFile?.imgUrl
+
+        if(self.appDelegate.isMov(file:url!)) {
+            // Load video.
             
-        } else {
-            
-            if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
-                self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
+            if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
+                self.stopTimerForVideo()
             }
             
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
+                self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+            }
+            
+            // nowPlayingFile.stringValue = item.name;
+            var itemUrl = url!.absoluteString
+            itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
+            // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
+            
+            DispatchQueue.main.async {
+                self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
+                self.appDelegate.videoControlsController.nowPlayingFile?.stringValue = (url?.lastPathComponent)!
+            }
+            
+            self.appDelegate.videoControlsController.currentVideoURL = url
+            
+            // self.appDelegate.videoPlayerViewController?.nowPlayingURL = (url)
+            
+            self.appDelegate.videoPlayerViewController?.playVideo(_url: url!, frame:kCMTimeZero, startPlaying: true);
+            
+            self.appDelegate.videoControlsController.nowPlayingURLString = itemUrl
+            
+            self.appDelegate.appSettings.lastFileOpened = url!.absoluteString
+            self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url!)
+            
+            
+        }
+        
+        
+        if(self.appDelegate.isImage(file:(img.imageFile?.imgUrl)!)) {
+            
+            
+            //  print(img.imageFile)
+            
+            if(self.appSettings.secondDisplayIsOpen) {
+                // print("Displaying item on second screen...")
+                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+                
+            } else {
+                
+                if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+                    self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
+                }
+                
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+            }
         }
         
         //DispatchQueue.main.async {
-            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
-       // }
+        (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        // }
     }
     
     
@@ -126,7 +168,7 @@ class MediaBinCollectionView: NSViewController {
         var boo = [] as NSArray
         var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
         
-       
+        
         if(foo.count > self.collectionViewLimit) {
             boo = Array(foo.prefix(self.collectionViewLimit)) as NSArray
             foo = boo.mutableCopy() as! NSMutableArray
@@ -137,15 +179,15 @@ class MediaBinCollectionView: NSViewController {
             self.mediaBinLoader.loadDataFromUrls(foo)
             self.collectionView?.reloadData()
         }
-    
-        //DispatchQueue.main.async {
-            NSAnimationContext.runAnimationGroup({context in
-                context.duration = 1.0
-                 self.configureCollectionView()
         
-            }) {
-            }
-       //  }
+        //DispatchQueue.main.async {
+        NSAnimationContext.runAnimationGroup({context in
+            context.duration = 1.0
+            self.configureCollectionView()
+            
+        }) {
+        }
+        //  }
         
         
         DispatchQueue.main.async {
@@ -188,11 +230,8 @@ class MediaBinCollectionView: NSViewController {
         } else {
             self.startTimer()
             DispatchQueue.main.async {
-                
                 let myAttrString = NSAttributedString(string:"Stop Show", attributes: myAttribute)
-                
                 self.startShowButton.attributedTitle = myAttrString
-                
                 //stringValue = "Start Show"
             }
             
@@ -200,22 +239,28 @@ class MediaBinCollectionView: NSViewController {
         
     }
     
+    func nextSlideAfterVideo() {
+        self.nextSlide()
+        self.startTimer()
+    }
+    
+    
     @IBAction func mediaShowRateSliderChanged(_ sender: NSSlider) {
         
         DispatchQueue.main.async {
             self.appDelegate.appSettings.mediaBinTimerInterval = sender.doubleValue
-
+            
             self.mediaShowRateLabel.doubleValue = sender.doubleValue
         }
         
-        if(self.appSettings.mediaBinSlideshowRunning) {
+        if(self.appSettings.mediaBinSlideshowRunning && !self.slideshowPausedForVideo) {
             self.stopTimer()
             self.startTimer()
         }
     }
     
     
-
+    
     private func configureCollectionView() {
         if(!self.viewConfigured) {
             // 1
@@ -238,8 +283,8 @@ class MediaBinCollectionView: NSViewController {
     
     
     func startTimer() {
+        self.slideshowPausedForVideo = false
         self.appDelegate.appSettings.mediaBinSlideshowRunning = true
-        self.currentSlide = 0
         // DispatchQueue.global().async() {
         self.mediaBinSlideshowTimer = Timer.scheduledTimer(timeInterval: self.appSettings.mediaBinTimerInterval, target: self, selector:#selector(self.nextSlide), userInfo: nil, repeats: true)
         
@@ -258,27 +303,49 @@ class MediaBinCollectionView: NSViewController {
                 self.mediaBinSlideshowTimer.invalidate()
             }
         }
+    }
+    
+    func stopTimerForVideo() {
+        self.slideshowPausedForVideo = true
+        if(self.mediaBinSlideshowTimer != nil) {
+            if(self.mediaBinSlideshowTimer.isValid) {
+                print("Stopping Timer for Video")
+                // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
+                self.mediaBinSlideshowTimer.invalidate()
+            }
+        }
         
     }
     
-    func nextSlide() {
     
-        if(self.currentSlide <= self.collectionViewLimit) {
-            if(self.currentSlide >= self.appDelegate.appSettings.mediaBinUrls.count) {
+    func nextSlide() {
+        
+        if((self.currentSlide + 1) < self.collectionViewLimit) {
+            if((self.currentSlide + 1) >= self.appDelegate.appSettings.mediaBinUrls.count) {
                 self.currentSlide = 0
             }
         } else {
             self.currentSlide = 0
         }
-
+        
         if(self.currentSlide > -1) {
+            
+            
             DispatchQueue.main.async {
                 self.selectItemByIndex(int: self.currentSlide)
                 // self.collectionView.reloadData()
             }
-            self.currentSlide += 1
+            
+            
+            if((self.currentSlide + 1) < self.appDelegate.appSettings.mediaBinUrls.count) {
+                self.currentSlide += 1
+            } else {
+                self.currentSlide = 0
+            }
+        } else {
+            self.currentSlide = 0
         }
-       
+        
     }
     
     
@@ -294,15 +361,15 @@ class MediaBinCollectionView: NSViewController {
                 self.hideMediaBin()
             }
         }
-       
+        
     }
     
     func hideMediaBin() {
         self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
         self.splitItem.isCollapsed = true
-       // self.splitItem.holdingPriority = 250
-       // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
-
+        // self.splitItem.holdingPriority = 250
+        // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+        
     }
     
     func unHideMediaBin() {
@@ -311,7 +378,6 @@ class MediaBinCollectionView: NSViewController {
         self.splitItem.holdingPriority = 250
         self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
         
-        
     }
     
     
@@ -319,8 +385,8 @@ class MediaBinCollectionView: NSViewController {
         // print("Fuck")
         // self.view.isHidden = true
         
-              //  foo.isCollapsed = false
-       // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+        //  foo.isCollapsed = false
+        // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
     }
     
     func deselectAll() {
@@ -355,6 +421,9 @@ extension MediaBinCollectionView : NSCollectionViewDataSource {
             collectionViewItem.imageFile = imageFile
         }
         
+        // self.currentSlide    = collectionView.row
+        self.slideshowPausedForVideo = false
+        
         if let selectedIndexPath = collectionView.selectionIndexPaths.first, selectedIndexPath == indexPath {
             
             DispatchQueue.main.async {
@@ -386,30 +455,81 @@ extension MediaBinCollectionView : NSCollectionViewDelegate {
         
         self.currentSlide = indexPath.item
         
+        // Load image...
         let img = (item as! ScreenShotCollectionViewItem)
         
+        let url = img.imageFile?.imgUrl
         
-        //  print(img.imageFile)
-        
-        if(self.appSettings.secondDisplayIsOpen) {
-           // DispatchQueue.main.async {
-                //print("Displaying item on second screen...")
-                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
-                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-           // }
-            
-        } else {
-            
-            if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
-                self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
-            }
+        self.slideshowPausedForVideo = false
 
-            self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+        if(self.appDelegate.isMov(file:url!)) {
+            // Load video.
+            
+            if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
+               
+                self.stopTimerForVideo()
+            }
+            
+            if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
+                self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+            }
+            
+            // nowPlayingFile.stringValue = item.name;
+            var itemUrl = url!.absoluteString
+            itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
+            // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
+            
+            DispatchQueue.main.async {
+                
+                self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
+                self.appDelegate.videoControlsController.nowPlayingFile?.stringValue = (url?.lastPathComponent)!
+                
+            }
+            
+            self.appDelegate.videoControlsController.currentVideoURL = url
+            
+            self.appDelegate.videoPlayerViewController?.nowPlayingURL = (url)
+            
+            self.appDelegate.videoControlsController.nowPlayingURLString = itemUrl
+            
+            self.appDelegate.appSettings.lastFileOpened = url!.absoluteString
+            self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url!)
+            
             
         }
         
-        DispatchQueue.main.async {
-            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        
+        if(self.appDelegate.isImage(file:(img.imageFile?.imgUrl)!)) {
+            //  print(img.imageFile)
+            
+            
+            if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
+                if(self.mediaBinSlideshowTimer == nil) {
+                    self.startTimer()
+                }
+            }
+            
+            
+            if(self.appSettings.secondDisplayIsOpen) {
+                // DispatchQueue.main.async {
+                //print("Displaying item on second screen...")
+                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+                // }
+                
+            } else {
+                
+                if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+                    self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
+                }
+                
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+                
+            }
+            
+            DispatchQueue.main.async {
+                (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+            }
         }
         
     }
@@ -417,38 +537,38 @@ extension MediaBinCollectionView : NSCollectionViewDelegate {
     
     private func collectionView(collectionView: NSCollectionView, didSelectItemsAtIndexPaths indexPaths: Set<NSIndexPath>) {
         // 2
-//
-//        guard let indexPath = indexPaths.first else {
-//            return
-//        }
-//        // 3
-//        guard let item = collectionView.item(at: indexPath as IndexPath) else {
-//            return
-//        }
-//        
-//        self.currentSlide = indexPath.item
-
+        //
+        //        guard let indexPath = indexPaths.first else {
+        //            return
+        //        }
+        //        // 3
+        //        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+        //            return
+        //        }
+        //
+        //        self.currentSlide = indexPath.item
         
-//        let img = (item as! ScreenShotCollectionViewItem)
-//        
-//        if(self.appSettings.secondDisplayIsOpen) {
-//            //DispatchQueue.main.async {
-//                //print("Displaying item on second screen...")
-//                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
-//                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-//            //}
-//            
-//        } else {
-//            //DispatchQueue.main.async {
-//            if( self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
-//                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-//            }
-//                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-//            //}
-//        }
-//        DispatchQueue.main.async {
-//            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
-//        }
+        
+        //        let img = (item as! ScreenShotCollectionViewItem)
+        //
+        //        if(self.appSettings.secondDisplayIsOpen) {
+        //            //DispatchQueue.main.async {
+        //                //print("Displaying item on second screen...")
+        //                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
+        //                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+        //            //}
+        //
+        //        } else {
+        //            //DispatchQueue.main.async {
+        //            if( self.appDelegate.editorTabViewController?.selectedTabViewItemIndex != 1) {
+        //                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
+        //            }
+        //                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
+        //            //}
+        //        }
+        //        DispatchQueue.main.async {
+        //            (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+        //        }
     }
     
     // 4
@@ -463,7 +583,7 @@ extension MediaBinCollectionView : NSCollectionViewDelegate {
         }
         
         // self.currentSlide = indexPath.item
-
+        
         DispatchQueue.main.async {
             (item as! ScreenShotCollectionViewItem).setHighlight(selected: false)
         }

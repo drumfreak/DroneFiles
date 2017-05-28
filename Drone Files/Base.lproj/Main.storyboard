@@ -1880,6 +1880,7 @@
                         <tabViewItem id="E6l-iy-R1S"/>
                         <tabViewItem id="4TB-kZ-EqA"/>
                         <tabViewItem id="dl8-qG-7SA"/>
+                        <tabViewItem id="o30-gO-OON"/>
                     </tabViewItems>
                     <tabView key="tabView" drawsBackground="NO" type="noTabsNoBorder" id="9uD-wh-MOe">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
@@ -1893,6 +1894,7 @@
                         <segue destination="WaG-6y-KMj" kind="relationship" relationship="tabItems" id="OwU-U9-xMf"/>
                         <segue destination="Kvz-7t-JNd" kind="relationship" relationship="tabItems" id="veL-fe-0uT"/>
                         <segue destination="DNt-FA-qsm" kind="relationship" relationship="tabItems" id="3bX-MR-JXg"/>
+                        <segue destination="Jko-ld-57h" kind="relationship" relationship="tabItems" id="Wb9-Jl-H6L"/>
                     </connections>
                 </tabViewController>
                 <customObject id="jAu-lD-Ozk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -2557,6 +2559,84 @@
                 <customObject id="DWn-oI-Ga5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="887" y="2094"/>
+        </scene>
+        <!--Time Lapse-->
+        <scene sceneID="yep-cy-HcN">
+            <objects>
+                <viewController title="TimeLapse" storyboardIdentifier="timeLapseViewController" id="Jko-ld-57h" userLabel="Time Lapse" customClass="TimeLapseViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="IeF-e7-I0K">
+                        <rect key="frame" x="0.0" y="0.0" width="790" height="335"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyF-XZ-FTi" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="790" height="335"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6B-G5-Hb9" userLabel="TimeLapse" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="18" y="291" width="112" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Time Lapse" id="6Tu-Da-tZq">
+                                            <font key="font" metaFont="systemBold" size="19"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3K-Gw-ARK">
+                                        <rect key="frame" x="136" y="293" width="27" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="inline" title="23" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="VsF-2f-6St">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemBold"/>
+                                        </buttonCell>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANx-CN-Q7n">
+                                        <rect key="frame" x="186" y="302" width="419" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="Timelapse these frames... " id="8js-8i-NOS">
+                                            <font key="font" metaFont="systemHeavy" size="12"/>
+                                            <color key="textColor" red="0.85705504440000002" green="0.12820755910000001" blue="0.0074047700500000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b44-ah-Ym4" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="349" y="57" width="105" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" title="TimeLapse" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="bbk-OI-4wr">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="generateTimeLapse:" target="Jko-ld-57h" id="LR3-eX-CTo"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJU-p0-8cP">
+                                        <rect key="frame" x="186" y="78" width="419" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="0:00" id="4XV-pO-qk0">
+                                            <font key="font" metaFont="systemHeavy" size="12"/>
+                                            <color key="textColor" red="0.85705504440000002" green="0.12820755910000001" blue="0.0074047700500000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <avPlayerView fixedFrame="YES" controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-GZ-TOz">
+                                        <rect key="frame" x="237" y="107" width="347" height="195"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </avPlayerView>
+                                </subviews>
+                            </customView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="confirmDeleteButton" destination="b44-ah-Ym4" id="xIW-jr-qFh"/>
+                        <outlet property="durationLabel" destination="kJU-p0-8cP" id="UCQ-Oe-E3A"/>
+                        <outlet property="numberofFilesLabel" destination="K3K-Gw-ARK" id="Kbz-J0-YCC"/>
+                        <outlet property="playerView" destination="GSc-GZ-TOz" id="rBk-rh-4Wv"/>
+                        <outlet property="view" destination="IeF-e7-I0K" id="FoZ-2x-5R6"/>
+                    </connections>
+                </viewController>
+                <customObject id="cMb-yI-FMB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3103" y="2889.5"/>
         </scene>
     </scenes>
     <resources>

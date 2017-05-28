@@ -28,10 +28,13 @@ class ImageEditorViewController: NSViewController {
     @IBOutlet var imageName: NSTextField!
     @IBOutlet var imageEditorView: NSView!
     
+    var imageViewLoad = IKImageView()
+    
     @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
     @IBOutlet var folderURL: String!
     @IBOutlet weak var folderURLDisplay: NSTextField!
+    var preLoadedImage: CGImage!
     var nowPlayingURL: URL!
     var imageUrl: URL!
     //    @IBOutlet weak var nowPlayingFile: NSTextField!
@@ -45,7 +48,7 @@ class ImageEditorViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.view.wantsLayer = true
             self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
             // print("Loaded Image Editor")
@@ -59,7 +62,7 @@ class ImageEditorViewController: NSViewController {
             let rgb = NSColor(red: 0, green: 0, blue: 0, alpha: 0)
             self.imageView.backgroundColor = rgb
             
-        }
+       // }
         
         self.appDelegate.imageEditorViewController = self
         
@@ -69,73 +72,65 @@ class ImageEditorViewController: NSViewController {
     
     
     func windowDidResize (notification: NSNotification?) {
-        DispatchQueue.main.async {
+       // DispatchQueue.main.async {
             self.imageView.zoomImageToFit(self)
-        }
+      //  }
     }
     
     override func viewDidLayout() {
         // Swift.print("view has been resize to \(self.view.frame)")
         super.viewDidLayout()
         
-        DispatchQueue.main.async {
+       // DispatchQueue.main.async {
             self.imageView.zoomImageToFit(nil)
-        }
+       // }
     }
     
     
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.view.wantsLayer = true
             self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
-        }
+       // }
     }
-    
-//    func loadImage(_url: URL) {
-//        
-//        // print("Loading IMAGES: \(_url)")
-//        
-//        // imageView.show
-//        self.imageUrl = _url
-//    
-//    }
-//    
     
     
     func loadImage (_url: URL) {
-        // self.imageViewBackground.isHidden = true
-        DispatchQueue.main.async {
-            
-            // self.playerView.isHidden = true
-           // self.imageView.isHidden = false
-            //self.imageViewBackground.isHidden = true
-            
+        //DispatchQueue.main.async {
             self.imageUrl = _url
-            self.transitionNone()
             
-            // self.imageView.setImage(self.appDelegate.imageEditorViewController?.imageView?.image()?.takeRetainedValue(), imageProperties: [:])
+            self.imageViewLoad.setImageWith(self.imageUrl!)
+            self.preLoadedImage = self.imageViewLoad.image().takeUnretainedValue()
             
-        }
+            if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
+                self.transitionFade()
+                
+            } else {
+                self.transitionNone()
+            }
+            
+        // }
     }
     
     
     func transitionNone() {
-        self.imageView.setImageWith(self.imageUrl)
+        self.imageView.setImage(self.preLoadedImage, imageProperties: [:])
+        
         self.imageView.zoomImageToFit(self)
     }
     
     
     func transitionFade() {
         NSAnimationContext.runAnimationGroup({context in
-            context.duration = 0.15
+            context.duration = 0.5
             self.imageView.alphaValue = 0.0
         }) {
-            self.imageView.setImageWith(self.imageUrl)
+            self.imageView.setImage(self.preLoadedImage, imageProperties: [:])
             self.imageView.zoomImageToFit(self)
             NSAnimationContext.runAnimationGroup({context in
-                context.duration = 0.15
+                context.duration = 1.0
                 self.imageView.alphaValue = 1.0
             }) {
             }

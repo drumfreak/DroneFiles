@@ -273,20 +273,18 @@ struct AppSettings {
     var appViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
     var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
-    
-    
     // Selected row
-    var windowTitleBarBackgroundColor = NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
+    var windowTitleBarBackgroundColor = NSColor.init(patternImage: NSImage(named: "titlebarBackgroundBlack.png")!)
     
     var patternColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
     var tableViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
     // normal row
-    var tableRowBackGroundColor =  NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
+    var tableRowBackGroundColor =  NSColor.init(patternImage: NSImage(named: "backgroundSoftBlack.png")!)
     
     // Alternate row
-    var tableViewAlternatingRowColor = NSColor.init(patternImage: NSImage(named: "tablerow-black.png")!)
+    var tableViewAlternatingRowColor = NSColor.init(patternImage: NSImage(named: "backgroundDarkGray.png")!)
     
     // Selected row
     var tableRowSelectedBackGroundColor = NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)

@@ -32,7 +32,6 @@ class WindowController: NSWindowController {
         super.windowDidLoad()
         
         self.appDelegate.toolBarController = self.toolBar
-        
         self.window?.titlebarAppearsTransparent = true
         self.window?.isMovableByWindowBackground = true
         self.window?.titleVisibility = NSWindowTitleVisibility.hidden

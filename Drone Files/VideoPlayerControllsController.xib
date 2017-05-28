@@ -305,7 +305,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="630-fR-Y18">
                     <rect key="frame" x="410" y="333" width="332" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" minValue="-10" maxValue="60" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="71" allowsTickMarkValuesOnly="YES" sliderType="linear" id="LvZ-Nb-rLz"/>
+                    <sliderCell key="cell" refusesFirstResponder="YES" alignment="left" minValue="-8" maxValue="60" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="261" sliderType="linear" id="LvZ-Nb-rLz"/>
                     <connections>
                         <action selector="rateSliderChanged:" target="-2" id="ZhM-VX-Uy2"/>
                     </connections>

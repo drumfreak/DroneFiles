@@ -44,7 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var mediaBinCollectionView = MediaBinCollectionView()
 
-    
+    var timeLapseViewController = TimeLapseViewController()
+
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
     
     @IBOutlet weak var favoritesViewController: FavoritesViewController!
@@ -508,6 +509,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 extension AppDelegate {
+    
+    func isMov(file: URL) -> Bool {
+        let movs = ["MOV", "mov", "mp4", "MP4", "m4v", "M4V", "AVI", "avi"]
+        if((movs.index(of: file.pathExtension)) != nil) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func isImage(file: URL) -> Bool {
+        let images = ["JPG", "jpg", "JPEG", "jpeg", "TIFF", "tiff", "DNG", "DNG", "png", "PNG", "BMP", "bmp"]
+        
+        if((images.index(of: file.pathExtension)) != nil) {
+            return true
+        } else {
+            return false
+        }
+    }
     
     
     func urlArraytoStrArray(input: [URL]) -> NSMutableArray {

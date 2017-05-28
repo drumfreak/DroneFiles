@@ -10,6 +10,12 @@
 		1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267A1EA9B450004CA3E5 /* EditorViewController.swift */; };
 		1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */; };
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
+		1817BBC11ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */; };
+		1817BBC51ED9B8240003A7D2 /* ThemeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC21ED9B8240003A7D2 /* ThemeCheckbox.swift */; };
+		1817BBC61ED9B8240003A7D2 /* ThemeTabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC31ED9B8240003A7D2 /* ThemeTabViewItem.swift */; };
+		1817BBC71ED9B8240003A7D2 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC41ED9B8240003A7D2 /* ThemeButton.swift */; };
+		1817BBCB1EDA21D70003A7D2 /* TimeLapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */; };
+		1817BBCC1EDA21D70003A7D2 /* TimeLapseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */; };
 		18326AF11ED163BB00469EDD /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */; };
 		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
 		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
@@ -56,9 +62,6 @@
 		188272351ECAA50100EE50D0 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272341ECAA50100EE50D0 /* ThemeView.swift */; };
 		1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188272391ECAC76900EE50D0 /* darkbackground-2.jpg */; };
 		1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */; };
-		1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */; };
-		188272411ECAD55400EE50D0 /* ThemeTabViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882723F1ECAD55400EE50D0 /* ThemeTabViewItem.swift */; };
-		188272421ECAD55400EE50D0 /* ThemeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272401ECAD55400EE50D0 /* ThemeCheckbox.swift */; };
 		188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272451ECB759A00EE50D0 /* darkbrownbackground.png */; };
 		188272481ECB897E00EE50D0 /* darkbrownbackground-light.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */; };
 		1882724E1ECB9A3000EE50D0 /* tablerow-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */; };
@@ -69,6 +72,11 @@
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
 		18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
+		18A323A21ED8E3480025D309 /* backgroundMediumGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A323A11ED8E3480025D309 /* backgroundMediumGray.png */; };
+		18A323A41ED8E40D0025D309 /* backgroundSoftBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A323A31ED8E40D0025D309 /* backgroundSoftBlack.png */; };
+		18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A323A51ED8E4470025D309 /* backgroundLightGray.png */; };
+		18A323A81ED8E4470025D309 /* backgroundDarkGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A323A61ED8E4470025D309 /* backgroundDarkGray.png */; };
+		18A323AA1ED8E84A0025D309 /* titlebarBackgroundBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A323A91ED8E84A0025D309 /* titlebarBackgroundBlack.png */; };
 		18A3AD9E1ED50B8300F09727 /* RightPanelSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */; };
 		18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3AD9F1ED5402500F09727 /* heart-table-active.png */; };
 		18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A3ADA01ED5402500F09727 /* heart-table-inactive.png */; };
@@ -85,7 +93,6 @@
 		18B001ED1EA69C92003C3214 /* Drone_FilesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001EC1EA69C92003C3214 /* Drone_FilesUITests.swift */; };
 		18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FA1EA6A09D003C3214 /* WindowController.swift */; };
 		18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B001FC1EA6A0A8003C3214 /* Directory.swift */; };
-		18B4418A1ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B441891ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift */; };
 		18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */; };
 		18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */; };
 		18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */ = {isa = PBXBuildFile; fileRef = 18BAABA61EADA2CB00EE5434 /* Shutter.aif */; };
@@ -134,6 +141,12 @@
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondaryDisplayMediaViewController.swift; path = "../../../../Graphics/Drone Files/SecondaryDisplayMediaViewController.swift"; sourceTree = "<group>"; };
+		1817BBC21ED9B8240003A7D2 /* ThemeCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeCheckbox.swift; path = ../../../Dronefiles/ThemeCheckbox.swift; sourceTree = "<group>"; };
+		1817BBC31ED9B8240003A7D2 /* ThemeTabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeTabViewItem.swift; path = ../../../Dronefiles/ThemeTabViewItem.swift; sourceTree = "<group>"; };
+		1817BBC41ED9B8240003A7D2 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeButton.swift; path = ../../../Dronefiles/ThemeButton.swift; sourceTree = "<group>"; };
+		1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLapseViewController.swift; sourceTree = "<group>"; };
+		1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeLapseViewController.xib; sourceTree = "<group>"; };
 		18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
@@ -180,9 +193,6 @@
 		188272341ECAA50100EE50D0 /* ThemeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		188272391ECAC76900EE50D0 /* darkbackground-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "darkbackground-2.jpg"; path = "../../../Dronefiles/darkbackground-2.jpg"; sourceTree = "<group>"; };
 		1882723B1ECAC82300EE50D0 /* darkbackground-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "darkbackground-3.jpg"; path = "../../../Dronefiles/darkbackground-3.jpg"; sourceTree = "<group>"; };
-		1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeButton.swift; path = ../../../../Desktop/ThemeButton.swift; sourceTree = "<group>"; };
-		1882723F1ECAD55400EE50D0 /* ThemeTabViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeTabViewItem.swift; path = ../../../../Desktop/ThemeTabViewItem.swift; sourceTree = "<group>"; };
-		188272401ECAD55400EE50D0 /* ThemeCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeCheckbox.swift; path = ../../../../Desktop/ThemeCheckbox.swift; sourceTree = "<group>"; };
 		188272451ECB759A00EE50D0 /* darkbrownbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = darkbrownbackground.png; path = ../../../Dronefiles/darkbrownbackground.png; sourceTree = "<group>"; };
 		188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "darkbrownbackground-light.png"; path = "../../../Dronefiles/darkbrownbackground-light.png"; sourceTree = "<group>"; };
 		1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-blue.png"; path = "../../../Dronefiles/tablerow-blue.png"; sourceTree = "<group>"; };
@@ -193,6 +203,11 @@
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraBrowserController.swift; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
+		18A323A11ED8E3480025D309 /* backgroundMediumGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundMediumGray.png; path = "../../../../Graphics/Drone Files/backgroundMediumGray.png"; sourceTree = "<group>"; };
+		18A323A31ED8E40D0025D309 /* backgroundSoftBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundSoftBlack.png; path = "../../../../Graphics/Drone Files/backgroundSoftBlack.png"; sourceTree = "<group>"; };
+		18A323A51ED8E4470025D309 /* backgroundLightGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundLightGray.png; path = "../../../../Graphics/Drone Files/backgroundLightGray.png"; sourceTree = "<group>"; };
+		18A323A61ED8E4470025D309 /* backgroundDarkGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundDarkGray.png; path = "../../../../Graphics/Drone Files/backgroundDarkGray.png"; sourceTree = "<group>"; };
+		18A323A91ED8E84A0025D309 /* titlebarBackgroundBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = titlebarBackgroundBlack.png; path = "../../../../Graphics/Drone Files/titlebarBackgroundBlack.png"; sourceTree = "<group>"; };
 		18A3AD9D1ED50B8300F09727 /* RightPanelSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightPanelSplitViewController.swift; sourceTree = "<group>"; };
 		18A3AD9F1ED5402500F09727 /* heart-table-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-table-active.png"; path = "../../../../Graphics/Drone The Moment/heart-table-active.png"; sourceTree = "<group>"; };
 		18A3ADA01ED5402500F09727 /* heart-table-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-table-inactive.png"; path = "../../../../Graphics/Drone The Moment/heart-table-inactive.png"; sourceTree = "<group>"; };
@@ -215,7 +230,6 @@
 		18B001EE1EA69C92003C3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B001FA1EA6A09D003C3214 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		18B001FC1EA6A0A8003C3214 /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
-		18B441891ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondaryDisplayMediaViewController.swift; path = ../../../../Desktop/SecondaryDisplayMediaViewController.swift; sourceTree = "<group>"; };
 		18BAABA01EAD8F5A00EE5434 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		18BAABA41EAD98CC00EE5434 /* FileBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
 		18BAABA61EADA2CB00EE5434 /* Shutter.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shutter.aif; sourceTree = "<group>"; };
@@ -256,6 +270,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1817BBC81EDA219D0003A7D2 /* TimeLapse */ = {
+			isa = PBXGroup;
+			children = (
+				1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */,
+				1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */,
+			);
+			name = TimeLapse;
+			sourceTree = "<group>";
+		};
 		184AD8101ED737FE001209F5 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +299,7 @@
 				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
-				18B441891ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift */,
+				1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */,
 				18590E351ED7E55100305E68 /* VideoPlayerView.xib */,
 				1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */,
 			);
@@ -322,11 +345,11 @@
 		1882722B1ECA7A4A00EE50D0 /* Theme Customizations */ = {
 			isa = PBXGroup;
 			children = (
-				1882723D1ECAD4ED00EE50D0 /* ThemeButton.swift */,
 				188272341ECAA50100EE50D0 /* ThemeView.swift */,
-				1882723F1ECAD55400EE50D0 /* ThemeTabViewItem.swift */,
 				186A2E051ECC14DF000FE0AB /* ThemeTables.swift */,
-				188272401ECAD55400EE50D0 /* ThemeCheckbox.swift */,
+				1817BBC21ED9B8240003A7D2 /* ThemeCheckbox.swift */,
+				1817BBC31ED9B8240003A7D2 /* ThemeTabViewItem.swift */,
+				1817BBC41ED9B8240003A7D2 /* ThemeButton.swift */,
 				188272301ECA939300EE50D0 /* ThemePathControl.swift */,
 				1882722E1ECA898900EE50D0 /* ThemeLabel.swift */,
 			);
@@ -337,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				188272191ECA704F00EE50D0 /* appicon-64px.png */,
+				18A323A11ED8E3480025D309 /* backgroundMediumGray.png */,
 				18A3AD9F1ED5402500F09727 /* heart-table-active.png */,
 				18A3ADA01ED5402500F09727 /* heart-table-inactive.png */,
 				1882721A1ECA704F00EE50D0 /* appicon-1024px.png */,
@@ -344,6 +368,8 @@
 				1860F0131ED0C6FC00928FD7 /* heart-inactive.png */,
 				1860F0141ED0C6FC00928FD7 /* heart-active.png */,
 				1882721B1ECA704F00EE50D0 /* appicon-512px.png */,
+				18A323A51ED8E4470025D309 /* backgroundLightGray.png */,
+				18A323A61ED8E4470025D309 /* backgroundDarkGray.png */,
 				188272451ECB759A00EE50D0 /* darkbrownbackground.png */,
 				188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */,
 				1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */,
@@ -351,9 +377,11 @@
 				1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */,
 				18DD9F501ECE1CDE008E9E02 /* messagewindow.png */,
 				1882721C1ECA704F00EE50D0 /* appicon-256px.png */,
+				18A323A31ED8E40D0025D309 /* backgroundSoftBlack.png */,
 				188272291ECA74C300EE50D0 /* darkbackground.png */,
 				188272511ECB9B2D00EE50D0 /* tablerow-dark.png */,
 				188272391ECAC76900EE50D0 /* darkbackground-2.jpg */,
+				18A323A91ED8E84A0025D309 /* titlebarBackgroundBlack.png */,
 				1882721D1ECA704F00EE50D0 /* appicon-128px.png */,
 				1882721E1ECA704F00EE50D0 /* appicon-32px.png */,
 				1882721F1ECA704F00EE50D0 /* appicon-16px.png */,
@@ -453,6 +481,7 @@
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
 				1850908D1ED66456007933FC /* Toolbar */,
 				18A3ADA31ED55D1000F09727 /* Split Views */,
+				1817BBC81EDA219D0003A7D2 /* TimeLapse */,
 				1860F0171ED0C7CD00928FD7 /* Favorites */,
 				18976E031ED08CCD00A04CD2 /* Camera Import */,
 				18A483031EAFFE8B007F735B /* File Manager */,
@@ -621,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1869FBED1ED8A0F500EC639E /* ImageEditorControlsController.xib in Resources */,
+				18A323A41ED8E40D0025D309 /* backgroundSoftBlack.png in Resources */,
 				1869FBE91ED884A800EC639E /* FavoritesCollectionView.xib in Resources */,
 				188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */,
 				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
@@ -632,17 +662,21 @@
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
 				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
+				18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
 				18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */,
 				18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */,
 				1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */,
 				1882723C1ECAC82300EE50D0 /* darkbackground-3.jpg in Resources */,
+				1817BBCC1EDA21D70003A7D2 /* TimeLapseViewController.xib in Resources */,
 				18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */,
 				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
 				188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */,
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
 				18590E361ED7E55100305E68 /* VideoPlayerView.xib in Resources */,
 				184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */,
+				18A323A21ED8E3480025D309 /* backgroundMediumGray.png in Resources */,
+				18A323AA1ED8E84A0025D309 /* titlebarBackgroundBlack.png in Resources */,
 				1869FBEF1ED8B64C00EC639E /* FileManagerOptionsViewController.xib in Resources */,
 				188272221ECA704F00EE50D0 /* appicon-512px.png in Resources */,
 				1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */,
@@ -650,6 +684,7 @@
 				18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */,
 				184AD8121ED739E6001209F5 /* NewProjectWindow.xib in Resources */,
 				1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */,
+				18A323A81ED8E4470025D309 /* backgroundDarkGray.png in Resources */,
 				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
 				18B001D71EA69C92003C3214 /* Main.storyboard in Resources */,
@@ -682,39 +717,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
-				18B4418A1ECF449F00A1FFC4 /* SecondaryDisplayMediaViewController.swift in Sources */,
+				1817BBC71ED9B8240003A7D2 /* ThemeButton.swift in Sources */,
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
 				18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */,
 				18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */,
 				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
 				1860F0191ED0C7FD00928FD7 /* FavoritesViewController.swift in Sources */,
-				188272411ECAD55400EE50D0 /* ThemeTabViewItem.swift in Sources */,
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
 				18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */,
-				1882723E1ECAD4ED00EE50D0 /* ThemeButton.swift in Sources */,
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
 				188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */,
 				18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */,
+				1817BBC61ED9B8240003A7D2 /* ThemeTabViewItem.swift in Sources */,
 				188272311ECA939300EE50D0 /* ThemePathControl.swift in Sources */,
 				18A3ADA61ED55D5000F09727 /* FileManagerSplitViewController.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
 				188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */,
 				187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */,
 				185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */,
+				1817BBCB1EDA21D70003A7D2 /* TimeLapseViewController.swift in Sources */,
 				188272351ECAA50100EE50D0 /* ThemeView.swift in Sources */,
 				187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */,
+				1817BBC51ED9B8240003A7D2 /* ThemeCheckbox.swift in Sources */,
 				188272161ECA5FD300EE50D0 /* Document.swift in Sources */,
 				18326AF11ED163BB00469EDD /* FavoritesCollectionView.swift in Sources */,
 				18B001D21EA69C92003C3214 /* Drone_Files.xcdatamodeld in Sources */,
 				18BAABA11EAD8F5A00EE5434 /* SplitViewController.swift in Sources */,
 				188272561ECBFAE800EE50D0 /* NewProjectController.swift in Sources */,
-				188272421ECAD55400EE50D0 /* ThemeCheckbox.swift in Sources */,
 				18A4830B1EAFFEE8007F735B /* FileManagerOptionsRenameController.swift in Sources */,
 				187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */,
 				1850908F1ED664CF007933FC /* ToolBarViewController.swift in Sources */,
@@ -728,6 +763,7 @@
 				18A3AD9E1ED50B8300F09727 /* RightPanelSplitViewController.swift in Sources */,
 				18B001FD1EA6A0A8003C3214 /* Directory.swift in Sources */,
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
+				1817BBC11ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
 				18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */,

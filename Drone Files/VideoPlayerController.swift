@@ -101,7 +101,7 @@ class VideoPlayerViewController: NSViewController {
         
         if(self.player.isPlaying) {
             self.player.pause()
-            self.playerView.resignFirstResponder()
+            // self.playerView.resignFirstResponder()
         } else {
             self.player.rate = Float(self.videoRate)
             self.playerView.becomeFirstResponder()
@@ -143,12 +143,25 @@ class VideoPlayerViewController: NSViewController {
     
     func playerItemDidPlayToEndTime(sender: AnyObject) {
         // self.playerView.player?.play()
-        if(self.appSettings.videoPlayerLoop) {
-            self.player.seek(to: kCMTimeZero)
-            self.player.rate = Float(self.videoRate)
+        
+        
+        if(self.appSettings.mediaBinSlideshowRunning) {
+            
+            self.appDelegate.mediaBinCollectionView.nextSlideAfterVideo()
+
         } else {
-            self.player.seek(to: kCMTimeZero)
+            
+            // Play next
+            // Loop all next.
+            if(self.appSettings.videoPlayerLoop) {
+                self.player.seek(to: kCMTimeZero)
+                self.player.rate = Float(self.videoRate)
+            } else {
+                self.player.seek(to: kCMTimeZero)
+            }
         }
+        
+        
     }
     
     
@@ -187,6 +200,7 @@ class VideoPlayerViewController: NSViewController {
         
         let playerItem = AVPlayerItem(asset: asset,
                                       automaticallyLoadedAssetKeys: assetKeys)
+        
         playerItem.reversePlaybackEndTime = kCMTimeZero
         playerItem.forwardPlaybackEndTime = playerItem.duration
         
@@ -215,7 +229,7 @@ class VideoPlayerViewController: NSViewController {
             
             if(self.startPlayingVideo == true) {
                 self.player.rate = Float(self.videoRate)
-                self.startPlayingVideo = false
+                // self.startPlayingVideo = false
             } else {
                 
                 if(self.player.isPlaying) {
