@@ -146,7 +146,7 @@ class TimeLapseViewController: NSViewController {
         
         print("New Timelapse video file..." + timeLapseUrl)
     
-        builder.build({ progress in
+        builder.build(outputSize: CGSize(width: 1920, height: 1080), { progress in
             print(progress)
             DispatchQueue.main.async {
                 self.progressIndicator.doubleValue = progress.fractionCompleted
@@ -168,11 +168,18 @@ class TimeLapseViewController: NSViewController {
     // Video Clipping
     func getClippedVideosIncrement(folder: String) -> String {
         var incrementer = "00"
-        if FileManager.default.fileExists(atPath: self.appSettings.timeLapseFolder) {
+        var isDirectory: ObjCBool = false
+        var foo = URL(string:folder)?.absoluteString.replacingOccurrences(of: "file://", with: "")
+        
+        foo = foo?.replacingOccurrences(of: "%20", with: " ")
+        
+        
+        if FileManager.default.fileExists(atPath: foo!, isDirectory: &isDirectory) {
             do {
-                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appSettings.timeLapseFolder)!, includingPropertiesForKeys: nil, options: [])
-                
-                incrementer = String(format: "%02d", files.count)
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appDelegate.appSettings.timeLapseFolder)!, includingPropertiesForKeys: nil, options: [])
+                if(files.count > 0) {
+                    incrementer = String(format: "%02d", files.count)
+                }
             } catch let error as NSError {
                 print(error.localizedDescription + "ok")
             }
@@ -183,25 +190,25 @@ class TimeLapseViewController: NSViewController {
     
     func generateTimeLapseURL() -> String {
   
-        let increment = getClippedVideosIncrement(folder: self.appSettings.timeLapseFolder)
+        let increment = getClippedVideosIncrement(folder: self.appDelegate.appSettings.timeLapseFolder)
         
-        self.timelapseVideoName = self.appSettings.saveDirectoryName + " - Timelapse " + increment + ".mov"
+        self.timelapseVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Timelapse " + increment + ".mov"
     
-        let timelapseFullPath = self.appSettings.timeLapseFolder + "/" + self.timelapseVideoName
+        let timelapseFullPath = self.appDelegate.appSettings.timeLapseFolder + "/" + self.timelapseVideoName
         
         if FileManager.default.fileExists(atPath: timelapseFullPath.replacingOccurrences(of: "file://", with: "")) {
             // print("Fuck that file exists..")
             
             let incrementer = "00000"
            
-            self.timelapseVideoName = self.appSettings.saveDirectoryName + " - Timelapse " + increment + " - " + incrementer + ".mov"
+            self.timelapseVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Timelapse " + increment + " - " + incrementer + ".mov"
             
             
         } else {
             print("That file does not exist..")
         }
         
-        let timeLapseUrl = self.appSettings.timeLapseFolder + "/" + self.timelapseVideoName
+        let timeLapseUrl = self.appDelegate.appSettings.timeLapseFolder + "/" + self.timelapseVideoName
         
         
         print("So far I came up with: \(timeLapseUrl)")
@@ -533,4 +540,21 @@ class TimeLapseViewController: NSViewController {
 
     }
   */
+    
+    
+//    func stringFromTimeInterval(interval: TimeInterval) -> String {
+//        let ti = NSInteger(interval)
+//        let ms = Int((interval % 1) * 1000)
+//        let seconds = ti % 60
+//        let minutes = (ti / 60) % 60
+//        let hours = (ti / 3600)
+//        
+//        if hours > 0 {
+//            return NSString(format: "%0.2d:%0.2d:%0.2d.%0.2d", hours, minutes, seconds, ms) as String
+//        }else if minutes > 0 {
+//            return NSString(format: "%0.2d:%0.2d.%0.2d", minutes, seconds, ms) as String
+//        }else {
+//            return NSString(format: "%0.2d.%0.2d", seconds, ms) as String
+//        }
+//    }
 }

@@ -1460,8 +1460,28 @@
                                                                 <action selector="framesControlSingleClickWithSender:" target="ZvK-30-Mbm" id="JlI-9c-IHj"/>
                                                             </connections>
                                                         </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtv-no-39S" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                            <rect key="frame" x="463" y="252" width="20" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="TL" id="91t-Ac-ntq">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ziY-hy-doO">
+                                                            <rect key="frame" x="453" y="273" width="39" height="35"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSFolder" imagePosition="only" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyUpOrDown" inset="2" id="DST-cF-0Ku">
+                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="timeLapseControlSingleClickWithSender:" target="ZvK-30-Mbm" id="pYR-Kc-qIp"/>
+                                                            </connections>
+                                                        </button>
                                                         <button verticalHuggingPriority="750" fixedFrame="YES" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c0i-En-r8Z">
-                                                            <rect key="frame" x="458" y="273" width="39" height="35"/>
+                                                            <rect key="frame" x="508" y="273" width="39" height="35"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSFolder" imagePosition="only" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyUpOrDown" inset="2" id="kNm-J2-X0w">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1472,7 +1492,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg9-sv-0rO" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                            <rect key="frame" x="448" y="252" width="59" height="17"/>
+                                                            <rect key="frame" x="498" y="252" width="59" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Favorites" id="seW-uL-TTi">
                                                                 <font key="font" metaFont="system"/>
@@ -1520,7 +1540,7 @@
                 </viewController>
                 <customObject id="NnT-2V-riI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-15" y="-220"/>
+            <point key="canvasLocation" x="-15" y="-220.5"/>
         </scene>
         <!--Video Editor-->
         <scene sceneID="y5n-du-UaX">
