@@ -95,6 +95,7 @@ struct AppSettings {
     var dngFolder = " - RAW"
     var rawFolder = " - RAW"
     var videoClipsFolder = " - Video Clips"
+    var timeLapseFolder = " - TimeLapses"
     var previousUrlString = "file://"
 
     

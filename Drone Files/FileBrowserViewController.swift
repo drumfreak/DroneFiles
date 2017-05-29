@@ -519,6 +519,8 @@ class FileBrowserViewController: NSViewController {
             
             self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Video Clips"
             
+             self.appDelegate.appSettings.timeLapseFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - TimeLapses"
+            
             self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - JPG"
             
             self.appDelegate.appSettings.screenShotFolder = self.appDelegate.appSettings.projectFolder + "/" + self.appDelegate.appSettings.saveDirectoryName + " - Frames"
@@ -534,6 +536,8 @@ class FileBrowserViewController: NSViewController {
             self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.projectFolder + "/"
             
             self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.projectFolder  + "/"
+            
+            self.appDelegate.appSettings.timeLapseFolder = self.appDelegate.appSettings.projectFolder  + "/"
             
             self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.projectFolder  + "/"
             
@@ -551,6 +555,8 @@ class FileBrowserViewController: NSViewController {
         self.appDelegate.appSettings.videoFolder = self.appDelegate.appSettings.videoFolder.replacingOccurrences(of: " ", with: "%20")
         
         self.appDelegate.appSettings.videoClipsFolder = self.appDelegate.appSettings.videoClipsFolder.replacingOccurrences(of: " ", with: "%20")
+        
+        self.appDelegate.appSettings.timeLapseFolder = self.appDelegate.appSettings.timeLapseFolder.replacingOccurrences(of: " ", with: "%20")
         
         self.appDelegate.appSettings.jpgFolder = self.appDelegate.appSettings.jpgFolder.replacingOccurrences(of: " ", with: "%20")
         
@@ -611,6 +617,12 @@ class FileBrowserViewController: NSViewController {
     
     @IBAction func clipsControlSingleClick(sender: AnyObject) {
         self.sourceFolderOpened = URL(string: self.appSettings.videoClipsFolder)
+        self.setupPathControl(control: self.currentFolderPathControl)
+    }
+    
+    
+    @IBAction func timeLapseControlSingleClick(sender: AnyObject) {
+        self.sourceFolderOpened = URL(string: self.appSettings.timeLapseFolder)
         self.setupPathControl(control: self.currentFolderPathControl)
     }
     

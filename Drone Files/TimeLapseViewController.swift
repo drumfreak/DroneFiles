@@ -16,23 +16,37 @@ import Quartz
 class TimeLapseViewController: NSViewController {
 
     @IBOutlet var numberofFilesLabel: NSButton!
-    @IBOutlet var confirmDeleteButton: NSButton!
+    @IBOutlet var saveTimeLapseButton: NSButton!
     @IBOutlet var durationLabel: NSTextField!
+    @IBOutlet var progressIndicator: NSProgressIndicator!
+    
+    
+    
     @IBOutlet weak var playerView: AVPlayerView!
+    
+    /*
+    var videoClips = [AVAsset]()
+    var images = [NSImage]()
+    var imageTimings = [Float]()
+    var imageLayer: CALayer!
+    var syncLayer: AVSynchronizedLayer!
     var composition: AVMutableComposition!
     var mutableVideoComposition: AVMutableVideoComposition!
     var avPlayerLayer: AVPlayerLayer!
-    
     var playerViewControllerKVOContext = 2
     var totalDuration = 0.0
     var player: AVPlayer!
     var playerItem: AVPlayerItem!
     var playerIsReady = false
+    */
+    
+    
+    var timelapseVideoName = ""
     
     var frameInterval = Float64(0.2)
     
-    var videoClips = [AVAsset]()
-    var images = [NSImage]()
+    var imageUrls = [String]()
+
     var imageTimings = [Float]()
     var imageLayer: CALayer!
     var syncLayer: AVSynchronizedLayer!
@@ -45,8 +59,16 @@ class TimeLapseViewController: NSViewController {
                 let count = String(format: "%", receivedFiles.count)
                 self.numberofFilesLabel.title = count
                 // self.cleanupPlayer()
-                self.generateTimeLapse(self)
-
+               // self.generateTimeLapse(self)
+                
+                
+                if(self.receivedFiles.count > 2) {
+                    self.saveTimeLapseButton.isEnabled = true
+                } else {
+                    self.saveTimeLapseButton.isEnabled = false
+                }
+                
+                self.prepareImageURLs()
             }
         }
     }
@@ -55,6 +77,14 @@ class TimeLapseViewController: NSViewController {
         super.viewDidLoad()
             let count = String(format: "%1d", receivedFiles.count)
             self.numberofFilesLabel.title = count
+        
+        DispatchQueue.main.async {
+            self.progressIndicator.isHidden = true
+            if(self.receivedFiles.count > 2) {
+                self.saveTimeLapseButton.isHidden = false
+            }
+        }
+        
     }
     
     override func viewDidAppear() {
@@ -64,6 +94,8 @@ class TimeLapseViewController: NSViewController {
         self.numberofFilesLabel.title = count
         
         // self.generateTimeLapse(self)
+        
+         prepareImageURLs()
 
     }
     
@@ -72,6 +104,125 @@ class TimeLapseViewController: NSViewController {
         self.viewIsLoaded = false
         // self.deallocObservers()
     }
+    
+    
+    
+    func prepareImageURLs() {
+        // var currentTime = CMTimeMakeWithSeconds(0, 30)
+        self.imageUrls.removeAll()
+       
+        self.receivedFiles.forEach({m in
+            let urlPath = m as! String
+            let url = URL(string: urlPath)
+            if(self.appDelegate.isImage(file: url!)) {
+                self.imageUrls.append(urlPath)
+            }
+        })
+    }
+
+    func finishSave(_ err: Bool, url: URL) {
+        DispatchQueue.main.async {
+            self.saveTimeLapseButton.isEnabled = true
+            self.progressIndicator.isHidden = true
+            self.progressIndicator.doubleValue = 0.00
+            
+            if(!err) {
+                self.appDelegate.appSettings.mediaBinUrls.append(url)
+            }
+        }
+    }
+    
+    @IBAction func writeTimeLapse(_ sender: AnyObject) {
+        
+        self.saveTimeLapseButton.isEnabled = false
+        
+        self.progressIndicator.isHidden = false
+        
+        self.progressIndicator.doubleValue = 0.00
+        
+        let timeLapseUrl = self.generateTimeLapseURL()
+        
+        let builder = TimeLapseBuilder(photoURLs: self.imageUrls, url: timeLapseUrl)
+        
+        print("New Timelapse video file..." + timeLapseUrl)
+    
+        builder.build({ progress in
+            print(progress)
+            DispatchQueue.main.async {
+                self.progressIndicator.doubleValue = progress.fractionCompleted
+            }
+        }, success: { url in
+            print(url)
+            self.finishSave(false, url: url)
+        }, failure: { error in
+            print(error)
+            self.finishSave(true, url: URL(string: timeLapseUrl)!)
+
+        })
+        
+    }
+    
+    
+    
+    
+    // Video Clipping
+    func getClippedVideosIncrement(folder: String) -> String {
+        var incrementer = "00"
+        if FileManager.default.fileExists(atPath: self.appSettings.timeLapseFolder) {
+            do {
+                let files = try FileManager.default.contentsOfDirectory(at: URL(string: self.appSettings.timeLapseFolder)!, includingPropertiesForKeys: nil, options: [])
+                
+                incrementer = String(format: "%02d", files.count)
+            } catch let error as NSError {
+                print(error.localizedDescription + "ok")
+            }
+        }
+        
+        return incrementer
+    }
+    
+    func generateTimeLapseURL() -> String {
+  
+        let increment = getClippedVideosIncrement(folder: self.appSettings.timeLapseFolder)
+        
+        self.timelapseVideoName = self.appSettings.saveDirectoryName + " - Timelapse " + increment + ".mov"
+    
+        let timelapseFullPath = self.appSettings.timeLapseFolder + "/" + self.timelapseVideoName
+        
+        if FileManager.default.fileExists(atPath: timelapseFullPath.replacingOccurrences(of: "file://", with: "")) {
+            // print("Fuck that file exists..")
+            
+            let incrementer = "00000"
+           
+            self.timelapseVideoName = self.appSettings.saveDirectoryName + " - Timelapse " + increment + " - " + incrementer + ".mov"
+            
+            
+        } else {
+            print("That file does not exist..")
+        }
+        
+        let timeLapseUrl = self.appSettings.timeLapseFolder + "/" + self.timelapseVideoName
+        
+        
+        print("So far I came up with: \(timeLapseUrl)")
+        
+        
+//        self.trimmedClipNewLabel.isHidden = false
+//        self.trimmedClipNewLabel.stringValue = self.clippedVideoName
+//        self.trimmedClipNewPathLabel.isHidden = false
+//        self.trimmedClipNewPathLabel.stringValue = self.clippedVideoPath
+//        
+        return timeLapseUrl.replacingOccurrences(of: " ", with: "%20")
+    }
+    
+
+    
+    
+    
+    /* 
+     
+     SAVE THIS CODE FOR A BIT. Previews the animation with core animation.
+    
     
     func deallocObservers() {
         if(self.playerIsReady) {
@@ -96,7 +247,7 @@ class TimeLapseViewController: NSViewController {
             self.deallocObservers()
         }
     }
-
+    
     func prepareAssets() {
         // var currentTime = CMTimeMakeWithSeconds(0, 30)
         self.images.removeAll()
@@ -118,7 +269,9 @@ class TimeLapseViewController: NSViewController {
             }
         })
     }
-
+    
+    
+    
     @IBAction func generateTimeLapse(_ sender: AnyObject) {
         let count = String(format: "%1d", self.receivedFiles.count)
         self.numberofFilesLabel.title = count
@@ -131,11 +284,7 @@ class TimeLapseViewController: NSViewController {
 
         let videoTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
 
-        
         self.videoClips.forEach({clipIndex in
-            
-            // print("FUCKING ASSET Tracks: \(clipIndex)")
-            
             let foo = clipIndex.tracks(withMediaType: AVMediaTypeMuxed)
             
             
@@ -181,9 +330,7 @@ class TimeLapseViewController: NSViewController {
 
                 
                 let instruction = AVMutableVideoCompositionInstruction()
-            
                 instruction.timeRange = assetRange
-                
                 
                 let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: assetTrack)
 
@@ -222,12 +369,10 @@ class TimeLapseViewController: NSViewController {
         })
         
         self.totalDuration = nextTime.seconds
-        
-        
+    
         // print("Segements: \(videoTrack.segments)")
 
         self.mutableVideoComposition.renderSize =  CGSize(width: videoTrack.naturalSize.width, height: videoTrack.naturalSize.height)
-        
 
         let parentLayer = CALayer()
         let videoLayer = CALayer()
@@ -235,7 +380,6 @@ class TimeLapseViewController: NSViewController {
         parentLayer.frame = CGRect(x: 0, y: 0, width: self.mutableVideoComposition.renderSize.width, height: self.mutableVideoComposition.renderSize.height)
         
         videoLayer.frame = CGRect(x: 0, y: 0, width: self.mutableVideoComposition.renderSize.width, height: self.mutableVideoComposition.renderSize.height)
-        
         
         parentLayer.addSublayer(videoLayer)
         
@@ -266,7 +410,6 @@ class TimeLapseViewController: NSViewController {
         self.imageLayer = CALayer()
         
         self.imageLayer.frame = CGRect(x: 0, y: 20, width: (self.playerView.layer?.bounds.width)!, height: (self.playerView.layer?.bounds.height)! - 24)
-        
         
         self.imageLayer.contentsGravity = kCAGravityResizeAspect
         
@@ -307,7 +450,6 @@ class TimeLapseViewController: NSViewController {
             self.player.currentItem!.addObserver(self, forKeyPath: #keyPath(player.currentItem.status), options:   [.new, .initial], context: &playerViewControllerKVOContext)
             
             // self.player.currentItem!.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.duration), options:   [.new, .initial], context: &playerViewControllerKVOContext)
-        
             
             self.playerIsReady = true
             
@@ -326,11 +468,7 @@ class TimeLapseViewController: NSViewController {
         self.syncLayer.addSublayer(self.imageLayer!)
         
         self.playerView?.layer!.addSublayer(self.syncLayer!)
-        
-        
 
-        
-        
     }
     
     //observer for av play
@@ -348,8 +486,7 @@ class TimeLapseViewController: NSViewController {
             return
         }
         
-        
-        
+    
         if keyPath == #keyPath(player.currentItem.status) {
             let status: AVPlayerItemStatus
 
@@ -395,5 +532,5 @@ class TimeLapseViewController: NSViewController {
         }
 
     }
-    
+  */
 }

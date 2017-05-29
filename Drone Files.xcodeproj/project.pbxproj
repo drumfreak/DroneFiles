@@ -17,6 +17,7 @@
 		1817BBCB1EDA21D70003A7D2 /* TimeLapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */; };
 		1817BBCC1EDA21D70003A7D2 /* TimeLapseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */; };
 		1817BBD01EDBC2A10003A7D2 /* blankClip.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1817BBCF1EDBC2A10003A7D2 /* blankClip.mp4 */; };
+		1817BBD21EDBEBDA0003A7D2 /* TimeLapseBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBD11EDBEBDA0003A7D2 /* TimeLapseBuilder.swift */; };
 		18326AF11ED163BB00469EDD /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */; };
 		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
 		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
@@ -149,6 +150,7 @@
 		1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLapseViewController.swift; sourceTree = "<group>"; };
 		1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeLapseViewController.xib; sourceTree = "<group>"; };
 		1817BBCF1EDBC2A10003A7D2 /* blankClip.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = blankClip.mp4; path = ../../../Dronefiles/blankClip.mp4; sourceTree = "<group>"; };
+		1817BBD11EDBEBDA0003A7D2 /* TimeLapseBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLapseBuilder.swift; sourceTree = "<group>"; };
 		18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */,
+				1817BBD11EDBEBDA0003A7D2 /* TimeLapseBuilder.swift */,
 				1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */,
 			);
 			name = TimeLapse;
@@ -731,6 +734,7 @@
 				1846C96C1EAA9F0F009C63FD /* ScreenshotViewController.swift in Sources */,
 				184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
+				1817BBD21EDBEBDA0003A7D2 /* TimeLapseBuilder.swift in Sources */,
 				18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */,
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,

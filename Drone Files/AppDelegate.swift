@@ -627,6 +627,10 @@ extension AppDelegate {
                     self.appSettings.videoClipsFolder = dictionary["videoClipsDirectory"] as! String
                 }
                 
+                if(dictionary["timeLapseDirectory"] != nil) {
+                    self.appSettings.timeLapseFolder = dictionary["timeLapseDirectory"] as! String
+                }
+                
                 if(dictionary["jpgDirectory"] != nil) {
                     self.appSettings.jpgFolder = dictionary["jpgDirectory"] as! String
                 }
@@ -805,6 +809,7 @@ extension AppDelegate {
             dic.setValue(self.appSettings.projectFolder, forKey: "projectDirectory")
             dic.setValue(self.appSettings.videoFolder, forKey: "videosDirectory")
             dic.setValue(self.appSettings.videoClipsFolder, forKey: "videoClipsDirectory")
+            dic.setValue(self.appSettings.timeLapseFolder, forKey: "timeLapseDirectory")
             dic.setValue(self.appSettings.jpgFolder, forKey: "jpgDirectory")
             dic.setValue(self.appSettings.rawFolder, forKey: "rawDirectory")
             dic.setValue(self.appSettings.outputDirectory, forKey: "outputDirectory")
@@ -977,5 +982,15 @@ extension NSScreen {
     }
 }
 
+extension NSImage {
+    var CGImage: CGImage {
+        get {
+            let imageData = self.tiffRepresentation
+            let source = CGImageSourceCreateWithData(imageData! as CFData, nil)
+            let maskRef = CGImageSourceCreateImageAtIndex(source!, 0, nil)
+            return maskRef!
+        }
+    }
+}
 
 
