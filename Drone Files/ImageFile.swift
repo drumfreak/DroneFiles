@@ -11,9 +11,7 @@ import Foundation
 import Cocoa
 
 class ImageFile {
-    
-    
-    
+
     fileprivate(set) var thumbnail: NSImage?
     fileprivate(set) var fileName: String
     fileprivate(set) var imgUrl: URL!

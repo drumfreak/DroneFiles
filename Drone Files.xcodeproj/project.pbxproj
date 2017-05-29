@@ -16,6 +16,7 @@
 		1817BBC71ED9B8240003A7D2 /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC41ED9B8240003A7D2 /* ThemeButton.swift */; };
 		1817BBCB1EDA21D70003A7D2 /* TimeLapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */; };
 		1817BBCC1EDA21D70003A7D2 /* TimeLapseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */; };
+		1817BBD01EDBC2A10003A7D2 /* blankClip.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1817BBCF1EDBC2A10003A7D2 /* blankClip.mp4 */; };
 		18326AF11ED163BB00469EDD /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */; };
 		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
 		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
@@ -147,6 +148,7 @@
 		1817BBC41ED9B8240003A7D2 /* ThemeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeButton.swift; path = ../../../Dronefiles/ThemeButton.swift; sourceTree = "<group>"; };
 		1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLapseViewController.swift; sourceTree = "<group>"; };
 		1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeLapseViewController.xib; sourceTree = "<group>"; };
+		1817BBCF1EDBC2A10003A7D2 /* blankClip.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = blankClip.mp4; path = ../../../Dronefiles/blankClip.mp4; sourceTree = "<group>"; };
 		18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				18A323A61ED8E4470025D309 /* backgroundDarkGray.png */,
 				188272451ECB759A00EE50D0 /* darkbrownbackground.png */,
 				188272471ECB897E00EE50D0 /* darkbrownbackground-light.png */,
+				1817BBCF1EDBC2A10003A7D2 /* blankClip.mp4 */,
 				1882724F1ECB9ABC00EE50D0 /* tablerow-lightgray.png */,
 				188272531ECB9BB100EE50D0 /* tablerow-black.png */,
 				1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */,
@@ -673,6 +676,7 @@
 				188272251ECA704F00EE50D0 /* appicon-32px.png in Resources */,
 				188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */,
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
+				1817BBD01EDBC2A10003A7D2 /* blankClip.mp4 in Resources */,
 				18590E361ED7E55100305E68 /* VideoPlayerView.xib in Resources */,
 				184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */,
 				18A323A21ED8E3480025D309 /* backgroundMediumGray.png in Resources */,

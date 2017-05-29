@@ -63,7 +63,7 @@ class MediaBinCollectionView: NSViewController {
         super.viewWillAppear()
         self.mediaShowIntervalSlider.doubleValue =  self.appSettings.mediaBinTimerInterval
         self.mediaShowRateLabel.doubleValue = self.appSettings.mediaBinTimerInterval
-        print(self.appSettings.mediaBinTimerInterval)
+        // print(self.appSettings.mediaBinTimerInterval)
         
         self.countLabel.stringValue = "0"
     }

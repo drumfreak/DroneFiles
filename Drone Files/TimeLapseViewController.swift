@@ -21,13 +21,22 @@ class TimeLapseViewController: NSViewController {
     @IBOutlet weak var playerView: AVPlayerView!
     var composition: AVMutableComposition!
     var mutableVideoComposition: AVMutableVideoComposition!
-    // composition = AVMutableComposition()
+    var avPlayerLayer: AVPlayerLayer!
     
     var playerViewControllerKVOContext = 2
-
+    var totalDuration = 0.0
     var player: AVPlayer!
     var playerItem: AVPlayerItem!
+    var playerIsReady = false
+    
+    var frameInterval = Float64(0.2)
+    
     var videoClips = [AVAsset]()
+    var images = [NSImage]()
+    var imageTimings = [Float]()
+    var imageLayer: CALayer!
+    var syncLayer: AVSynchronizedLayer!
+    
     var viewIsLoaded = false
     
     var receivedFiles = NSMutableArray() {
@@ -35,14 +44,18 @@ class TimeLapseViewController: NSViewController {
             if(self.viewIsLoaded) {
                 let count = String(format: "%", receivedFiles.count)
                 self.numberofFilesLabel.title = count
+                // self.cleanupPlayer()
+                self.generateTimeLapse(self)
+
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-           }
+            let count = String(format: "%1d", receivedFiles.count)
+            self.numberofFilesLabel.title = count
+    }
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -50,30 +63,65 @@ class TimeLapseViewController: NSViewController {
         let count = String(format: "%1d", receivedFiles.count)
         self.numberofFilesLabel.title = count
         
-        addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
+        // self.generateTimeLapse(self)
 
-        
-        self.generateTimeLapse(self)
-        
     }
     
-    override func viewDidDisappear() {
-        super.viewDidDisappear()
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
         self.viewIsLoaded = false
+        // self.deallocObservers()
     }
     
+    func deallocObservers() {
+        if(self.playerIsReady) {
+            self.playerIsReady = false
+            print("Deallocating Observers from playerItem")
+            self.player.pause()
+            
+            self.player.currentItem!.removeObserver(self, forKeyPath: #keyPath(player.currentItem.status), context: &playerViewControllerKVOContext)
+            
+            // self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.rate), context: &playerViewControllerKVOContext)
+            
+            self.playerView.player = nil
+            self.playerItem = nil
+            self.player = nil
+            self.imageLayer = nil
+            self.syncLayer = nil
+        }
+    }
+    
+    func cleanupPlayer() {
+        if(self.player.currentItem != nil) {
+            self.deallocObservers()
+        }
+    }
+
     func prepareAssets() {
+        // var currentTime = CMTimeMakeWithSeconds(0, 30)
+        self.images.removeAll()
+        self.imageTimings.removeAll()
         self.videoClips.removeAll()
         self.receivedFiles.forEach({m in
             let urlPath = m as! String
             let url = URL(string: urlPath)
-            let assetOptions = [AVURLAssetPreferPreciseDurationAndTimingKey : 1]
-            let avAsset = AVURLAsset(url: url!, options: assetOptions)
-            self.videoClips.append(avAsset)
+            var avAsset: AVAsset!
+            if(self.appDelegate.isImage(file: url!)) {
+                let image = ImageFile(url: url!)
+                avAsset = AVURLAsset(url: image.imgUrl!, options: nil)
+                self.images.append(image.thumbnail!)
+                self.videoClips.append(avAsset!)
+            } else if(self.appDelegate.isMov(file: url!)){
+                let assetOptions = [AVURLAssetPreferPreciseDurationAndTimingKey : 1]
+                avAsset = AVURLAsset(url: url!, options: assetOptions)
+                self.videoClips.append(avAsset!)
+            }
         })
     }
 
     @IBAction func generateTimeLapse(_ sender: AnyObject) {
+        let count = String(format: "%1d", self.receivedFiles.count)
+        self.numberofFilesLabel.title = count
         
         self.prepareAssets()
         var frame = 1
@@ -82,20 +130,30 @@ class TimeLapseViewController: NSViewController {
         self.mutableVideoComposition = AVMutableVideoComposition()
 
         let videoTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
-        
-        let instruction = AVMutableVideoCompositionInstruction()
+
         
         self.videoClips.forEach({clipIndex in
             
-            print("Asset Tracks: \(clipIndex.tracks)")
+            // print("FUCKING ASSET Tracks: \(clipIndex)")
+            
+            let foo = clipIndex.tracks(withMediaType: AVMediaTypeMuxed)
+            
+            
+            foo.forEach({ z in
+               // print("FOO TRACKS: \(z)")
+            })
 
+            
+            // clipIndex.
+
+            // Check for video.
             let assetTracks = clipIndex.tracks(withMediaType: AVMediaTypeVideo)
             
-            
             assetTracks.forEach({ z in
-                print("Asset TRACKS: \(z)")
+                // print("Asset TRACKS: \(z)")
             })
             
+            // Process video
             if(assetTracks.count > 0) {
                 let assetTrack = assetTracks[0] as AVAssetTrack
                 let duration = clipIndex.duration
@@ -111,31 +169,65 @@ class TimeLapseViewController: NSViewController {
                     // NSApplication.shared().presentError(nserror)
                 }
                 
+                
                 let firstTransform = assetTrack.preferredTransform
+                
                 
                 // Check the first video track's preferred transform to determine if it was recorded in portrait mode.
                 if (firstTransform.a == 0 && firstTransform.d == 0 && (firstTransform.b == 1.0 || firstTransform.b == -1.0) && (firstTransform.c == 1.0 || firstTransform.c == -1.0)) {
                     // isVideoPortrait = true
                 }
-            
                 
+
+                
+                let instruction = AVMutableVideoCompositionInstruction()
+            
                 instruction.timeRange = assetRange
                 
-                let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction.init(assetTrack: assetTrack)
                 
+                let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: assetTrack)
+
                 videoLayerInstruction.setTransform(firstTransform, at: nextTime)
                 
-                instruction.layerInstructions = [videoLayerInstruction]
+                instruction.layerInstructions.append(videoLayerInstruction)
+                self.mutableVideoComposition.instructions.append(instruction)
 
+                nextTime = CMTimeAdd(nextTime, duration)
+                
+                frame += 1
+            } else {
+                
+                // Must be an image.
+                
+                let duration = CMTimeMakeWithSeconds(self.frameInterval, 30)
+                
+
+                let assetDuration = CMTimeRangeMake(kCMTimeZero, duration)
+                let assetRange = CMTimeRangeMake(nextTime, duration)
+
+                let blank = Bundle.main.path(forResource: "blankClip", ofType: "mp4")
+                
+                // print("blank \(String(describing: blank))")
+            
+                let segment = AVCompositionTrackSegment(url: URL(fileURLWithPath: blank!), trackID: kCMPersistentTrackID_Invalid, sourceTimeRange: assetDuration, targetTimeRange: assetRange)
+                
+                self.imageTimings.append(Float(nextTime.seconds))
+                
+                videoTrack.segments.append(segment)
+                
                 nextTime = CMTimeAdd(nextTime, duration)
                 
                 frame += 1
             }
         })
-    
+        
+        self.totalDuration = nextTime.seconds
+        
+        
+        // print("Segements: \(videoTrack.segments)")
+
         self.mutableVideoComposition.renderSize =  CGSize(width: videoTrack.naturalSize.width, height: videoTrack.naturalSize.height)
         
-        self.mutableVideoComposition.instructions.append(instruction)
 
         let parentLayer = CALayer()
         let videoLayer = CALayer()
@@ -147,51 +239,103 @@ class TimeLapseViewController: NSViewController {
         
         parentLayer.addSublayer(videoLayer)
         
-        //let animationTool = AVVideoCompositionCoreAnimationTool.init(postProcessingAsVideoLayer: videoLayer, in: parentLayer)
+        let animationTool = AVVideoCompositionCoreAnimationTool(additionalLayer: videoLayer, asTrackID: kCMPersistentTrackID_Invalid)
         
-        //let v = AVVideoCompositionCoreAnimationTool.init()
-        
-        // mutableVideoComposition.animationTool = v
+        self.mutableVideoComposition.animationTool = animationTool
         
         // Set the frame duration to an appropriate value (i.e. 30 frames per second for video).
         self.mutableVideoComposition.frameDuration = CMTimeMake(1,30);
     
-        
-        
-//        composition.tracks.forEach({ m in
+//        self.composition.tracks.forEach({ m in
 //            print("Composition Track: \(m)")
 //            m.segments.forEach({ z in
 //                print("Segments: \(z)")
 //            })
 //        })
         
-        self.setupPlayer()
+        if(self.setupAnimation()){
+            self.setupPlayer()
+        }
+    }
+    
+    func setupAnimation() -> Bool {
+        
+        self.imageLayer?.removeAllAnimations()
+//        self.imageLayer?.removeFromSuperlayer()
+//        self.imageLayer = nil
+        self.imageLayer = CALayer()
+        
+        self.imageLayer.frame = CGRect(x: 0, y: 20, width: (self.playerView.layer?.bounds.width)!, height: (self.playerView.layer?.bounds.height)! - 24)
+        
+        
+        self.imageLayer.contentsGravity = kCAGravityResizeAspect
+        
+        // self.view.layer?.addSublayer(imageLayer)
+        
+        let anim = CAKeyframeAnimation(keyPath: "contents")
+        // print("Player duration: \(playerItem.duration.seconds)")
+        
+        anim.duration = self.totalDuration
+        // anim.repeatDuration = 20.0
+        anim.beginTime = AVCoreAnimationBeginTimeAtZero
+        anim.values = self.images
+        anim.keyTimes = self.imageTimings as [NSNumber]
+        anim.repeatCount = 0
+        
+        self.imageTimings.forEach({n in
+            print("KEY TIMINGS: \(n)")
+        })
+        
+        self.imageLayer.add(anim, forKey: "contents")
+    
+        return true
     }
     
     
     func setupPlayer() {
-    
+        
         let playerItem = AVPlayerItem(asset: self.composition.copy() as! AVAsset)
         
-        // playerItem.videoComposition = mutableVideoComposition
+        if(self.playerView?.player == nil) {
+            
+            let avPlayer = AVPlayer(playerItem: playerItem)
+            
+            self.player = avPlayer
+            self.playerView.player?.volume = 0.0
+            self.playerView.player = self.player
+            
+            self.player.currentItem!.addObserver(self, forKeyPath: #keyPath(player.currentItem.status), options:   [.new, .initial], context: &playerViewControllerKVOContext)
+            
+            // self.player.currentItem!.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.duration), options:   [.new, .initial], context: &playerViewControllerKVOContext)
         
-        let avPlayer = AVPlayer(playerItem: playerItem)
+            
+            self.playerIsReady = true
+            
+        } else {
+            self.playerView.player!.replaceCurrentItem(with: playerItem)
+            // self.view.layer?.addSublayer(self.avPlayerLayer)
+        }
         
-        self.player = avPlayer
-        self.player?.volume = 0.0
-        self.playerView.player = self.player
+//        if(self.syncLayer != nil) {
+//            self.syncLayer!.removeFromSuperlayer()
+//            self.syncLayer = nil
+//        }
         
-        self.playerView.player?.addObserver(self,
-                                            forKeyPath: #keyPath(AVPlayerItem.status),
-                                            options: [.old, .new],
-                                            context: &playerViewControllerKVOContext)
+        self.syncLayer = AVSynchronizedLayer(playerItem: (self.playerView.player?.currentItem)!)
+        
+        self.syncLayer.addSublayer(self.imageLayer!)
+        
+        self.playerView?.layer!.addSublayer(self.syncLayer!)
+        
+        
+
         
         
     }
     
     //observer for av play
     
-    override func observeValue(forKeyPath keyPath: String?,
+        override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
                                change: [NSKeyValueChangeKey : Any]?,
                                context: UnsafeMutableRawPointer?) {
@@ -206,7 +350,7 @@ class TimeLapseViewController: NSViewController {
         
         
         
-        if keyPath == #keyPath(AVPlayerItem.status) {
+        if keyPath == #keyPath(player.currentItem.status) {
             let status: AVPlayerItemStatus
 
             // Get the status change from the change dictionary
@@ -216,7 +360,6 @@ class TimeLapseViewController: NSViewController {
                 status = .unknown
             }
             
-            
             print("Keypath: \(String(describing: status))")
 
             // Switch over the status
@@ -224,16 +367,20 @@ class TimeLapseViewController: NSViewController {
             case .readyToPlay:
                  // Player item is ready to play.
                  print("Player Ready")
+                 self.playerIsReady = true
+                 self.player.play()
                  
                 break
             case .failed:
                 // Player item failed. See error.
                 
                 print("Player Failed")
+                self.playerIsReady = false
                 break
                 
             case .unknown:
-                print("Player Unkown");
+                print("Player Unkown")
+                self.playerIsReady = false
                 
                 break
                 // Player item is not yet ready.
@@ -244,33 +391,9 @@ class TimeLapseViewController: NSViewController {
          
         } else if keyPath == #keyPath(AVPlayer.rate) {
            
-//            let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
-//            if(newRate != 0.0) {
-//                self.appDelegate.videoControlsController.startTimer()
-//            } else {
-//                self.appDelegate.videoControlsController.stopTimer()
-//            }
+
         }
-        else if keyPath == #keyPath(AVPlayerItem.status) {
-            // Display an error if status becomes `.Failed`.
-            
-            /*
-             Handle `NSNull` value for `NSKeyValueChangeNewKey`, i.e. when
-             `player.currentItem` is nil.
-             */
-            let newStatus: AVPlayerItemStatus
-            
-            if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
-                newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
-            }
-            else {
-                newStatus = .unknown
-            }
-            
-            if newStatus == .failed {
-               //  handleErrorWithMessage(self.player.currentItem?.error?.localizedDescription, error:self.player.currentItem?.error)
-            }
-        }
+
     }
     
 }

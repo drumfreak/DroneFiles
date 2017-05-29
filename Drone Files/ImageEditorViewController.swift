@@ -98,7 +98,7 @@ class ImageEditorViewController: NSViewController {
     
     
     func loadImage (_url: URL) {
-        //DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.imageUrl = _url
             
             self.imageViewLoad.setImageWith(self.imageUrl!)
@@ -111,7 +111,7 @@ class ImageEditorViewController: NSViewController {
                 self.transitionNone()
             }
             
-        // }
+        }
     }
     
     

@@ -143,7 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             defaults.setValue(0.1, forKey: "screenshotFramesInterval")
             defaults.setValue(5, forKey: "screenshotFramesAfter")
             defaults.setValue(5, forKey: "screenshotFramesBefore")
-            defaults.setValue(2.0, forKey: "mediaBinTimerInterval")
+            defaults.setValue(4.0, forKey: "mediaBinTimerInterval")
             defaults.setValue(false, forKey: "loadNewClip")
             defaults.setValue(true, forKey: "videoPlayerAutoPlay")
             defaults.setValue(true, forKey: "videoPlayerAlwaysPlay")

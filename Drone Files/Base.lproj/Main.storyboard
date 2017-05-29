@@ -2618,7 +2618,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <avPlayerView fixedFrame="YES" controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-GZ-TOz">
+                                    <avPlayerView fixedFrame="YES" controlsStyle="inline" showsFullScreenToggleButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GSc-GZ-TOz">
                                         <rect key="frame" x="237" y="107" width="347" height="195"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </avPlayerView>
