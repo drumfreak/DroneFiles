@@ -16,7 +16,7 @@ let kFailedToAppendPixelBufferError = 1
 class TimeLapseBuilder: NSObject {
     let photoURLs: [String]
     var outputUrl =  ""
-    var outputSize = CGSize(width: 3840, height: 2160)
+    var outputSize = CGSize(width: 1920, height: 1080)
     
     var videoWriter: AVAssetWriter?
     var videoOutputUrl: URL
@@ -31,7 +31,7 @@ class TimeLapseBuilder: NSObject {
         
         self.outputSize = outputSize
         
-        let inputSize = CGSize(width: 3840, height: 2160)
+        let inputSize = CGSize(width: outputSize.width, height: outputSize.height)
         var error: NSError?
         
         let path = self.videoOutputUrl.deletingLastPathComponent()
@@ -153,8 +153,8 @@ class TimeLapseBuilder: NSObject {
         
         autoreleasepool {
             if let url = URL(string: url),
-                let imageData = try? Data(contentsOf: url),
-                let image = NSImage(data: imageData),
+                let image = NSImage(contentsOf: url)?.resizeImage(width: outputSize.width, height: outputSize.height),
+                // let imageData = try? Data(contentsOf: url),
                 let pixelBufferPool = pixelBufferAdaptor.pixelBufferPool {
                 let pixelBufferPointer = UnsafeMutablePointer<CVPixelBuffer?>.allocate(capacity: 1)
                 let status: CVReturn = CVPixelBufferPoolCreatePixelBuffer(

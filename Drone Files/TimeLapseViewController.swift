@@ -157,13 +157,8 @@ class TimeLapseViewController: NSViewController {
         }, failure: { error in
             print(error)
             self.finishSave(true, url: URL(string: timeLapseUrl)!)
-
         })
-        
     }
-    
-    
-    
     
     // Video Clipping
     func getClippedVideosIncrement(folder: String) -> String {

@@ -993,4 +993,23 @@ extension NSImage {
     }
 }
 
+extension NSImage {
+    func resizeImage(width: CGFloat, height: CGFloat) -> NSImage {
+        let newSize = NSSize(width: width, height: height)
+        if let bitmapRep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(width), pixelsHigh: Int(height), bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: NSCalibratedRGBColorSpace, bytesPerRow: 0, bitsPerPixel: 0) {
+            bitmapRep.size = newSize
+            NSGraphicsContext.saveGraphicsState()
+            NSGraphicsContext.setCurrent(NSGraphicsContext(bitmapImageRep: bitmapRep))
+            self.draw(in: NSRect(x: 0, y: 0, width: width, height: height), from: NSZeroRect, operation: .copy, fraction: 1.0)
+            NSGraphicsContext.restoreGraphicsState()
+            
+            let resizedImage = NSImage(size: newSize)
+            resizedImage.addRepresentation(bitmapRep)
+            return resizedImage
+        }
+        return self
+    }
+}
+
+
 
