@@ -140,12 +140,12 @@ class VideoClipMergeViewController: NSViewController {
         let count = String(format: "%1d", receivedFiles.count)
         self.numberofFilesLabel.title = count
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.progressIndicator.isHidden = true
             if(self.receivedFiles.count > 2) {
                 self.saveTimeLapseButton.isHidden = false
             }
-        }
+        //}
         
         self.videoSizeSelectMenu.addItems(withTitles: self.videoSizeSelectMenuOptions)
         

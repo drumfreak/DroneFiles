@@ -139,7 +139,6 @@ class ScreenshotViewController: NSViewController {
         
         do {
             
-            
             if(currentTime >= kCMTimeZero && currentTime < maxTime) {
                 let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)
                 
@@ -175,8 +174,6 @@ class ScreenshotViewController: NSViewController {
     }
     
     func setFileDate(originalFile: String) {
-        
-        // print("ORIGINAL FILE.... \(originalFile)")
         
         var original = originalFile.replacingOccurrences(of: "file://", with: "");
         original = original.replacingOccurrences(of: "%20", with: " ");

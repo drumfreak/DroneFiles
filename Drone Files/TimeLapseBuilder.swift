@@ -17,7 +17,7 @@ class TimeLapseBuilder: NSObject {
     let photoURLs: [String]
     var outputUrl =  ""
     var outputSize = CGSize(width: 1920, height: 1080)
-    
+    var frameRate = Int32(30)
     var videoWriter: AVAssetWriter?
     var videoOutputUrl: URL
     
@@ -27,9 +27,10 @@ class TimeLapseBuilder: NSObject {
         self.videoOutputUrl = URL(string: url)!
     }
     
-    func build(outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+    func build(frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
         
         self.outputSize = outputSize
+        self.frameRate = frameRate
         
         let inputSize = CGSize(width: outputSize.width, height: outputSize.height)
         var error: NSError?
@@ -58,13 +59,8 @@ class TimeLapseBuilder: NSObject {
             let compressionSettings:[String : AnyObject] = [
 //                AVVideoAverageBitRateKey : 1000000 as AnyObject,
 //                AVVideoMaxKeyFrameIntervalKey : 16 as AnyObject,
-//                AVVideoProfileLevelKey : AVVideoProfileLevelH264BaselineAutoLevel as AnyObject,
-                // AVVideoScalingModeKey : AVVideoScalingModeFit as AnyObject
-
+//                AVVideoProfileLevelKey :
             :]
-            
-            //let aspectRatio = inputSize.width / inputSize.height
-            
             
             let videoSettings: [String : AnyObject] = [
                 AVVideoCodecKey  : AVVideoCodecH264 as AnyObject,
@@ -95,8 +91,7 @@ class TimeLapseBuilder: NSObject {
                 let media_queue = DispatchQueue(label: "mediaInputQueue")
                 
                 videoWriterInput.requestMediaDataWhenReady(on: media_queue) {
-                    let fps: Int32 = 30
-                    let frameDuration = CMTimeMake(1, fps)
+                    let frameDuration = CMTimeMake(1, frameRate)
                     let currentProgress = Progress(totalUnitCount: Int64(self.photoURLs.count))
                     
                     var frameCount: Int64 = 0
@@ -104,7 +99,7 @@ class TimeLapseBuilder: NSObject {
                     
                     while videoWriterInput.isReadyForMoreMediaData && !remainingPhotoURLs.isEmpty {
                         let nextPhotoURL = remainingPhotoURLs.remove(at: 0)
-                        let lastFrameTime = CMTimeMake(frameCount, fps)
+                        let lastFrameTime = CMTimeMake(frameCount, frameRate)
                         let presentationTime = frameCount == 0 ? lastFrameTime : CMTimeAdd(lastFrameTime, frameDuration)
                         
                         if !self.appendPixelBufferForImageAtURL(nextPhotoURL, pixelBufferAdaptor: pixelBufferAdaptor, presentationTime: presentationTime) {

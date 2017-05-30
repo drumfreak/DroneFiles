@@ -106,12 +106,11 @@ class ImageEditorViewController: NSViewController {
             
             if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
                 self.transitionFade()
-                
             } else {
                 self.transitionNone()
             }
             
-        }
+       }
     }
     
     

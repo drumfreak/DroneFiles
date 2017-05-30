@@ -539,6 +539,7 @@ class VideoPlayerControllsController: NSViewController {
                 self.clipTrimProgressBar.doubleValue = 1.0
                 self.clipTrimProgressBar.stopAnimation(nil)
                 self.clipTrimProgressBar.isHidden = true
+                self.showNotification(messageType: "videoTrimComplete", customMessage: "File saved to clips folder!")
             }
         }
     }
@@ -616,7 +617,7 @@ class VideoPlayerControllsController: NSViewController {
             self.cancelTrimmedVideoButton.isHidden = true
             
             if(self.clippedItemPreserveFileDates) {
-                self.setFileDate(originalFile: (self.nowPlayingURLString)!, newFile: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: ""))
+                self.setFileDate(originalFile: (self.appDelegate.videoPlayerViewController?.nowPlayingURL.path)!, newFile: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: ""))
             }
             
             DispatchQueue.main.async {
@@ -793,7 +794,8 @@ class VideoPlayerControllsController: NSViewController {
             return
         }
         
-        DispatchQueue.global().async() {
+        
+        DispatchQueue(label: "mediaInputQueue").async() {
             var playerWasPlaying = false
             
             self.messageBoxLabel(string: "Screen Shot Starting...")
@@ -951,19 +953,19 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func showNotification(messageType: String, customMessage: String) -> Void {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if(messageType == "VideoTrimComplete") {
+        //DispatchQueue.global(qos: .userInitiated).async {
+            if(messageType == "videoTrimComplete") {
                 // print("Message Type VIDEO TRIM COMPLETE: " + messageType);
                 let notification = NSUserNotification()
                 notification.title = "Video Trimming Complete"
                 notification.informativeText = "Your clip has been saved. " + customMessage.replacingOccurrences(of: "%20", with: " ")
                 
                 notification.soundName = NSUserNotificationDefaultSoundName
-                // NSUserNotificationCenter.default.deliver(notification)
-                NSUserNotificationCenter.default.deliver(notification);
+                self.appDelegate.notificationCenter.deliver(notification)
+                
             }
             
-        }
+        // }
     }
     
     

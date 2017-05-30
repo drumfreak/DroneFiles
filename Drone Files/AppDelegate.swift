@@ -12,9 +12,11 @@ import Quartz
 
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
     @IBOutlet var window: NSWindow!
     var defaults = UserDefaults.standard
+    
+    var notificationCenter: NSUserNotificationCenter!
     
     var externalScreens = [NSScreen]()
       
@@ -70,8 +72,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var secondWindowController = SecondWindowController()
     @IBOutlet weak var secondaryDisplayMediaViewController = SecondaryDisplayMediaViewController()
-
-    
     
     var slideShowWindowController: SlideShowWindowController?
     
@@ -106,19 +106,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         // Swift.print(appSettings)
+        // self.notificationCenter.delegate = self
+        self.notificationCenter = NSUserNotificationCenter.default
+        
+        self.notificationCenter.delegate = self
+        
         setupOptions()
 
     }
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     
-        let notification = NSUserNotification()
-        notification.title = "Welcome to DroneFiles!"
-        notification.informativeText = "Your life will never be the same"
-        notification.soundName = NSUserNotificationDefaultSoundName
-        NSUserNotificationCenter.default.deliver(notification)
-        
-        // self.externalScreens = NSScreen.externalScreens()
+              // self.externalScreens = NSScreen.externalScreens()
  
+    }
+    
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
     }
     
     

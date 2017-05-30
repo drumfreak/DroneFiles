@@ -344,7 +344,10 @@ class FileManagerViewController: NSViewController {
                 notification.informativeText = customMessage.replacingOccurrences(of: "%20", with: " ")
                 
                 notification.soundName = NSUserNotificationDefaultSoundName
-                NSUserNotificationCenter.default.deliver(notification);
+                //NSUserNotificationCenter.default.deliver(notification);
+                
+                self.appDelegate.notificationCenter.deliver(notification)
+                
             }
             
         }
