@@ -90,10 +90,9 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
     ]
 
     
-    var videoFrameRateSelectMenuOptions = ["1", "2", "5", "10", "15", "20", "24", "30", "60", "120"]
+    var videoFrameRateSelectMenuOptions = ["1", "2", "5", "10", "15", "20", "24", "30", "60", "120", "240", "320", "420"]
     
-    
-    var frameRates = [1, 2, 5, 10, 15, 20, 24, 30, 60, 120]
+    var frameRates = [1, 2, 5, 10, 15, 20, 24, 30, 60, 120, 240, 320, 420]
     
     var timelapseVideoName = ""
     
@@ -297,12 +296,11 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
             
             workerItem.inProgress = true
             workerItem.outputUrl = URL(string: timeLapseUrl)
-            workerItem.title = workerItem.outputUrl.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+            workerItem.title = "Timelapse In Progress: " + sizeAndWidth
             
-
             let builder = TimeLapseBuilder(photoURLs: timeLapseUrls as! [String], url: timeLapseUrl)
         
-            print("New Timelapse video file..." + (URL(string: timeLapseUrl)?.lastPathComponent)!)
+            // print("New Timelapse video file..." + (URL(string: timeLapseUrl)?.lastPathComponent)!)
         
             var errCount = 0
             

@@ -68,8 +68,8 @@ class MediaQueueMonitorViewController: NSViewController {
         self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
         self.queueItemsLabel.stringValue = "0 items"
         self.queuePercentLabel.stringValue = "0%"
-    
-    }
+   
+            }
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -79,6 +79,8 @@ class MediaQueueMonitorViewController: NSViewController {
         self.window?.orderFront(self.view.window)
         self.window?.becomeFirstResponder()
         self.window?.titlebarAppearsTransparent = true
+        self.tableView.reloadData()
+        
     }
     
     override func viewWillAppear() {
@@ -125,7 +127,7 @@ class MediaQueueMonitorViewController: NSViewController {
             if(self.queueTimer == nil) {
                 print("~~~~~~~~~~~~~~~~ STARTING A TIMER")
 
-                self.queueTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
+                self.queueTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
                 
                 RunLoop.current.add(self.queueTimer, forMode: RunLoopMode.commonModes)
                 
@@ -133,7 +135,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 if(!self.queueTimer.isValid) {
                     print("~~~~~~~~~~~~~~~~ RESTARTING A TIMER")
 
-                    self.queueTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
+                    self.queueTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
                     
                     RunLoop.current.add(self.queueTimer, forMode: RunLoopMode.commonModes)
                 }
@@ -173,13 +175,25 @@ class MediaQueueMonitorViewController: NSViewController {
             
             print("\(i) Status : \(String(describing: worker.workerStatus))")
             
+            let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
+            
+            let cell = rowView?.view(atColumn: 0) as! MediaQueueMonitorTableCellView
+
             DispatchQueue.main.async {
+                cell.queueTitleLabel.stringValue = worker.title
+                cell.queueFileNameLabel.stringValue = worker.outputUrl.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+                
+                cell.queueOverAllProgressIndicator.doubleValue = worker.percent
+                
+                cell.queuePercentLabel.stringValue = String(format: "%2f", worker.percent) + "%"
+                
+                
                 self.queueOverAllProgressIndicator.doubleValue = worker.percent
             }
             
             if(worker.percent == 1.0) {
                 print("\(i)  REMOVING WORKER - Complete \(i)")
-                self.appDelegate.mediaQueue.queue.remove(at: i)
+                // self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()
                 self.startTimer()
                 DispatchQueue.main.async {
@@ -189,7 +203,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 return
             } else if(worker.inProgress == false) {
                 print("\(i)  REMOVING WORKER - Not in progress \(i)")
-                self.appDelegate.mediaQueue.queue.remove(at: i)
+               // self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()
                 self.startTimer()
                 DispatchQueue.main.async {
@@ -228,4 +242,27 @@ extension MediaQueueMonitorViewController: NSTableViewDataSource {
 
 extension MediaQueueMonitorViewController: NSTableViewDelegate {
 
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+//        let cellNib = NSNib(nibNamed: "MediaQueueMonitorTableCellViewController", bundle: Bundle.main)
+//        
+//        self.tableView.register(cellNib, forIdentifier: "mediaQueueProgress")
+//        
+//
+        
+        // 3
+        if let cell = tableView.make(withIdentifier: "mediaQueueProgress", owner: nil) as? MediaQueueMonitorTableCellView {
+            cell.queueTitleLabel?.stringValue = ""
+            cell.queuePercentLabel?.stringValue = ""
+            cell.queueFileNameLabel?.stringValue = ""
+            cell.queueOverAllProgressIndicator?.doubleValue = 0.0
+            
+            return cell
+        }
+        
+        return nil
+
+    }
+    
+    
 }

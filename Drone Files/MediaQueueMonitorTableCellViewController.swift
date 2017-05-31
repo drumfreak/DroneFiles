@@ -11,7 +11,7 @@ import Cocoa
 
 class MediaQueueMonitorTableCellView: NSTableCellView {
 
-  
+    @IBOutlet var view: NSView!
     @IBOutlet var queueTitleLabel: NSTextField!
     @IBOutlet var queueFileNameLabel: NSTextField!
 
@@ -24,8 +24,6 @@ class MediaQueueMonitorTableCellView: NSTableCellView {
         super.awakeFromNib()
         // Initialization code
     
-    
     }
     
-
 }

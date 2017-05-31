@@ -12,6 +12,7 @@
                 <outlet property="queueOverAllProgressIndicator" destination="v0c-6b-yE6" id="3fI-5q-XtF"/>
                 <outlet property="queuePercentLabel" destination="0iP-55-jZQ" id="XgB-Vx-Dsh"/>
                 <outlet property="queueTitleLabel" destination="rQf-Fv-HFy" id="NBX-en-djJ"/>
+                <outlet property="view" destination="c22-O7-iKe" id="v51-bu-Es4"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
