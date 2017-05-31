@@ -10,28 +10,10 @@ import Foundation
 
 import Cocoa
 
-
 class NewProjectWindowController: NSWindowController {
     override var windowNibName: String? {
         return "NewProjectWindow" // no extension .xib here
     }
-    
-//    override func windowDidLoad() {
-//        super.windowDidLoad()
-//    }
-//
-//    override init(window: NSWindow!) {
-//        super.init(window: window)
-//     }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//    }
-   
 }
 
 class NewProjectWindow: NSWindow {

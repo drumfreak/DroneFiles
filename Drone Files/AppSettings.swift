@@ -16,6 +16,11 @@ struct AppSettings {
     
     let userDefaults = UserDefaults.standard
     
+    var mediaQueueIsOpen = false {
+        didSet {
+            
+        }
+    }
     
     var secondDisplayIsOpen = false {
         didSet {

@@ -105,13 +105,13 @@ class FavoritesCollectionViewController: NSViewController {
         
         self.configureCollectionView()
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             
             self.collectionView.reloadData()
             
             
             self.countLabel.title = String(format: "%1d", self.appSettings.favoriteUrls.count)
-        }
+        //}
         
         //self.collectionView.resignFirstResponder()
         //self.resignFirstResponder()
@@ -214,13 +214,13 @@ class FavoritesCollectionViewController: NSViewController {
         
         print("Selecting : i \(self.currentSlide)")
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             
             self.selectItemByIndex(int: self.currentSlide)
             
             self.collectionView.reloadData()
             
-        }
+       // }
         
         
     }

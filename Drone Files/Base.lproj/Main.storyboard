@@ -896,7 +896,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="20"/>
                                     <size key="maxSize" width="72" height="45"/>
-                                    <button key="view" id="peQ-9H-V3z" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                    <button key="view" id="peQ-9H-V3z">
                                         <rect key="frame" x="0.0" y="14" width="72" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSActionTemplate" imagePosition="overlaps" alignment="center" alternateImage="darkbackground-3" refusesFirstResponder="YES" inset="2" id="TBH-N3-j3E">
@@ -904,6 +904,22 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="8C09B418-D1BD-45D8-9DB0-1CE1BAA9DF5A" label="" paletteLabel="Queue" image="NSColorPanel" id="nBg-ov-Qua">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="60" height="20"/>
+                                    <size key="maxSize" width="84" height="45"/>
+                                    <button key="view" id="UfQ-H2-LBi" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="84" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSColorPanel" imagePosition="only" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="wiY-sG-f6Z">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="toggleMediaQueue:" target="nrN-2e-1nS" id="mk9-rd-fh8"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="AA3F6233-B2A8-4224-AFFB-4E221C9D56A9" label="" paletteLabel="Video Editor" image="darkbackground" id="6H5-RZ-C6I">
                                     <nil key="toolTip"/>
@@ -999,6 +1015,7 @@
                                 <toolbarItem reference="uiA-bm-yKj"/>
                                 <toolbarItem reference="bDO-zM-2PQ"/>
                                 <toolbarItem reference="cCh-kk-Y2Z"/>
+                                <toolbarItem reference="nBg-ov-Qua"/>
                             </defaultToolbarItems>
                             <connections>
                                 <outlet property="projectNameTextField" destination="cU2-bK-bgL" id="o76-jS-SB5"/>
@@ -2763,6 +2780,7 @@
     </scenes>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSColorPanel" width="32" height="32"/>
         <image name="NSFolder" width="32" height="32"/>
         <image name="appicon-1024px" width="1024" height="1024"/>
         <image name="darkbackground" width="1200" height="1000"/>

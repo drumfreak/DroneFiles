@@ -30,6 +30,8 @@
 		184BB2361ED77AE300D73B8A /* ScreenshotSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */; };
 		184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */; };
 		1850908F1ED664CF007933FC /* ToolBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850908E1ED664CF007933FC /* ToolBarViewController.swift */; };
+		1850D3621EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1850D3611EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib */; };
+		1850D3641EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1850D3631EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift */; };
 		18590E361ED7E55100305E68 /* VideoPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18590E351ED7E55100305E68 /* VideoPlayerView.xib */; };
 		185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */; };
 		185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */; };
@@ -164,6 +166,8 @@
 		184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenshotSettingsWindow.xib; sourceTree = "<group>"; };
 		184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileCopyProgressWindow.xib; sourceTree = "<group>"; };
 		1850908E1ED664CF007933FC /* ToolBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarViewController.swift; sourceTree = "<group>"; };
+		1850D3611EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaQueueMonitorWindowController.xib; sourceTree = "<group>"; };
+		1850D3631EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaQueueMonitorWindowController.swift; sourceTree = "<group>"; };
 		18590E351ED7E55100305E68 /* VideoPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoPlayerView.xib; sourceTree = "<group>"; };
 		185F4C2F1EB038D40046C452 /* FileManagerOptionsCopyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsCopyController.swift; sourceTree = "<group>"; };
 		185F4C311EB039840046C452 /* FileManagerOptionsOrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerOptionsOrganizeController.swift; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */,
 				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
+				1850D3611EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib */,
+				1850D3631EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift */,
 				1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */,
 				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
 				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
@@ -671,6 +677,7 @@
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
 				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
+				1850D3621EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib in Resources */,
 				18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
 				18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */,
@@ -753,6 +760,7 @@
 				188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */,
 				187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */,
 				185F4C321EB039840046C452 /* FileManagerOptionsOrganizeController.swift in Sources */,
+				1850D3641EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift in Sources */,
 				1817BBCB1EDA21D70003A7D2 /* TimeLapseViewController.swift in Sources */,
 				188272351ECAA50100EE50D0 /* ThemeView.swift in Sources */,
 				187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */,

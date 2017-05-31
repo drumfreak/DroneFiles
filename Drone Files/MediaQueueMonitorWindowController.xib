@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MediaQueueMonitorWindowController" customModule="Drone_Files" customModuleProvider="target"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Media Queue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="MediaQueueMonitorWindow" customModule="Drone_Files" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-hk-o7A" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                        <rect key="frame" x="130" y="166" width="220" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Hey" id="5iX-XX-G4O">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="initialFirstResponder" destination="EiT-Mj-1SZ" id="Qcs-Zd-EXV"/>
+            </connections>
+        </window>
+        <customObject id="4Aa-kW-A5c" customClass="MediaQueueMonitorViewController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="queueItemsLabel" destination="jpl-hk-o7A" id="FtM-Oj-MlE"/>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="toC-RQ-3NA"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="Hl5-aQ-lkt"/>
+            </connections>
+        </customObject>
+    </objects>
+</document>

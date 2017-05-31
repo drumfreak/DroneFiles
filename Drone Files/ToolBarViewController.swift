@@ -49,7 +49,6 @@ class ToolBarViewController: NSViewController {
     
     @IBAction func showVideoEditorTab(_ sender: AnyObject?) {
 
-    
     }
     
     

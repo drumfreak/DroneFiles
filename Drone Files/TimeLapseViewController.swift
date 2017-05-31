@@ -13,7 +13,9 @@ import AppKit
 import Quartz
 
 
-class TimeLapseViewController: NSViewController {
+class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegate {
+
+    var notificationCenter: NSUserNotificationCenter!
 
     @IBOutlet var numberofFilesLabel: NSButton!
     @IBOutlet var saveTimeLapseButton: NSButton!
@@ -25,7 +27,9 @@ class TimeLapseViewController: NSViewController {
     @IBOutlet var outputFolderLabel: NSTextField!
     @IBOutlet var outputFileName: NSTextField!
     @IBOutlet var progressLabel: NSTextField!
+    var mediaQueueMonitorWindowController: MediaQueueMonitorWindowController!
 
+    
     var videoSizeSelectMenuOptions = [
                                         "[16:9] - 1024×576",
                                         "[16:9] - 1152×648",
@@ -91,47 +95,20 @@ class TimeLapseViewController: NSViewController {
     
     var frameRates = [1, 2, 5, 10, 15, 20, 24, 30, 60, 120]
     
-    
-    @IBOutlet weak var playerView: AVPlayerView!
-    
-    /*
-    var videoClips = [AVAsset]()
-    var images = [NSImage]()
-    var imageTimings = [Float]()
-    var imageLayer: CALayer!
-    var syncLayer: AVSynchronizedLayer!
-    var composition: AVMutableComposition!
-    var mutableVideoComposition: AVMutableVideoComposition!
-    var avPlayerLayer: AVPlayerLayer!
-    var playerViewControllerKVOContext = 2
-    var totalDuration = 0.0
-    var player: AVPlayer!
-    var playerItem: AVPlayerItem!
-    var playerIsReady = false
-    */
-    
-    
     var timelapseVideoName = ""
-    
-    var frameInterval = Float64(0.2)
     
     var imageUrls = [String]()
 
     var imageTimings = [Float]()
-    var imageLayer: CALayer!
-    var syncLayer: AVSynchronizedLayer!
     
     var viewIsLoaded = false
     
     var receivedFiles = NSMutableArray() {
         didSet {
             if(self.viewIsLoaded) {
-                let count = String(format: "%", receivedFiles.count)
-                self.numberofFilesLabel.title = count
-                // self.cleanupPlayer()
-               // self.generateTimeLapse(self)
-            
-                if(self.receivedFiles.count > 2) {
+                self.numberofFilesLabel.title = "\"(receivedFiles.count)"
+              
+                if(receivedFiles.count > 2) {
                     self.saveTimeLapseButton.isEnabled = true
                 } else {
                     self.saveTimeLapseButton.isEnabled = false
@@ -146,6 +123,10 @@ class TimeLapseViewController: NSViewController {
         super.viewDidLoad()
             let count = String(format: "%1d", receivedFiles.count)
             self.numberofFilesLabel.title = count
+        
+        self.notificationCenter = NSUserNotificationCenter.default
+        
+        self.notificationCenter.delegate = self
         
         DispatchQueue.main.async {
             self.progressIndicator.isHidden = true
@@ -177,9 +158,9 @@ class TimeLapseViewController: NSViewController {
         
         let size = self.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
         
-        print("size \(String(describing: size))")
+        //print("size \(String(describing: size))")
         
-        print("framerate \(String(describing: framerate))")
+        //print("framerate \(String(describing: framerate))")
     
         let sizeAndWidth =  "\(Int32(size.width))x\(Int32(size.height))-\(framerate)fps"
         
@@ -229,25 +210,63 @@ class TimeLapseViewController: NSViewController {
                 self.appDelegate.appSettings.mediaBinUrls.append(url)
                 
                 let notification = NSUserNotification()
-                // notification.identifier = "timelapse290239"
+
+                if(self.imageUrls.count > 0) {
+                    notification.contentImage = NSImage(contentsOf: URL(string: self.imageUrls[0])!)
+                }
+                
+                
+                
+                notification.identifier = "timelapse29sdfsdf0239\(UUID().uuidString)"
                 notification.title = "Timelapse Saved!"
                 notification.informativeText = "Filename.... "
                 notification.soundName = NSUserNotificationDefaultSoundName
-                notification.actionButtonTitle = "Oh yeah"
+                notification.notificationUrl = url.absoluteString
                 notification.hasActionButton = true
+                notification.actionButtonTitle = "View"
+                // notification.otherButtonTitle = "Dismiss"
+
+                notification.setValue(true, forKey: "_showsButtons")
                 
-                self.appDelegate.notificationCenter.deliver(notification)
+                var actions = [NSUserNotificationAction]()
                 
+                let action1 = NSUserNotificationAction(identifier: "viewNow", title: url.absoluteString)
                 
+                let action2 = NSUserNotificationAction(identifier: "openInFinder", title: "Open in Quicktime")
+                
+                let action3 = NSUserNotificationAction(identifier: "eatMe", title: "Something else")
+                
+                actions.append(action1)
+                actions.append(action2)
+                actions.append(action3)
+                
+                notification.additionalActions = actions
+
+                self.notificationCenter.deliver(notification)
+    
+            } else {
+                
+                let myPopup: NSAlert = NSAlert()
+                
+                myPopup.messageText = "Timelapse Failed"
+                myPopup.informativeText = "Something went wrong. Dispatching Monkeys to find out why."
+                myPopup.alertStyle = NSAlertStyle.warning
+                myPopup.addButton(withTitle: "OK")
+                myPopup.runModal()
+
             }
         }
     }
     
+    
+    
     @IBAction func writeTimeLapse(_ sender: AnyObject) {
         
-        print("rate: \(String(describing: self.videoFrameRateSelectMenu.indexOfSelectedItem))")
+        //print("rate: \(String(describing: self.videoFrameRateSelectMenu.indexOfSelectedItem))")
    
-
+        print("This is being called....")
+        
+        
         self.saveTimeLapseButton.isEnabled = false
         
         self.progressIndicator.isHidden = false
@@ -258,58 +277,91 @@ class TimeLapseViewController: NSViewController {
         
         self.progressLabel.stringValue = "0%"
 
-        
+       
+
         let framerate = self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
         
-        
         let size = self.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
-        
-        print("size \(String(describing: size))")
-        
-        print("framerate \(String(describing: framerate))")
-        
-        
+    
         let sizeAndWidth =  "\(Int32(size.width))x\(Int32(size.height))-\(framerate)fps"
         
         let timeLapseUrl = self.generateTimeLapseURL(sizeAndWidth: sizeAndWidth)
         
-        let builder = TimeLapseBuilder(photoURLs: self.imageUrls, url: timeLapseUrl)
+        let timeLapseUrls = NSArray(array:self.imageUrls, copyItems: true)
         
-        print("New Timelapse video file..." + timeLapseUrl)
+        let workerItem: MediaQueueWorkerItem!
         
-        builder.build(frameRate: Int32(framerate), outputSize: size, { progress in
-            print(progress)
-            DispatchQueue.main.async {
-                self.progressLabel.stringValue = "\(Int32(progress.fractionCompleted))%"
-                
-                self.progressIndicator.doubleValue = progress.fractionCompleted
-                
-            }
-        }, success: { url in
-            print(url)
-            self.finishSave(false, url: url)
-           // DispatchQueue.main.async {
+        workerItem = MediaQueueWorkerItem()
+        
+        let timeLapseWorkerItem = DispatchWorkItem {
+            
+            workerItem.inProgress = true
+            workerItem.outputUrl = URL(string: timeLapseUrl)
+            workerItem.title = workerItem.outputUrl.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+            
 
+            let builder = TimeLapseBuilder(photoURLs: timeLapseUrls as! [String], url: timeLapseUrl)
+        
+            print("New Timelapse video file..." + (URL(string: timeLapseUrl)?.lastPathComponent)!)
+        
+            builder.build(frameRate: Int32(framerate), outputSize: size, { progress in
+                    // print(progress.fractionCompleted)
+                    workerItem.inProgress = true
+                    workerItem.percent = (progress.fractionCompleted * 100.0)
+                }, success: { url in
+                    // print(url)
+                    workerItem.outputUrl = url
+                    // self.finishSave(false, url: url)
+                    workerItem.workerStatus = true
+                    workerItem.inProgress = false
+                }, failure: { error in
+                    print("ERROR \(error)")
+                    
+                    // workerItem.workerStatus = false
+                    // workerItem.inProgress = false
+                    // self.finishSave(true, url: URL(string: timeLapseUrl)!)
+                })
             
-           
-
-           //  }
-            // notification.but
-                // = [NSUserNotificationAction.init(identifier: "notificationAction", title: "View Now")]
             
-            
-            
-            
-        }, failure: { error in
-            print(error)
-            self.finishSave(true, url: URL(string: timeLapseUrl)!)
-        })
-    }
+        }
     
-    func notificationAction() {
 
-        print("Fuck this works!")
-    
+        timeLapseWorkerItem.perform()
+        
+        let queue = DispatchQueue.global(qos: .utility)
+        
+        queue.async(execute: timeLapseWorkerItem)
+        
+        timeLapseWorkerItem.notify(queue: DispatchQueue.main) {
+            self.appDelegate.mediaQueue.queue.append(workerItem)
+
+            // print("percent = ", percent)
+            print("Worker launched... ")
+        }
+        
+        
+//        if(!self.appDelegate.appSettings.mediaQueueIsOpen) {
+//            self.mediaQueueMonitorWindowController = MediaQueueMonitorWindowController()
+//            
+//            self.mediaQueueMonitorWindowController?.showWindow(self)
+//            
+//        }
+
+        
+       
+        
+        
+        
+////            DispatchQueue.main.async {
+////               // self.progressLabel.stringValue = String(format: "%.2f", percent) + "%"
+////                
+////                self.progressIndicator.doubleValue = progress.fractionCompleted
+////                
+////            }
+////            
+//        }
+
+
     }
     
     // Video Clipping
@@ -357,7 +409,7 @@ class TimeLapseViewController: NSViewController {
         
         self.outputFileName.stringValue = URL(string: timeLapseUrl)!.lastPathComponent
         
-        print("So far I came up with: \(timeLapseUrl)")
+       //  print("So far I came up with: \(timeLapseUrl)")
 
         return timeLapseUrl.replacingOccurrences(of: " ", with: "%20")
     }
@@ -385,5 +437,30 @@ class TimeLapseViewController: NSViewController {
     }
 
     
+    // Notifications
     
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
+     
+        
+    }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
+        switch (notification.activationType) {
+
+        case .actionButtonClicked:
+            self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.timeLapseFolder)
+            
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: notification.notificationUrl!)
+            
+        case .contentsClicked:
+            self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.timeLapseFolder)
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: notification.notificationUrl!)
+        default:
+            break
+        }
+    }
 }

@@ -73,6 +73,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet weak var secondWindowController = SecondWindowController()
     @IBOutlet weak var secondaryDisplayMediaViewController = SecondaryDisplayMediaViewController()
     
+    @IBOutlet weak var mediaQueueMonitorViewController = MediaQueueMonitorViewController()
+    //@IBOutlet weak var secondWindowController = SecondWindowController()
+
+    //mediaQueueMonitorViewController
+    
+    var mediaQueue = MediaQueue()
+    
     var slideShowWindowController: SlideShowWindowController?
     
     var slideshowUrls = NSMutableArray()
@@ -96,6 +103,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     func saveProject() {
+        
+        
         self.writeProjectFile(projectPath: self.appSettings.projectFolder, loadNewFile: false)
     }
     
@@ -771,8 +780,21 @@ extension AppDelegate {
     }
     
     func writeProjectFile (projectPath: String, loadNewFile: Bool) {
+    
+    
+        // var foo = false
+    
         if(checkFolderAndCreate(folderPath: projectPath)) {
             
+            
+        } else {
+            print("Fuck..")
+            return
+        }
+    
+
+    
+   
             //print("CREATING DRONE FILES PROJECT")
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
@@ -873,7 +895,7 @@ extension AppDelegate {
             } catch let error as NSError {
                 print("Array to JSON conversion failed: \(error.localizedDescription)")
             }
-        }
+       //  }
     }
     
     
@@ -1015,5 +1037,43 @@ extension NSImage {
     }
 }
 
+extension NSUserNotification {
+    private struct tmpURL {
+        static var url:String? = nil
+    }
+    var notificationUrl: String? {
+        get {
+            return tmpURL.url
+        } set {
+            tmpURL.url = newValue
+        }
+    }
+}
+
+
+extension DispatchWorkItem {
+    private struct tmpURL {
+        static var url:String? = nil
+    }
+    var itemUrl: String? {
+        get {
+            return tmpURL.url
+        } set {
+            tmpURL.url = newValue
+        }
+    }
+    
+    private struct tmpPercent {
+        static var percent:Double? = nil
+    }
+    
+    var percent: Double? {
+        get {
+            return tmpPercent.percent
+        } set {
+            tmpPercent.percent = newValue
+        }
+    }
+}
 
 

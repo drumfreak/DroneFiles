@@ -18,7 +18,9 @@ class ToolBarController: NSToolbar {
 
     var newProjectWindowController: NewProjectWindowController!
     var secondWindowController: SecondWindowController!
+    var mediaQueueMonitorWindowController: MediaQueueMonitorWindowController!
 
+    
     override init(identifier: String) {
         super.init(identifier: identifier)
         
@@ -89,6 +91,18 @@ class ToolBarController: NSToolbar {
     
     @IBAction func toggleMediaBin(_ sender: AnyObject?) {
         self.appDelegate.mediaBinCollectionView.hideScreenshotSlider(self)
+    }
+    
+    
+    @IBAction func toggleMediaQueue(_ sender: AnyObject?) {
+        
+        if(!self.appDelegate.appSettings.mediaQueueIsOpen) {
+            self.mediaQueueMonitorWindowController = MediaQueueMonitorWindowController()
+            self.mediaQueueMonitorWindowController?.showWindow(self)
+        } else {
+            self.appDelegate.mediaQueueMonitorViewController?.view.window?.close()
+        }
+        
     }
     
 }

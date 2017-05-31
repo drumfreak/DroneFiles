@@ -21,6 +21,9 @@ class TimeLapseBuilder: NSObject {
     var videoWriter: AVAssetWriter?
     var videoOutputUrl: URL
     
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
     
     init(photoURLs: [String], url: String) {
         self.photoURLs = photoURLs

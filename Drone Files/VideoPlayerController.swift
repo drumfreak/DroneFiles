@@ -82,7 +82,7 @@ class VideoPlayerViewController: NSViewController {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        self.appDelegate.saveProject()
+        // self.appDelegate.saveProject()
         
         if(self.playerView.player != nil) {
             if(self.playerView.player?.isPlaying)! {

@@ -181,13 +181,13 @@ class MediaBinCollectionView: NSViewController {
         }
         
         //DispatchQueue.main.async {
-        NSAnimationContext.runAnimationGroup({context in
-            context.duration = 1.0
+        //NSAnimationContext.runAnimationGroup({context in
+        //    context.duration = 1.0
             self.configureCollectionView()
             
-        }) {
-        }
-        //  }
+        //}) {
+        //}
+        //}
         
         
         DispatchQueue.main.async {
