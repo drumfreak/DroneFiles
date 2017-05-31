@@ -31,8 +31,6 @@ class MediaQueueWorkerItem: NSObject {
     override init() {
         super.init()
     }
-    
-    
 }
 
 
@@ -46,19 +44,8 @@ class MediaQueue: NSObject {
             print("Hey I added a fucking media queue worker!")
             print("Media Queue: \([queue.last])")
             print("Media Item: \([queue.last?.title])")
-
-//            if((self.appDelegate.mediaQueueMonitorViewController?.viewIsLoaded)!) {
-//               self.appDelegate.mediaQueueMonitorViewController?.startTimer()
-//            }
         }
     }
-    
-//    override init() {
-//        super.init()
-//        self.appDelegate.mediaQueue = self
-//
-//    }
-
 }
 
 class MediaQueueMonitorViewController: NSViewController {
@@ -66,6 +53,9 @@ class MediaQueueMonitorViewController: NSViewController {
     @IBOutlet var window: NSWindow!
     @IBOutlet var queueItemsLabel: NSTextField!
     @IBOutlet weak var queueTimer: Timer!
+    @IBOutlet var queuePercentLabel: NSTextField!
+    @IBOutlet var queueOverAllProgressIndicator: NSProgressIndicator!
+    @IBOutlet var tableView: NSTableView!
     
     var  viewIsLoaded: Bool?
     
@@ -76,7 +66,9 @@ class MediaQueueMonitorViewController: NSViewController {
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         self.window?.titleVisibility = NSWindowTitleVisibility.hidden
         self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
-
+        self.queueItemsLabel.stringValue = "0 items"
+        self.queuePercentLabel.stringValue = "0%"
+    
     }
     
     override func viewDidAppear() {
@@ -101,8 +93,30 @@ class MediaQueueMonitorViewController: NSViewController {
     }
     
     func getQueue() {
+        
     }
     
+    
+    func runQueue() {
+        
+        if(self.appDelegate.mediaQueue.queue.count > 0) {
+           // self.appDelegate.mediaQueue.queue.forEach({ worker in
+                
+                
+//                
+//                timeLapseWorkerItem.notify(queue: DispatchQueue.main) {
+//                    self.appDelegate.mediaQueue.queue.append(workerItem)
+//                    
+//                    // print("percent = ", percent)
+//                    print("Worker launched... ")
+//                }
+
+                
+           // })
+        }
+        
+        
+    }
     
     
     func startTimer() {
@@ -111,7 +125,7 @@ class MediaQueueMonitorViewController: NSViewController {
             if(self.queueTimer == nil) {
                 print("~~~~~~~~~~~~~~~~ STARTING A TIMER")
 
-                self.queueTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
+                self.queueTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
                 
                 RunLoop.current.add(self.queueTimer, forMode: RunLoopMode.commonModes)
                 
@@ -158,34 +172,60 @@ class MediaQueueMonitorViewController: NSViewController {
             print("\(i) InProgress : \(String(describing: worker.inProgress))")
             
             print("\(i) Status : \(String(describing: worker.workerStatus))")
-
+            
+            DispatchQueue.main.async {
+                self.queueOverAllProgressIndicator.doubleValue = worker.percent
+            }
+            
             if(worker.percent == 1.0) {
                 print("\(i)  REMOVING WORKER - Complete \(i)")
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()
-
                 self.startTimer()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+
                 return
             } else if(worker.inProgress == false) {
                 print("\(i)  REMOVING WORKER - Not in progress \(i)")
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()
-
                 self.startTimer()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+
                 return
             }
             
             i += 1
             
         })
+        DispatchQueue.main.async {
+            self.queueItemsLabel.stringValue = "\(self.appDelegate.mediaQueue.queue.count) Items"
 
+        }
+        
         if(self.appDelegate.mediaQueue.queue.count == 0) {
             self.stopTimer()
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
         }
         
     }
-    
+}
 
+extension MediaQueueMonitorViewController: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return self.appDelegate.mediaQueue.queue.count
+    }
     
+}
+
+extension MediaQueueMonitorViewController: NSTableViewDelegate {
 
 }

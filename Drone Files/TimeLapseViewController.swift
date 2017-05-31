@@ -108,11 +108,7 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
             if(self.viewIsLoaded) {
                 self.numberofFilesLabel.title = "\"(receivedFiles.count)"
               
-                if(receivedFiles.count > 2) {
-                    self.saveTimeLapseButton.isEnabled = true
-                } else {
-                    self.saveTimeLapseButton.isEnabled = false
-                }
+               
                 
                 self.prepareImageURLs()
             }
@@ -197,6 +193,13 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
                 self.imageUrls.append(urlPath)
             }
         })
+        
+        
+        if(self.imageUrls.count > 2) {
+            self.saveTimeLapseButton.isEnabled = true
+        } else {
+            self.saveTimeLapseButton.isEnabled = false
+        }
     }
 
     func finishSave(_ err: Bool, url: URL) {
@@ -215,11 +218,10 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
                     notification.contentImage = NSImage(contentsOf: URL(string: self.imageUrls[0])!)
                 }
                 
-                
-                
                 notification.identifier = "timelapse29sdfsdf0239\(UUID().uuidString)"
                 notification.title = "Timelapse Saved!"
-                notification.informativeText = "Filename.... "
+                notification.informativeText = url.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+                
                 notification.soundName = NSUserNotificationDefaultSoundName
                 notification.notificationUrl = url.absoluteString
                 notification.hasActionButton = true
@@ -269,15 +271,13 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
         
         self.saveTimeLapseButton.isEnabled = false
         
-        self.progressIndicator.isHidden = false
+        self.progressIndicator.isHidden = true
         
         self.progressIndicator.doubleValue = 0.00
         
-        self.progressLabel.isHidden = false
+        self.progressLabel.isHidden = true
         
         self.progressLabel.stringValue = "0%"
-
-       
 
         let framerate = self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
         
@@ -304,6 +304,8 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
         
             print("New Timelapse video file..." + (URL(string: timeLapseUrl)?.lastPathComponent)!)
         
+            var errCount = 0
+            
             builder.build(frameRate: Int32(framerate), outputSize: size, { progress in
                     // print(progress.fractionCompleted)
                     workerItem.inProgress = true
@@ -314,9 +316,21 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
                     // self.finishSave(false, url: url)
                     workerItem.workerStatus = true
                     workerItem.inProgress = false
+                    DispatchQueue.main.async {
+                        self.finishSave(false, url: url)
+                    }
+                    
                 }, failure: { error in
                     print("ERROR \(error)")
+                    errCount += 1
                     
+                    if(errCount > 1) {
+                        DispatchQueue.main.async {
+                            self.finishSave(true, url: URL(string: timeLapseUrl)!)
+                        }
+                    }
+                   
+
                     // workerItem.workerStatus = false
                     // workerItem.inProgress = false
                     // self.finishSave(true, url: URL(string: timeLapseUrl)!)
@@ -328,7 +342,7 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
 
         timeLapseWorkerItem.perform()
         
-        let queue = DispatchQueue.global(qos: .utility)
+        let queue = DispatchQueue.global(qos: .userInteractive)
         
         queue.async(execute: timeLapseWorkerItem)
         
@@ -342,24 +356,11 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
         
 //        if(!self.appDelegate.appSettings.mediaQueueIsOpen) {
 //            self.mediaQueueMonitorWindowController = MediaQueueMonitorWindowController()
-//            
 //            self.mediaQueueMonitorWindowController?.showWindow(self)
-//            
 //        }
+        
+        self.saveTimeLapseButton.isEnabled = true
 
-        
-       
-        
-        
-        
-////            DispatchQueue.main.async {
-////               // self.progressLabel.stringValue = String(format: "%.2f", percent) + "%"
-////                
-////                self.progressIndicator.doubleValue = progress.fractionCompleted
-////                
-////            }
-////            
-//        }
 
 
     }

@@ -922,7 +922,6 @@ extension FileBrowserViewController: NSTableViewDataSource {
             reloadFileList()
         }
     }
-    
 }
 
 extension FileBrowserViewController: NSTableViewDelegate {

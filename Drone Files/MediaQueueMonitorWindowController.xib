@@ -12,30 +12,128 @@
         <window title="Media Queue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="MediaQueueMonitorWindow" customModule="Drone_Files" customModuleProvider="target">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="contentRect" x="196" y="240" width="519" height="584"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <rect key="frame" x="0.0" y="0.0" width="519" height="584"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-hk-o7A" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                        <rect key="frame" x="130" y="166" width="220" height="17"/>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6l3-Z7-h1L">
+                        <rect key="frame" x="0.0" y="488" width="519" height="96"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Hey" id="5iX-XX-G4O">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpl-hk-o7A" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="70" y="59" width="47" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="10" id="5iX-XX-G4O">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BZ-SD-WpU" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="16" y="59" width="54" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Queue:" id="iFC-Ti-B9d">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" doubleValue="20" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="sRG-jz-ETm">
+                                <rect key="frame" x="20" y="35" width="479" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dk6-5U-IDp" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                <rect key="frame" x="446" y="59" width="55" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0%" id="JVk-aJ-9qB">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </customView>
+                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="102" horizontalPageScroll="10" verticalLineScroll="102" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUL-eH-R8L">
+                        <rect key="frame" x="0.0" y="-1" width="519" height="493"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <clipView key="contentView" ambiguous="YES" id="Eq3-Bn-w3G">
+                            <rect key="frame" x="1" y="1" width="517" height="491"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="100" rowSizeStyle="automatic" viewBased="YES" id="Lkr-KN-GzT">
+                                    <rect key="frame" x="0.0" y="0.0" width="518" height="491"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <size key="intercellSpacing" width="3" height="2"/>
+                                    <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                    <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                    <color key="gridColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <tableColumns>
+                                        <tableColumn identifier="" width="515" minWidth="10" maxWidth="515" id="A27-Jo-5a8">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="foo" id="jda-b9-MGE">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="UzY-94-jpE" customClass="MediaQueueMonitorTableCellView" customModule="Drone_Files" customModuleProvider="target">
+                                                    <rect key="frame" x="1" y="1" width="515" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" doubleValue="30" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="QNy-bj-1fJ">
+                                                            <rect key="frame" x="32" y="40" width="275" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        </progressIndicator>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i09-SB-3ja">
+                                                            <rect key="frame" x="18" y="67" width="31" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="5jM-mi-8Tc">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                    </subviews>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                        </tableColumn>
+                                    </tableColumns>
+                                    <connections>
+                                        <outlet property="dataSource" destination="4Aa-kW-A5c" id="sQR-0L-xzD"/>
+                                        <outlet property="delegate" destination="4Aa-kW-A5c" id="iVk-Sw-D2p"/>
+                                    </connections>
+                                </tableView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="jNM-fr-9ga">
+                            <rect key="frame" x="1" y="476" width="517" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="1lr-Du-HTl">
+                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
             </view>
             <connections>
                 <outlet property="initialFirstResponder" destination="EiT-Mj-1SZ" id="Qcs-Zd-EXV"/>
             </connections>
+            <point key="canvasLocation" x="158.5" y="318"/>
         </window>
         <customObject id="4Aa-kW-A5c" customClass="MediaQueueMonitorViewController" customModule="Drone_Files" customModuleProvider="target">
             <connections>
                 <outlet property="queueItemsLabel" destination="jpl-hk-o7A" id="FtM-Oj-MlE"/>
+                <outlet property="queueOverAllProgressIndicator" destination="sRG-jz-ETm" id="Qsc-EH-n6e"/>
+                <outlet property="queuePercentLabel" destination="dk6-5U-IDp" id="zYw-Fu-KZl"/>
+                <outlet property="tableView" destination="Lkr-KN-GzT" id="FHA-Xp-eJa"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="toC-RQ-3NA"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Hl5-aQ-lkt"/>
             </connections>
