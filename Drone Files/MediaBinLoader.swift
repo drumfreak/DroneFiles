@@ -164,7 +164,7 @@ class MediaBinLoader: NSObject {
         //        }
         
         //if(urls.count > 0) {
-            setupDataForUrls(urls.reversed() as? [URL])
+            setupDataForUrls(urls as? [URL])
         //}
     }
     

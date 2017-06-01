@@ -30,8 +30,7 @@ class FileBrowserViewController: NSViewController {
             if let url = sourceFolderOpened {
                 // print("Source Folder Opened: \(url)")
                 directory = Directory(folderURL: url)
-                
-                
+            
                 self.reloadFileList()
                 
                 self.appDelegate.appSettings.folderURL = url.absoluteString

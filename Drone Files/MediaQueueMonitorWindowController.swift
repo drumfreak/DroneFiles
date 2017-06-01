@@ -33,7 +33,6 @@ class MediaQueueWorkerItem: NSObject {
     }
 }
 
-
 class MediaQueue: NSObject {
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
@@ -48,6 +47,15 @@ class MediaQueue: NSObject {
     }
 }
 
+
+
+
+
+
+
+
+
+
 class MediaQueueMonitorViewController: NSViewController {
 
     @IBOutlet var window: NSWindow!
@@ -56,7 +64,8 @@ class MediaQueueMonitorViewController: NSViewController {
     @IBOutlet var queuePercentLabel: NSTextField!
     @IBOutlet var queueOverAllProgressIndicator: NSProgressIndicator!
     @IBOutlet var tableView: NSTableView!
-    
+    var lastQueueCount = 0
+
     var  viewIsLoaded: Bool?
     
     override func viewDidLoad() {
@@ -164,7 +173,8 @@ class MediaQueueMonitorViewController: NSViewController {
         var i = 0
         
         print("WORKER ITEMS: \(self.appDelegate.mediaQueue.queue.count)")
-
+        
+       
         self.appDelegate.mediaQueue.queue.forEach({ worker in
             // print(String(describing: worker))
             print("\(i) TITLE : \(String(describing: worker.title))")
@@ -185,35 +195,62 @@ class MediaQueueMonitorViewController: NSViewController {
                 
                 cell.queueOverAllProgressIndicator.doubleValue = worker.percent
                 
-                cell.queuePercentLabel.stringValue = String(format: "%2f", worker.percent) + "%"
-                
+                cell.queuePercentLabel.stringValue = String(format: "%.0f", worker.percent) + "%"
                 
                 self.queueOverAllProgressIndicator.doubleValue = worker.percent
             }
             
             if(worker.percent == 1.0) {
                 print("\(i)  REMOVING WORKER - Complete \(i)")
-                // self.appDelegate.mediaQueue.queue.remove(at: i)
+                self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()
+                
+                 self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+                
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+                
                 self.startTimer()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+
 
                 return
             } else if(worker.inProgress == false) {
                 print("\(i)  REMOVING WORKER - Not in progress \(i)")
-               // self.appDelegate.mediaQueue.queue.remove(at: i)
+                self.appDelegate.mediaQueue.queue.remove(at: i)
+                // let fcu =
+                
+                
                 self.stopTimer()
+                
+                self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+                
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
                 self.startTimer()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
 
                 return
             }
             
             i += 1
+            
+            if(self.appDelegate.mediaQueue.queue.count != self.lastQueueCount) {
+                // Queue changed.
+                DispatchQueue.main.async {
+
+                self.tableView.reloadData()
+
+                self.stopTimer()
+                self.tableView.reloadData()
+                
+                self.lastQueueCount = self.appDelegate.mediaQueue.queue.count
+                
+                self.startTimer()
+                
+                }
+            }
+
             
         })
         DispatchQueue.main.async {
@@ -224,9 +261,9 @@ class MediaQueueMonitorViewController: NSViewController {
         if(self.appDelegate.mediaQueue.queue.count == 0) {
             self.stopTimer()
             
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+//            DispatchQueue.main.async {
+//                // self.tableView.reloadData()
+//            }
             
         }
         

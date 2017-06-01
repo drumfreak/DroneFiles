@@ -31,7 +31,6 @@ class RightPanelSplitViewController: NSSplitViewController {
         self.addSplitViewItem(self.mediaBinSplitView)
         
         self.appDelegate.mediaBinCollectionView.reloadContents()
-        
     
         self.videoSplitview =  self.splitViewItem(for: self.appDelegate.videoSplitViewController!)!
         

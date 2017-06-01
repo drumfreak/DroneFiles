@@ -366,32 +366,47 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func calculateClipLength() {
-        // print("Calling Calculate Clip Length")
-        if(self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime == kCMTimeInvalid) {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.duration)!
-        }
+        print("Calling Calculate Clip Length")
         
-        if(self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime == kCMTimeInvalid) {
-            self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime = kCMTimeZero
-        }
+        print("Player view is ready? \(self.appDelegate.videoPlayerViewController!.playerIsReady)")
         
-        let difference = CMTimeSubtract((self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime)!, (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime)!)
         
-        let durationSeconds = CMTimeGetSeconds(difference);
-        
-        if(durationSeconds > 0) {
-            let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int(round(durationSeconds)))
+        if(self.appDelegate.videoPlayerViewController!.playerIsReady) {
+            if(self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime == kCMTimeInvalid) {
+                self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.duration)!
+            }
             
-            DispatchQueue.main.async {
+            if(self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime == kCMTimeInvalid) {
+                self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime = kCMTimeZero
+            }
+            
+            let difference = CMTimeSubtract((self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime)!, (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime)!)
+            
+            let durationSeconds = CMTimeGetSeconds(difference);
+            
+            if(durationSeconds > 0) {
+                let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int(round(durationSeconds)))
                 
-                self.videoLengthLabel?.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
-                // + String(format: "%02d", ms) + ":ms"
+                DispatchQueue.main.async {
+                    self.videoLengthLabel?.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
+                    // + String(format: "%02d", ms) + ":ms"
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.calculateClipLength()
+                    
+                    self.videoLengthLabel?.stringValue = "00:00:0000"
+                }
             }
+            
         } else {
-            DispatchQueue.main.async {
-                self.videoLengthLabel?.stringValue = "00:00:0000"
-            }
+            print("Player is not ready... can't calculate clip length. Derp...")
+            self.videoLengthLabel?.stringValue = "00:00:0000"
+
+            // self.calculateClipLength()
+
         }
+       
         
     }
     

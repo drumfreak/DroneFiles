@@ -573,6 +573,43 @@ extension AppDelegate {
             if let dictionary = projectJson as? [String: Any] {
                 
                 self.appSettings.lastProjectfileOpened = path?.absoluteString
+            
+                let fileDirectory = path?.deletingLastPathComponent()
+                let projectDirectory = dictionary["projectDirectory"] as! String
+                
+                print("fileDirectory is \(String(describing: fileDirectory))")
+                print("projectDirecotry is \(String(describing: projectDirectory + "/"))")
+
+                if(fileDirectory?.absoluteString != (projectDirectory + "/")) {
+                    
+                    let myPopup: NSAlert = NSAlert()
+                    
+                    myPopup.messageText = "Project Directory Moved!"
+                    myPopup.informativeText = "This file is not located in the same directory as the project. IF it moved, press UPDATE."
+                    myPopup.alertStyle = NSAlertStyle.warning
+                    myPopup.addButton(withTitle: "Dismiss")
+                    myPopup.addButton(withTitle: "Update")
+                    // myPopup.runModal()
+                    
+                    
+                    let responseTag: NSModalResponse = myPopup.runModal()
+                    
+                    if (responseTag == NSAlertFirstButtonReturn) {
+                       
+                        print("first button pressed")
+                        
+                    } else if (responseTag == NSAlertSecondButtonReturn) {
+
+                        print("update button pressed")
+                        
+                    }
+                    
+                    return
+                }
+                
+                if(dictionary["projectDirectory"] != nil) {
+                    self.appSettings.projectFolder = dictionary["projectDirectory"] as! String
+                }
                 
                 
                 // Keep this guy at the top...
@@ -614,12 +651,6 @@ extension AppDelegate {
                 if(dictionary["projectName"] != nil) {
                     self.appSettings.fileSequenceName = dictionary["projectName"] as! String
                 }
-                
-                
-                if(dictionary["projectDirectory"] != nil) {
-                    self.appSettings.projectFolder = dictionary["projectDirectory"] as! String
-                }
-                
                 
                 if(dictionary["outputDirectory"] != nil) {
                     self.appSettings.outputDirectory = dictionary["outputDirectory"] as! String

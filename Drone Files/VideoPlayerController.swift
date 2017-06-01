@@ -71,10 +71,12 @@ class VideoPlayerViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-        
+//        addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
+//        
+//        addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
+//        
+//        addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
+//        
         //self.playerView.becomeFirstResponder()
 
         // print("Video appeared")
@@ -123,17 +125,18 @@ class VideoPlayerViewController: NSViewController {
         self.playerView.player = self.player
         
         
-        self.playerView.player?.addObserver(self,
-                                            forKeyPath: #keyPath(AVPlayerItem.status),
+        self.playerView.player?.currentItem!.addObserver(self,
+                                            forKeyPath: #keyPath(player.currentItem.status),
                                             options: [.old, .new],
                                             context: &playerViewControllerKVOContext)
         
         self.playerView.player?.addObserver(self,
-                                            forKeyPath: #keyPath(AVPlayer.rate),
+                                            forKeyPath: #keyPath(player.rate),
                                             options: [.old, .new],
                                             context: &playerViewControllerKVOContext)
-        let avPlayerLayer = AVPlayerLayer(player: self.player!)
-        avPlayerLayer.frame = self.view.bounds
+        
+        // let avPlayerLayer = AVPlayerLayer(player: self.player!)
+        // avPlayerLayer.frame = self.view.bounds
         
         //self.playerView.becomeFirstResponder()
 
@@ -198,26 +201,30 @@ class VideoPlayerViewController: NSViewController {
         
         self.currentAsset = asset
         
-        let playerItem = AVPlayerItem(asset: asset,
+        let pi = AVPlayerItem(asset: asset,
                                       automaticallyLoadedAssetKeys: assetKeys)
         
-        playerItem.reversePlaybackEndTime = kCMTimeZero
-        playerItem.forwardPlaybackEndTime = playerItem.duration
+        pi.reversePlaybackEndTime = kCMTimeZero
+        pi.forwardPlaybackEndTime = pi.duration
         
         if(self.playerView.player?.currentItem == nil) {
-            self.playerItem = playerItem
+            self.playerItem = pi
             self.setupPlayer()
         } else {
+            
+            self.player?.currentItem!.removeObserver(self, forKeyPath: #keyPath(player.currentItem.status), context: &playerViewControllerKVOContext)
+
             
             NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
             
             
             
-            self.playerView.player?.replaceCurrentItem(with: playerItem)
+            self.playerView.player?.replaceCurrentItem(with: pi)
             
+            self.playerItem = pi
             
-            self.playerView.player?.addObserver(self,
-                                                forKeyPath: #keyPath(AVPlayerItem.status),
+            self.playerView.player?.currentItem!.addObserver(self,
+                                                forKeyPath: #keyPath(player.currentItem.status),
                                                 options: [.old, .new],
                                                 context: &playerViewControllerKVOContext)
             
@@ -252,7 +259,7 @@ class VideoPlayerViewController: NSViewController {
             print("Deallocating Observers from playerItem")
             self.player.pause()
             
-            self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), context: &playerViewControllerKVOContext)
+            self.player?.currentItem!.removeObserver(self, forKeyPath: #keyPath(player.currentItem.status), context: &playerViewControllerKVOContext)
             
             self.player.removeObserver(self, forKeyPath: #keyPath(AVPlayer.rate), context: &playerViewControllerKVOContext)
         }
@@ -317,7 +324,7 @@ class VideoPlayerViewController: NSViewController {
             return
         }
         
-        if keyPath == #keyPath(AVPlayerItem.status) {
+        if keyPath == #keyPath(player.currentItem.status) {
             let status: AVPlayerItemStatus
             
             // Get the status change from the change dictionary
@@ -350,7 +357,7 @@ class VideoPlayerViewController: NSViewController {
                         self.player.rate = 0.0
                     }
                     self.startPlayingVideo = false
-                    
+                    self.appDelegate.videoControlsController.calculateClipLength()
                 }
                 
                 break
@@ -370,17 +377,14 @@ class VideoPlayerViewController: NSViewController {
             }
         }
         
-        if keyPath == #keyPath(AVPlayerItem.duration) {
-            // print("Duration... key")
-            //startTimeLabel.isEnabled = hasValidDuration
-            //startTimeLabel.text = createTimeString(time: currentTime)
+        if keyPath == #keyPath(player.currentItem.duration) {
             
-            //durationLabel.isEnabled = hasValidDuration
-            //durationLabel.text = createTimeString(time: Float(newDurationSeconds))
+            
         } else if keyPath == #keyPath(AVPlayer.rate) {
             // Update `playPauseButton` image.
             // print("Hey rate is changing!");
             
+            print("12345 This is happening...")
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             if(newRate != 0.0) {
                 self.appDelegate.videoControlsController.startTimer()
@@ -388,46 +392,17 @@ class VideoPlayerViewController: NSViewController {
                 self.appDelegate.videoControlsController.stopTimer()
             }
         }
-        else if keyPath == #keyPath(AVPlayerItem.status) {
-            // Display an error if status becomes `.Failed`.
-            
-            /*
-             Handle `NSNull` value for `NSKeyValueChangeNewKey`, i.e. when
-             `player.currentItem` is nil.
-             */
-            let newStatus: AVPlayerItemStatus
-            
-            if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
-                newStatus = AVPlayerItemStatus(rawValue: newStatusAsNumber.intValue)!
-            }
-            else {
-                newStatus = .unknown
-            }
-            
-            if newStatus == .failed {
-                handleErrorWithMessage(self.player.currentItem?.error?.localizedDescription, error:self.player.currentItem?.error)
-            }
-        }
     }
     
     override class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
         let affectedKeyPathsMappingByKey: [String: Set<String>] = [
-            "duration":     [#keyPath(AVPlayerItem.duration)],
+            "duration":     [#keyPath(player.currentItem.duration)],
             "rate":         [#keyPath(AVPlayer.rate)]
         ]
         
         return affectedKeyPathsMappingByKey[key] ?? super.keyPathsForValuesAffectingValue(forKey: key)
     }
 }
-
-//extension VideoPlayerViewController : AVPlayerItemDe {
-//    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        self.playerView.player?.seek(to: kCMTimeZero)
-//        self.playerView.player?.play()
-//    }
-//}
-
-
 
 extension AVPlayer {
     var isPlaying: Bool {
