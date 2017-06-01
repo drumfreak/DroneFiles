@@ -561,6 +561,51 @@ extension AppDelegate {
     }
     
     
+    func updateProjectFile(projectFile: URL, newPath: URL) {
+        var fileDirectory = projectFile.deletingLastPathComponent().deletingLastPathComponent().absoluteString
+    
+        fileDirectory = fileDirectory.substring(to: fileDirectory.index(before: fileDirectory.endIndex))
+        
+        var newPath2 = newPath.deletingLastPathComponent().absoluteString
+        
+        if let lastchar = newPath2.characters.last {
+            if ["/"].contains(lastchar) {
+                newPath2 = String(newPath2.characters.dropLast())
+                print(newPath2)
+            }
+        }
+        
+        do {
+            let f = try String(contentsOf: projectFile, encoding: String.Encoding.utf8)
+            
+            let f1 = fileDirectory.replacingOccurrences(of: "/", with: "\\/")
+            
+            let f2 = newPath2.replacingOccurrences(of: "/", with: "\\/")
+            
+            let f3 = f.replacingOccurrences(of: f2, with: f1)
+            
+            // Write that JSON to the file created earlier
+            do {
+               
+                print("Updating project file for new path: \(projectFile.absoluteString)")
+                let toFile = projectFile.path
+                
+                try f3.write(toFile: toFile, atomically: false, encoding: String.Encoding.utf8)
+                
+                print("JSON data was written to the file successfully!")
+               
+                self.readProjectFile(projectFile: projectFile.absoluteString)
+                
+            } catch let error as NSError {
+                print("Couldn't write to file: \(error.localizedDescription)")
+            }
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
     func readProjectFile(projectFile: String) {
         let path = URL(string: projectFile)
         
@@ -601,6 +646,7 @@ extension AppDelegate {
                     } else if (responseTag == NSAlertSecondButtonReturn) {
 
                         print("update button pressed")
+                        self.updateProjectFile(projectFile: path!, newPath: URL(string: projectDirectory)!)
                         
                     }
                     
@@ -822,10 +868,6 @@ extension AppDelegate {
             print("Fuck..")
             return
         }
-    
-
-    
-   
             //print("CREATING DRONE FILES PROJECT")
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
@@ -898,9 +940,6 @@ extension AppDelegate {
 
             dic.setValue(self.appSettings.lastProjectfileOpened, forKey: "lastProjectfileOpened")
 
-            
-            
-            // print("Try this Path: \(String(describing: jsonFilePath))")
             
             var jsonData: Data!
             
