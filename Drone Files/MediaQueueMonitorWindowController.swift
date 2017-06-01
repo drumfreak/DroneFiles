@@ -48,14 +48,6 @@ class MediaQueue: NSObject {
 }
 
 
-
-
-
-
-
-
-
-
 class MediaQueueMonitorViewController: NSViewController {
 
     @IBOutlet var window: NSWindow!
@@ -98,10 +90,17 @@ class MediaQueueMonitorViewController: NSViewController {
     }
     
     override func viewWillDisappear() {
+        super.viewWillDisappear()
+        self.viewIsLoaded = false
+        self.stopTimer()
+    }
+    
+    override func viewDidDisappear() {
         super.viewDidDisappear()
         self.viewIsLoaded = false
         self.stopTimer()
     }
+
     
     func getQueue() {
         
@@ -200,7 +199,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 self.queueOverAllProgressIndicator.doubleValue = worker.percent
             }
             
-            if(worker.percent == 1.0) {
+            if(worker.percent == 100.0) {
                 print("\(i)  REMOVING WORKER - Complete \(i)")
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()

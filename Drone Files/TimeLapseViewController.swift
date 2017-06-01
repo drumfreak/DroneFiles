@@ -147,21 +147,7 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
 
     }
 
-    func getTimeLapseUrl() {
-        
-        let framerate = self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
-        
-        let size = self.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
-        
-        //print("size \(String(describing: size))")
-        
-        //print("framerate \(String(describing: framerate))")
     
-        let sizeAndWidth =  "\(Int32(size.width))x\(Int32(size.height))-\(framerate)fps"
-        
-        let _ = self.generateTimeLapseURL(sizeAndWidth: sizeAndWidth)
-        
-    }
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -265,9 +251,8 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
         
         //print("rate: \(String(describing: self.videoFrameRateSelectMenu.indexOfSelectedItem))")
    
-        print("This is being called....")
-        
-        
+        // print("This is being called....")
+    
         self.saveTimeLapseButton.isEnabled = false
         
         self.progressIndicator.isHidden = true
@@ -327,18 +312,12 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
                             self.finishSave(true, url: URL(string: timeLapseUrl)!)
                         }
                     }
-                   
 
-                    // workerItem.workerStatus = false
-                    // workerItem.inProgress = false
-                    // self.finishSave(true, url: URL(string: timeLapseUrl)!)
                 })
-            
-            
         }
     
 
-        timeLapseWorkerItem.perform()
+        // timeLapseWorkerItem.perform()
         
         let queue = DispatchQueue.global(qos: .utility)
         
@@ -350,12 +329,6 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
             // print("percent = ", percent)
             print("Worker launched... ")
         }
-        
-        
-//        if(!self.appDelegate.appSettings.mediaQueueIsOpen) {
-//            self.mediaQueueMonitorWindowController = MediaQueueMonitorWindowController()
-//            self.mediaQueueMonitorWindowController?.showWindow(self)
-//        }
         
         self.saveTimeLapseButton.isEnabled = true
 
@@ -400,10 +373,7 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
            
             self.timelapseVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Timelapse \(increment) - \(incrementer) - \(sizeAndWidth).mp4"
             
-        } else {
-            print("That file does not exist..")
-        }
-        
+        }        
         let timeLapseUrl = self.appDelegate.appSettings.timeLapseFolder + "/" + self.timelapseVideoName.replacingOccurrences(of: " ", with: "%20")
         
         self.outputFileName.stringValue = URL(string: timeLapseUrl)!.lastPathComponent
@@ -433,6 +403,24 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
                 print(error)
             }
         }
+    }
+    
+    
+    
+    func getTimeLapseUrl() {
+        
+        let framerate = self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
+        
+        let size = self.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
+        
+        //print("size \(String(describing: size))")
+        
+        //print("framerate \(String(describing: framerate))")
+        
+        let sizeAndWidth =  "\(Int32(size.width))x\(Int32(size.height))-\(framerate)fps"
+        
+        let _ = self.generateTimeLapseURL(sizeAndWidth: sizeAndWidth)
+        
     }
 
     

@@ -46,6 +46,7 @@
 		1869FBED1ED8A0F500EC639E /* ImageEditorControlsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */; };
 		1869FBEF1ED8B64C00EC639E /* FileManagerOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */; };
 		186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186A2E051ECC14DF000FE0AB /* ThemeTables.swift */; };
+		186DB0391EE06A5900B7FAD4 /* VideoClipRetimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186DB0381EE06A5900B7FAD4 /* VideoClipRetimeViewController.swift */; };
 		18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */; };
 		18740B6F1ECD5522003803B4 /* MediaBinCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */; };
 		18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18740B721ECE06A3003803B4 /* VideoPlayerMessageBox.swift */; };
@@ -184,6 +185,7 @@
 		1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageEditorControlsController.xib; sourceTree = "<group>"; };
 		1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileManagerOptionsViewController.xib; sourceTree = "<group>"; };
 		186A2E051ECC14DF000FE0AB /* ThemeTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTables.swift; sourceTree = "<group>"; };
+		186DB0381EE06A5900B7FAD4 /* VideoClipRetimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoClipRetimeViewController.swift; sourceTree = "<group>"; };
 		18740B6B1ECD3F30003803B4 /* ImageEditorSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorSplitViewController.swift; sourceTree = "<group>"; };
 		18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaBinCollectionView.swift; sourceTree = "<group>"; };
 		18740B721ECE06A3003803B4 /* VideoPlayerMessageBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerMessageBox.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 			children = (
 				1817BBC91EDA21D70003A7D2 /* TimeLapseViewController.swift */,
 				1817BBD31EDDC7420003A7D2 /* VideoClipMergeViewController.swift */,
+				186DB0381EE06A5900B7FAD4 /* VideoClipRetimeViewController.swift */,
 				1817BBD11EDBEBDA0003A7D2 /* TimeLapseBuilder.swift */,
 				1817BBCA1EDA21D70003A7D2 /* TimeLapseViewController.xib */,
 			);
@@ -752,6 +755,7 @@
 				184AD80D1ED69954001209F5 /* ToolBarController.swift in Sources */,
 				1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */,
 				1817BBD21EDBEBDA0003A7D2 /* TimeLapseBuilder.swift in Sources */,
+				186DB0391EE06A5900B7FAD4 /* VideoClipRetimeViewController.swift in Sources */,
 				18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */,
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,

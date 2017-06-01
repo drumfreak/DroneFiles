@@ -48,6 +48,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     var timeLapseViewController = TimeLapseViewController()
 
+    var videoClipRetimeController = VideoClipRetimeViewController()
+
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
     
     @IBOutlet weak var favoritesViewController: FavoritesViewController!
@@ -622,8 +624,8 @@ extension AppDelegate {
                 let fileDirectory = path?.deletingLastPathComponent()
                 let projectDirectory = dictionary["projectDirectory"] as! String
                 
-                print("fileDirectory is \(String(describing: fileDirectory))")
-                print("projectDirecotry is \(String(describing: projectDirectory + "/"))")
+                //print("fileDirectory is \(String(describing: fileDirectory))")
+                //print("projectDirecotry is \(String(describing: projectDirectory + "/"))")
 
                 if(fileDirectory?.absoluteString != (projectDirectory + "/")) {
                     

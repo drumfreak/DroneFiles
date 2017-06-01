@@ -61,8 +61,7 @@ class VideoPlayerControllsController: NSViewController {
     @IBOutlet weak var trimmedClipNewPathLabel: NSTextField!
     @IBOutlet weak var videoLengthLabel: NSTextField!
     @IBOutlet var currentFrameLabel: NSTextField!
-    
-    
+
     var clippedDirectory: Directory?
     var directoryItems: [Metadata]?
     
@@ -366,9 +365,9 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func calculateClipLength() {
-        print("Calling Calculate Clip Length")
+        //print("Calling Calculate Clip Length")
         
-        print("Player view is ready? \(self.appDelegate.videoPlayerViewController!.playerIsReady)")
+        //print("Player view is ready? \(self.appDelegate.videoPlayerViewController!.playerIsReady)")
         
         
         if(self.appDelegate.videoPlayerViewController!.playerIsReady) {
@@ -400,7 +399,7 @@ class VideoPlayerControllsController: NSViewController {
             }
             
         } else {
-            print("Player is not ready... can't calculate clip length. Derp...")
+            //print("Player is not ready... can't calculate clip length. Derp...")
             self.videoLengthLabel?.stringValue = "00:00:0000"
 
             // self.calculateClipLength()
@@ -568,13 +567,10 @@ class VideoPlayerControllsController: NSViewController {
     func setupAvExportTrimmedClip() {
         
         DispatchQueue.main.async {
-            
             self.saveTrimmedClipView.isHidden = false
             self.clipTrimProgressBar.isHidden = true
             self.saveTrimmedVideoButton.isEnabled = true
             self.cancelTrimmedVideoButton.isEnabled = true
-            
-            
         }
         
         self.exportSession = AVAssetExportSession(asset: (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.asset)!, presetName: AVAssetExportPresetHighestQuality)!
@@ -589,6 +585,7 @@ class VideoPlayerControllsController: NSViewController {
         self.trimOffset = CMTimeGetSeconds(startTime!)
         
         self.exportSession.timeRange = timeRange
+        
         
         self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
         

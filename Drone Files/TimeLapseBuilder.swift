@@ -74,6 +74,7 @@ class TimeLapseBuilder: NSObject {
             
             let videoWriterInput = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: videoSettings)
             
+            
             let sourceBufferAttributes = [
                 (kCVPixelBufferPixelFormatTypeKey as String): Int(kCVPixelFormatType_32ARGB),
                 (kCVPixelBufferWidthKey as String): Float(inputSize.width),
@@ -199,5 +200,103 @@ class TimeLapseBuilder: NSObject {
         context?.draw(image.CGImage, in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
         
         CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+    }
+}
+
+
+
+
+
+
+class RetimeBuilder: NSObject {
+    var outputUrl: URL!
+    var outputSize = CGSize(width: 1920, height: 1080)
+    var frameRate = Int32(30)
+    var asset: AVAsset!
+    
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    init(asset: AVAsset, url: URL) {
+        self.outputUrl = url
+        self.asset = asset
+        //self.videoOutputUrl = URL(string: url)!
+        
+    }
+    
+    func getProgress() -> Double {
+        return 0.1
+    }
+    func build(frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+        
+        // print("OUTPUT URL \(self.outputUrl)")
+        
+        let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
+        
+        // self.exportSession.videoComposition = videoComposition
+        exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession.outputURL = self.outputUrl // Output URL
+        
+        let currentProgress = Progress(totalUnitCount: 100)
+        currentProgress.completedUnitCount = 10
+        progress(currentProgress)
+        var isComplete = false
+        // progress
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+                case .exporting:
+                        // print("~~~~~~~~~ EXPORTING")
+                    break
+                case .completed:
+                    DispatchQueue.main.async {
+                        // success(self.outputUrl)
+                        currentProgress.completedUnitCount = 100
+                        progress(currentProgress)
+                    }
+                    break
+                case .failed:
+                    DispatchQueue.main.async {
+                        failure(exportSession.error! as NSError)
+                        print(exportSession.error!)
+                        
+                        // self.clipTrimTimer.invalidate()
+                        currentProgress.completedUnitCount = 0
+                        progress(currentProgress)
+                    }
+                    break
+                default:
+                    DispatchQueue.main.async {
+                        // self.clipTrimTimer.invalidate()
+                        failure(exportSession.error! as NSError)
+                        currentProgress.completedUnitCount = 0
+                        progress(currentProgress)
+                    }
+                break
+            }
+        }
+        
+        var i = 0
+
+        while exportSession.status == .waiting || exportSession.status == .exporting {
+        
+            if(i < 100) {
+                // print("Progress: \(exportSession.progress * 100.0)%.")
+                currentProgress.completedUnitCount = Int64(exportSession.progress * 100.0)
+                progress(currentProgress)
+                i = i + 1
+                
+            } else {
+                i = 0
+            }
+            
+            if(exportSession.progress == 1 && isComplete == false) {
+                    if(!isComplete) {
+                        success(self.outputUrl)
+                        isComplete = true
+                    }
+                
+            }
+        }
     }
 }

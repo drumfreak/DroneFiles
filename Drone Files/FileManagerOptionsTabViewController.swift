@@ -25,7 +25,7 @@ class FileManagerOptionsTabViewController: NSTabViewController {
                 self.appDelegate.fileManagerOptionsRenameController.receivedFiles = receivedFiles
                 self.appDelegate.fileManagerOptionsDeleteController.receivedFiles = receivedFiles
                 self.appDelegate.timeLapseViewController.receivedFiles = receivedFiles
-                
+                self.appDelegate.videoClipRetimeController.receivedFiles = receivedFiles
                 self.fileSizes = (self.appDelegate.fileManagerViewController?.calculateFileSizesToDestination(fileUrls: self.receivedFiles as! Array<Any>))!
                 
             }
@@ -52,6 +52,8 @@ class FileManagerOptionsTabViewController: NSTabViewController {
         self.appDelegate.fileManagerOptionsDeleteController = self.childViewControllers[4] as! FileManagerOptionsDeleteController
         
          self.appDelegate.timeLapseViewController = self.childViewControllers[5] as! TimeLapseViewController
+        
+        self.appDelegate.videoClipRetimeController = self.childViewControllers[6] as! VideoClipRetimeViewController
         
     }
     

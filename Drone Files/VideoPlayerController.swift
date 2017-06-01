@@ -384,7 +384,7 @@ class VideoPlayerViewController: NSViewController {
             // Update `playPauseButton` image.
             // print("Hey rate is changing!");
             
-            print("12345 This is happening...")
+            // print("12345 This is happening...")
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             if(newRate != 0.0) {
                 self.appDelegate.videoControlsController.startTimer()
