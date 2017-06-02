@@ -131,7 +131,7 @@ class VideoPlayerViewController: NSViewController {
                                             context: &playerViewControllerKVOContext)
         
         self.playerView.player?.addObserver(self,
-                                            forKeyPath: #keyPath(player.rate),
+                                            forKeyPath: #keyPath(AVPlayer.rate),
                                             options: [.old, .new],
                                             context: &playerViewControllerKVOContext)
         
@@ -176,6 +176,13 @@ class VideoPlayerViewController: NSViewController {
             self.startPlayingVideo = false
         }
         
+        if(self.player != nil) {
+            if((self.player?.rate)! > Float(0)) {
+                self.playPause()
+            }
+        }
+        
+       
         prepareToPlay(_url: _url, startTime: frame)
         
         let location = self.getLocationData(asset: self.currentAsset)
@@ -232,20 +239,6 @@ class VideoPlayerViewController: NSViewController {
                                                 forKeyPath: #keyPath(AVPlayer.rate),
                                                 options: [.old, .new],
                                                 context: &playerViewControllerKVOContext)
-            
-            
-            if(self.startPlayingVideo == true) {
-                self.player.rate = Float(self.videoRate)
-                // self.startPlayingVideo = false
-            } else {
-                
-                if(self.player.isPlaying) {
-                    self.player.rate = 0.0
-                }
-                self.startPlayingVideo = false
-                
-            }
-            
             
         }
         
@@ -351,13 +344,6 @@ class VideoPlayerViewController: NSViewController {
                     // self.playerView.becomeFirstResponder()
                     self.player.rate = Float(self.videoRate)
                     self.startPlayingVideo = false
-                } else {
-                    
-                    if(self.player.isPlaying) {
-                        self.player.rate = 0.0
-                    }
-                    self.startPlayingVideo = false
-                    self.appDelegate.videoControlsController.calculateClipLength()
                 }
                 
                 break

@@ -24,7 +24,10 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     @IBOutlet var videoFrameRateSelectMenu: NSPopUpButton!
     @IBOutlet var outputFolderLabel: NSTextField!
     @IBOutlet var outputFileName: NSTextField!
-    @IBOutlet var clipSpeed: NSTextField!
+    @IBOutlet var clipSpeedTextLabel: NSTextField!
+    @IBOutlet var clipSpeedSlider: NSSlider!
+    
+    var clipSpeed = 100.00
     
     var outputUrl: URL!
     var notificationCenter: NSUserNotificationCenter!
@@ -145,7 +148,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         self.notificationCenter = NSUserNotificationCenter.default
         self.notificationCenter.delegate = self
 
-        
         //DispatchQueue.main.async {
         //self.progressIndicator.isHidden = true
         if(self.receivedFiles.count > 0) {
@@ -243,6 +245,60 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         })
     }
     
+    @IBAction func clipSpeedSliderChanged(sender: AnyObject) {
+        self.clipSpeed = sender.doubleValue
+        // self.clipSpeedTextLabel.doubleValue = sender.doubleValue
+        self.generateComposition(self)
+    }
+    
+    @IBAction func clipSpeedTextValueChanged(sender: AnyObject) {
+        self.clipSpeed = sender.doubleValue
+       // self.clipSpeedSlider.doubleValue = sender.doubleValue
+        //self.generateComposition(self)
+    }
+    
+    
+    func scaleDuration() {
+        
+        var speed = (self.clipSpeedSlider.doubleValue)
+        
+       // print("Clip Speed is... \(speed)")
+        
+        var newDuration: CMTime!
+        
+        if(speed != 0.5) {
+        
+            var seconds = self.composition.duration.seconds
+            
+            if(speed > 0.5) {
+                //speed = speed
+                speed = (speed - 0.5) * 100
+                seconds = seconds * speed
+            } else {
+                speed = (0.5 - speed) * 100
+                seconds = seconds / speed
+            }
+            
+            self.clipSpeedTextLabel.doubleValue = speed
+            
+            // speed = abs(speed)
+            print("SPEEEEEED \(speed)")
+             newDuration = CMTime.init(seconds: seconds, preferredTimescale: CMTimeScale(self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
+        } else {
+            newDuration = self.composition.duration
+        }
+        
+       
+        
+        if(newDuration.seconds < 2.0) {
+            newDuration = CMTime(seconds: 2.0, preferredTimescale: CMTimeScale(self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
+        }
+        
+        self.composition.scaleTimeRange(CMTimeRangeMake(kCMTimeZero, self.composition.duration), toDuration: newDuration)
+        
+        self.setupPlayer()
+        self.updateDurationLabel()
+    }
      
      
     @IBAction func generateComposition(_ sender: AnyObject) {
@@ -254,7 +310,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         self.prepareAssets()
         self.outputUrl = self.generateVideoClipURL()
         
-        
         var frame = 1
         var nextTime = kCMTimeZero
         self.composition = AVMutableComposition()
@@ -265,11 +320,9 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         // let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
 
         self.videoClips.forEach({clipIndex in
-
             // Check for video.
             let assetTracks = clipIndex.tracks(withMediaType: AVMediaTypeVideo)
-            
-            
+        
             // Process video
             if(assetTracks.count > 0) {
                 
@@ -317,14 +370,10 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
 
         
         // print("Lets see... frame duration for 240 is \(CMTimeMake(1, 30))")
-       // print("In seconds that is... \(videoComposition.frameDuration.seconds)")
-
+        // print("In seconds that is... \(videoComposition.frameDuration.seconds)")
         
-        
-        
-        
-        self.composition.scaleTimeRange(CMTimeRangeMake(kCMTimeZero, fullDuration), toDuration: CMTime(seconds: 10, preferredTimescale: 1))
-            
+        // figure out how to get the duration...
+        self.scaleDuration()
         
         self.totalDuration = nextTime.seconds
         //                self.composition.tracks.forEach({ m in
@@ -334,12 +383,11 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         //                    })
         //                })
 
-        if(self.setupAnimation()){
-            self.setupPlayer()
-        }
+//        if(self.setupAnimation()){
+//            self.setupPlayer()
+//        }
         
         // videoComposition.renderSize = NSSize(width: 1920, height: 1080)
-
         //self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
     }
     
@@ -356,20 +404,17 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         } catch _ as NSError {
             print("Error while creating a folder.")
         }
-        
-        
+    
         func saveClippedFileCompleted(url: URL!) {
             self.finishSave(false, url: url)
-            
             print("Completed...")
-            
         }
         
         func saveClippedFileFailed() {
             print("Session FAILED")
-            DispatchQueue.main.async {
-               // self.saveTrimmedVideoButton.isEnabled = true
-            }
+            //            DispatchQueue.main.async {
+            //               // self.saveTrimmedVideoButton.isEnabled = true
+            //            }
         }
         
         func saveClippedFileUnknown() {
@@ -379,59 +424,39 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         // let es = self.exportSession
         
         let workerItem: MediaQueueWorkerItem!
-        
         workerItem = MediaQueueWorkerItem()
         
         let timeLapseWorkerItem = DispatchWorkItem {
-            
             workerItem.inProgress = true
             workerItem.outputUrl = self.outputUrl!
             workerItem.title = "Retime In Progress!"
             
             let builder = RetimeBuilder(asset: self.composition.copy() as! AVAsset, url: self.outputUrl!)
-            
-            // print("New Timelapse video file..." + (URL(string: timeLapseUrl)?.lastPathComponent)!)
-            
-            
             let framerate = self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
-            
             let size = self.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
             
-            // var errCount = 0
-            
             builder.build(frameRate: Int32(framerate), outputSize: size, { progress in
-                // print(progress.fractionCompleted)
                 workerItem.inProgress = true
-                // print("fraction completed...\(progress.fractionCompleted * 100.0)")
-                
                 workerItem.percent = (progress.fractionCompleted * 100.0)
             }, success: { url in
-                // print(url)
                 workerItem.outputUrl = url
-                // self.finishSave(false, url: url)
                 workerItem.workerStatus = true
                 workerItem.inProgress = false
                 DispatchQueue.main.async {
                     self.finishSave(false, url: url)
                 }
-                
             }, failure: { error in
                 print("ERROR \(error)")
-                // errCount += 1
-                
-                //if(errCount > 1) {
-                    DispatchQueue.main.async {
-                        self.finishSave(true, url: self.outputUrl!)
-                    }
-                //}
-                
+                DispatchQueue.main.async {
+                    self.finishSave(true, url: self.outputUrl!)
+                }
             })
         }
         
         
         // timeLapseWorkerItem.perform()
         
-        let queue = DispatchQueue.global(qos: .utility)
+        let queue = DispatchQueue.global(qos: .userInitiated)
         self.appDelegate.mediaQueue.queue.append(workerItem)
         queue.async(execute: timeLapseWorkerItem)
         
@@ -636,7 +661,11 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         
         // print("So far I came up with: \(videoClipURL)")
-        return URL(string: videoClipURL.replacingOccurrences(of: " ", with: "%20"))!
+        let url = URL(string: videoClipURL.replacingOccurrences(of: " ", with: "%20"))
+        
+        self.outputFileName.stringValue = (url?.lastPathComponent)!
+        
+        return url!
         
     }
     
@@ -662,21 +691,23 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         let durationSeconds = CMTimeGetSeconds((cur)!)
         
-        let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
-        
-        DispatchQueue.main.async {
-            self.durationLabel?.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
+        if(durationSeconds > 0) {
             
-            // self.currentFrameLabel?.stringValue = String(format: "%02f", durationSeconds)
+            let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
+            
+            DispatchQueue.main.async {
+                self.durationLabel?.stringValue = String(format: "%02d", h) + ":" + String(format: "%02d", m) + ":" + String(format: "%02d", s)
+                
+                // self.currentFrameLabel?.stringValue = String(format: "%02f", durationSeconds)
+            }
         }
+        
     }
 
     
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60, (seconds % 36000) % 60)
     }
-
-    
     
     // Notifications
     

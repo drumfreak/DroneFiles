@@ -281,57 +281,11 @@ class FileBrowserViewController: NSViewController {
     
     func openLastFile() {
         
-        // let defaults = UserDefaults.standard
-        
         if((self.appSettings.lastFileOpened) != nil) {
-            //print("OPENING THE FUCKING File")
             
             let lastFile =  URL(string: self.appSettings.lastFileOpened!)
-            
-            //            if(isMov(file:lastFile!)) {
-            //
-            //
-            //                // print("LOADING MOV!!!!!!!")
-            //
-            //                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 0
-            //
-            //                // nowPlayingFile.stringValue = item.name;
-            //                var itemUrl = lastFile?.absoluteString
-            //                itemUrl = itemUrl?.replacingOccurrences(of: "file://", with: "")
-            //
-            //
-            //                //self.appDelegate.videoControlsController?.nowPlayingFile.stringValue = lastFile.lastPathComponent
-            //                self.appDelegate.videoPlayerViewController?.nowPlayingURL = lastFile
-            //
-            //                self.appDelegate.videoControlsController?.currentVideoURL = lastFile
-            //
-            //                self.appDelegate.videoControlsController?.nowPlayingURLString = lastFile?.absoluteString
-            //
-            //                // self.appDelegate.videoPlayerViewController?.playVideo(_url: lastFile, frame:kCMTimeZero, startPlaying: true);
-            //
-            //                // self.appDelegate.appSettings.lastFileOpened = item.url.absoluteString
-            //
-            //
-            //            }
-            //
-            //            if(isImage(file:lastFile!)) {
-            //
-            //                //  print("LOADING IMAGE!!!!!!!")
-            //
-            //                // HEY FUCKER YOU MUST SWITCH TABS FIRST OR THIS BREAKS!
-            //                self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
-            //                self.appDelegate.imageEditorViewController?.loadImage(_url:lastFile!)
-            //
-            //                // self.appDelegate.appSettings.lastFileOpened = lastFile.absoluteString
-            //            }
-            
-            
+        
             self.reloadFilesWithSelected(fileName: (lastFile?.absoluteString)!)
-            
-            
-            // print(lastFile)
-            
-            
         }
     }
     
@@ -419,13 +373,6 @@ class FileBrowserViewController: NSViewController {
                     
                     self.setupProjectDirectory()
                     self.sourceFolderOpened = URL(string: self.appSettings.projectDirectory)
-                    
-                    
-                    //                    self.appDelegate.documentController.openDocument(withContentsOf: openPanel.url!, display: true, completionHandler: { (document: NSDocument?, wasOpen: Bool, err: Error?) in
-                    //                        print("Fuck yeah \(String(describing: document))")
-                    //                        print("Error: \(String(describing: err))")
-                    //                    })
-                    
                 }
             }
             
@@ -934,10 +881,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
     
     
     internal func tableView(_ tableView: NSTableView, didClick tableColumn: NSTableColumn) {
-        
         // print(tableColumn)
-        
-        
     }
     
     // private func tableView(_ tableView: NSTableView, )
@@ -963,6 +907,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
         guard let item = directoryItems?[row] else {
             return nil
         }
+        //print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HEY ROW... \(row)")
         
         let rowView = self.tableView.rowView(atRow: row, makeIfNecessary: false)
         
@@ -1034,6 +979,8 @@ extension FileBrowserViewController: NSTableViewDelegate {
                 if(i < 0) {
                     return
                 }
+                
+                //print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  HEY  ROW \(i)")
                 let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
                 
                 // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
@@ -1059,16 +1006,16 @@ extension FileBrowserViewController: NSTableViewDelegate {
                 }
                 
                 i += 1
-                
             }
         
-        
-            let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
+            if(self.tableView.selectedRow >= 0) {
+                let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: false)
             
-            // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
+                // layer.backgroundColor = self.appDelegate.appSettings.appViewBackgroundColor.cgColor
             
-            // Current row selected color
-            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
+                // Current row selected color
+                rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
+            }
        // }
         
     }
