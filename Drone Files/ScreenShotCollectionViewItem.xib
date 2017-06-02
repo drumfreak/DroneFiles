@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -26,11 +26,19 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWP-ef-giO" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
                     <rect key="frame" x="-2" y="0.0" width="124" height="30"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="YVc-1v-Hm9">
-                        <font key="font" metaFont="system" size="9"/>
+                        <font key="font" metaFont="miniSystem"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghh-yL-lyZ">
+                    <rect key="frame" x="36" y="16" width="48" height="48"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="appicon-1024px" imagePosition="only" alignment="center" enabled="NO" refusesFirstResponder="YES" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="xta-eP-4hB">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="gWP-ef-giO" secondAttribute="trailing" id="1Rf-mu-d2P"/>
@@ -43,6 +51,13 @@
                 <constraint firstItem="gWP-ef-giO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="rWR-w3-loL"/>
             </constraints>
         </customView>
-        <collectionViewItem id="jBg-8p-yy7" customClass="ScreenShotCollectionViewItem" customModule="Drone_Files" customModuleProvider="target"/>
+        <collectionViewItem id="jBg-8p-yy7" customClass="ScreenShotCollectionViewItem" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="playerButton" destination="ghh-yL-lyZ" id="CaT-3S-xxU"/>
+            </connections>
+        </collectionViewItem>
     </objects>
+    <resources>
+        <image name="appicon-1024px" width="1024" height="1024"/>
+    </resources>
 </document>

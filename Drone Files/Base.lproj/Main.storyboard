@@ -613,12 +613,27 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Toggle Media Bin" keyEquivalent="m" id="snW-S8-Cw5">
+                                        <menuItem title="File Browser" keyEquivalent="1" id="R5U-Wd-XpJ" userLabel="File Browser">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                            <connections>
+                                                <action selector="toggleFileBrowserWithSender:" target="Voe-Tx-rLC" id="qzT-fw-Kug"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Video Editor" keyEquivalent="2" id="B0E-w0-O2r">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Image Editor" keyEquivalent="3" id="QD4-iE-MNo">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                        <menuItem title="File Manager" keyEquivalent="4" id="EOP-5u-CKJ">
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
+                                        </menuItem>
+                                        <menuItem title="Media Bin" keyEquivalent="m" id="snW-S8-Cw5">
                                             <connections>
                                                 <action selector="toggleMediaBinWithSender:" target="Voe-Tx-rLC" id="gTR-2O-Wvx"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Toggle Favorites" keyEquivalent="f" id="hQn-0X-FAp">
+                                        <menuItem title="Favorites" keyEquivalent="f" id="hQn-0X-FAp">
                                             <connections>
                                                 <action selector="toggleFavoritesWithSender:" target="Voe-Tx-rLC" id="3W1-l0-86d"/>
                                             </connections>
@@ -765,6 +780,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                                     <items>
+                                        <menuItem title="Second Display" keyEquivalent="W" id="GFD-i5-9zx" userLabel="File Browser">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                             <connections>
                                                 <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
@@ -892,18 +910,21 @@
                                         <action selector="openProjectFile:" target="nrN-2e-1nS" id="IUU-oS-yrA"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E5B3F2A0-5620-4F7B-B918-769D8D62496E" label="" paletteLabel="Import" image="NSActionTemplate" id="PmK-Sr-Pha">
+                                <toolbarItem implicitItemIdentifier="66A552EF-E968-4209-85F4-EDBC86C745CF" label="" paletteLabel="Files" id="KS2-1H-YxH" userLabel="Files Button">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="60" height="20"/>
-                                    <size key="maxSize" width="72" height="45"/>
-                                    <button key="view" id="peQ-9H-V3z">
-                                        <rect key="frame" x="0.0" y="14" width="72" height="20"/>
+                                    <size key="minSize" width="60" height="25"/>
+                                    <size key="maxSize" width="60" height="25"/>
+                                    <button key="view" id="0aA-Zu-Hqx" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="60" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSActionTemplate" imagePosition="overlaps" alignment="center" alternateImage="darkbackground-3" refusesFirstResponder="YES" inset="2" id="TBH-N3-j3E">
+                                        <buttonCell key="cell" type="square" title="Files" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Md0-ZH-Q6U">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
+                                    <connections>
+                                        <action selector="toggleFileBrowser:" target="nrN-2e-1nS" id="HgJ-g4-w91"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="8C09B418-D1BD-45D8-9DB0-1CE1BAA9DF5A" label="" paletteLabel="Queue" id="nBg-ov-Qua">
                                     <nil key="toolTip"/>
@@ -964,10 +985,10 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="showFileManagerTab:" target="nrN-2e-1nS" id="M9p-nK-k3d"/>
-                                        </connections>
                                     </button>
+                                    <connections>
+                                        <action selector="showFileManagerTab:" target="nrN-2e-1nS" id="XjQ-bf-sxt"/>
+                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="8B6607E0-A0A0-4D27-81D6-FD9F7D35AEBE" label="" paletteLabel="Display" id="bDO-zM-2PQ">
                                     <nil key="toolTip"/>
@@ -1008,7 +1029,7 @@
                                 <toolbarItem reference="6cw-PT-ILm"/>
                                 <toolbarItem reference="ar7-TW-PoJ"/>
                                 <toolbarItem reference="UbB-yM-1XI"/>
-                                <toolbarItem reference="PmK-Sr-Pha"/>
+                                <toolbarItem reference="KS2-1H-YxH"/>
                                 <toolbarItem reference="7NP-7X-bYd"/>
                                 <toolbarItem reference="6H5-RZ-C6I"/>
                                 <toolbarItem reference="rFN-Y9-f6r"/>
@@ -3010,7 +3031,6 @@
         <image name="NSFolder" width="32" height="32"/>
         <image name="appicon-1024px" width="1024" height="1024"/>
         <image name="darkbackground" width="1200" height="1000"/>
-        <image name="darkbackground-3" width="1920" height="1080"/>
         <image name="heart-active" width="30" height="30"/>
         <image name="heart-inactive" width="30" height="30"/>
         <image name="heart-table-active" width="17" height="17"/>

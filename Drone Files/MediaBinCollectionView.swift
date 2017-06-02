@@ -20,6 +20,7 @@ class MediaBinCollectionView: NSViewController {
     @IBOutlet weak var scrollView: ThemeScrollView!
     @IBOutlet var mediaShowRateLabel: NSTextField!
     @IBOutlet weak var mediaBinSlideshowTimer: Timer!
+    @IBOutlet weak var reverseUrlsButton: NSButton!
     
     var slideshowPausedForVideo = false
     var splitItem: NSSplitViewItem!
@@ -30,11 +31,7 @@ class MediaBinCollectionView: NSViewController {
     
     var collectionViewLimit = 2500
     
-    
-    func loadDataForNewFolderWithUrl(_ folderURL: URL) {
-        mediaBinLoader.loadDataForFolderWithUrl(folderURL)
-        collectionView.reloadData()
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,16 +125,11 @@ class MediaBinCollectionView: NSViewController {
             
             self.appDelegate.appSettings.lastFileOpened = url!.absoluteString
             self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url!)
-            
-            
         }
         
         
         if(self.appDelegate.isImage(file:(img.imageFile?.imgUrl)!)) {
-            
-            
             //  print(img.imageFile)
-            
             if(self.appSettings.secondDisplayIsOpen) {
                 // print("Displaying item on second screen...")
                 self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
@@ -167,15 +159,28 @@ class MediaBinCollectionView: NSViewController {
         }
         var boo = [] as NSArray
         var foo = self.appDelegate.appSettings.mediaBinUrls as! NSMutableArray
-        
-        
+    
         if(foo.count > self.collectionViewLimit) {
             boo = Array(foo.prefix(self.collectionViewLimit)) as NSArray
             foo = boo.mutableCopy() as! NSMutableArray
+            
+            
+            print("REVERSED \(self.appDelegate.appSettings.mediaBinReverseURLS)")
+            
+            if(self.appDelegate.appSettings.mediaBinReverseURLS == true) {
+                foo = foo.reversed() as! NSMutableArray
+            }
             self.mediaBinLoader.loadDataFromUrls(foo)
             
             self.collectionView?.reloadData()
         } else {
+            
+            print("REVERSED \(self.appDelegate.appSettings.mediaBinReverseURLS)")
+            
+            if(self.appDelegate.appSettings.mediaBinReverseURLS == true) {
+                foo = foo.reversed() as! NSMutableArray
+            }
+            
             self.mediaBinLoader.loadDataFromUrls(foo)
             self.collectionView?.reloadData()
         }
@@ -205,31 +210,38 @@ class MediaBinCollectionView: NSViewController {
         self.reloadContents()
     }
     
+    @IBAction func reverseUrls (_ sender : AnyObject) {
+        self.appDelegate.appSettings.mediaBinReverseURLS = !self.appDelegate.appSettings.mediaBinReverseURLS
+        self.reloadContents()
+    }
     
     @IBAction func startMediaShow (_ sender : AnyObject) {
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         
-        let myAttribute = [NSForegroundColorAttributeName: NSColor.lightGray,
-                           NSParagraphStyleAttributeName: paragraph
-        ]
-        
-        
         
         if(self.appSettings.mediaBinSlideshowRunning == true) {
             self.stopTimer()
             DispatchQueue.main.async {
+                //stringValue = "Start Show"
+                let myAttribute = [NSForegroundColorAttributeName: NSColor.highlightColor,
+                                   NSParagraphStyleAttributeName: paragraph]
+
                 
                 let myAttrString = NSAttributedString(string:"Start Show", attributes: myAttribute)
                 
                 self.startShowButton.attributedTitle = myAttrString
-                
-                //stringValue = "Start Show"
+            
+
             }
         } else {
             self.startTimer()
             DispatchQueue.main.async {
+                
+                let myAttribute = [NSForegroundColorAttributeName: NSColor.blue,
+                                   NSParagraphStyleAttributeName: paragraph]
+                
                 let myAttrString = NSAttributedString(string:"Stop Show", attributes: myAttribute)
                 self.startShowButton.attributedTitle = myAttrString
                 //stringValue = "Start Show"
@@ -240,8 +252,10 @@ class MediaBinCollectionView: NSViewController {
     }
     
     func nextSlideAfterVideo() {
-        self.nextSlide()
-        self.startTimer()
+        if(self.appSettings.mediaBinSlideshowRunning) {
+            self.nextSlide()
+            self.startTimer()
+        }
     }
     
     
@@ -295,12 +309,16 @@ class MediaBinCollectionView: NSViewController {
     }
     
     func stopTimer() {
-        self.appDelegate.appSettings.mediaBinSlideshowRunning = false
+        if(self.appDelegate.videoPlayerViewController?.player.isPlaying)! {
+            self.appDelegate.videoPlayerViewController?.player.pause()
+        }
         if(self.mediaBinSlideshowTimer != nil) {
             if(self.mediaBinSlideshowTimer.isValid) {
                 print("Invalidating Timer")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.mediaBinSlideshowTimer.invalidate()
+                self.appDelegate.appSettings.mediaBinSlideshowRunning = false
+                self.mediaBinSlideshowTimer = nil
             }
         }
     }
@@ -312,6 +330,7 @@ class MediaBinCollectionView: NSViewController {
                 print("Stopping Timer for Video")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.mediaBinSlideshowTimer.invalidate()
+                self.mediaBinSlideshowTimer = nil
             }
         }
         
@@ -320,31 +339,31 @@ class MediaBinCollectionView: NSViewController {
     
     func nextSlide() {
         
-        if((self.currentSlide + 1) < self.collectionViewLimit) {
-            if((self.currentSlide + 1) >= self.appDelegate.appSettings.mediaBinUrls.count) {
+        let count = self.collectionView.numberOfItems(inSection: 0)
+        
+        print("Count: \(count)")
+        
+        if(self.currentSlide > -1 && ((self.currentSlide + 1) < self.collectionViewLimit) && ((self.currentSlide + 1) < count)) {
+            if(self.currentSlide >= count) {
                 self.currentSlide = 0
+            } else {
+                self.currentSlide += 1
             }
         } else {
             self.currentSlide = 0
         }
         
-        if(self.currentSlide > -1) {
-            
-            
+        if(count > 0) {
             DispatchQueue.main.async {
+                
+                print("Slide: \(self.currentSlide)")
+                
                 self.selectItemByIndex(int: self.currentSlide)
                 // self.collectionView.reloadData()
             }
-            
-            
-            if((self.currentSlide + 1) < self.appDelegate.appSettings.mediaBinUrls.count) {
-                self.currentSlide += 1
-            } else {
-                self.currentSlide = 0
-            }
-        } else {
-            self.currentSlide = 0
         }
+        
+        
         
     }
     
@@ -361,7 +380,6 @@ class MediaBinCollectionView: NSViewController {
                 self.hideMediaBin()
             }
         }
-        
     }
     
     func hideMediaBin() {
@@ -412,7 +430,10 @@ extension MediaBinCollectionView : NSCollectionViewDataSource {
         
         // 4
         let item = collectionView.makeItem(withIdentifier: "ScreenShotCollectionViewItem", for: indexPath as IndexPath)
-        guard let collectionViewItem = item as? ScreenShotCollectionViewItem else {return item}
+        guard let collectionViewItem = item as? ScreenShotCollectionViewItem else {
+        
+            return item
+        }
         
         // 5
         let imageFile = mediaBinLoader.imageFileForIndexPath(indexPath as IndexPath)
@@ -449,16 +470,14 @@ extension MediaBinCollectionView : NSCollectionViewDelegate {
             return
         }
         // 3
-        guard let item = collectionView.item(at: indexPath as IndexPath) else {
+        guard let item = collectionView.item(at: indexPath as IndexPath) as? ScreenShotCollectionViewItem else {
             return
         }
         
         self.currentSlide = indexPath.item
         
         // Load image...
-        let img = (item as! ScreenShotCollectionViewItem)
-        
-        let url = img.imageFile?.imgUrl
+        let url = item.imageFile?.imgUrl
         
         self.slideshowPausedForVideo = false
 
@@ -474,61 +493,43 @@ extension MediaBinCollectionView : NSCollectionViewDelegate {
                 self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
             }
             
-            // nowPlayingFile.stringValue = item.name;
             var itemUrl = url!.absoluteString
             itemUrl = itemUrl.replacingOccurrences(of: "file://", with: "")
-            // print("~~~~~~~~~~~~~~~~~~~~~~~ NOW PLAYING: " + itemUrl)
             
             DispatchQueue.main.async {
-                
                 self.appDelegate.videoPlayerViewController?.VideoEditView.isHidden = false
                 self.appDelegate.videoControlsController.nowPlayingFile?.stringValue = (url?.lastPathComponent)!
-                
             }
-            
+
             self.appDelegate.videoControlsController.currentVideoURL = url
-            
             self.appDelegate.videoPlayerViewController?.nowPlayingURL = (url)
-            
             self.appDelegate.videoControlsController.nowPlayingURLString = itemUrl
-            
             self.appDelegate.appSettings.lastFileOpened = url!.absoluteString
             self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url!)
-            
-            
         }
         
         
-        if(self.appDelegate.isImage(file:(img.imageFile?.imgUrl)!)) {
-            //  print(img.imageFile)
-            
-            
+        if(self.appDelegate.isImage(file:(item.imageFile?.imgUrl)!)) {
             if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
                 if(self.mediaBinSlideshowTimer == nil) {
                     self.startTimer()
                 }
             }
-            
+
             
             if(self.appSettings.secondDisplayIsOpen) {
-                // DispatchQueue.main.async {
-                //print("Displaying item on second screen...")
-                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (img.imageFile?.imgUrl)!)
-                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-                // }
-                
+                self.appDelegate.secondaryDisplayMediaViewController?.loadImage(imageUrl: (item.imageFile?.imgUrl)!)
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (item.imageFile?.imgUrl)!)
             } else {
-                
                 if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
                     self.appDelegate.rightPanelSplitViewController.showImageEditorSplitView()
                 }
                 
-                self.appDelegate.imageEditorViewController?.loadImage(_url: (img.imageFile?.imgUrl)!)
-                
+                self.appDelegate.imageEditorViewController?.loadImage(_url: (item.imageFile?.imgUrl)!)
             }
             
             DispatchQueue.main.async {
-                (item as! ScreenShotCollectionViewItem).setHighlight(selected: true)
+                item.setHighlight(selected: true)
             }
         }
         

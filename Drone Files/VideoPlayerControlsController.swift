@@ -166,6 +166,7 @@ class VideoPlayerControllsController: NSViewController {
         // DispatchQueue.main.async {
         if(self.playerTimer != nil) {
             self.playerTimer.invalidate()
+            self.playerTimer = nil
         }
         // }
     }
@@ -669,12 +670,14 @@ class VideoPlayerControllsController: NSViewController {
                     DispatchQueue.main.async {
                         saveClippedFileCompleted()
                         self.clipTrimTimer.invalidate()
+                        self.clipTrimTimer = nil
                     }
                     break
                 case .failed:
                     DispatchQueue.main.async {
                         saveClippedFileFailed()
                         self.clipTrimTimer.invalidate()
+                        self.clipTrimTimer = nil
                     }
                     
                     break
@@ -682,6 +685,7 @@ class VideoPlayerControllsController: NSViewController {
                     DispatchQueue.main.async {
                         saveClippedFileUnknown()
                         self.clipTrimTimer.invalidate()
+                        self.clipTrimTimer = nil
                     }
                     break
                 }
@@ -816,7 +820,6 @@ class VideoPlayerControllsController: NSViewController {
                 self.appDelegate.videoPlayerViewController?.playerView.player?.pause()
                 playerWasPlaying = true
             }
-            
             
             let playerTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
             

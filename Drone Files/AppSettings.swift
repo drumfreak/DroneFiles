@@ -42,6 +42,12 @@ struct AppSettings {
         }
     }
     
+    var fileBrowserIsOpen = false {
+        didSet {
+            
+        }
+    }
+    
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
     var fileSequenceName = ""
     var fileSequenceNameTag = ""
@@ -242,6 +248,13 @@ struct AppSettings {
     
     
     // Media Bin Stuff
+    
+    var mediaBinReverseURLS = Bool(true) {
+        didSet {
+            userDefaults.setValue(mediaBinReverseURLS, forKey: "mediaBinReverseURLS")
+            //self.appDelegate.writeProjectFile(projectPath: self.projectFolder)
+        }
+    }
     
     var mediaBinTimerInterval = Double(4.0) {
         didSet {

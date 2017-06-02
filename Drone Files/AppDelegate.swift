@@ -490,9 +490,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         self.fileBrowserViewController.addFavorite(nil)
     }
     
+    @IBAction func toggleFileBrowser(sender: AnyObject) {
+        //self.fileBrowserViewController.addFavorite(nil)
+        self.fileBrowserViewController.hideFileBrowser(self)
+    }
+    
     
     @IBAction func toggleFavorites(sender: AnyObject) {
-        //self.fileBrowserViewController.addFavorite(nil)
+        self.fileBrowserViewController.hideFileBrowser(self)
     }
     
     @IBAction func toggleMediaBin(sender: AnyObject) {

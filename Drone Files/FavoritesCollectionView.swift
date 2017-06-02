@@ -196,6 +196,7 @@ class FavoritesCollectionViewController: NSViewController {
                 print("Invalidating Timer")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.mediaBinSlideshowTimer.invalidate()
+                self.mediaBinSlideshowTimer = nil
             }
         }
         

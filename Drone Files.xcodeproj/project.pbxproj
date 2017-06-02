@@ -107,6 +107,8 @@
 		18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */ = {isa = PBXBuildFile; fileRef = 18BAABA61EADA2CB00EE5434 /* Shutter.aif */; };
 		18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */; };
 		18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */; };
+		18BC321B1EE1E4460039104F /* VideoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BC32191EE1E4460039104F /* VideoFile.swift */; };
+		18BC321C1EE1E4460039104F /* VideoFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BC321A1EE1E4460039104F /* VideoFile.xib */; };
 		18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */; };
 		18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F501ECE1CDE008E9E02 /* messagewindow.png */; };
 		18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */; };
@@ -253,6 +255,8 @@
 		18BAABA61EADA2CB00EE5434 /* Shutter.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shutter.aif; sourceTree = "<group>"; };
 		18BAABA81EADAF0200EE5434 /* SplitViewRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewRightViewController.swift; sourceTree = "<group>"; };
 		18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
+		18BC32191EE1E4460039104F /* VideoFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFile.swift; sourceTree = "<group>"; };
+		18BC321A1EE1E4460039104F /* VideoFile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoFile.xib; sourceTree = "<group>"; };
 		18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerList.swift; sourceTree = "<group>"; };
 		18DD9F501ECE1CDE008E9E02 /* messagewindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = messagewindow.png; path = ../../../Dronefiles/messagewindow.png; sourceTree = "<group>"; };
 		18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotSettingsController.swift; sourceTree = "<group>"; };
@@ -555,6 +559,8 @@
 			isa = PBXGroup;
 			children = (
 				18DD9F541ECE8E08008E9E02 /* ImageFile.swift */,
+				18BC32191EE1E4460039104F /* VideoFile.swift */,
+				18BC321A1EE1E4460039104F /* VideoFile.xib */,
 				18DD9F571ECE8E2E008E9E02 /* MediaBinLoader.swift */,
 			);
 			name = "Image Collection View";
@@ -681,6 +687,7 @@
 				1869FBE91ED884A800EC639E /* FavoritesCollectionView.xib in Resources */,
 				188272261ECA704F00EE50D0 /* appicon-16px.png in Resources */,
 				1882723A1ECAC76900EE50D0 /* darkbackground-2.jpg in Resources */,
+				18BC321C1EE1E4460039104F /* VideoFile.xib in Resources */,
 				188272461ECB759A00EE50D0 /* darkbrownbackground.png in Resources */,
 				184AD80F1ED736BC001209F5 /* MediaBinCollectionView.xib in Resources */,
 				184BB2361ED77AE300D73B8A /* ScreenshotSettingsWindow.xib in Resources */,
@@ -792,6 +799,7 @@
 				18B001CD1EA69C92003C3214 /* AppDelegate.swift in Sources */,
 				1836DB871EC824550000F749 /* SlideShowWindow.swift in Sources */,
 				1882722F1ECA898900EE50D0 /* ThemeLabel.swift in Sources */,
+				18BC321B1EE1E4460039104F /* VideoFile.swift in Sources */,
 				18A483091EAFFEDB007F735B /* FileManagerOptionsMoveController.swift in Sources */,
 				18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */,
 				18740B6F1ECD5522003803B4 /* MediaBinCollectionView.swift in Sources */,

@@ -162,6 +162,7 @@ class MediaQueueMonitorViewController: NSViewController {
             if(self.queueTimer.isValid) {
                 print("Invalidating queue Timer")
                 self.queueTimer.invalidate()
+                self.queueTimer = nil
             }
         }
     }

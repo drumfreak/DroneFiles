@@ -31,7 +31,23 @@ class MediaBinLoader: NSObject {
     
     func setupDataForUrls(_ urls: [URL]?) {
         
-        if let urls = urls {                    // When new folder
+        let fileManager = FileManager.default
+
+        
+        var urlArray = [URL]()
+        
+        
+        if var urls = urls {
+            var isDirectory: ObjCBool = false
+
+            urls.forEach({url in
+                if fileManager.fileExists(atPath:url.path, isDirectory: &isDirectory) {
+                    urlArray.append(url)
+                }
+            })
+            
+            urls = urlArray
+
             self.mediaBinUrlsCount = urls.count
 
 //            if(urls.count == 0) {

@@ -18,7 +18,8 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet var topView: NSView!
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
-    
+    var splitItem: NSSplitViewItem!
+
     var doSaveFavorites = false
     
     @IBOutlet var backgroundImage: NSImageView!
@@ -162,11 +163,16 @@ class FileBrowserViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
+        self.appDelegate.appSettings.fileBrowserIsOpen = true
         // self.fileSequenceNameTextField.stringValue = self.appSettings.fileSequenceName
         // self.openLastFile();
         self.setupPathControl(control: self.currentFolderPathControl)
         
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.appDelegate.appSettings.fileBrowserIsOpen = false
     }
     
     @IBAction func openCurrentPathControlMenu(_ sender: AnyObject?) {
@@ -175,9 +181,6 @@ class FileBrowserViewController: NSViewController {
     }
     
     @IBAction func selectHeart(button: FavoriteButtonTable) {
-//        print("Fuck yeah \(button.itemIndex)")
-//        
-//        print(button.buttonUrl)
         self.doSaveFavorites = true
         
         if(self.tableView.selectedRow == button.itemIndex) {
@@ -278,12 +281,42 @@ class FileBrowserViewController: NSViewController {
         }
     }
     
+    
+    @IBAction func hideFileBrowser (_ sender : AnyObject) {
+        // print("Fuck")
+        // self.view.isHidden = true
+        self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
+        if(self.splitItem != nil) {
+            if(self.splitItem.isCollapsed) {
+                self.tableView.reloadData()
+                self.unHideView()
+            } else {
+                self.hideView()
+            }
+        }
+    }
+    
+    func hideView() {
+        self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
+        self.splitItem.isCollapsed = true
+        // self.splitItem.holdingPriority = 250
+        // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+        
+    }
+    
+    func unHideView() {
+        self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
+
+        self.splitItem.isCollapsed = false
+        self.splitItem.holdingPriority = 150
+        self.appDelegate.splitViewController?.splitView.adjustSubviews()
+        
+    }
+
+    
     func openLastFile() {
-        
         if((self.appSettings.lastFileOpened) != nil) {
-            
             let lastFile =  URL(string: self.appSettings.lastFileOpened!)
-        
             self.reloadFilesWithSelected(fileName: (lastFile?.absoluteString)!)
         }
     }
@@ -748,18 +781,14 @@ class FileBrowserViewController: NSViewController {
         self.selectedFileURLS = []
         self.addToFavoriteUrls.removeAll(keepingCapacity: false)
         
-        
         for (_, index) in self.tableView.selectedRowIndexes.enumerated() {
             guard index >= 0,
                 let item = directoryItems?[index] else {
                     return
             }
-            
-            // print("SELECTED ITEMS \(item.url)")
-            
+            // print("SELECTED ITEMS \(item.url)"
             self.selectedFileURLS.add(item.url)
             self.addToFavoriteUrls.append(item.url)
-            
         }
         
         if(self.doSaveFavorites) {
@@ -767,13 +796,16 @@ class FileBrowserViewController: NSViewController {
             self.doSaveFavorites = false
         }
         
+        self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS
+        
+        print(self.appDelegate.fileManagerViewController?.fileURLs! as Any)
+        
         if(showTab) {
             if(!self.appDelegate.appSettings.fileManagerSplitViewIsOpen) {
                 self.appDelegate.rightPanelSplitViewController?.showFileManagerSplitView()
             }
         }
-        
-        self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS
+
     }
     
     @IBAction func openSlideShow(_ sender: AnyObject?) {
@@ -781,22 +813,7 @@ class FileBrowserViewController: NSViewController {
         //print("What the fuck man...")
     }
     
-    
-//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "slideShow" {
-//            
-//            // print("Doing the segue....")
-//            
-//           // self.appDelegate.slideShowWindowController = segue.destinationController as? SlideShowWindowController
-//            
-//            //self.appDelegate.slideShowController?.loadImages(items: self.selectedFileURLS)
-//            
-//        }
-//    }
-    
-    
     func updateStatus() {
-        
         let text: String
         
         // 1

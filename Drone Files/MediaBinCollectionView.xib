@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -12,6 +12,7 @@
                 <outlet property="countLabel" destination="7tc-uH-COT" id="FxS-9g-rWh"/>
                 <outlet property="mediaShowIntervalSlider" destination="4Qt-Wp-EQB" id="0gt-uj-z5d"/>
                 <outlet property="mediaShowRateLabel" destination="3kL-8W-XPL" id="o4A-Sy-m0O"/>
+                <outlet property="reverseUrlsButton" destination="e13-b7-oBW" id="Xlr-g8-DNW"/>
                 <outlet property="scrollView" destination="prw-XW-0xf" id="sOg-BC-IZw"/>
                 <outlet property="startShowButton" destination="bhh-7d-8TM" id="fBD-z0-8AO"/>
                 <outlet property="view" destination="c22-O7-iKe" id="fr2-o6-VAo"/>
@@ -72,7 +73,7 @@
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tc-uH-COT">
                             <rect key="frame" x="1" y="109" width="52" height="17"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="inline" title="23" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="MAe-Pc-Gdz">
+                            <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="MAe-Pc-Gdz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="smallSystemBold"/>
                             </buttonCell>
@@ -116,6 +117,17 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e13-b7-oBW" userLabel="Reverse Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="309" y="105" width="100" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Reverse" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="RIg-eg-0ij">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="reverseUrls:" target="-2" id="M0X-Is-WHg"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </view>
             </subviews>

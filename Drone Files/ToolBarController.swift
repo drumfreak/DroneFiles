@@ -93,9 +93,14 @@ class ToolBarController: NSToolbar {
         self.appDelegate.mediaBinCollectionView.hideScreenshotSlider(self)
     }
     
+    @IBAction func toggleFileBrowser(_ sender: AnyObject?) {
+        print("File manager toolbar item clicked.")
+        self.appDelegate.fileBrowserViewController.hideFileBrowser(self)
+    }
+    
+    
     
     @IBAction func toggleMediaQueue(_ sender: AnyObject?) {
-        
         if(!self.appDelegate.appSettings.mediaQueueIsOpen) {
             self.mediaQueueMonitorWindowController = MediaQueueMonitorWindowController()
             self.mediaQueueMonitorWindowController?.showWindow(self)

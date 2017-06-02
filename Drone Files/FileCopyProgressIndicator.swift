@@ -238,6 +238,7 @@ class FileCopyProgressIndicatorController: NSViewController {
                 print("Invalidating Timer")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.whatTheFucktimer.invalidate()
+                self.whatTheFucktimer = nil
             }
         }
         
