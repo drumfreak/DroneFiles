@@ -332,9 +332,8 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
         
         self.saveTimeLapseButton.isEnabled = true
 
-
-
     }
+    
     
     // Video Clipping
     func getClippedVideosIncrement(folder: String) -> String {

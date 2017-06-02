@@ -852,22 +852,22 @@
                                                 <rect key="frame" x="-2" y="9" width="303" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Welcome to Drone Files!" usesSingleLineMode="YES" id="jrj-oo-6q2">
-                                                    <font key="font" metaFont="systemBold" size="14"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="font" metaFont="systemLight" size="12"/>
+                                                    <color key="textColor" red="0.74921315908432007" green="0.74978917837142944" blue="0.7493024468421936" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                         </subviews>
                                     </customView>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="CB7EF3FA-B0E1-4EF7-AA88-27EE0BD6626A" label="" paletteLabel="New" image="darkbackground" id="ar7-TW-PoJ" userLabel="New Button">
+                                <toolbarItem implicitItemIdentifier="CB7EF3FA-B0E1-4EF7-AA88-27EE0BD6626A" label="" paletteLabel="New" id="ar7-TW-PoJ" userLabel="New Button">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="60" height="25"/>
                                     <button key="view" springLoaded="YES" id="DE2-Gs-epZ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="60" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="only" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Zpv-LO-KT7">
+                                        <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Zpv-LO-KT7">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -876,14 +876,14 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="D97719FE-F766-42F5-8BF2-721F1ACC0B02" label="" paletteLabel="Open" image="darkbackground" id="UbB-yM-1XI" userLabel="Open Button">
+                                <toolbarItem implicitItemIdentifier="D97719FE-F766-42F5-8BF2-721F1ACC0B02" label="" paletteLabel="Open" id="UbB-yM-1XI" userLabel="Open Button">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="60" height="25"/>
                                     <button key="view" id="pm8-XI-baH" userLabel="Open" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="60" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Open" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Rn9-94-xdO" userLabel="Open">
+                                        <buttonCell key="cell" type="square" title="Open" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Rn9-94-xdO" userLabel="Open">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -905,14 +905,14 @@
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="8C09B418-D1BD-45D8-9DB0-1CE1BAA9DF5A" label="" paletteLabel="Queue" image="NSColorPanel" id="nBg-ov-Qua">
+                                <toolbarItem implicitItemIdentifier="8C09B418-D1BD-45D8-9DB0-1CE1BAA9DF5A" label="" paletteLabel="Queue" id="nBg-ov-Qua">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="60" height="20"/>
-                                    <size key="maxSize" width="84" height="45"/>
+                                    <size key="minSize" width="42" height="25"/>
+                                    <size key="maxSize" width="116" height="32"/>
                                     <button key="view" id="UfQ-H2-LBi" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14" width="84" height="43"/>
+                                        <rect key="frame" x="0.0" y="14" width="116" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSColorPanel" imagePosition="only" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="wiY-sG-f6Z">
+                                        <buttonCell key="cell" type="square" title="Media Queue" bezelStyle="shadowlessSquare" alignment="center" alternateImage="NSColorPanel" refusesFirstResponder="YES" borderStyle="border" inset="2" id="wiY-sG-f6Z">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -921,14 +921,14 @@
                                         <action selector="toggleMediaQueue:" target="nrN-2e-1nS" id="mk9-rd-fh8"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="AA3F6233-B2A8-4224-AFFB-4E221C9D56A9" label="" paletteLabel="Video Editor" image="darkbackground" id="6H5-RZ-C6I">
+                                <toolbarItem implicitItemIdentifier="AA3F6233-B2A8-4224-AFFB-4E221C9D56A9" label="" paletteLabel="Video Editor" id="6H5-RZ-C6I">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="108" height="25"/>
                                     <button key="view" id="jsw-2W-iSI" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="108" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Video Editor" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="5Zg-62-2k7">
+                                        <buttonCell key="cell" type="square" title="Video Editor" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="5Zg-62-2k7">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -937,14 +937,14 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="5F308E84-85B7-4193-B886-DAD8BEF7A12F" label="" paletteLabel="Image Editor" image="darkbackground" id="rFN-Y9-f6r">
+                                <toolbarItem implicitItemIdentifier="5F308E84-85B7-4193-B886-DAD8BEF7A12F" label="" paletteLabel="Image Editor" id="rFN-Y9-f6r">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="116" height="25"/>
                                     <button key="view" id="RYw-5n-F8W" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="116" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Image Editor" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Tnr-Ef-NhH">
+                                        <buttonCell key="cell" type="square" title="Image Editor" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Tnr-Ef-NhH">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -953,14 +953,14 @@
                                         <action selector="showImageEditorTab:" target="nrN-2e-1nS" id="ZqJ-Ve-WdB"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="A62C1A7D-091C-4B29-A432-C4C31275719F" label="" paletteLabel="File Manager" image="darkbackground" id="uiA-bm-yKj">
+                                <toolbarItem implicitItemIdentifier="A62C1A7D-091C-4B29-A432-C4C31275719F" label="" paletteLabel="File Manager" id="uiA-bm-yKj">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="106" height="25"/>
                                     <button key="view" id="KYu-UZ-AYd" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="106" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="File Manager" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="ZPh-95-xxM">
+                                        <buttonCell key="cell" type="square" title="File Manager" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="ZPh-95-xxM">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -969,14 +969,14 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="8B6607E0-A0A0-4D27-81D6-FD9F7D35AEBE" label="" paletteLabel="Display" image="darkbackground" id="bDO-zM-2PQ">
+                                <toolbarItem implicitItemIdentifier="8B6607E0-A0A0-4D27-81D6-FD9F7D35AEBE" label="" paletteLabel="Display" id="bDO-zM-2PQ">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="106" height="25"/>
                                     <button key="view" id="uLr-m5-5HQ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="100" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Display" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="b3p-td-jD1">
+                                        <buttonCell key="cell" type="square" title="Display" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="b3p-td-jD1">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -985,14 +985,14 @@
                                         <action selector="showSecondDisplayTab:" target="nrN-2e-1nS" id="dcO-ho-81d"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="69CDEFA2-CBF8-4A09-A763-59F8068FACC9" label="" paletteLabel="Media Bin" image="darkbackground" id="cCh-kk-Y2Z" userLabel="Media Bin">
+                                <toolbarItem implicitItemIdentifier="69CDEFA2-CBF8-4A09-A763-59F8068FACC9" label="" paletteLabel="Media Bin" id="cCh-kk-Y2Z" userLabel="Media Bin">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="60" height="25"/>
                                     <size key="maxSize" width="108" height="25"/>
                                     <button key="view" id="hGN-tm-bLR" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14" width="108" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" title="Media Bin" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="3KM-ma-iGb">
+                                        <buttonCell key="cell" type="square" title="Media Bin" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="3KM-ma-iGb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1864,7 +1864,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" id="XS8-bh-Bi1" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                        <rect key="frame" x="-2" y="495" width="776" height="17.5"/>
+                                        <rect key="frame" x="-2" y="495" width="776" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" alignment="center" title="0 Items" id="2vr-5l-n1Y">
                                             <font key="font" metaFont="system"/>
@@ -1873,11 +1873,11 @@
                                         </textFieldCell>
                                     </textField>
                                     <splitView fixedFrame="YES" arrangesAllSubviews="NO" dividerStyle="paneSplitter" id="fQB-xT-9Ty">
-                                        <rect key="frame" x="0.0" y="513.5" width="772" height="516.5"/>
+                                        <rect key="frame" x="0.0" y="513" width="772" height="517"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <containerView fixedFrame="YES" id="N33-Ph-ycF">
-                                                <rect key="frame" x="0.0" y="0.0" width="772" height="516.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="772" height="517"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <connections>
                                                     <segue destination="GgG-r8-E4l" kind="embed" identifier="fileOptionsTabSegue" id="ZB7-Wv-0nV"/>
@@ -2955,6 +2955,9 @@
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="burstModeButtonChangedWithSender:" target="2EY-4S-YQj" id="jLT-gL-q8d"/>
+                                        </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCa-eo-hSn">
                                         <rect key="frame" x="169" y="204" width="63" height="23"/>
@@ -2970,7 +2973,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SnT-0n-Vvd">
-                                        <rect key="frame" x="238" y="204" width="154" height="25"/>
+                                        <rect key="frame" x="238" y="204" width="154" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" baseWritingDirection="rightToLeft" userInterfaceLayoutDirection="rightToLeft" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" numberOfTickMarks="101" allowsTickMarkValuesOnly="YES" sliderType="linear" id="TRQ-Vu-eJy"/>
                                         <connections>
@@ -2982,6 +2985,7 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="burstModeButton" destination="rqe-Yu-4Pf" id="W7T-m3-tiN"/>
                         <outlet property="clipSpeedSlider" destination="SnT-0n-Vvd" id="IUl-dG-73o"/>
                         <outlet property="clipSpeedTextLabel" destination="mCa-eo-hSn" id="0Dx-kZ-lBP"/>
                         <outlet property="durationLabel" destination="nRG-E6-pxX" id="lwU-VA-kLw"/>

@@ -78,6 +78,7 @@
 		188272541ECB9BB100EE50D0 /* tablerow-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 188272531ECB9BB100EE50D0 /* tablerow-black.png */; };
 		188272561ECBFAE800EE50D0 /* NewProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272551ECBFAE800EE50D0 /* NewProjectController.swift */; };
 		1883B15D1EAC445D00D722D5 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1883B15C1EAC445D00D722D5 /* Submarine.aiff */; };
+		188E28B11EE1C6AA00D729CE /* titlebarBackgroundGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E28B01EE1C6AA00D729CE /* titlebarBackgroundGradient.png */; };
 		18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */; };
 		189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */; };
 		18A323A21ED8E3480025D309 /* backgroundMediumGray.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A323A11ED8E3480025D309 /* backgroundMediumGray.png */; };
@@ -217,6 +218,7 @@
 		188272531ECB9BB100EE50D0 /* tablerow-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tablerow-black.png"; path = "../../../Dronefiles/tablerow-black.png"; sourceTree = "<group>"; };
 		188272551ECBFAE800EE50D0 /* NewProjectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProjectController.swift; sourceTree = "<group>"; };
 		1883B15C1EAC445D00D722D5 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
+		188E28B01EE1C6AA00D729CE /* titlebarBackgroundGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = titlebarBackgroundGradient.png; path = "../../../../Graphics/Drone Files/titlebarBackgroundGradient.png"; sourceTree = "<group>"; };
 		18976E041ED08CF700A04CD2 /* CameraBrowserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraBrowserController.swift; sourceTree = "<group>"; };
 		189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagEditorControlsController.swift; sourceTree = "<group>"; };
 		18A323A11ED8E3480025D309 /* backgroundMediumGray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backgroundMediumGray.png; path = "../../../../Graphics/Drone Files/backgroundMediumGray.png"; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				188272191ECA704F00EE50D0 /* appicon-64px.png */,
+				188E28B01EE1C6AA00D729CE /* titlebarBackgroundGradient.png */,
 				18A323A11ED8E3480025D309 /* backgroundMediumGray.png */,
 				18A3AD9F1ED5402500F09727 /* heart-table-active.png */,
 				18A3ADA01ED5402500F09727 /* heart-table-inactive.png */,
@@ -689,6 +692,7 @@
 				1850D3621EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib in Resources */,
 				18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
+				188E28B11EE1C6AA00D729CE /* titlebarBackgroundGradient.png in Resources */,
 				18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */,
 				18A3ADA11ED5402500F09727 /* heart-table-active.png in Resources */,
 				1860F0161ED0C6FC00928FD7 /* heart-active.png in Resources */,

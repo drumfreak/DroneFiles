@@ -67,8 +67,7 @@ class FileBrowserViewController: NSViewController {
     
     @IBOutlet var fileBrowserHomeButton: NSButton!
     @IBOutlet var favoriteButton: NSButton!
-    
-    
+
     var selectedFileURLS: NSMutableArray = []
     var addToFavoriteUrls = [URL]()
     
@@ -601,8 +600,6 @@ class FileBrowserViewController: NSViewController {
     
     
     func reloadFilesWithSelected(fileName: String) {
-        
-        
         // self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.folderURL)
         
         // DispatchQueue.main.async {
@@ -683,8 +680,10 @@ class FileBrowserViewController: NSViewController {
             
             if(isMov(file:item.url)) {
                 
-                if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
-                    self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+                if(!self.appSettings.fileManagerIsOpen) {
+                    if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
+                        self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+                    }
                 }
                 
                 // nowPlayingFile.stringValue = item.name;
@@ -721,12 +720,11 @@ class FileBrowserViewController: NSViewController {
                 
                 if(!self.appDelegate.appSettings.blockScreenShotTabSwitch) {
                     // DispatchQueue.main.async {
-                    
-                    if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
-                        self.appDelegate.rightPanelSplitViewController?.showImageEditorSplitView()
+                     if(!self.appSettings.fileManagerIsOpen) {
+                        if(!self.appDelegate.appSettings.imageEditorSplitViewIsOpen) {
+                            self.appDelegate.rightPanelSplitViewController?.showImageEditorSplitView()
+                        }
                     }
-                    
-                    
                 }
                 
                 self.appDelegate.imageEditorViewController?.loadImage(_url: item.url as URL)

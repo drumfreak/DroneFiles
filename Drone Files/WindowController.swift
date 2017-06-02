@@ -35,7 +35,7 @@ class WindowController: NSWindowController {
         self.window?.titlebarAppearsTransparent = true
         self.window?.isMovableByWindowBackground = true
         self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.window?.backgroundColor = self.appDelegate.appSettings.windowTitleBarBackgroundColor
+        self.window?.backgroundColor = self.appDelegate.appSettings.toolbarBackgroundColor
         
     }
     

@@ -35,6 +35,13 @@ struct AppSettings {
         }
     }
     
+    
+    var fileManagerIsOpen = false {
+        didSet {
+            
+        }
+    }
+    
     var sourceFolder = "file:///Volumes/DroneStick1/DCIM/100MEDIA/"
     var fileSequenceName = ""
     var fileSequenceNameTag = ""
@@ -276,7 +283,11 @@ struct AppSettings {
     // colors
     var appBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     
+     var toolbarBackgroundColor = NSColor.init(patternImage: NSImage(named: "titlebarBackgroundGradient.png")!)
+    
     var appViewBackgroundColor = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
+    
+    
     
     var themeViewDarkBox1 = NSColor.init(patternImage: NSImage(named: "darkbrownbackground.png")!)
     // Selected row

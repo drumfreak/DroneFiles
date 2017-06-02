@@ -28,6 +28,9 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     @IBOutlet var clipSpeedSlider: NSSlider!
     
     var clipSpeed = 100.00
+    var burstMode = true
+    @IBOutlet var burstModeButton: NSButton!
+
     
     var outputUrl: URL!
     var notificationCenter: NSUserNotificationCenter!
@@ -165,6 +168,11 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
 
         self.outputFolderLabel.stringValue = self.appSettings.videoClipsFolder.replacingOccurrences(of: self.appSettings.projectFolder, with: "").replacingOccurrences(of: "%20", with: " ").replacingOccurrences(of: "/Volumes", with: "")
         
+        if(self.burstMode) {
+            self.burstModeButton.state = 1
+        } else {
+            self.burstModeButton.state = 0
+        }
         
     }
     
@@ -258,6 +266,21 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     }
     
     
+    @IBAction func burstModeButtonChanged(sender: AnyObject) {
+        
+        if(sender.value == 0) {
+            self.burstMode = false
+        } else {
+            self.burstMode = true
+        }
+        
+        self.generateComposition(self)
+        
+        // self.clipSpeedSlider.doubleValue = sender.doubleValue
+        //self.generateComposition(self)
+    }
+    
+    
     func scaleDuration() {
         
         var speed = (self.clipSpeedSlider.doubleValue)
@@ -302,6 +325,12 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
      
      
     @IBAction func generateComposition(_ sender: AnyObject) {
+        
+        if(self.burstMode) {
+            self.generateBurstComposition(self)
+            return
+        }
+        
         let count = String(format: "%1d", self.receivedFiles.count)
         self.numberofFilesLabel.title = count
 
@@ -394,6 +423,90 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     
     
     
+    
+    
+    @IBAction func generateBurstComposition(_ sender: AnyObject) {
+        let count = String(format: "%1d", self.receivedFiles.count)
+        self.numberofFilesLabel.title = count
+        
+        var fullDuration = kCMTimeZero
+        
+        self.prepareAssets()
+        self.outputUrl = self.generateVideoClipURL()
+        
+        var frame = 1
+        var nextTime = kCMTimeZero
+        self.composition = AVMutableComposition()
+        
+        let videoTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        self.videoClips.forEach({clipIndex in
+       
+            let assetTracks = clipIndex.tracks(withMediaType: AVMediaTypeVideo)
+            
+            // Process video
+            if(assetTracks.count > 0) {
+            
+                
+                print(assetTracks[0].nominalFrameRate)
+                
+                let frameRate = assetTracks[0].nominalFrameRate
+                
+                let interval = CMTime(seconds: 1.0,preferredTimescale: CMTimeScale(frameRate))
+                
+                let assetTrack = assetTracks[0] as AVAssetTrack
+                
+                let duration = clipIndex.duration
+                
+                fullDuration = CMTimeAdd(fullDuration, duration)
+                var nextFrame = kCMTimeZero
+                var clipPosition = kCMTimeZero
+                
+                var frames = 1.0
+                while(clipPosition < duration) {
+                    // let segment = CMTime(seconds: 0.2, preferredTimescale: 30)
+                    
+                    let oneFrame = CMTime(seconds: Double(1.0 / frameRate), preferredTimescale: duration.timescale)
+                    print("Clip Frame Rate: \(frameRate)")
+
+                    print("Duration Timescale: \(duration.timescale)")
+                    print("Duration SECONDS: \(duration.seconds)")
+
+                    print("One Frame...")
+                    CMTimeShow(oneFrame)
+                    
+                    let assetRange = CMTimeRangeMake(nextFrame, oneFrame)
+                    
+                    nextFrame = CMTimeAdd(nextFrame, interval)
+                    
+                    clipPosition = CMTimeAdd(CMTime(seconds: (frames * interval.seconds), preferredTimescale: CMTimeScale(frameRate)), nextFrame)
+                    
+                    print("Clip position:")
+                    CMTimeShow(clipPosition)
+                    
+
+                    do {
+                        try videoTrack.insertTimeRange(assetRange, of: assetTrack, at: nextTime)
+                    } catch {
+                        let nserror = error as NSError
+                        print("FUCK error...\(nserror)")
+                    }
+                    frames += 1
+                    
+                    nextTime = CMTimeAdd(nextTime, oneFrame)
+                }
+                
+                
+                frame += 1
+            }
+        })
+        
+        self.scaleDuration()
+        
+        self.totalDuration = nextTime.seconds
+    }
+    
+    
     @IBAction func doSaveComposition(_ sender: AnyObject) {
        
         let clipFolder = URL(string: self.appDelegate.appSettings.videoClipsFolder)
@@ -447,6 +560,9 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
                 }
             }, failure: { error in
                 print("ERROR \(error)")
+                workerItem.workerStatus = false
+                workerItem.inProgress = false
+                workerItem.failed = true
                 DispatchQueue.main.async {
                     self.finishSave(true, url: self.outputUrl!)
                 }
@@ -561,18 +677,10 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     func finishSave(_ err: Bool, url: URL) {
         DispatchQueue.main.async {
             self.saveTimeLapseButton.isEnabled = true
-//            self.progressIndicator.isHidden = true
-//            self.progressIndicator.doubleValue = 0.00
-//            self.progressLabel.stringValue = "0.0%"
-//            self.progressLabel.isHidden = true
             if(!err) {
                 self.appDelegate.appSettings.mediaBinUrls.append(url)
                 
                 let notification = NSUserNotification()
-                
-//                if(self.videoURLs.count > 0) {
-//                    notification.contentImage = NSImage(contentsOf: URL(string: self.videoURLs[0])!)
-//                }
                 
                 notification.identifier = "retime\(UUID().uuidString)"
                 notification.title = "Retime Video Saved!"
@@ -582,7 +690,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
                 notification.notificationUrl = url.absoluteString
                 notification.hasActionButton = true
                 notification.actionButtonTitle = "View"
-                // notification.otherButtonTitle = "Dismiss"
                 
                 notification.setValue(true, forKey: "_showsButtons")
                 
@@ -592,11 +699,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
                 
                 let action2 = NSUserNotificationAction(identifier: "openInFinder", title: "Open in Quicktime")
                 
-                //let action3 = NSUserNotificationAction(identifier: "eatMe", title: "Something else")
-                
                 actions.append(action1)
                 actions.append(action2)
-                //actions.append(action3)
                 
                 notification.additionalActions = actions
                 

@@ -26,6 +26,7 @@ class MediaQueueWorkerItem: NSObject {
     var errorMessage = ""
     var outputUrl: URL!
     var inProgress: Bool!
+    var failed = false
     var title: String!
 
     override init() {
@@ -43,6 +44,7 @@ class MediaQueue: NSObject {
             print("Hey I added a fucking media queue worker!")
             print("Media Queue: \([queue.last])")
             print("Media Item: \([queue.last?.title])")
+            self.appDelegate.mediaQueueMonitorViewController?.refreshQueue()
         }
     }
 }
@@ -56,7 +58,9 @@ class MediaQueueMonitorViewController: NSViewController {
     @IBOutlet var queuePercentLabel: NSTextField!
     @IBOutlet var queueOverAllProgressIndicator: NSProgressIndicator!
     @IBOutlet var tableView: NSTableView!
+    @IBOutlet var scrollView: NSScrollView!
     var lastQueueCount = 0
+    var queueTotalStatus = 0
 
     var  viewIsLoaded: Bool?
     
@@ -66,17 +70,20 @@ class MediaQueueMonitorViewController: NSViewController {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+        self.window.backgroundColor = self.appSettings.appViewBackgroundColor
         self.queueItemsLabel.stringValue = "0 items"
         self.queuePercentLabel.stringValue = "0%"
-   
-            }
+        self.tableView.backgroundColor = self.appSettings.appViewBackgroundColor
+        self.scrollView.wantsLayer = true
+        self.scrollView.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
+        
+    }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         self.viewIsLoaded = true
         self.window?.titleVisibility = NSWindowTitleVisibility.hidden
-        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
+        self.window.backgroundColor = self.appSettings.appViewBackgroundColor
         self.window?.orderFront(self.view.window)
         self.window?.becomeFirstResponder()
         self.window?.titlebarAppearsTransparent = true
@@ -101,6 +108,15 @@ class MediaQueueMonitorViewController: NSViewController {
         self.stopTimer()
     }
 
+    func refreshQueue() {
+        if(self.viewIsLoaded)! {
+            self.stopTimer()
+            self.tableView.reloadData()
+            if(self.viewIsLoaded)! {
+                self.startTimer()
+            }
+        }
+    }
     
     func getQueue() {
         
@@ -110,30 +126,15 @@ class MediaQueueMonitorViewController: NSViewController {
     func runQueue() {
         
         if(self.appDelegate.mediaQueue.queue.count > 0) {
-           // self.appDelegate.mediaQueue.queue.forEach({ worker in
-                
-                
-//                
-//                timeLapseWorkerItem.notify(queue: DispatchQueue.main) {
-//                    self.appDelegate.mediaQueue.queue.append(workerItem)
-//                    
-//                    // print("percent = ", percent)
-//                    print("Worker launched... ")
-//                }
 
-                
-           // })
         }
-        
-        
     }
     
     
     func startTimer() {
-        
         if(self.appDelegate.mediaQueue.queue.count > 0) {
             if(self.queueTimer == nil) {
-                print("~~~~~~~~~~~~~~~~ STARTING A TIMER")
+               // print("~~~~~~~~~~~~~~~~ STARTING A TIMER")
 
                 self.queueTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
                 
@@ -141,7 +142,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 
             } else {
                 if(!self.queueTimer.isValid) {
-                    print("~~~~~~~~~~~~~~~~ RESTARTING A TIMER")
+                 //   print("~~~~~~~~~~~~~~~~ RESTARTING A TIMER")
 
                     self.queueTimer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector:#selector(self.updateLabel), userInfo: nil, repeats: true)
                     
@@ -159,30 +160,33 @@ class MediaQueueMonitorViewController: NSViewController {
         // self.appDelegate.appSettings.mediaBinSlideshowRunning = false
         if(self.queueTimer != nil) {
             if(self.queueTimer.isValid) {
-                print("Invalidating Timer")
+                print("Invalidating queue Timer")
                 self.queueTimer.invalidate()
             }
         }
-        
     }
 
     
     
     func updateLabel() {
         var i = 0
+        var activeWorkers = 0
+        var queueTotal = 0.00
         
-        print("WORKER ITEMS: \(self.appDelegate.mediaQueue.queue.count)")
+        
+        // print("WORKER ITEMS: \(self.appDelegate.mediaQueue.queue.count)")
         
        
         self.appDelegate.mediaQueue.queue.forEach({ worker in
-            // print(String(describing: worker))
-            print("\(i) TITLE : \(String(describing: worker.title))")
-
-            print("\(i) URL : \(worker.outputUrl)")
-            print("\(i) PERCENT : \(worker.percent)")
-            print("\(i) InProgress : \(String(describing: worker.inProgress))")
-            
-            print("\(i) Status : \(String(describing: worker.workerStatus))")
+            //  print(String(describing: worker))
+            //            print("\(i) TITLE : \(String(describing: worker.title))")
+            //
+            //            print("\(i) URL : \(worker.outputUrl)")
+            //            print("\(i) PERCENT : \(worker.percent)")
+            //            print("\(i) InProgress : \(String(describing: worker.inProgress))")
+            //            
+            // print("\(i) Status : \(String(describing: worker.workerStatus))")
+                        
             
             let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
             
@@ -196,8 +200,9 @@ class MediaQueueMonitorViewController: NSViewController {
                 
                 cell.queuePercentLabel.stringValue = String(format: "%.0f", worker.percent) + "%"
                 
-                self.queueOverAllProgressIndicator.doubleValue = worker.percent
             }
+            
+            
             
             if(worker.percent == 100.0) {
                 print("\(i)  REMOVING WORKER - Complete \(i)")
@@ -205,11 +210,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 self.stopTimer()
                 
                  self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
-                
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-                
+
                 self.startTimer()
 
 
@@ -223,16 +224,35 @@ class MediaQueueMonitorViewController: NSViewController {
                 self.stopTimer()
                 
                 self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
-                
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
+
                 self.startTimer()
 
                 return
+            } else if(worker.failed) {
+                print("\(i)  REMOVING WORKER - FAILED WORKER \(i)")
+                self.appDelegate.mediaQueue.queue.remove(at: i)
+                
+                self.stopTimer()
+                
+                self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+                
+                self.startTimer()
+                
+                return
+
+                
             }
             
             i += 1
+            
+            queueTotal += worker.percent
+            
+            activeWorkers += 1
+
+            
+            let percent = queueTotal / Double(i)
+            self.queueOverAllProgressIndicator.doubleValue = percent
+            self.queuePercentLabel.stringValue = String(format: "%.0f", percent) + "%"
             
             if(self.appDelegate.mediaQueue.queue.count != self.lastQueueCount) {
                 // Queue changed.
