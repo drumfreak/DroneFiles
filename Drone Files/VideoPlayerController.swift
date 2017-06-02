@@ -190,8 +190,6 @@ class VideoPlayerViewController: NSViewController {
         
         // print("Location: \(location)")
         //self.playerView.becomeFirstResponder()
-
-        
     }
     
     // Video Player Setup and Play
@@ -200,6 +198,21 @@ class VideoPlayerViewController: NSViewController {
         let url = _url
         self.currentVideoURL = url
         let asset = AVAsset(url: url)
+        
+        if(!asset.isPlayable) {
+            
+            self.playerView.isHidden = true
+            let myPopup: NSAlert = NSAlert()
+            
+            myPopup.messageText = "Video is not playable :/"
+            myPopup.informativeText = "The monkeys have verified that something is wrong with this file."
+            myPopup.alertStyle = NSAlertStyle.warning
+            myPopup.addButton(withTitle: "OK")
+            myPopup.runModal()
+            return
+        } else {
+            self.playerView.isHidden = false
+        }
         
         let assetKeys = [
             "playable",
