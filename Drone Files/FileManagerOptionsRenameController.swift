@@ -110,7 +110,7 @@ class FileManagerOptionsRenameController: NSViewController {
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFileList()
         if(!errors) {
             DispatchQueue.main.async {
                 

@@ -430,21 +430,16 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
-     
-        
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
         switch (notification.activationType) {
 
         case .actionButtonClicked:
-            self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.timeLapseFolder)
-            
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: notification.notificationUrl!)
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: URL(string: notification.notificationUrl!)!)
             
         case .contentsClicked:
-            self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.timeLapseFolder)
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: notification.notificationUrl!)
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: URL(string: notification.notificationUrl!)!)
         default:
             break
         }

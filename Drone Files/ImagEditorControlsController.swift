@@ -261,7 +261,7 @@ class ImageEditorControlsController: NSViewController {
             CGImageDestinationAddImage(dest!, image1!, self.saveOptions.imageProperties! as CFDictionary)
             CGImageDestinationFinalize(dest!)
             
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.saveUrl.absoluteString)
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: self.saveUrl)
             self.appDelegate.imageEditorViewController?.loadImage(_url: self.saveUrl!)
             
         }

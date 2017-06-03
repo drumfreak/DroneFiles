@@ -255,8 +255,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             self.clipSpeedTextLabel.doubleValue = speed
             
             // speed = abs(speed)
-            print("SPEEEEEED \(speed)")
-             newDuration = CMTime.init(seconds: seconds, preferredTimescale: CMTimeScale(self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
+            // print("SPEEEEEED \(speed)")
+            newDuration = CMTime.init(seconds: seconds, preferredTimescale: CMTimeScale(self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
         } else {
             newDuration = self.composition.duration
         }
@@ -268,11 +268,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         }
         
         self.composition.scaleTimeRange(CMTimeRangeMake(kCMTimeZero, self.composition.duration), toDuration: newDuration)
-        
-        
-        
-        
-        
         
         
         self.setupPlayer()
@@ -824,13 +819,12 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         switch (notification.activationType) {
             
         case .actionButtonClicked:
-            self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.videoClipsFolder)
-            
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: notification.notificationUrl!)
-            
+            self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: URL(string: notification.notificationUrl!)!)
+
         case .contentsClicked:
-            self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appDelegate.appSettings.videoClipsFolder)
-            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: notification.notificationUrl!)
+            self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: URL(string: notification.notificationUrl!)!)
         default:
             break
         }

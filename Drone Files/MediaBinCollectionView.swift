@@ -170,7 +170,7 @@ class MediaBinCollectionView: NSViewController {
             foo = boo.mutableCopy() as! NSMutableArray
             
             
-            print("REVERSED \(self.appDelegate.appSettings.mediaBinReverseURLS)")
+            // print("REVERSED \(self.appDelegate.appSettings.mediaBinReverseURLS)")
             
             if(self.appDelegate.appSettings.mediaBinReverseURLS == true) {
                 foo = foo.reversed() as! NSMutableArray
@@ -180,7 +180,7 @@ class MediaBinCollectionView: NSViewController {
             self.collectionView?.reloadData()
         } else {
             
-            print("REVERSED \(self.appDelegate.appSettings.mediaBinReverseURLS)")
+            // print("REVERSED \(self.appDelegate.appSettings.mediaBinReverseURLS)")
             
             if(self.appDelegate.appSettings.mediaBinReverseURLS == true) {
                 foo = foo.reversed() as! NSMutableArray
@@ -224,21 +224,18 @@ class MediaBinCollectionView: NSViewController {
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        
-        
+    
         if(self.appSettings.mediaBinSlideshowRunning == true) {
             self.stopTimer()
             DispatchQueue.main.async {
                 //stringValue = "Start Show"
                 let myAttribute = [NSForegroundColorAttributeName: NSColor.highlightColor,
                                    NSParagraphStyleAttributeName: paragraph]
-
                 
                 let myAttrString = NSAttributedString(string:"Start Show", attributes: myAttribute)
                 
                 self.startShowButton.attributedTitle = myAttrString
-            
-
+        
             }
         } else {
             self.startTimer()
@@ -251,9 +248,7 @@ class MediaBinCollectionView: NSViewController {
                 self.startShowButton.attributedTitle = myAttrString
                 //stringValue = "Start Show"
             }
-            
         }
-        
     }
     
     func nextSlideAfterVideo() {

@@ -95,7 +95,7 @@ class FileManagerOptionsMoveController: NSViewController {
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFileList()
         if(!errors) {
             showAlert(text: "Files Moved!", body: "The files have been moved!", showCancel: false, messageType: "notice")
         }

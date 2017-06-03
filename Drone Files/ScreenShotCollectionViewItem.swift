@@ -55,7 +55,7 @@ class ScreenShotCollectionViewItem: NSCollectionViewItem {
             
             self.view.layer?.borderWidth = 0.0
             self.view.layer?.cornerRadius = 8.0
-            print("Fuck yeah...")
+            // print("Fuck yeah...")
             // 2
             self.view.layer?.borderColor = self.appSettings.tableRowActiveBackGroundColor.cgColor
         }

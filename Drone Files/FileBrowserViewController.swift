@@ -317,7 +317,7 @@ class FileBrowserViewController: NSViewController {
     func openLastFile() {
         if((self.appSettings.lastFileOpened) != nil) {
             let lastFile =  URL(string: self.appSettings.lastFileOpened!)
-            self.reloadFilesWithSelected(fileName: (lastFile?.absoluteString)!)
+            self.reloadFilesWithSelected(url: lastFile!)
         }
     }
     
@@ -632,21 +632,27 @@ class FileBrowserViewController: NSViewController {
     
     
     
-    func reloadFilesWithSelected(fileName: String) {
+    func reloadFilesWithSelected(url: URL) {
         // self.sourceFolderOpened = URL(string: self.appDelegate.appSettings.folderURL)
-        
+        let url = url
         // DispatchQueue.main.async {
-        self.directory = Directory(folderURL: self.sourceFolderOpened)
-        self.reloadFileList()
+        let destFolder = url.deletingLastPathComponent()
+    
+        if(self.sourceFolderOpened.absoluteURL != destFolder.absoluteURL) {
+            
+           self.sourceFolderOpened = destFolder
+            
+        } else {
+            self.directory = Directory(folderURL: self.sourceFolderOpened)
+        }
         
-        let url = URL(string: fileName)
         var i = 0
         
         self.directoryItems?.forEach({ directoryItem in
             
             let turl = directoryItem.url
             
-            if(turl.absoluteString == url?.absoluteString) {
+            if(turl.absoluteString == url.absoluteString) {
                 let indexSet =  NSIndexSet(index: i) as IndexSet
                 
                 DispatchQueue.main.async {
@@ -656,7 +662,11 @@ class FileBrowserViewController: NSViewController {
             i += Int(1)
             
         })
-        // }
+
+        
+        //self.reloadFileList()
+        
+               // }
         
     }
     

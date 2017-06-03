@@ -42,9 +42,9 @@ class MediaQueue: NSObject {
     
     var queue = [MediaQueueWorkerItem]() {
         didSet {
-            print("Hey I added a fucking media queue worker!")
-            print("Media Queue: \([queue.last])")
-            print("Media Item: \([queue.last?.title])")
+            //print("Hey I added a fucking media queue worker!")
+            //print("Media Queue: \([queue.last])")
+            //print("Media Item: \([queue.last?.title])")
             self.appDelegate.mediaQueueMonitorViewController?.refreshQueue()
         }
     }
@@ -157,11 +157,10 @@ class MediaQueueMonitorViewController: NSViewController {
     
     
     func stopTimer() {
-        
         // self.appDelegate.appSettings.mediaBinSlideshowRunning = false
         if(self.queueTimer != nil) {
             if(self.queueTimer.isValid) {
-                print("Invalidating queue Timer")
+                // print("Invalidating queue Timer")
                 self.queueTimer.invalidate()
                 self.queueTimer = nil
             }

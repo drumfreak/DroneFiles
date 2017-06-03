@@ -334,7 +334,7 @@ class FileManagerViewController: NSViewController {
         })
         
         self.fileURLs = newArray
-        self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController.reloadFileList()
         
     }
     

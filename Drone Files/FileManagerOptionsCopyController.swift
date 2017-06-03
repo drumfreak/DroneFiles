@@ -284,7 +284,7 @@ class FileManagerOptionsCopyController: NSViewController {
         
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFileList()
         
         // self.dismissViewController(self.appDelegate.fileCopyProgressView);
         // self.appDelegate.fileCopyProgressView.progress = 100.0

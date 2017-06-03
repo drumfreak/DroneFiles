@@ -1057,4 +1057,32 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     }
     
     
+    
+    
+    // Notifications
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
+        
+        
+    }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
+        switch (notification.activationType) {
+            
+        case .actionButtonClicked:
+            self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: URL(string: notification.notificationUrl!)!)
+            
+        case .contentsClicked:
+            self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()
+            self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: URL(string: notification.notificationUrl!)!)
+        default:
+            break
+        }
+    }
+    
 }

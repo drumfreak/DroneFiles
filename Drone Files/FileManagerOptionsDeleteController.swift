@@ -51,7 +51,8 @@ class FileManagerOptionsDeleteController: NSViewController {
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFileList()
+        
         if(!errors) {
             showAlert(text: "Files Deleted!", body: "The files have been Deleted!", showCancel: false, messageType: "notice")
         }

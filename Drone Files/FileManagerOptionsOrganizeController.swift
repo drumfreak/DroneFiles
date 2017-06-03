@@ -96,7 +96,8 @@ class FileManagerOptionsOrganizeController: NSViewController {
     func fileOperationComplete(manageFileURLS: NSMutableArray, errors: Bool) {
         self.appDelegate.fileManagerViewController?.resetTableAfterFileOperation(fileArray: manageFileURLS)
         
-        self.appDelegate.fileBrowserViewController?.reloadFilesWithSelected(fileName: "")
+        self.appDelegate.fileBrowserViewController?.reloadFileList()
+        
         if(!errors) {
             showAlert(text: "Files Organized!", body: "The files have been organized!", showCancel: false, messageType: "notice")
         }
