@@ -869,12 +869,6 @@ extension AppDelegate {
         // var foo = false
     
         if(checkFolderAndCreate(folderPath: projectPath)) {
-            
-            
-        } else {
-            print("Fuck..")
-            return
-        }
             //print("CREATING DRONE FILES PROJECT")
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
@@ -944,9 +938,9 @@ extension AppDelegate {
             dic.setValue(self.appSettings.folderURL, forKey: "currentDirectory")
             
             dic.setValue(self.appSettings.mediaBinTimerInterval, forKey: "mediaBinTimerInterval")
-
+            
             dic.setValue(self.appSettings.lastProjectfileOpened, forKey: "lastProjectfileOpened")
-
+            
             
             var jsonData: Data!
             
@@ -957,7 +951,7 @@ extension AppDelegate {
                 do {
                     let file = try FileHandle.init(forWritingTo: jsonFilePath!)
                     file.write(jsonData)
-                    // print("JSON data was written to the file successfully!")
+                    print("JSON data was written to the file successfully!")
                     
                     if(loadNewFile) {
                         self.readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)
@@ -972,7 +966,13 @@ extension AppDelegate {
             } catch let error as NSError {
                 print("Array to JSON conversion failed: \(error.localizedDescription)")
             }
-       //  }
+            //  }
+
+            
+        } else {
+            print("Fuck..")
+            return
+        }
     }
     
     

@@ -20,6 +20,9 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     @IBOutlet var durationLabel: NSTextField!
     //@IBOutlet var progressIndicator: NSProgressIndicator!
     
+    var preserveDate = true
+    
+    
     @IBOutlet var videoSizeSelectMenu: NSPopUpButton!
     @IBOutlet var videoFrameRateSelectMenu: NSPopUpButton!
     @IBOutlet var outputFolderLabel: NSTextField!
@@ -28,7 +31,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     @IBOutlet var clipSpeedSlider: NSSlider!
     
     var clipSpeed = 100.00
-    var burstMode = true
+    var burstMode = false
     @IBOutlet var burstModeButton: NSButton!
 
     
@@ -326,7 +329,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
      
     @IBAction func generateComposition(_ sender: AnyObject) {
         
-        if(self.burstMode) {
+        if(self.burstMode == true) {
             self.generateBurstComposition(self)
             return
         }
@@ -572,7 +575,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         // timeLapseWorkerItem.perform()
         
-        let queue = DispatchQueue.global(qos: .userInitiated)
+        let queue = DispatchQueue.global(qos: .userInteractive)
         self.appDelegate.mediaQueue.queue.append(workerItem)
         queue.async(execute: timeLapseWorkerItem)
         

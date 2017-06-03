@@ -103,12 +103,12 @@ class FileManagerViewController: NSViewController {
             // print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~File List Updated")
             self.fileList = FileManagerList(fileArray: files)
             self.fileItems = fileList?.contentsOrderedBy(sortOrder, ascending: sortAscending)
-            if(self.viewIsLoaded) {
+           // if(self.viewIsLoaded) {
                 //  tableView.selectAll(self)
                 tableView.reloadData()
                 tableView.selectAll(self)
                 self.updateStatus()
-            }
+           // }
         }
     }
     
