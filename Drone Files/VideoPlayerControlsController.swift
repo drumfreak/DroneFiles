@@ -15,7 +15,10 @@ import AppKit
 import AVFoundation
 import Quartz
 
-class VideoPlayerControllsController: NSViewController {
+class VideoPlayerControllsController: NSViewController, NSUserNotificationCenterDelegate {
+    
+    var notificationCenter: NSUserNotificationCenter!
+
     
     // Screenshotting
     var trimOffset = 0.00
@@ -39,6 +42,8 @@ class VideoPlayerControllsController: NSViewController {
     var clippedItemPreserveFileDates = true
     var clippedItemLoadNewItem = true
     var burstInProgress = false
+    
+    
     
     // Metadata
     
@@ -119,6 +124,9 @@ class VideoPlayerControllsController: NSViewController {
         self.appDelegate.videoControlsController = self
         
         self.setupControls()
+        
+        self.notificationCenter = NSUserNotificationCenter.default
+        self.notificationCenter.delegate = self
         
     }
 
@@ -210,8 +218,6 @@ class VideoPlayerControllsController: NSViewController {
         DispatchQueue.main.async {
             self.playerRateLabel.stringValue = String(format: "%02d", 1.0)
         }
-        
-        
     }
     
     
@@ -336,6 +342,7 @@ class VideoPlayerControllsController: NSViewController {
         }
         
         let currentVideoTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.currentTime())!
+        
         self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: currentVideoTime)
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = currentVideoTime
         
@@ -347,7 +354,6 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func startTrimming() {
-        // user selected Trim button (AVPlayerViewTrimResult.okButton)...
         self.userTrimmed = true
         self.clippedVideoPath = self.getClippedVideoPath(_videoPath: " ")
         
@@ -366,11 +372,6 @@ class VideoPlayerControllsController: NSViewController {
     }
     
     func calculateClipLength() {
-        //print("Calling Calculate Clip Length")
-        
-        //print("Player view is ready? \(self.appDelegate.videoPlayerViewController!.playerIsReady)")
-        
-        
         if(self.appDelegate.videoPlayerViewController!.playerIsReady) {
             if(self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime == kCMTimeInvalid) {
                 self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.duration)!
@@ -389,7 +390,6 @@ class VideoPlayerControllsController: NSViewController {
                 
                 DispatchQueue.main.async {
                     self.videoLengthLabel?.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
-                    // + String(format: "%02d", ms) + ":ms"
                 }
             } else {
                 DispatchQueue.main.async {
@@ -400,11 +400,7 @@ class VideoPlayerControllsController: NSViewController {
             }
             
         } else {
-            //print("Player is not ready... can't calculate clip length. Derp...")
             self.videoLengthLabel?.stringValue = "00:00:0000"
-
-            // self.calculateClipLength()
-
         }
        
         
@@ -413,12 +409,22 @@ class VideoPlayerControllsController: NSViewController {
     func doTheTrim() {
         if(self.appDelegate.videoPlayerViewController?.playerView.canBeginTrimming)! {
             if(!self.isTrimming) {
+                
+                if(self.appSettings.mediaBinIsOpen) {
+                    self.appDelegate.mediaBinCollectionView.hideMediaBin()
+                }
+                
                 self.isTrimming = true
                 self.appDelegate.videoPlayerViewController?.playerView.beginTrimming { result in
                     if result == .okButton {
                         self.startTrimming()
                     } else {
                         self.cancelTrimmedClip(self)
+                        
+                        //if(self.appSettings.mediaBinIsOpen) {
+                            self.appDelegate.mediaBinCollectionView.unHideMediaBin()
+                        //}
+                        
                     }
                 }
             }
@@ -488,9 +494,7 @@ class VideoPlayerControllsController: NSViewController {
         if(self.screenShotPreviewButton.state == 1) {
             self.appDelegate.appSettings.screenshotPreview = true
         }
-        
         self.appDelegate.saveProject()
-        
     }
     
     
@@ -587,40 +591,71 @@ class VideoPlayerControllsController: NSViewController {
         
         self.exportSession.timeRange = timeRange
         
-        
         self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
         
         DispatchQueue.main.async {
-            
             self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
-            
         }
     }
     
     @IBAction func saveTrimmedClip(_ sender: AnyObject?) {
-        print ("Saving Trimmed Clip!!");
+        print ("Saving Trimmed Clip to the queue!!");
         
-        DispatchQueue.main.async {
-            
-            self.clipTrimProgressBar.isHidden = false
-            self.saveTrimmedVideoButton.isEnabled = false
-            self.cancelTrimmedVideoButton.isEnabled = true
-            
-            
-            self.clipTrimProgressBar.startAnimation(nil)
-            self.clipTrimProgressBar.minValue = 0.0
-            self.clipTrimProgressBar.maxValue = 1.0
-            self.clipTrimProgressBar.isIndeterminate = false
-            self.clipTrimProgressBar.doubleValue = 0.00
-            
-            
-        }
+        self.saveTrimmedVideoButton.isEnabled = false
+        self.cancelTrimmedVideoButton.isEnabled = true
+        
         do {
             try FileManager.default.createDirectory(atPath: self.clippedVideoPath, withIntermediateDirectories: true, attributes: nil)
         } catch _ as NSError {
             print("Error while creating a folder.")
         }
         
+        
+        func finishSave(_ err: Bool, url: URL) {
+            DispatchQueue.main.async {
+                
+                if(!err) {
+                    saveClippedFileCompleted()
+                    
+                    let notification = NSUserNotification()
+                    
+                    notification.identifier = "clipTrim\(UUID().uuidString)"
+                    notification.title = "Video Clip Trim Saved!"
+                    notification.informativeText = url.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+                    
+                    notification.soundName = NSUserNotificationDefaultSoundName
+                    notification.notificationUrl = url.absoluteString
+                    notification.hasActionButton = true
+                    notification.actionButtonTitle = "View"
+                    
+                    notification.setValue(true, forKey: "_showsButtons")
+                    
+                    var actions = [NSUserNotificationAction]()
+                    
+                    let action1 = NSUserNotificationAction(identifier: "viewNow", title: url.absoluteString)
+                    
+                    let action2 = NSUserNotificationAction(identifier: "openInFinder", title: "Open in Quicktime")
+                    
+                    actions.append(action1)
+                    actions.append(action2)
+                    
+                    notification.additionalActions = actions
+                    
+                    self.notificationCenter.deliver(notification)
+  
+                } else {
+                    saveClippedFileFailed()
+                    let myPopup: NSAlert = NSAlert()
+                    DispatchQueue.main.async {
+                        myPopup.messageText = "Clip Trim Failed"
+                        myPopup.informativeText = "Something went wrong. Dispatching Monkeys to find out why."
+                        myPopup.alertStyle = NSAlertStyle.warning
+                        myPopup.addButton(withTitle: "OK")
+                        myPopup.runModal()
+                    }
+                }
+            }
+        }
         
         func saveClippedFileCompleted() {
             print("Session Completed")
@@ -634,21 +669,13 @@ class VideoPlayerControllsController: NSViewController {
             }
             
             DispatchQueue.main.async {
-                
                 self.clipTrimProgressBar.isHidden = true
                 self.isTrimming = false
-                
                 self.saveTrimmedClipView.isHidden = true
-                
             }
-            
-            // Load clip shit here.
-            // self.appDelegate.fileBrowserViewController.reloadFileList()
-            
             
             self.appDelegate.appSettings.mediaBinUrls.append(URL(string: self.clippedVideoNameFullURL)!)
             self.appDelegate.saveProject()
-            
         }
         
         func saveClippedFileFailed() {
@@ -662,38 +689,63 @@ class VideoPlayerControllsController: NSViewController {
             print("I don't know..");
         }
         
-        // Move to a background thread to do some long running work
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.exportSession.exportAsynchronously {
-                switch self.exportSession.status {
-                case .completed:
-                    DispatchQueue.main.async {
-                        saveClippedFileCompleted()
-                        self.clipTrimTimer.invalidate()
-                        self.clipTrimTimer = nil
-                    }
-                    break
-                case .failed:
-                    DispatchQueue.main.async {
-                        saveClippedFileFailed()
-                        self.clipTrimTimer.invalidate()
-                        self.clipTrimTimer = nil
-                    }
-                    
-                    break
-                default:
-                    DispatchQueue.main.async {
-                        saveClippedFileUnknown()
-                        self.clipTrimTimer.invalidate()
-                        self.clipTrimTimer = nil
-                    }
-                    break
+        let outputUrl = URL(string: (self.clippedVideoNameFullURL.copy() as! String))
+        let asset = AVAsset(url: (self.appDelegate.videoPlayerViewController?.nowPlayingURL)!)
+        
+        let startTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime
+        let endTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime
+        let timeRange = CMTimeRangeFromTimeToTime(startTime!, endTime!)
+        
+        let workerItem: MediaQueueWorkerItem!
+        workerItem = MediaQueueWorkerItem()
+        
+        let clipTrimWorkerItem = DispatchWorkItem {
+            workerItem.inProgress = true
+            workerItem.outputUrl = outputUrl
+            workerItem.title = "Video Clip Trim In Progress!"
+            
+            let builder = ClipTrimBuilder(asset: asset, url: outputUrl!)
+            
+            let framerate = self.appSettings.frameRates[5]
+            let size = self.appSettings.videoSizes[7]
+            
+            builder.build(timeRange: timeRange, frameRate: Int32(framerate), outputSize: size, { progress in
+                workerItem.inProgress = true
+                workerItem.percent = (progress.fractionCompleted * 100.0)
+            }, success: { url in
+                workerItem.outputUrl = url
+                workerItem.workerStatus = true
+                workerItem.inProgress = false
+                DispatchQueue.main.async {
+                    finishSave(false, url: url)
                 }
-            }
-            DispatchQueue.main.async {
-                self.clipTrimTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector:#selector(self.updateProgressBar), userInfo: (session: self.exportSession.progress), repeats: true)
-            }
+            }, failure: { error in
+                print("ERROR \(error)")
+                workerItem.workerStatus = false
+                workerItem.inProgress = false
+                workerItem.failed = true
+                DispatchQueue.main.async {
+                    finishSave(true, url: outputUrl!)
+                }
+            })
         }
+        
+        let queue = DispatchQueue.global(qos: .userInteractive)
+        
+        self.appDelegate.mediaQueue.queue.append(workerItem)
+        
+        queue.async(execute: clipTrimWorkerItem)
+        
+        clipTrimWorkerItem.notify(queue: DispatchQueue.main) {
+            
+            // print("percent = ", percent)
+            print("Worker launched... ")
+        }
+        
+        self.saveTrimmedVideoButton.isHidden = true
+        self.trimmedClipNewLabel.isHidden = true
+        self.trimmedClipNewLabel.stringValue = ""
+        self.cancelTrimmedVideoButton.isHidden = true
     }
     
     func setFileDate(originalFile: String, newFile: String) {
@@ -798,20 +850,12 @@ class VideoPlayerControllsController: NSViewController {
         
     }
     
-    
-    func doBurst() {
-        
-        
-    }
-    
     @IBAction func takeScreenshot(_ sender: AnyObject?) {
         
-        if(self.burstInProgress == true) {
+        if(self.appDelegate.appSettings.screenshotPreview && self.burstInProgress == true) {
             return
-        }
-        
-        
-        DispatchQueue(label: "mediaInputQueue").async() {
+        } else {
+            
             var playerWasPlaying = false
             
             self.messageBoxLabel(string: "Screen Shot Starting...")
@@ -826,72 +870,79 @@ class VideoPlayerControllsController: NSViewController {
             let numBursts = Int(self.appSettings.screenshotFramesAfter) + Int(self.appSettings.screenshotFramesBefore)
             let interval = self.appSettings.screenshotFramesInterval
             var burstsTaken = 0
-            
-            if(self.appSettings.screenShotBurstEnabled) {
-                self.burstInProgress = true
-                
-                var i = Int(self.appSettings.screenshotFramesBefore)
-                
-                while(i > 0) {
-                    let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), playerTime!.timescale);
+
+            if(self.appDelegate.appSettings.screenShotBurstEnabled) {
+                if(self.appDelegate.appSettings.screenshotPreview) {
+                    // Live burst mode, show the user in real time...
+                    self.burstInProgress = true
                     
-                    let playerTime1 = CMTimeSubtract(playerTime!, oneFrame);
-                    self.messageBoxLabel(string: "Screen Shot Burst: \(burstsTaken + 1)")
-                    self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime1)
+                    var i = Int(self.appSettings.screenshotFramesBefore)
                     
-                    burstsTaken += 1
-                    
-                    i -= 1
-                }
-                
-                i = Int(0)
-                var playerTime1: CMTime!
-                
-                while(i < Int(self.appSettings.screenshotFramesAfter)) {
-                    let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), playerTime!.timescale);
-                    
-                    playerTime1 = CMTimeAdd(playerTime!, oneFrame);
-                    
-                    // do this before calling takeScreenshot
-                    if(burstsTaken + 1 == numBursts) {
-                        self.burstInProgress = false
+                    while(i > 0) {
+                        let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), playerTime!.timescale);
+                        
+                        let playerTime1 = CMTimeSubtract(playerTime!, oneFrame);
+                        self.messageBoxLabel(string: "Screen Shot Burst: \(burstsTaken + 1)")
+                        self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime1)
+                        
+                        burstsTaken += 1
+                        
+                        i -= 1
                     }
                     
-                    self.messageBoxLabel(string: "Screen Shot Burst: \(burstsTaken + 1)")
-                    self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime1)
+                    i = Int(0)
+                    var playerTime1: CMTime!
                     
-                    burstsTaken += 1
+                    while(i < Int(self.appSettings.screenshotFramesAfter)) {
+                        let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), playerTime!.timescale);
+                        
+                        playerTime1 = CMTimeAdd(playerTime!, oneFrame);
+                        
+                        // do this before calling takeScreenshot
+                        if(burstsTaken + 1 == numBursts) {
+                            self.burstInProgress = false
+                        }
+                        
+                        self.messageBoxLabel(string: "Screen Shot Burst: \(burstsTaken + 1)")
+                        self.doTakeScreenshot(currentAsset: (self.appDelegate.videoPlayerViewController?.currentAsset)!, playerTime: playerTime1)
+                        
+                        burstsTaken += 1
+                        
+                        i += 1
+                    }
                     
-                    i += 1
-                }
-                
-                
-                if(playerWasPlaying) {
+                    if(playerWasPlaying) {
+                        DispatchQueue.main.async {
+                            self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
+                                self.updateTimerLabel()
+                                
+                                self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                                
+                            })
+                        }
+                    }
+                    
+                    self.burstInProgress = false
+                    self.messageBox(hidden: true)
+                    
                     DispatchQueue.main.async {
-                        self.appDelegate.videoPlayerViewController?.playerView.player?.seek(to: playerTime1!, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (Bool) in
-                            self.updateTimerLabel()
-                            
-                            self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
-                            
-                        })
+                        self.appDelegate.mediaBinCollectionView.reloadContents()
                     }
-                }
-                
-                self.burstInProgress = false
-                self.messageBox(hidden: true)
-                //                if(self.appDelegate.appSettings.screenshotPreview == false) {
-                //                    DispatchQueue.main.async {
-                //                        self.appDelegate.screenShotSliderController.reloadContents()
-                //                    }
-                //                }
-                
-                DispatchQueue.main.async {
-                    self.appDelegate.mediaBinCollectionView.reloadContents()
+
+                    
+                } else {
+                    // Background mode... this is the shit!
+                    
+                    // Asset.
+                    // starting time
+                    // number of bursts
+                    
+                    
+                    
                 }
                 
                 
             } else {
-                
                 DispatchQueue.main.async {
                     self.messageBoxLabel(string: "Screen Shot Taken!")
                 }
@@ -908,7 +959,6 @@ class VideoPlayerControllsController: NSViewController {
                     }
                 }
                 
-                
                 self.burstInProgress = false
                 self.messageBox(hidden: true)
                 
@@ -920,9 +970,7 @@ class VideoPlayerControllsController: NSViewController {
                     self.appDelegate.mediaBinCollectionView.reloadContents()
                 }
             }
-            
         }
-        
     }
     
     

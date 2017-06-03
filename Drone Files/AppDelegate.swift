@@ -951,7 +951,7 @@ extension AppDelegate {
                 do {
                     let file = try FileHandle.init(forWritingTo: jsonFilePath!)
                     file.write(jsonData)
-                    print("JSON data was written to the file successfully!")
+                    // print("JSON data was written to the file successfully!")
                     
                     if(loadNewFile) {
                         self.readProjectFile(projectFile: (jsonFilePath?.absoluteString)!)

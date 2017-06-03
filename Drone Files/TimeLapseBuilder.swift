@@ -204,10 +204,6 @@ class TimeLapseBuilder: NSObject {
 }
 
 
-
-
-
-
 class RetimeBuilder: NSObject {
     var outputUrl: URL!
     var outputSize = CGSize(width: 1920, height: 1080)
@@ -232,11 +228,72 @@ class RetimeBuilder: NSObject {
         
         // print("OUTPUT URL \(self.outputUrl)")
         
+
         let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
         
         // self.exportSession.videoComposition = videoComposition
         exportSession.outputFileType = AVFileTypeQuickTimeMovie
         exportSession.outputURL = self.outputUrl // Output URL
+        
+        
+        
+        
+        let videoTrack: AVAssetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
+        let videoComposition = AVMutableVideoComposition()
+        videoComposition.frameDuration = CMTimeMake(1, frameRate)
+        videoComposition.renderSize = outputSize
+        
+        let instruction: AVMutableVideoCompositionInstruction = AVMutableVideoCompositionInstruction.init()
+        
+        
+        instruction.timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration)
+        
+        let transformer: AVMutableVideoCompositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack);
+        
+        var firstTransform = videoTrack.preferredTransform
+        
+        // Check the first video track's preferred transform to determine if it was recorded in portrait mode.
+        if (firstTransform.a == 0 && firstTransform.d == 0 && (firstTransform.b == 1.0 || firstTransform.b == -1.0) && (firstTransform.c == 1.0 || firstTransform.c == -1.0)) {
+            // isVideoPortrait = true
+        }
+        
+        let size = videoTrack.naturalSize;
+        
+        if(outputSize.width != size.width && outputSize.height != size.height) {
+
+            let scaleToFitRatio = outputSize.width / videoTrack.naturalSize.width
+
+            let scaleFactor = CGAffineTransform(scaleX: scaleToFitRatio, y: scaleToFitRatio)
+            
+            print("SCALE TO THIS RATIO: \(scaleToFitRatio)")
+            
+            let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
+            
+            let yFix = videoTrack.naturalSize.height + outputSize.height
+            
+            
+            // let centerFix = CGAffineTransform(translationX: videoTrack.naturalSize.width, y: yFix)
+            
+            print("YFIX: \(centerFix)")
+            
+            
+            videoLayerInstruction.setTransform(firstTransform.concatenating(scaleFactor.concatenating(centerFix)),
+                                     at: kCMTimeZero)
+            
+            videoLayerInstruction.setTransform(firstTransform, at: kCMTimeZero)
+            instruction.layerInstructions.append(videoLayerInstruction)
+            
+            //Apply any transformer if needed
+            //
+            
+        
+            
+        }
+    
+        instruction.layerInstructions = [transformer]
+        videoComposition.instructions = [instruction]
+        exportSession.videoComposition = videoComposition
+
         
         let currentProgress = Progress(totalUnitCount: 100)
         currentProgress.completedUnitCount = 10
@@ -300,3 +357,202 @@ class RetimeBuilder: NSObject {
         }
     }
 }
+
+
+
+class ClipTrimBuilder: NSObject {
+    var outputUrl: URL!
+    var outputSize = CGSize(width: 1920, height: 1080)
+    var frameRate = Int32(30)
+    var timeRange: CMTimeRange!
+    var asset: AVAsset!
+    
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    init(asset: AVAsset, url: URL) {
+        self.outputUrl = url
+        self.asset = asset
+        //self.videoOutputUrl = URL(string: url)!
+        
+    }
+    
+    func getProgress() -> Double {
+        return 0.1
+    }
+    func build(timeRange: CMTimeRange, frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+        
+        // print("OUTPUT URL \(self.outputUrl)")
+        
+        let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
+        
+        // self.exportSession.videoComposition = videoComposition
+        exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession.outputURL = self.outputUrl // Output URL
+        exportSession.timeRange = timeRange
+        
+        let currentProgress = Progress(totalUnitCount: 100)
+        currentProgress.completedUnitCount = 10
+        progress(currentProgress)
+        var isComplete = false
+        // progress
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .exporting:
+                // print("~~~~~~~~~ EXPORTING")
+                break
+            case .completed:
+                DispatchQueue.main.async {
+                    // success(self.outputUrl)
+                    currentProgress.completedUnitCount = 100
+                    progress(currentProgress)
+                }
+                break
+            case .failed:
+                DispatchQueue.main.async {
+                    failure(exportSession.error! as NSError)
+                    print(exportSession.error!)
+                    
+                    // self.clipTrimTimer.invalidate()
+                    currentProgress.completedUnitCount = 0
+                    progress(currentProgress)
+                }
+                break
+            default:
+                DispatchQueue.main.async {
+                    // self.clipTrimTimer.invalidate()
+                    failure(exportSession.error! as NSError)
+                    currentProgress.completedUnitCount = 0
+                    progress(currentProgress)
+                }
+                break
+            }
+        }
+        
+        var i = 0
+        
+        while exportSession.status == .waiting || exportSession.status == .exporting {
+            
+            if(i < 100) {
+                // print("Progress: \(exportSession.progress * 100.0)%.")
+                currentProgress.completedUnitCount = Int64(exportSession.progress * 100.0)
+                progress(currentProgress)
+                i = i + 1
+                
+            } else {
+                i = 0
+            }
+            
+            if(exportSession.progress == 1 && isComplete == false) {
+                if(!isComplete) {
+                    success(self.outputUrl)
+                    isComplete = true
+                }
+                
+            }
+        }
+    }
+}
+
+
+
+
+class VideoFrameBurstBuilder: NSObject {
+    var outputUrl: URL!
+    var outputSize = CGSize(width: 1920, height: 1080)
+    var frameRate = Int32(30)
+    var timeRange: CMTimeRange!
+    var asset: AVAsset!
+    
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    init(asset: AVAsset, url: URL) {
+        self.outputUrl = url
+        self.asset = asset
+        //self.videoOutputUrl = URL(string: url)!
+        
+    }
+    
+    func getProgress() -> Double {
+        return 0.1
+    }
+    func build(timeRange: CMTimeRange, frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+        
+        // print("OUTPUT URL \(self.outputUrl)")
+        
+        let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
+        
+        // self.exportSession.videoComposition = videoComposition
+        exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession.outputURL = self.outputUrl // Output URL
+        exportSession.timeRange = timeRange
+        
+        let currentProgress = Progress(totalUnitCount: 100)
+        currentProgress.completedUnitCount = 10
+        progress(currentProgress)
+        var isComplete = false
+        // progress
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .exporting:
+                // print("~~~~~~~~~ EXPORTING")
+                break
+            case .completed:
+                DispatchQueue.main.async {
+                    // success(self.outputUrl)
+                    currentProgress.completedUnitCount = 100
+                    progress(currentProgress)
+                }
+                break
+            case .failed:
+                DispatchQueue.main.async {
+                    failure(exportSession.error! as NSError)
+                    print(exportSession.error!)
+                    
+                    // self.clipTrimTimer.invalidate()
+                    currentProgress.completedUnitCount = 0
+                    progress(currentProgress)
+                }
+                break
+            default:
+                DispatchQueue.main.async {
+                    // self.clipTrimTimer.invalidate()
+                    failure(exportSession.error! as NSError)
+                    currentProgress.completedUnitCount = 0
+                    progress(currentProgress)
+                }
+                break
+            }
+        }
+        
+        var i = 0
+        
+        while exportSession.status == .waiting || exportSession.status == .exporting {
+            
+            if(i < 100) {
+                // print("Progress: \(exportSession.progress * 100.0)%.")
+                currentProgress.completedUnitCount = Int64(exportSession.progress * 100.0)
+                progress(currentProgress)
+                i = i + 1
+                
+            } else {
+                i = 0
+            }
+            
+            if(exportSession.progress == 1 && isComplete == false) {
+                if(!isComplete) {
+                    success(self.outputUrl)
+                    isComplete = true
+                }
+                
+            }
+        }
+    }
+}
+
+
+
+

@@ -115,7 +115,7 @@ class VideoPlayerViewController: NSViewController {
     
     func setupPlayer() {
         // self.playerView.showsFrameSteppingButtons = true
-        self.playerView.showsSharingServiceButton = false
+        self.playerView.showsSharingServiceButton = true
         self.playerView.showsFullScreenToggleButton = true
         //self.playerView.becomeFirstResponder()
         

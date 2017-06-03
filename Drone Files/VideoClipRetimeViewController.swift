@@ -40,68 +40,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     
     var exportSession: AVAssetExportSession!
 
-    var videoSizeSelectMenuOptions = [
-        "[16:9] - 1024×576",
-        "[16:9] - 1152×648",
-        "[16:9] - 1280 x 720 (720HD)",
-        "[16:9] - 1366×768",
-        "[16:9] - 1600×900",
-        "[16:9] - 1920 x 1080 (1080HD)",
-        "[16:9] - 2560 x 1440 (1440HD)",
-        "[16:9] - 3840 x 2160 (4k)",
-        "[16:9] - 7680 x 4320 (8k)",
-        
-        "[4:3] - 640×480",
-        "[4:3] - 800×600",
-        "[4:3] - 960×720",
-        "[4:3] - 1024×768",
-        "[4:3] - 1280×960",
-        "[4:3] - 1400×1050",
-        "[4:3] - 1440×1080",
-        "[4:3] - 1600×1200",
-        "[4:3] - 1856×1392",
-        "[4:3] - 1920×1440",
-        "[4:3] - 2048×1536",
-        
-        "[16:10] - 1280×800",
-        "[16:10] - 1440×900",
-        "[16:10] - 1680×1050",
-        "[16:10] - 1920×1200",
-        "[16:10] - 2560×1600"
-    ]
-    
-    
-    var videoSizes: [NSSize] = [NSSize(width: 1152, height: 648),
-                                NSSize(width: 1280, height: 720),
-                                NSSize(width: 1366, height: 768),
-                                NSSize(width: 1600, height: 900),
-                                NSSize(width: 1920, height: 1080),
-                                NSSize(width: 2560, height: 1440),
-                                NSSize(width: 3840, height: 2160),
-                                NSSize(width: 7680, height: 4320),
-                                NSSize(width: 640, height: 480),
-                                NSSize(width: 800, height: 600),
-                                NSSize(width: 960, height: 720),
-                                NSSize(width: 1024, height: 768),
-                                NSSize(width: 1280, height: 960),
-                                NSSize(width: 1400, height: 1050),
-                                NSSize(width: 1440, height: 1080),
-                                NSSize(width: 1600, height: 1200),
-                                NSSize(width: 1856, height: 1392),
-                                NSSize(width: 1920, height: 1440),
-                                NSSize(width: 2048, height: 1536),
-                                NSSize(width: 1280, height: 800),
-                                NSSize(width: 1440, height: 900),
-                                NSSize(width: 1680, height: 1050),
-                                NSSize(width: 1920, height: 1200),
-                                NSSize(width: 2560, height: 1600)
-    ]
-    
-    
-    var videoFrameRateSelectMenuOptions = ["1", "5", "10", "15", "20", "24", "29.97", "30", "60", "120"]
-    
-    var frameRates = [1, 2, 5, 10, 15, 20, 24, 30, 60, 120, 240, 320, 420]
-    
     
     @IBOutlet weak var playerView: AVPlayerView!
     
@@ -161,11 +99,11 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         }
         //}
         
-        self.videoSizeSelectMenu.addItems(withTitles: self.videoSizeSelectMenuOptions)
+        self.videoSizeSelectMenu.addItems(withTitles: self.appSettings.videoSizeSelectMenuOptions)
         
         self.videoSizeSelectMenu.selectItem(at: 5)
         
-        self.videoFrameRateSelectMenu.addItems(withTitles: self.videoFrameRateSelectMenuOptions)
+        self.videoFrameRateSelectMenu.addItems(withTitles: self.appSettings.videoFrameRateSelectMenuOptions)
         
         self.videoFrameRateSelectMenu.selectItem(at: 3)
 
@@ -309,7 +247,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             
             // speed = abs(speed)
             print("SPEEEEEED \(speed)")
-             newDuration = CMTime.init(seconds: seconds, preferredTimescale: CMTimeScale(self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
+             newDuration = CMTime.init(seconds: seconds, preferredTimescale: CMTimeScale(self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
         } else {
             newDuration = self.composition.duration
         }
@@ -317,7 +255,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
        
         
         if(newDuration.seconds < 2.0) {
-            newDuration = CMTime(seconds: 2.0, preferredTimescale: CMTimeScale(self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
+            newDuration = CMTime(seconds: 2.0, preferredTimescale: CMTimeScale(self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
         }
         
         self.composition.scaleTimeRange(CMTimeRangeMake(kCMTimeZero, self.composition.duration), toDuration: newDuration)
@@ -346,7 +284,9 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         var nextTime = kCMTimeZero
         self.composition = AVMutableComposition()
         // self.mutableVideoComposition = AVMutableVideoComposition()
-
+        
+        // self.composition
+        
         let videoTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
 
         // let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
@@ -548,8 +488,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             workerItem.title = "Retime In Progress!"
             
             let builder = RetimeBuilder(asset: self.composition.copy() as! AVAsset, url: self.outputUrl!)
-            let framerate = self.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
-            let size = self.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
+            let framerate = self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
+            let size = self.appSettings.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
             
             builder.build(frameRate: Int32(framerate), outputSize: size, { progress in
                 workerItem.inProgress = true

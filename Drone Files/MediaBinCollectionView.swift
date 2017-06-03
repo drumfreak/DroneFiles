@@ -67,7 +67,12 @@ class MediaBinCollectionView: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
+        self.appDelegate.appSettings.mediaBinIsOpen = true
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.appDelegate.appSettings.mediaBinIsOpen = false
     }
     
     

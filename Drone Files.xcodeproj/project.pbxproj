@@ -331,6 +331,7 @@
 				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
 				1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */,
 				18590E351ED7E55100305E68 /* VideoPlayerView.xib */,
+				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
 				1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */,
 			);
 			name = Interfaces;
@@ -364,7 +365,6 @@
 			isa = PBXGroup;
 			children = (
 				18740B721ECE06A3003803B4 /* VideoPlayerMessageBox.swift */,
-				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
 				187843A91EB3E26100BCD214 /* VideoPlayerController.swift */,
 				1846C96B1EAA9F0F009C63FD /* ScreenshotViewController.swift */,
 			);
