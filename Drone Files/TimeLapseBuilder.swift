@@ -235,14 +235,11 @@ class RetimeBuilder: NSObject {
         exportSession.outputFileType = AVFileTypeQuickTimeMovie
         exportSession.outputURL = self.outputUrl // Output URL
         
-        
-        
-        
         let videoTrack: AVAssetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
         let videoComposition = AVMutableVideoComposition()
         videoComposition.frameDuration = CMTimeMake(1, frameRate)
         videoComposition.renderSize = outputSize
-        
+//        
         let instruction: AVMutableVideoCompositionInstruction = AVMutableVideoCompositionInstruction.init()
         
         
@@ -250,7 +247,7 @@ class RetimeBuilder: NSObject {
         
         let transformer: AVMutableVideoCompositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack);
         
-        var firstTransform = videoTrack.preferredTransform
+        let firstTransform = videoTrack.preferredTransform
         
         // Check the first video track's preferred transform to determine if it was recorded in portrait mode.
         if (firstTransform.a == 0 && firstTransform.d == 0 && (firstTransform.b == 1.0 || firstTransform.b == -1.0) && (firstTransform.c == 1.0 || firstTransform.c == -1.0)) {
@@ -269,18 +266,19 @@ class RetimeBuilder: NSObject {
             
             let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
             
-            let yFix = videoTrack.naturalSize.height + outputSize.height
+            // let yFix = videoTrack.naturalSize.height + outputSize.height
             
+            let leftOffset = videoTrack.naturalSize.width * scaleToFitRatio / 2
             
-            // let centerFix = CGAffineTransform(translationX: videoTrack.naturalSize.width, y: yFix)
+            let topOffset = videoTrack.naturalSize.height * scaleToFitRatio / 2
             
-            print("YFIX: \(centerFix)")
-            
-            
+            let centerFix = CGAffineTransform(translationX: leftOffset, y: topOffset)
+        
             videoLayerInstruction.setTransform(firstTransform.concatenating(scaleFactor.concatenating(centerFix)),
                                      at: kCMTimeZero)
             
-            videoLayerInstruction.setTransform(firstTransform, at: kCMTimeZero)
+            // videoLayerInstruction.setTransform(firstTransform, at: kCMTimeZero)
+            
             instruction.layerInstructions.append(videoLayerInstruction)
             
             //Apply any transformer if needed

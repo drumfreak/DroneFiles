@@ -49,7 +49,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     var imageLayer: CALayer!
     var syncLayer: AVSynchronizedLayer!
     var composition: AVMutableComposition!
-    var mutableVideoComposition: AVMutableVideoComposition!
+    var videoComposition: AVMutableVideoComposition!
     var avPlayerLayer: AVPlayerLayer!
     var playerViewControllerKVOContext = 0
     var totalDuration = 0.0
@@ -63,6 +63,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     var videoURLs = [String]()
     
     var viewIsLoaded = false
+    
+    var firstFile: URL!
     
     var receivedFiles = NSMutableArray() {
         didSet {
@@ -101,11 +103,11 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         self.videoSizeSelectMenu.addItems(withTitles: self.appSettings.videoSizeSelectMenuOptions)
         
-        self.videoSizeSelectMenu.selectItem(at: 5)
+        self.videoSizeSelectMenu.selectItem(at: 7)
         
         self.videoFrameRateSelectMenu.addItems(withTitles: self.appSettings.videoFrameRateSelectMenuOptions)
         
-        self.videoFrameRateSelectMenu.selectItem(at: 3)
+        self.videoFrameRateSelectMenu.selectItem(at: 6)
 
         self.outputFolderLabel.stringValue = self.appSettings.videoClipsFolder.replacingOccurrences(of: self.appSettings.projectFolder, with: "").replacingOccurrences(of: "%20", with: " ").replacingOccurrences(of: "/Volumes", with: "")
         
@@ -181,15 +183,22 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         self.videoURLs.removeAll()
         self.imageTimings.removeAll()
         self.videoClips.removeAll()
+        var i = 0
         self.receivedFiles.forEach({m in
             let urlPath = m as! String
             let url = URL(string: urlPath)
             var avAsset: AVAsset!
             if(self.appDelegate.isMov(file: url!)){
+                
                 let assetOptions = [AVURLAssetPreferPreciseDurationAndTimingKey : 1]
                 avAsset = AVURLAsset(url: url!, options: assetOptions)
                 self.videoClips.append(avAsset!)
                 self.videoURLs.append(urlPath)
+                
+                if(i == 0) {
+                    self.firstFile = url
+                }
+                i += 1
             }
         })
     }
@@ -260,6 +269,12 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         self.composition.scaleTimeRange(CMTimeRangeMake(kCMTimeZero, self.composition.duration), toDuration: newDuration)
         
+        
+        
+        
+        
+        
+        
         self.setupPlayer()
         self.updateDurationLabel()
     }
@@ -291,6 +306,16 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
 
         // let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
 
+        if(self.videoClips.count > 0) {
+            let clip = self.videoClips[0]
+            let assetTrack = clip.tracks(withMediaType: AVMediaTypeVideo)[0]
+            let size = assetTrack.naturalSize
+            
+            if(self.appSettings.videoSizes.index(of: size)! > -1) {
+                self.videoFrameRateSelectMenu.selectItem(at: self.appSettings.videoSizes.index(of: size)!)
+            }
+            
+        }
         self.videoClips.forEach({clipIndex in
             // Check for video.
             let assetTracks = clipIndex.tracks(withMediaType: AVMediaTypeVideo)
@@ -345,6 +370,17 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         // print("In seconds that is... \(videoComposition.frameDuration.seconds)")
         
         // figure out how to get the duration...
+        
+        let framerate = self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
+        let size = self.appSettings.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
+        
+        
+        let videoComposition = AVMutableVideoComposition()
+        videoComposition.frameDuration = CMTimeMake(1, Int32(framerate))
+        videoComposition.renderSize = size
+        
+        // self.videoComposition = videoComposition
+        
         self.scaleDuration()
         
         self.totalDuration = nextTime.seconds
@@ -461,21 +497,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             print("Error while creating a folder.")
         }
     
-        func saveClippedFileCompleted(url: URL!) {
-            self.finishSave(false, url: url)
-            print("Completed...")
-        }
-        
-        func saveClippedFileFailed() {
-            print("Session FAILED")
-            //            DispatchQueue.main.async {
-            //               // self.saveTrimmedVideoButton.isEnabled = true
-            //            }
-        }
-        
-        func saveClippedFileUnknown() {
-            print("I don't know..");
-        }
         
         // let es = self.exportSession
         
@@ -486,6 +507,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             workerItem.inProgress = true
             workerItem.outputUrl = self.outputUrl!
             workerItem.title = "Retime In Progress!"
+            workerItem.originalFileDateUrl = self.firstFile
             
             let builder = RetimeBuilder(asset: self.composition.copy() as! AVAsset, url: self.outputUrl!)
             let framerate = self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
@@ -496,10 +518,11 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
                 workerItem.percent = (progress.fractionCompleted * 100.0)
             }, success: { url in
                 workerItem.outputUrl = url
+                
                 workerItem.workerStatus = true
                 workerItem.inProgress = false
                 DispatchQueue.main.async {
-                    self.finishSave(false, url: url)
+                    self.finishSave(false, url: url, workerItem: workerItem)
                 }
             }, failure: { error in
                 print("ERROR \(error)")
@@ -507,7 +530,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
                 workerItem.inProgress = false
                 workerItem.failed = true
                 DispatchQueue.main.async {
-                    self.finishSave(true, url: self.outputUrl!)
+                    self.finishSave(true, url: self.outputUrl!, workerItem: workerItem)
+
                 }
             })
         }
@@ -520,9 +544,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         queue.async(execute: timeLapseWorkerItem)
         
         timeLapseWorkerItem.notify(queue: DispatchQueue.main) {
-        
             // print("percent = ", percent)
-            print("Worker launched... ")
+            print("Video Clip Export Worker launched... ")
         }
         
     }
@@ -536,7 +559,8 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         if(self.playerView?.player == nil) {
 
             let pi = AVPlayerItem(asset: self.composition.copy() as! AVAsset)
-
+            // pi.videoComposition = self.videoComposition.copy() as! AVMutableVideoComposition
+            
             let avPlayer = AVPlayer(playerItem: pi)
 
             self.player = avPlayer
@@ -617,10 +641,14 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
 
     }
     
-    func finishSave(_ err: Bool, url: URL) {
+    func finishSave(_ err: Bool, url: URL, workerItem: MediaQueueWorkerItem) {
+        
         DispatchQueue.main.async {
             self.saveTimeLapseButton.isEnabled = true
             if(!err) {
+                
+                self.setFileDate(originalFile: workerItem.originalFileDateUrl!, newFile: url)
+                
                 self.appDelegate.appSettings.mediaBinUrls.append(url)
                 
                 let notification = NSUserNotification()
@@ -687,19 +715,18 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         let increment = getClippedVideosIncrement(folder: self.appDelegate.appSettings.videoClipsFolder)
         
-        self.retimedVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Retimed " + increment + ".mov"
+        self.retimedVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Clip " + increment + " - Retimed.mov"
         
         let videoClipFullPath = self.appDelegate.appSettings.videoClipsFolder + "/" + self.retimedVideoName.replacingOccurrences(of: " " , with: "%20")
         
         let path = URL(string: videoClipFullPath)?.path
-        
         
         if FileManager.default.fileExists(atPath: path!) {
             // print("Fuck that file exists..")
             
             let incrementer = "00000"
             
-            self.retimedVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Retimed " + increment + " - " + incrementer + ".mov"
+            self.retimedVideoName = self.appDelegate.appSettings.saveDirectoryName + " - Clip " + increment + " - " + incrementer + " - Retimed.mov"
             
             
         }
@@ -715,6 +742,31 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         return url!
         
     }
+    
+    
+    
+    
+    func setFileDate(originalFile: URL, newFile: URL) {
+        
+        do {
+            let fileAttributes = try FileManager.default.attributesOfItem(atPath: originalFile.path)
+            let modificationDate = fileAttributes[FileAttributeKey.modificationDate] as! Date
+            
+                        let attributes = [
+                FileAttributeKey.creationDate: modificationDate,
+                FileAttributeKey.modificationDate: modificationDate
+            ]
+            
+            do {
+                try FileManager.default.setAttributes(attributes, ofItemAtPath: newFile.path)
+            } catch {
+                print(error)
+            }
+        } catch let error {
+            print("Error getting file modification attribute date: \(error.localizedDescription)")
+        }
+    }
+
     
     
 //    func updateTimerLabel() {
@@ -755,6 +807,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60, (seconds % 36000) % 60)
     }
+    
     
     // Notifications
     

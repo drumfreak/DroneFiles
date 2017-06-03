@@ -28,6 +28,7 @@ class MediaQueueWorkerItem: NSObject {
     var inProgress: Bool!
     var failed = false
     var title: String!
+    var originalFileDateUrl: URL?
 
     override init() {
         super.init()
@@ -189,53 +190,65 @@ class MediaQueueMonitorViewController: NSViewController {
             // print("\(i) Status : \(String(describing: worker.workerStatus))")
                         
             
-            let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
-            
-            let cell = rowView?.view(atColumn: 0) as! MediaQueueMonitorTableCellView
+            if(self.tableView.numberOfRows >= i) {
+                
+                let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
+                
+                let cell = rowView?.view(atColumn: 0) as! MediaQueueMonitorTableCellView
+                
+                DispatchQueue.main.async {
+                    cell.queueTitleLabel.stringValue = worker.title
+                    cell.queueFileNameLabel.stringValue = worker.outputUrl.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+                    
+                    cell.queueOverAllProgressIndicator.doubleValue = worker.percent
+                    
+                    cell.queuePercentLabel.stringValue = String(format: "%.0f", worker.percent) + "%"
+                    
+                }
 
-            DispatchQueue.main.async {
-                cell.queueTitleLabel.stringValue = worker.title
-                cell.queueFileNameLabel.stringValue = worker.outputUrl.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
-                
-                cell.queueOverAllProgressIndicator.doubleValue = worker.percent
-                
-                cell.queuePercentLabel.stringValue = String(format: "%.0f", worker.percent) + "%"
-                
             }
             
             
             
             if(worker.percent == 100.0) {
                 print("\(i)  REMOVING WORKER - Complete \(i)")
-                self.appDelegate.mediaQueue.queue.remove(at: i)
                 self.stopTimer()
-                
-                 self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
-
+                self.appDelegate.mediaQueue.queue.remove(at: i)
+                if(self.tableView.numberOfRows >= i) {
+                    self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+                }
                 self.startTimer()
 
 
                 return
             } else if(worker.inProgress == false) {
                 print("\(i)  REMOVING WORKER - Not in progress \(i)")
+                
+                self.stopTimer()
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 // let fcu =
                 
-                
-                self.stopTimer()
-                
-                self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+                if(self.tableView.numberOfRows >= i) {
 
+                    
+                    self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+
+                }
                 self.startTimer()
 
                 return
             } else if(worker.failed) {
                 print("\(i)  REMOVING WORKER - FAILED WORKER \(i)")
+                self.stopTimer()
+
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 
-                self.stopTimer()
+    
+                if(self.tableView.numberOfRows >= i) {
+
+                    self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
+                }
                 
-                self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
                 
                 self.startTimer()
                 
@@ -306,17 +319,19 @@ extension MediaQueueMonitorViewController: NSTableViewDelegate {
 //        self.tableView.register(cellNib, forIdentifier: "mediaQueueProgress")
 //        
 //
-        
-        // 3
-        if let cell = tableView.make(withIdentifier: "mediaQueueProgress", owner: nil) as? MediaQueueMonitorTableCellView {
-            cell.queueTitleLabel?.stringValue = ""
-            cell.queuePercentLabel?.stringValue = ""
-            cell.queueFileNameLabel?.stringValue = ""
-            cell.queueOverAllProgressIndicator?.doubleValue = 0.0
+        if(tableView.numberOfRows >= 1) {
+
+            // 3
+            if let cell = tableView.make(withIdentifier: "mediaQueueProgress", owner: nil) as? MediaQueueMonitorTableCellView {
+                cell.queueTitleLabel?.stringValue = ""
+                cell.queuePercentLabel?.stringValue = ""
+                cell.queueFileNameLabel?.stringValue = ""
+                cell.queueOverAllProgressIndicator?.doubleValue = 0.0
             
-            return cell
+                return cell
+            }
+            
         }
-        
         return nil
 
     }
