@@ -83,7 +83,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     
     @IBOutlet var playerTimerLabel: NSTextField!
     var playerItemContext = 0
-    @IBOutlet var clipTrimProgressBar: NSProgressIndicator!
     
     @IBOutlet var saveFilePreserveDatesButton: NSButton!
     @IBOutlet var screenshotPreserveClipNameButton: NSButton!
@@ -112,7 +111,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         super.viewDidLoad()
         // print("Video Player Controller Loaded")
         DispatchQueue.main.async {
-            self.clipTrimProgressBar.isHidden = true
             self.saveTrimmedClipView.isHidden = true
             self.saveTrimmedVideoButton.isHidden = true
             // self.savingScreenShotMessageBox.isHidden = true
@@ -137,7 +135,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
 
     func setupControls() {
         DispatchQueue.main.async {
-            
             if(self.appDelegate.appSettings.screenShotBurstEnabled) {
                 self.screenShotBurstEnabledButton.state = 1
             } else {
@@ -248,9 +245,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     }
     
     @IBAction func frameIncrement(_ sender: AnyObject?) {
-        
         if(self.appDelegate.videoPlayerViewController?.playerView.player != nil) {
-            
             let currentTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
             self.appDelegate.videoPlayerViewController?.playerView.player?.currentTime()
             let oneFrame = CMTimeMakeWithSeconds(1.0 / 29.97, currentTime!.timescale);
@@ -436,7 +431,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     
     
     @IBAction func setPreserveOriginalDates(_ sender: AnyObject) {
-        
         if(self.saveFilePreserveDatesButton.state == 0) {
             self.clippedItemPreserveFileDates = false
             UserDefaults.standard.setValue(0, forKey: "clippedItemPreserveFileDates")
@@ -531,13 +525,12 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         self.isTrimming = false;
         
         DispatchQueue.main.async {
-            
             self.saveTrimmedClipView.isHidden = true
             self.cancelTrimmedVideoButton.isHidden = true
             self.userTrimmed = false
             self.saveTrimmedVideoButton.isHidden = true
-            
         }
+        
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime = kCMTimeZero
         self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime = (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.duration)!
         
@@ -547,33 +540,14 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         }
     }
     
-    
-    func updateProgressBar(session: Float) {
-        
-        DispatchQueue.main.async {
-            let progress = self.exportSession.progress
-            if(progress < 1.0) {
-                self.clipTrimProgressBar.doubleValue = Double(progress)
-            } else {
-                self.clipTrimProgressBar.doubleValue = 1.0
-                self.clipTrimProgressBar.stopAnimation(nil)
-                self.clipTrimProgressBar.isHidden = true
-                self.showNotification(messageType: "videoTrimComplete", customMessage: "File saved to clips folder!")
-            }
-        }
-    }
-    
-    
     @IBAction func openScreenshotSettings(sender : AnyObject) {
         self.appDelegate.screenshotSettingsWindowController = ScreenshotSettingsWindowController()
         self.appDelegate.screenshotSettingsWindowController.window?.makeKeyAndOrderFront(self)
     }
     
     func setupAvExportTrimmedClip() {
-        
         DispatchQueue.main.async {
             self.saveTrimmedClipView.isHidden = false
-            self.clipTrimProgressBar.isHidden = true
             self.saveTrimmedVideoButton.isEnabled = true
             self.cancelTrimmedVideoButton.isEnabled = true
         }
@@ -669,9 +643,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
             }
             
             DispatchQueue.main.async {
-                self.clipTrimProgressBar.isHidden = true
                 self.isTrimming = false
-                self.saveTrimmedClipView.isHidden = true
             }
             
             self.appDelegate.appSettings.mediaBinUrls.append(URL(string: self.clippedVideoNameFullURL)!)
@@ -937,8 +909,114 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     // starting time
                     // number of bursts
                     
+                    print(self.appDelegate.screenshotViewController.getScreenshotPath())
                     
                     
+                    let outputUrl = self.appDelegate.screenshotViewController.getScreenshotPath()
+                    
+                    let asset = AVAsset(url: (self.appDelegate.videoPlayerViewController?.nowPlayingURL)!)
+                    
+                    let workerItem: MediaQueueWorkerItem!
+                    workerItem = MediaQueueWorkerItem()
+                    
+                    let frameBurstWorkerItem = DispatchWorkItem {
+                        workerItem.inProgress = true
+                        //  workerItem.outputUrl = outputUrl
+                        workerItem.title = "Frame Burst In Progress!"
+   
+                        let builder = VideoFrameBurstBuilder(asset: asset, url: outputUrl!)
+                        
+                        let size = self.appSettings.videoSizes[7]
+                        
+                        builder.build(
+                            startTime: (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.currentTime())!,
+                            interval: self.appDelegate.appSettings.screenshotFramesInterval,
+                            framesBefore: self.appDelegate.appSettings.screenshotFramesBefore,
+                            framesAfter: self.appDelegate.appSettings.screenshotFramesAfter,
+                            preserveName: self.appDelegate.appSettings.screenshotPreserveVideoName,
+                            preserveDate: self.appDelegate.appSettings.screenshotPreserveVideoDate,
+                            preserveLocation: self.appDelegate.appSettings.screenshotPreserveVideoLocation,
+                            outputSize: size, { progress in
+                            workerItem.inProgress = true
+                            workerItem.percent = (progress.fractionCompleted * 100.0)
+                        }, success: { url in
+                            workerItem.outputUrl = url
+                            workerItem.workerStatus = true
+                            workerItem.inProgress = false
+                            DispatchQueue.main.async {
+                                finishBurstSave(false, url: url)
+                            }
+                        }, failure: { error in
+                            print("ERROR \(error)")
+                            workerItem.workerStatus = false
+                            workerItem.inProgress = false
+                            workerItem.failed = true
+                            DispatchQueue.main.async {
+                                finishBurstSave(true, url: outputUrl!)
+                            }
+                        })
+                    }
+                    
+                    let queue = DispatchQueue.global(qos: .userInteractive)
+                    
+                    self.appDelegate.mediaQueue.queue.append(workerItem)
+                    
+                    queue.async(execute: frameBurstWorkerItem)
+                    
+                    frameBurstWorkerItem.notify(queue: DispatchQueue.main) {
+                        // print("percent = ", percent)
+                        print("Worker launched... ")
+                    }
+                    
+                    self.messageBox(hidden: true)
+                    
+                    func finishBurstSave(_ err: Bool, url: URL) {
+                        DispatchQueue.main.async {
+                            
+                            if(!err) {
+                                // saveClippedFileCompleted()
+                                
+                                let notification = NSUserNotification()
+                                
+                                notification.identifier = "frameBurst\(UUID().uuidString)"
+                                notification.title = "Video Frame Burst Saved!"
+                                notification.informativeText = url.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+                                
+                                notification.soundName = NSUserNotificationDefaultSoundName
+                                notification.notificationUrl = url.absoluteString
+                                notification.hasActionButton = true
+                                notification.actionButtonTitle = "View"
+                                
+                                notification.setValue(true, forKey: "_showsButtons")
+                                
+                                var actions = [NSUserNotificationAction]()
+                                
+                                let action1 = NSUserNotificationAction(identifier: "viewNow", title: url.absoluteString)
+                                
+                                let action2 = NSUserNotificationAction(identifier: "openInFinder", title: "Open in Quicktime")
+                                
+                                actions.append(action1)
+                                actions.append(action2)
+                                
+                                notification.additionalActions = actions
+                                
+                                self.notificationCenter.deliver(notification)
+                                
+                            } else {
+                                // saveClippedFileFailed()
+                                let myPopup: NSAlert = NSAlert()
+                                DispatchQueue.main.async {
+                                    myPopup.messageText = "Frame Burst Failed"
+                                    myPopup.informativeText = "Something went wrong. Dispatching Monkeys to find out why."
+                                    myPopup.alertStyle = NSAlertStyle.warning
+                                    myPopup.addButton(withTitle: "OK")
+                                    myPopup.runModal()
+                                }
+                            }
+                        }
+                    }
+
+
                 }
                 
                 

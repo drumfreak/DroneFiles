@@ -354,9 +354,6 @@ struct AppSettings {
     
     
     var videoSizeSelectMenuOptions = [
-        "[4:3] - 640 × 480",
-
-        
         "[16:9] - 1024 × 576",
         "[16:9] - 1152 × 648",
         "[16:9] - 1280 x 720 (720HD)",

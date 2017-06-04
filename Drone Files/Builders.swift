@@ -477,9 +477,15 @@ class VideoFrameBurstBuilder: NSObject {
     func getProgress() -> Double {
         return 0.1
     }
-    func build(timeRange: CMTimeRange, frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+    func build(startTime: CMTime, interval: Double, framesBefore: Int32, framesAfter: Int32, preserveName: Bool, preserveDate: Bool, preserveLocation: Bool, outputSize: CGSize, _ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
         
         // print("OUTPUT URL \(self.outputUrl)")
+        
+        let currentProgress2 = Progress(totalUnitCount: 100)
+        currentProgress2.completedUnitCount = 100
+        progress(currentProgress2)
+     
+        return
         
         let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
         

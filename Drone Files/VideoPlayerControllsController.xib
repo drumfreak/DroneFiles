@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -189,7 +189,7 @@
                     <rect key="frame" x="13" y="218" width="741" height="101"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezM-Oo-DQ5" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezM-Oo-DQ5" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                             <rect key="frame" x="551" y="34" width="110" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Load New Clip" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" inset="2" id="TGQ-mt-HbH">
@@ -200,7 +200,7 @@
                                 <action selector="setLoadNewClipItem:" target="-2" id="xmG-r1-mRg"/>
                             </connections>
                         </button>
-                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2L3-TK-SMa" userLabel="Preserve Dates" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2L3-TK-SMa" userLabel="Preserve Dates" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                             <rect key="frame" x="551" y="3" width="158" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="check" title="Preserve Original Date" bezelStyle="regularSquare" imagePosition="left" refusesFirstResponder="YES" state="on" inset="2" id="xgh-j0-HBA">

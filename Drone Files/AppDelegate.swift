@@ -864,8 +864,7 @@ extension AppDelegate {
     }
     
     func writeProjectFile (projectPath: String, loadNewFile: Bool) {
-    
-    
+
         // var foo = false
     
         if(checkFolderAndCreate(folderPath: projectPath)) {
@@ -1153,4 +1152,42 @@ extension DispatchWorkItem {
     }
 }
 
+class FileFunctions: NSObject {
+    
+    func getScreenShotDate(originalFile: URL!, offset: Int) -> Date {
+       
+        let date = Date()
+        do {
+            let fileAttributes = try FileManager.default.attributesOfItem(atPath: originalFile.path)
+            let modificationDate = fileAttributes[FileAttributeKey.modificationDate] as! Date
+            let newDate = Calendar.current.date(byAdding: .second, value: offset, to: modificationDate)
+            return newDate!
+        } catch let error {
+            print("Error getting file modification attribute date: \(error.localizedDescription)")
+            return date
+        }
+        
+    }
+    
+    
+    func setFileDate(originalFile: String, modificationDate: Date) {
+        
+        var original = originalFile.replacingOccurrences(of: "file://", with: "");
+        original = original.replacingOccurrences(of: "%20", with: " ");
+        do {
+            
+            let newDate = modificationDate
+            let attributes = [
+                FileAttributeKey.creationDate: newDate,
+                FileAttributeKey.modificationDate: newDate
+            ]
+            
+            do {
+                try FileManager.default.setAttributes(attributes, ofItemAtPath: original)
+            } catch {
+                print(error)
+            }
+        }
+    }
 
+}

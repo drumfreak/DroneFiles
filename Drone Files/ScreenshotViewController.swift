@@ -16,27 +16,15 @@ import CoreLocation
 
 
 class ScreenshotViewController: NSViewController {
-    //    @IBOutlet var imageView: IKImageView!
-    //    @IBOutlet var imageName: NSTextField!
-    //    @IBOutlet var imageEditorView: NSView!
-    //
+
     let geocoder = CLGeocoder()
     var latitude: Double?, originalLatitude: Double?
     var longitude: Double?, originalLongitude: Double?
-    
+    var fileFun: FileFunctions!
     var timestamp:NSDate?
     var coordinate:CLLocationCoordinate2D?
-    var altitude: Double?
     
-    @IBOutlet weak var newFileNamePath: NSTextField!
     @IBOutlet var saveDirectoryName: String!
-    
-    @IBOutlet var folderURL: String!
-    @IBOutlet weak var folderURLDisplay: NSTextField!
-    var nowPlayingURL: URL!
-    @IBOutlet weak var nowPlayingFile: NSTextField!
-    var nowPlayingURLString: String!
-    
     @IBOutlet var screenshotPath: String!
     @IBOutlet var screenshotPathFull: String!
     @IBOutlet var screenshotPathFullURL: String!
@@ -56,11 +44,8 @@ class ScreenshotViewController: NSViewController {
     }
     
     func getLocationData(asset: AVAsset) -> String {
-        
         var locationData = ""
-        
         for metaDataItems in asset.commonMetadata {
-            
             // print("Common Key: \(String(describing: metaDataItems.commonKey))")
             // print("Value: \(metaDataItems.value)")
             
@@ -71,7 +56,6 @@ class ScreenshotViewController: NSViewController {
                 
             }
         }
-        
         return locationData
     }
     
@@ -88,8 +72,7 @@ class ScreenshotViewController: NSViewController {
         
         self.longitude = 0.00
         self.latitude = 0.00
-        
-        let foo = self.getLocationData(asset: asset)
+        let location = self.getLocationData(asset: asset)
         
         if(self.appSettings.screenshotSound) {
             self.playShutterSound()
@@ -99,12 +82,11 @@ class ScreenshotViewController: NSViewController {
         
         if(self.appSettings.screenshotTypeJPG && self.appSettings.screenshotPreserveVideoLocation) {
             
-            
-            if let range = foo.range(of: "-") {
+            if let range = location.range(of: "-") {
                 
-                let latFull = foo[foo.startIndex..<range.lowerBound]
+                let latFull = location[location.startIndex..<range.lowerBound]
                 
-                let longFull = foo[range.lowerBound..<foo.endIndex]
+                let longFull = location[range.lowerBound..<location.endIndex]
                 
                 let lat = latFull.replacingOccurrences(of: "+", with: "")
                 
@@ -154,14 +136,6 @@ class ScreenshotViewController: NSViewController {
                         
                         self.appDelegate.mediaBinCollectionView.selectItemOne()
                         
-                        //                        if(self.appDelegate.fileBrowserViewController.sourceFolderOpened.absoluteString != self.appSettings.screenShotFolder) {
-                        //                                 self.appDelegate.fileBrowserViewController.sourceFolderOpened = URL(string: self.appSettings.screenShotFolder)
-                        //
-                        // self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: self.screenshotNameFullURL)
-                        
-                        
-                        //self.appDelegate.imageEditorViewController?.loadImage(_url: url!)
-                        // self.appDelegate.editorTabViewController?.selectedTabViewItemIndex = 1
                     }
                     
                 }
@@ -249,7 +223,7 @@ class ScreenshotViewController: NSViewController {
         return incrementer
     }
     
-    func getScreenshotPath(_screenshotPath : String) -> String {
+    func getScreenshotPath() -> URL! {
         
         var fileExtension = "jpg"
         
@@ -279,8 +253,6 @@ class ScreenshotViewController: NSViewController {
             
             var screenShotName = tmpName + " - " + increment
             
-            // print("screenShotName \(String(describing: screenShotName))")
-            
             screenShotName +=  " - " + now + "." + fileExtension
             
             self.screenshotName = screenShotName
@@ -306,9 +278,67 @@ class ScreenshotViewController: NSViewController {
             // print("That screenshot does not exist..")
         }
         
-        return self.screenshotPath
+        return URL(string: self.screenshotNameFullURL)!
+        
+        // return self.screenshotPath
     }
     
+    func getScreenshotPathsForBurst(fileExtension: String, videoURL: URL! ) -> [URL]! {
+        
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateFormat = "HHmm.ss"
+    
+        modificationDate = fileFun.getScreenShotDate(originalFile: videoURL, offset: 0)
+        
+        let now = dateformatter.string(from: modificationDate)
+        
+        self.screenshotPathFull = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+        
+        self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
+        
+        let increment = getScreenShotIncrement(_folder: self.appSettings.screenShotFolder)
+        
+        if(self.appSettings.screenshotPreserveVideoName) {
+            
+            let assetUrl = self.appDelegate.videoControlsController.currentVideoURL
+            
+            let filename = assetUrl?.deletingPathExtension()
+            
+            let tmpName = filename!.lastPathComponent
+            
+            var screenShotName = tmpName + " - " + increment
+            
+            screenShotName +=  " - " + now + "." + fileExtension
+            
+            self.screenshotName = screenShotName
+            
+        } else {
+            
+            self.screenshotName = self.appSettings.saveDirectoryName + " - " + increment + " - "  + now + "." + fileExtension
+        
+        }
+        
+        self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
+        
+        self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
+        
+        if FileManager.default.fileExists(atPath: self.screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
+            // print("Fuck that file screenshot exists..")
+            let incrementer = "00000"
+            self.screenshotName = self.appSettings.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer  + "." + fileExtension
+            
+            self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
+            self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
+            
+        } else {
+            // print("That screenshot does not exist..")
+        }
+        
+        // return URL(string: self.screenshotNameFullURL)!
+        return []
+        // return self.screenshotPath
+    }
     
     func imageWrite(data: Data, to url: URL!, options: Data.WritingOptions = .atomic) -> Bool {
         
@@ -350,7 +380,7 @@ class ScreenshotViewController: NSViewController {
                 print("Error while creating a folder.")
             }
             
-            let _ =  self.getScreenshotPath(_screenshotPath: " ")
+            let _ =  self.getScreenshotPath()
             
             let nsImage = NSImage(cgImage: cgImage!, size: (ciImage?.extent.size)!)
             
@@ -370,24 +400,20 @@ class ScreenshotViewController: NSViewController {
             if self.imageWrite(data: data as Data , to: surl, options: .withoutOverwriting) {
                 
                 self.exifWriteData(path: self.screenshotNameFullURL)
-                print("File saved")
+                print("Screenshot File saved")
                 
                 if(self.appSettings.screenshotPreserveVideoDate) {
                     self.setFileDate(originalFile: self.screenshotNameFullURL.replacingOccurrences(of: "file://", with: ""))
                 }
                 
-                
                 // self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
-                
-                
+            
                 return true
             } else {
-                print("File saved FAILED")
+                print("Screenshot File saved FAILED")
                 
                 return false
             }
-            
-            
         }
     }
     
@@ -465,11 +491,8 @@ class ScreenshotViewController: NSViewController {
         } catch let error {
             print(error.localizedDescription)
         }
-        
-        
+
         self.audioPlayer?.play()
-        
-        
     }
     
 }
@@ -500,4 +523,3 @@ extension NSImage {
         return nil
     }
 }
-

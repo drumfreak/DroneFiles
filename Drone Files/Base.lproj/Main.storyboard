@@ -2969,7 +2969,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqe-Yu-4Pf" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqe-Yu-4Pf" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
                                         <rect key="frame" x="167" y="232" width="92" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Burst Mode" bezelStyle="regularSquare" imagePosition="left" inset="2" id="9gU-qF-4vc">
