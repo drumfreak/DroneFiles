@@ -189,8 +189,7 @@ class MediaQueueMonitorViewController: NSViewController {
             // print("\(i) Status : \(String(describing: worker.workerStatus))")
                         
             
-            if(self.tableView.numberOfRows >= i) {
-                
+            if(self.tableView.numberOfRows >= 1) {
                 let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
                 
                 let cell = rowView?.view(atColumn: 0) as! MediaQueueMonitorTableCellView
@@ -217,8 +216,6 @@ class MediaQueueMonitorViewController: NSViewController {
                     self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
                 }
                 self.startTimer()
-
-
                 return
             } else if(worker.inProgress == false) {
                 print("\(i)  REMOVING WORKER - Not in progress \(i)")
@@ -228,13 +225,10 @@ class MediaQueueMonitorViewController: NSViewController {
                 // let fcu =
                 
                 if(self.tableView.numberOfRows >= i) {
-
-                    
                     self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
 
                 }
                 self.startTimer()
-
                 return
             } else if(worker.failed) {
                 print("\(i)  REMOVING WORKER - FAILED WORKER \(i)")
@@ -242,18 +236,12 @@ class MediaQueueMonitorViewController: NSViewController {
 
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 
-    
                 if(self.tableView.numberOfRows >= i) {
-
                     self.tableView.removeRows(at: NSIndexSet(index: i) as IndexSet, withAnimation:NSTableViewAnimationOptions.slideUp)
                 }
                 
-                
                 self.startTimer()
-                
                 return
-
-                
             }
             
             i += 1
@@ -261,7 +249,6 @@ class MediaQueueMonitorViewController: NSViewController {
             queueTotal += worker.percent
             
             activeWorkers += 1
-
             
             let percent = queueTotal / Double(i)
             self.queueOverAllProgressIndicator.doubleValue = percent
@@ -287,7 +274,6 @@ class MediaQueueMonitorViewController: NSViewController {
         })
         DispatchQueue.main.async {
             self.queueItemsLabel.stringValue = "\(self.appDelegate.mediaQueue.queue.count) Items"
-
         }
         
         if(self.appDelegate.mediaQueue.queue.count == 0) {

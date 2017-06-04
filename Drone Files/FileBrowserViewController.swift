@@ -639,10 +639,9 @@ class FileBrowserViewController: NSViewController {
         let destFolder = url.deletingLastPathComponent()
     
         if(self.sourceFolderOpened.absoluteURL != destFolder.absoluteURL) {
-            
            self.sourceFolderOpened = destFolder
-            
         } else {
+            self.reloadFileList()
             self.directory = Directory(folderURL: self.sourceFolderOpened)
         }
         

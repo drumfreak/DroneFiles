@@ -261,8 +261,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             newDuration = self.composition.duration
         }
         
-       
-        
         if(newDuration.seconds < 2.0) {
             newDuration = CMTime(seconds: 2.0, preferredTimescale: CMTimeScale(self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]))
         }
@@ -293,9 +291,6 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         var frame = 1
         var nextTime = kCMTimeZero
         self.composition = AVMutableComposition()
-        // self.mutableVideoComposition = AVMutableVideoComposition()
-        
-        // self.composition
         
         let videoTrack = self.composition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
 
@@ -351,47 +346,17 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
             }
         })
 
-        //        let instruction = AVMutableVideoCompositionInstruction()
-        //        let videoComposition = AVMutableVideoComposition()
-        //        
-        //        instruction.layerInstructions.append(layerInstruction)
-        //        
-        //        videoComposition.instructions = [instruction]
-        //        
-        //        videoComposition.frameDuration = CMTimeMake(1,30);
-
-        
-        // print("Lets see... frame duration for 240 is \(CMTimeMake(1, 30))")
-        // print("In seconds that is... \(videoComposition.frameDuration.seconds)")
-        
-        // figure out how to get the duration...
-        
         let framerate = self.appSettings.frameRates[self.videoFrameRateSelectMenu.indexOfSelectedItem]
         let size = self.appSettings.videoSizes[self.videoSizeSelectMenu.indexOfSelectedItem]
-        
         
         let videoComposition = AVMutableVideoComposition()
         videoComposition.frameDuration = CMTimeMake(1, Int32(framerate))
         videoComposition.renderSize = size
         
-        // self.videoComposition = videoComposition
         
         self.scaleDuration()
         
         self.totalDuration = nextTime.seconds
-        //                self.composition.tracks.forEach({ m in
-        //                    print("Composition Track: \(m)")
-        //                    m.segments.forEach({ z in
-        //                        print("Segments: \(z)")
-        //                    })
-        //                })
-
-//        if(self.setupAnimation()){
-//            self.setupPlayer()
-//        }
-        
-        // videoComposition.renderSize = NSSize(width: 1920, height: 1080)
-        //self.clipFileSizeVar = self.exportSession.estimatedOutputFileLength
     }
     
     

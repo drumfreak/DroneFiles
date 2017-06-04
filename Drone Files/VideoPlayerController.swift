@@ -45,10 +45,10 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet weak var messageSpinner: NSProgressIndicator!
     
     
-//    // Allow view to receive keypress (remove the purr sound)
-//    override var acceptsFirstResponder : Bool {
-//        return true
-//    }
+    // Allow view to receive keypress (remove the purr sound)
+    override var acceptsFirstResponder : Bool {
+        return true
+    }
     
     
     override func viewDidLoad() {
@@ -62,24 +62,11 @@ class VideoPlayerViewController: NSViewController {
         
         self.playerMessageBoxView.wantsLayer = true
         self.playerMessageBoxView.layer?.backgroundColor = self.appSettings.messageBoxBackground.cgColor
-        //self.playerView.becomeFirstResponder()
 
-        // }
-        //  self.messageSpinner.startAnimation(self)
-        
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-//        addObserver(self, forKeyPath: #keyPath(playerItem.duration), options: [.new, .initial], context: &playerViewControllerKVOContext)
-//        
-//        addObserver(self, forKeyPath: #keyPath(player.rate), options: [.new, .initial], context: &playerViewControllerKVOContext)
-//        
-//        addObserver(self, forKeyPath: #keyPath(playerItem.status), options: [.new, .initial], context: &playerViewControllerKVOContext)
-//        
-        //self.playerView.becomeFirstResponder()
-
-        // print("Video appeared")
     }
     
     override func viewDidDisappear() {
@@ -97,10 +84,6 @@ class VideoPlayerViewController: NSViewController {
     
     
     func playPause() {
-        //        if(!self.playerIsReady) {
-        //            return
-        //        }
-        
         if(self.player.isPlaying) {
             self.player.pause()
             // self.playerView.resignFirstResponder()
@@ -135,27 +118,13 @@ class VideoPlayerViewController: NSViewController {
                                             options: [.old, .new],
                                             context: &playerViewControllerKVOContext)
         
-        // let avPlayerLayer = AVPlayerLayer(player: self.player!)
-        // avPlayerLayer.frame = self.view.bounds
-        
-        //self.playerView.becomeFirstResponder()
-
-        
         
     }
     
     func playerItemDidPlayToEndTime(sender: AnyObject) {
-        // self.playerView.player?.play()
-        
-        
         if(self.appSettings.mediaBinSlideshowRunning) {
-            
             self.appDelegate.mediaBinCollectionView.nextSlideAfterVideo()
-
         } else {
-            
-            // Play next
-            // Loop all next.
             if(self.appSettings.videoPlayerLoop) {
                 self.player.seek(to: kCMTimeZero)
                 self.player.rate = Float(self.videoRate)
@@ -163,8 +132,6 @@ class VideoPlayerViewController: NSViewController {
                 self.player.seek(to: kCMTimeZero)
             }
         }
-        
-        
     }
     
     
@@ -189,7 +156,6 @@ class VideoPlayerViewController: NSViewController {
         self.appDelegate.videoControlsController.metadataLocationLabel?.stringValue = location
         
         // print("Location: \(location)")
-        //self.playerView.becomeFirstResponder()
     }
     
     // Video Player Setup and Play
@@ -273,20 +239,14 @@ class VideoPlayerViewController: NSViewController {
     
     
     func getLocationData(asset: AVAsset) -> String {
-        
         var locationData = ""
-        
         for metaDataItems in asset.commonMetadata {
             if metaDataItems.commonKey == "location" {
-                //print("ASSET METADATA");
-                //print("Common Key: \(String(describing: metaDataItems.commonKey))")
                 locationData = (metaDataItems.value as! NSString) as String
-                // print("Location Data: \(locationData)")
             }
         }
         
         return locationData
-        
     }
     
     
@@ -296,26 +256,8 @@ class VideoPlayerViewController: NSViewController {
     func handleErrorWithMessage(_ message: String?, error: Error? = nil) {
         //  print("Error occured with message: \(message), error: \(error).")
         //  print("Error occured with message: \(message?)")
-        
-        //        let alertTitle = NSLocalizedString("alert.error.title", comment: "Alert title for errors")
-        //        let defaultAlertMessage = NSLocalizedString("error.default.description", comment: "Default error message when no NSError provided")
-        //
-        //        let alert = UIAlertController(title: alertTitle, message: message == nil ? defaultAlertMessage : message, preferredStyle: UIAlertControllerStyle.alert)
-        //
-        //        let alertActionTitle = NSLocalizedString("alert.error.actions.OK", comment: "OK on error alert")
-        //
-        //        let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
-        //
-        //        alert.addAction(alertAction)
-        //
-        //        present(alert, animated: true, completion: nil)
     }
     
-    // MARK: Convenience
-    
-    
-    
-    //observer for av play
     
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
@@ -344,15 +286,12 @@ class VideoPlayerViewController: NSViewController {
             switch status {
             case .readyToPlay:
                 // Player item is ready to play.
-                // print("Player Ready")
-                
-                
                 NotificationCenter.default.addObserver(self, selector: #selector(self.playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.playerItem)
                 
                 
                 self.playerIsReady = true
                 self.appDelegate.videoControlsController.calculateClipLength()
-                
+                self.playerView.becomeFirstResponder()
                 if(self.startPlayingVideo == true) {
                     // self.playerView.becomeFirstResponder()
                     self.player.rate = Float(self.videoRate)
@@ -362,7 +301,6 @@ class VideoPlayerViewController: NSViewController {
                 break
             case .failed:
                 // Player item failed. See error.
-                
                 print("Player Failed")
                 self.playerIsReady = false
                 break
@@ -370,9 +308,7 @@ class VideoPlayerViewController: NSViewController {
             case .unknown:
                 print("Player Unkown");
                 self.playerIsReady = false
-                
                 break
-                // Player item is not yet ready.
             }
         }
         
@@ -380,10 +316,6 @@ class VideoPlayerViewController: NSViewController {
             
             
         } else if keyPath == #keyPath(AVPlayer.rate) {
-            // Update `playPauseButton` image.
-            // print("Hey rate is changing!");
-            
-            // print("12345 This is happening...")
             let newRate = (change?[NSKeyValueChangeKey.newKey] as! NSNumber).doubleValue
             if(newRate != 0.0) {
                 self.appDelegate.videoControlsController.startTimer()
