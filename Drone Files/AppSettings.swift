@@ -16,6 +16,8 @@ struct AppSettings {
     
     let userDefaults = UserDefaults.standard
     
+    var dispatchQueue = DispatchQoS.QoSClass.background
+    
     var mediaQueueIsOpen = false {
         didSet {
             

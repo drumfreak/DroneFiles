@@ -702,7 +702,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
             })
         }
         
-        let queue = DispatchQueue.global(qos: .userInteractive)
+        let queue = DispatchQueue.global(qos: self.appSettings.dispatchQueue)
         
         self.appDelegate.mediaQueue.queue.append(workerItem)
         
@@ -936,7 +936,8 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                             preserveName: self.appDelegate.appSettings.screenshotPreserveVideoName,
                             preserveDate: self.appDelegate.appSettings.screenshotPreserveVideoDate,
                             preserveLocation: self.appDelegate.appSettings.screenshotPreserveVideoLocation,
-                            outputSize: size, { progress in
+                            outputSize: size,
+                        { progress in
                             workerItem.inProgress = true
                             workerItem.percent = (progress.fractionCompleted * 100.0)
                         }, success: { url in
@@ -957,7 +958,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                         })
                     }
                     
-                    let queue = DispatchQueue.global(qos: .userInteractive)
+                    let queue = DispatchQueue.global(qos: self.appSettings.dispatchQueue)
                     
                     self.appDelegate.mediaQueue.queue.append(workerItem)
                     

@@ -155,7 +155,7 @@ class FileManagerOptionsRenameController: NSViewController {
                 //                print("New File: ")
                 //                print(newFilePath)
                 
-                DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.global(qos: self.appSettings.dispatchQueue).async {
                     if(self.renameSingleFiles(from: url!, to: newFile!)) {
                         manageFileURLS.add(url!)
                     } else {

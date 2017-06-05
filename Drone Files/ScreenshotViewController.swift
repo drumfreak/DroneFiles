@@ -201,6 +201,65 @@ class ScreenshotViewController: NSViewController {
         }
     }
     
+    
+    
+    // Screen shot stuff
+    func generateThumbnailsForBurst(asset: AVAsset, times: [CMTime]) -> [CGImage]! {
+        
+        let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+        
+        assetImgGenerate.appliesPreferredTrackTransform = true
+        assetImgGenerate.requestedTimeToleranceAfter = kCMTimeZero;
+        assetImgGenerate.requestedTimeToleranceBefore = kCMTimeZero;
+        assetImgGenerate.apertureMode = AVAssetImageGeneratorApertureModeCleanAperture
+        
+        
+        var ntimes = [NSValue]()
+        times.forEach({ time in
+            ntimes.append(NSValue(time: time))
+        })
+        
+        // var img: CGImage?
+        
+        var images = [CGImage!]()
+        
+       do {
+            var i = 0
+        
+            assetImgGenerate.generateCGImagesAsynchronously(forTimes: ntimes, completionHandler: { (imgTime, cgImage, imgCMTime, result, error) in
+                
+                
+                print("Image \(i) of \(times.count) generated... ")
+                
+                images.append(cgImage!)
+                i += 1
+                if(error == nil) {
+                }
+                
+            })
+            
+            images.forEach({img in
+                print("IMAGES!!!!!!!")
+                print(img)
+            })
+        }
+        
+//        if img != nil {
+//            if(saveImage(image: img!)) {
+//                let url = URL(string: self.screenshotNameFullURL)
+//                return url
+//            } else {
+//                return nil
+//            }
+//        } else {
+//            return nil
+//        }
+        
+        
+        return images
+    }
+
+    
     func convertCGImageToCIImage(inputImage: CGImage) -> CIImage! {
         let ciImage = CIImage(cgImage: inputImage)
         return ciImage
@@ -283,62 +342,71 @@ class ScreenshotViewController: NSViewController {
         // return self.screenshotPath
     }
     
-    func getScreenshotPathsForBurst(fileExtension: String, videoURL: URL! ) -> [URL]! {
+    func getScreenshotPathsForBurst(assetUrl: URL!,
+                                    fileExtension: String,
+                                    preserveVideoName: Bool,
+                                    writeFile: Bool) -> [URL]! {
         
         let dateformatter = DateFormatter()
         
         dateformatter.dateFormat = "HHmm.ss"
     
-        modificationDate = fileFun.getScreenShotDate(originalFile: videoURL, offset: 0)
+        modificationDate = fileFun.getFileModificationDate(originalFile: assetUrl, offset: 0)
         
         let now = dateformatter.string(from: modificationDate)
         
-        self.screenshotPathFull = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
+        // var screenshotPathFull = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
         
-        self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
+        // var screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
+        
+        var screenshotName = ""
+        
+        var screenshotNameFull = ""
         
         let increment = getScreenShotIncrement(_folder: self.appSettings.screenShotFolder)
         
         if(self.appSettings.screenshotPreserveVideoName) {
-            
-            let assetUrl = self.appDelegate.videoControlsController.currentVideoURL
-            
             let filename = assetUrl?.deletingPathExtension()
-            
             let tmpName = filename!.lastPathComponent
-            
-            var screenShotName = tmpName + " - " + increment
-            
-            screenShotName +=  " - " + now + "." + fileExtension
-            
-            self.screenshotName = screenShotName
-            
+            screenshotName = "\(tmpName) - \(increment) - \(now).\(fileExtension)"
         } else {
-            
-            self.screenshotName = self.appSettings.saveDirectoryName + " - " + increment + " - "  + now + "." + fileExtension
-        
+            screenshotName = "\(self.appSettings.saveDirectoryName) - \(increment) - \(now).\(fileExtension)"
         }
         
-        self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
+        screenshotNameFull = "\(screenshotPathFull)/\(screenshotName)"
+        screenshotNameFullURL = screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
         
-        self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
-        
-        if FileManager.default.fileExists(atPath: self.screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
+        if FileManager.default.fileExists(atPath: screenshotNameFull.replacingOccurrences(of: "file://", with: "")) {
             // print("Fuck that file screenshot exists..")
             let incrementer = "00000"
-            self.screenshotName = self.appSettings.saveDirectoryName +  " - " + increment + " - " + now + " - " + incrementer  + "." + fileExtension
+            screenshotName = "\(self.appSettings.saveDirectoryName) - \(increment) - \(now) - \(incrementer).\(fileExtension)"
             
-            self.screenshotNameFull = self.screenshotPathFull + "/" + self.screenshotName
-            self.screenshotNameFullURL = self.screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
+            screenshotNameFull = "\(screenshotPathFull)\(screenshotName)"
+            screenshotNameFullURL = screenshotNameFull.replacingOccurrences(of: " ", with: "%20")
             
         } else {
             // print("That screenshot does not exist..")
         }
         
+        
+        let screenshotURL = URL(string: screenshotNameFullURL)
         // return URL(string: self.screenshotNameFullURL)!
+        if(writeFile) {
+            
+            let content = "Put this in a file please."
+            
+            do {
+                try content.write(to: screenshotURL!, atomically: false, encoding: String.Encoding.utf8)
+            }
+            catch {/* error handling here */ }
+            
+        }
+        // Create the files.
         return []
         // return self.screenshotPath
     }
+    
+    
     
     func imageWrite(data: Data, to url: URL!, options: Data.WritingOptions = .atomic) -> Bool {
         

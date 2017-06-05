@@ -1154,8 +1154,7 @@ extension DispatchWorkItem {
 
 class FileFunctions: NSObject {
     
-    func getScreenShotDate(originalFile: URL!, offset: Int) -> Date {
-       
+    func getFileModificationDate(originalFile: URL!, offset: Int) -> Date {
         let date = Date()
         do {
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: originalFile.path)
@@ -1166,7 +1165,6 @@ class FileFunctions: NSObject {
             print("Error getting file modification attribute date: \(error.localizedDescription)")
             return date
         }
-        
     }
     
     

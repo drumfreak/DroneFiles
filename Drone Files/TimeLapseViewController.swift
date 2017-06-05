@@ -319,7 +319,7 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
 
         // timeLapseWorkerItem.perform()
         
-        let queue = DispatchQueue.global(qos: .userInitiated)
+        let queue = DispatchQueue.global(qos: self.appSettings.dispatchQueue)
         
         queue.async(execute: timeLapseWorkerItem)
         

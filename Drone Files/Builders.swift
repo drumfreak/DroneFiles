@@ -239,10 +239,9 @@ class RetimeBuilder: NSObject {
         let videoComposition = AVMutableVideoComposition()
         videoComposition.frameDuration = CMTimeMake(1, frameRate)
         videoComposition.renderSize = outputSize
-//        
+       
         let instruction: AVMutableVideoCompositionInstruction = AVMutableVideoCompositionInstruction.init()
-        
-        
+    
         instruction.timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration)
         
         let transformer: AVMutableVideoCompositionLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack);
@@ -282,9 +281,6 @@ class RetimeBuilder: NSObject {
             instruction.layerInstructions.append(videoLayerInstruction)
             
             //Apply any transformer if needed
-            //
-            
-        
             
         }
     
@@ -294,7 +290,7 @@ class RetimeBuilder: NSObject {
 
         
         let currentProgress = Progress(totalUnitCount: 100)
-        currentProgress.completedUnitCount = 10
+        currentProgress.completedUnitCount = 0
         progress(currentProgress)
         var isComplete = false
         // progress
@@ -391,7 +387,7 @@ class ClipTrimBuilder: NSObject {
         exportSession.timeRange = timeRange
         
         let currentProgress = Progress(totalUnitCount: 100)
-        currentProgress.completedUnitCount = 10
+        currentProgress.completedUnitCount = 0
         progress(currentProgress)
         var isComplete = false
         // progress
@@ -471,20 +467,77 @@ class VideoFrameBurstBuilder: NSObject {
         self.outputUrl = url
         self.asset = asset
         //self.videoOutputUrl = URL(string: url)!
-        
     }
     
     func getProgress() -> Double {
         return 0.1
     }
-    func build(startTime: CMTime, interval: Double, framesBefore: Int32, framesAfter: Int32, preserveName: Bool, preserveDate: Bool, preserveLocation: Bool, outputSize: CGSize, _ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+    
+    func build(startTime: CMTime,
+               interval: Double,
+               framesBefore: Int32,
+               framesAfter: Int32,
+               preserveName: Bool,
+               preserveDate: Bool,
+               preserveLocation: Bool,
+               outputSize: CGSize,
+               _ progress: @escaping ((Progress) -> Void),
+               success: @escaping ((URL) -> Void),
+               failure: @escaping ((NSError) -> Void)) {
         
-        // print("OUTPUT URL \(self.outputUrl)")
+        let currentProgress = Progress(totalUnitCount: 100)
+        currentProgress.completedUnitCount = 0
+        progress(currentProgress)
         
-        let currentProgress2 = Progress(totalUnitCount: 100)
-        currentProgress2.completedUnitCount = 100
-        progress(currentProgress2)
-     
+        print("Burst startTime: \(startTime.seconds)")
+        print("Burst interval: \(interval)")
+        print("Burst framesBefore: \(framesBefore)")
+        print("Burst framesAfter: \(framesAfter)")
+        print("Burst preserveName: \(preserveName)")
+        print("Burst preserveDate: \(preserveDate)")
+        print("Burst preserveLocation: \(preserveLocation)")
+        print("Burst outputSize: \(outputSize)")
+        
+        var times = [CMTime]()
+
+        var burstsTaken = 0
+        var i = framesBefore
+        var playerTime1: CMTime!
+        
+        while(i > 0) {
+            let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), startTime.timescale);
+            
+            playerTime1 = CMTimeSubtract(startTime, oneFrame);
+            times.append(playerTime1)
+            burstsTaken += 1
+            i -= 1
+        }
+        
+        i = 0
+        times.append(startTime)
+        while(i < framesAfter) {
+            let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), startTime.timescale);
+            playerTime1 = CMTimeAdd(startTime, oneFrame);
+            times.append(playerTime1)
+            i += 1
+        }
+
+        times.forEach({time in
+            print("Time: \(time.seconds)")
+        })
+        
+        // print("Times \(times)")
+        
+        let results = self.appDelegate.screenshotViewController.generateThumbnailsForBurst(asset: self.asset, times: times)
+        
+        print(results!)
+        
+        DispatchQueue.main.async {
+            success(self.outputUrl)
+            currentProgress.completedUnitCount = 100
+            progress(currentProgress)
+        }
+        
         return
         
         let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
@@ -494,9 +547,6 @@ class VideoFrameBurstBuilder: NSObject {
         exportSession.outputURL = self.outputUrl // Output URL
         exportSession.timeRange = timeRange
         
-        let currentProgress = Progress(totalUnitCount: 100)
-        currentProgress.completedUnitCount = 10
-        progress(currentProgress)
         var isComplete = false
         // progress
         exportSession.exportAsynchronously {
@@ -506,7 +556,7 @@ class VideoFrameBurstBuilder: NSObject {
                 break
             case .completed:
                 DispatchQueue.main.async {
-                    // success(self.outputUrl)
+                    success(self.outputUrl)
                     currentProgress.completedUnitCount = 100
                     progress(currentProgress)
                 }
@@ -532,18 +582,18 @@ class VideoFrameBurstBuilder: NSObject {
             }
         }
         
-        var i = 0
+       var z = 0
         
         while exportSession.status == .waiting || exportSession.status == .exporting {
             
-            if(i < 100) {
+            if(z < 100) {
                 // print("Progress: \(exportSession.progress * 100.0)%.")
                 currentProgress.completedUnitCount = Int64(exportSession.progress * 100.0)
                 progress(currentProgress)
-                i = i + 1
+                z = z + 1
                 
             } else {
-                i = 0
+                z = 0
             }
             
             if(exportSession.progress == 1 && isComplete == false) {

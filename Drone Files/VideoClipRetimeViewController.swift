@@ -499,7 +499,7 @@ class VideoClipRetimeViewController: NSViewController, NSUserNotificationCenterD
         
         // timeLapseWorkerItem.perform()
         
-        let queue = DispatchQueue.global(qos: .userInteractive)
+        let queue = DispatchQueue.global(qos: self.appSettings.dispatchQueue)
         self.appDelegate.mediaQueue.queue.append(workerItem)
         queue.async(execute: timeLapseWorkerItem)
         
