@@ -458,7 +458,8 @@ class VideoFrameBurstBuilder: NSObject {
     var frameRate = Int32(30)
     var timeRange: CMTimeRange!
     var asset: AVAsset!
-    
+    var fileFun = FileFunctions()
+
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }
@@ -474,6 +475,7 @@ class VideoFrameBurstBuilder: NSObject {
     }
     
     func build(startTime: CMTime,
+               assetUrl: URL!,
                interval: Double,
                framesBefore: Int32,
                framesAfter: Int32,
@@ -481,14 +483,11 @@ class VideoFrameBurstBuilder: NSObject {
                preserveDate: Bool,
                preserveLocation: Bool,
                outputSize: CGSize,
-               _ progress: @escaping ((Progress) -> Void),
+               _ progress: @escaping ((Progress, URL) -> Void),
                success: @escaping ((URL) -> Void),
                failure: @escaping ((NSError) -> Void)) {
         
-        let currentProgress = Progress(totalUnitCount: 100)
-        currentProgress.completedUnitCount = 0
-        progress(currentProgress)
-        
+        print("Burst assetURL: \(assetUrl.absoluteURL)")
         print("Burst startTime: \(startTime.seconds)")
         print("Burst interval: \(interval)")
         print("Burst framesBefore: \(framesBefore)")
@@ -500,25 +499,33 @@ class VideoFrameBurstBuilder: NSObject {
         
         var times = [CMTime]()
 
-        var burstsTaken = 0
-        var i = framesBefore
+        var i = Int64(framesBefore)
         var playerTime1: CMTime!
         
         while(i > 0) {
             let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), startTime.timescale);
             
             playerTime1 = CMTimeSubtract(startTime, oneFrame);
-            times.append(playerTime1)
-            burstsTaken += 1
+            
+            if(playerTime1 >= kCMTimeZero) {
+                times.append(playerTime1)
+            }
+            
             i -= 1
         }
         
         i = 0
+        
         times.append(startTime)
-        while(i < framesAfter) {
+        
+        while(i < Int64(framesAfter)) {
             let oneFrame = CMTimeMakeWithSeconds((Double(i) * interval), startTime.timescale);
             playerTime1 = CMTimeAdd(startTime, oneFrame);
-            times.append(playerTime1)
+            
+            if(playerTime1 <= self.asset.duration) {
+                times.append(playerTime1)
+            }
+
             i += 1
         }
 
@@ -527,83 +534,50 @@ class VideoFrameBurstBuilder: NSObject {
         })
         
         // print("Times \(times)")
-        
-        let results = self.appDelegate.screenshotViewController.generateThumbnailsForBurst(asset: self.asset, times: times)
-        
-        print(results!)
-        
-        DispatchQueue.main.async {
-            success(self.outputUrl)
-            currentProgress.completedUnitCount = 100
-            progress(currentProgress)
+        var fileExtension = "png"
+        if(self.appDelegate.appSettings.screenshotTypeJPG) {
+            fileExtension = "jpg"
         }
         
-        return
+        let urls = self.appDelegate.screenshotViewController.getScreenshotPathsForBurst(assetUrl: assetUrl, numFiles: times.count, fileExtension: fileExtension, preserveVideoName: self.appDelegate.appSettings.screenshotPreserveVideoName, writeFile: true)
         
-        let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
+        let currentProgress = Progress(totalUnitCount: Int64(times.count))
+        currentProgress.completedUnitCount = 0
+        progress(currentProgress, (urls?[0])!)
         
-        // self.exportSession.videoComposition = videoComposition
-        exportSession.outputFileType = AVFileTypeQuickTimeMovie
-        exportSession.outputURL = self.outputUrl // Output URL
-        exportSession.timeRange = timeRange
+        i = 0
+        self.appDelegate.screenshotViewController.generateThumbnailsForBurst(
+            asset: self.asset,
+            assetUrl:  assetUrl,
+            times: times,
+            urls: urls!,
+            fileExtension: fileExtension,
+            preserveLocation: self.appDelegate.appSettings.screenshotPreserveVideoLocation,
+            preserveDate: preserveDate,
+            fileDate: fileFun.getFileModificationDate(originalFile: assetUrl,offset: 0),
+            { prog, url in
+            // workerItem.inProgress = true
+            // workerItem.percent = (progress.fractionCompleted * 100.0)
+            i += 1
+            currentProgress.completedUnitCount = (i <= Int64(times.count)) ? i : Int64(times.count)
+            
+            progress(currentProgress, url)
         
-        var isComplete = false
-        // progress
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
-            case .exporting:
-                // print("~~~~~~~~~ EXPORTING")
-                break
-            case .completed:
+        }, success: { url in
+            i += 1
                 DispatchQueue.main.async {
                     success(self.outputUrl)
                     currentProgress.completedUnitCount = 100
-                    progress(currentProgress)
+                    progress(currentProgress, (urls?[0])!)
                 }
-                break
-            case .failed:
-                DispatchQueue.main.async {
-                    failure(exportSession.error! as NSError)
-                    print(exportSession.error!)
-                    
-                    // self.clipTrimTimer.invalidate()
-                    currentProgress.completedUnitCount = 0
-                    progress(currentProgress)
-                }
-                break
-            default:
-                DispatchQueue.main.async {
-                    // self.clipTrimTimer.invalidate()
-                    failure(exportSession.error! as NSError)
-                    currentProgress.completedUnitCount = 0
-                    progress(currentProgress)
-                }
-                break
-            }
-        }
-        
-       var z = 0
-        
-        while exportSession.status == .waiting || exportSession.status == .exporting {
-            
-            if(z < 100) {
-                // print("Progress: \(exportSession.progress * 100.0)%.")
-                currentProgress.completedUnitCount = Int64(exportSession.progress * 100.0)
-                progress(currentProgress)
-                z = z + 1
-                
-            } else {
-                z = 0
-            }
-            
-            if(exportSession.progress == 1 && isComplete == false) {
-                if(!isComplete) {
-                    success(self.outputUrl)
-                    isComplete = true
-                }
-                
-            }
-        }
+        }, failure: { error in
+            i += 1
+            print("ERROR \(error)")
+            failure(error as NSError)
+            currentProgress.completedUnitCount = 0
+            progress(currentProgress, (urls?[0])!)
+        })
+
     }
 }
 

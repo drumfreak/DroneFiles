@@ -189,14 +189,17 @@ class MediaQueueMonitorViewController: NSViewController {
             // print("\(i) Status : \(String(describing: worker.workerStatus))")
                         
             
-            if(self.tableView.numberOfRows >= 1) {
-                let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: false)
+            if(self.tableView.numberOfRows >= i) {
+                let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: true)
                 
                 let cell = rowView?.view(atColumn: 0) as! MediaQueueMonitorTableCellView
                 
                 DispatchQueue.main.async {
                     cell.queueTitleLabel.stringValue = worker.title
-                    cell.queueFileNameLabel.stringValue = worker.outputUrl.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
+                    if(worker.outputUrl != nil) {
+                         cell.queueFileNameLabel.stringValue = (worker.outputUrl?.lastPathComponent.replacingOccurrences(of: "%20", with: " "))!
+                    }
+                   
                     
                     cell.queueOverAllProgressIndicator.doubleValue = worker.percent
                     

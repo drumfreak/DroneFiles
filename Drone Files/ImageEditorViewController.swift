@@ -102,13 +102,16 @@ class ImageEditorViewController: NSViewController {
             self.imageUrl = _url
             
             self.imageViewLoad.setImageWith(self.imageUrl!)
-            self.preLoadedImage = self.imageViewLoad.image().takeUnretainedValue()
-            
-            if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
-                self.transitionFade()
-            } else {
-                self.transitionNone()
+            if(self.imageViewLoad.image() != nil) {
+                self.preLoadedImage = self.imageViewLoad.image().takeUnretainedValue()
+                if(self.appDelegate.appSettings.mediaBinSlideshowRunning) {
+                    self.transitionFade()
+                } else {
+                    self.transitionNone()
+                }
             }
+            
+           
             
        }
     }

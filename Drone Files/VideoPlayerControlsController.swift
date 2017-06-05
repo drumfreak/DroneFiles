@@ -904,12 +904,10 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     
                 } else {
                     // Background mode... this is the shit!
+                    self.messageBoxLabel(string: "Screen Shot Burst Queued...")
+                    self.messageBox(hidden: false)
                     
-                    // Asset.
-                    // starting time
-                    // number of bursts
-                    
-                    print(self.appDelegate.screenshotViewController.getScreenshotPath())
+                    // print(self.appDelegate.screenshotViewController.getScreenshotPath())
                     
                     
                     let outputUrl = self.appDelegate.screenshotViewController.getScreenshotPath()
@@ -921,7 +919,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     
                     let frameBurstWorkerItem = DispatchWorkItem {
                         workerItem.inProgress = true
-                        //  workerItem.outputUrl = outputUrl
+                        workerItem.outputUrl = outputUrl
                         workerItem.title = "Frame Burst In Progress!"
    
                         let builder = VideoFrameBurstBuilder(asset: asset, url: outputUrl!)
@@ -930,6 +928,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                         
                         builder.build(
                             startTime: (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.currentTime())!,
+                            assetUrl: self.appDelegate.videoPlayerViewController?.nowPlayingURL!,
                             interval: self.appDelegate.appSettings.screenshotFramesInterval,
                             framesBefore: self.appDelegate.appSettings.screenshotFramesBefore,
                             framesAfter: self.appDelegate.appSettings.screenshotFramesAfter,
@@ -937,10 +936,15 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                             preserveDate: self.appDelegate.appSettings.screenshotPreserveVideoDate,
                             preserveLocation: self.appDelegate.appSettings.screenshotPreserveVideoLocation,
                             outputSize: size,
-                        { progress in
+                        { progress, url in
+                            
+                            print("burst progress: \(progress.fractionCompleted)")
+                            
                             workerItem.inProgress = true
                             workerItem.percent = (progress.fractionCompleted * 100.0)
+                            workerItem.outputUrl = url
                         }, success: { url in
+                            print("burst success: \(url)")
                             workerItem.outputUrl = url
                             workerItem.workerStatus = true
                             workerItem.inProgress = false
@@ -948,7 +952,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                                 finishBurstSave(false, url: url)
                             }
                         }, failure: { error in
-                            print("ERROR \(error)")
+                            print("burst ERROR \(error)")
                             workerItem.workerStatus = false
                             workerItem.inProgress = false
                             workerItem.failed = true
@@ -979,6 +983,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                                 
                                 let notification = NSUserNotification()
                                 
+                                
                                 notification.identifier = "frameBurst\(UUID().uuidString)"
                                 notification.title = "Video Frame Burst Saved!"
                                 notification.informativeText = url.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
@@ -1001,6 +1006,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                                 
                                 notification.additionalActions = actions
                                 
+                                self.notificationCenter.delegate = self
                                 self.notificationCenter.deliver(notification)
                                 
                             } else {
@@ -1016,8 +1022,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                             }
                         }
                     }
-
-
                 }
                 
                 
