@@ -21,7 +21,7 @@ class EditorViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // print("Subview Loded")
-        print("Editor Container Loaded")
+        //print("Editor Container Loaded")
         
         //  self.performSegue(withIdentifier: "videoPlayerSegue", sender: self)
     }

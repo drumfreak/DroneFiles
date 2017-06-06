@@ -212,7 +212,7 @@ class MediaQueueMonitorViewController: NSViewController {
             
             
             if(worker.percent >= 100.0) {
-                print("\(i)  REMOVING WORKER - Complete \(i)")
+                //print("\(i)  REMOVING WORKER - Complete \(i)")
                 self.stopTimer()
                 self.appDelegate.mediaQueue.queue.remove(at: i)
                 if(self.tableView.numberOfRows >= i) {
@@ -222,7 +222,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 return
                 // Crashed below...
             } else if(worker.inProgress == false) {
-                print("\(i)  REMOVING WORKER - Not in progress \(i)")
+                //print("\(i)  REMOVING WORKER - Not in progress \(i)")
                 
                 self.stopTimer()
                 self.appDelegate.mediaQueue.queue.remove(at: i)
@@ -235,7 +235,7 @@ class MediaQueueMonitorViewController: NSViewController {
                 self.startTimer()
                 return
             } else if(worker.failed) {
-                print("\(i)  REMOVING WORKER - FAILED WORKER \(i)")
+                //print("\(i)  REMOVING WORKER - FAILED WORKER \(i)")
                 self.stopTimer()
 
                 self.appDelegate.mediaQueue.queue.remove(at: i)

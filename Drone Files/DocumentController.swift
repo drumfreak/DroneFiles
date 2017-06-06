@@ -12,7 +12,7 @@ import Cocoa
 class DroneFilesDocumentController: NSDocumentController {
     
     func openDocument(sender: AnyObject) {
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~openDocument got called")
+        //print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~openDocument got called")
     }
     
 }

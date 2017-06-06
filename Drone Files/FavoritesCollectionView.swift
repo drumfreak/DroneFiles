@@ -142,7 +142,7 @@ class FavoritesCollectionViewController: NSViewController {
     
     @IBAction func mediaShowRateSliderChanged(_ sender: NSSlider) {
         // let slider = sender as! NSSlider
-        print(sender.doubleValue)
+        //print(sender.doubleValue)
         self.appDelegate.appSettings.mediaBinTimerInterval = sender.doubleValue
         
         self.mediaShowRateLabel.doubleValue = sender.doubleValue
@@ -193,7 +193,7 @@ class FavoritesCollectionViewController: NSViewController {
         self.appDelegate.appSettings.mediaBinSlideshowRunning = false
         if(self.mediaBinSlideshowTimer != nil) {
             if(self.mediaBinSlideshowTimer.isValid) {
-                print("Invalidating Timer")
+                //print("Invalidating Timer")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.mediaBinSlideshowTimer.invalidate()
                 self.mediaBinSlideshowTimer = nil
@@ -204,7 +204,7 @@ class FavoritesCollectionViewController: NSViewController {
     
     func nextSlide() {
         
-        print("Hey next slide!")
+        //print("Hey next slide!")
         
         self.currentSlide += 1
         
@@ -213,7 +213,7 @@ class FavoritesCollectionViewController: NSViewController {
             self.currentSlide = 0
         }
         
-        print("Selecting : i \(self.currentSlide)")
+        //print("Selecting : i \(self.currentSlide)")
         
         //DispatchQueue.main.async {
             

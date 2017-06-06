@@ -131,7 +131,7 @@ class FileManagerViewController: NSViewController {
                 // print(attributes)
                 
                 
-                print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
+                // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
                 totalSize += attributes["NSFileSize"] as! Int64
                 totalFiles += Int(1)
             } catch _ as NSError {
@@ -183,7 +183,7 @@ class FileManagerViewController: NSViewController {
         let url = URL(string: urlPath)
         var attributes = NSMutableDictionary()
         
-        print(url!.absoluteString)
+        // print(url!.absoluteString)
         
         
         let path = getPathFromURL(path: (url?.absoluteString)!)
@@ -191,14 +191,14 @@ class FileManagerViewController: NSViewController {
         
         do {
             try attributes = FileManager.default.attributesOfItem(atPath: path) as! NSMutableDictionary
-            print(attributes)
+            // print(attributes)
             
             // print("FILE SIZE : \(String(describing: attributes["NSFileSize"]))")
             totalSize += attributes["NSFileSize"] as! Int64
             totalFiles += Int64(1)
             
-            print("Calculating size for \(String(describing: path))")
-            print("Calculating size for \(totalSize)")
+            //print("Calculating size for \(String(describing: path))")
+            //print("Calculating size for \(totalSize)")
             
         } catch _ as NSError {
             // do nothing...

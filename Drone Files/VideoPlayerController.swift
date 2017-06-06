@@ -137,6 +137,7 @@ class VideoPlayerViewController: NSViewController {
     
     func playVideo(_url: URL, frame: CMTime, startPlaying: Bool) {
         // print("Play Video function")
+        // return
         if(startPlaying == true) {
             self.startPlayingVideo = true // passes off to after player is ready.
         } else {

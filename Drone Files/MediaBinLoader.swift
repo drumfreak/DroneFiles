@@ -124,7 +124,7 @@ class MediaBinLoader: NSObject {
         
         guard let directoryEnumerator = fileManager.enumerator(at: folderURL, includingPropertiesForKeys: resourceValueKeys,
                                                                options: options, errorHandler: { url, error in
-                                                                print("`directoryEnumerator` error: \(error).")
+                                                                // print("`directoryEnumerator` error: \(error).")
                                                                 return true
         }) else { return nil }
         
@@ -161,7 +161,7 @@ class MediaBinLoader: NSObject {
     func loadDataForFolderWithUrl(_ folderURL: URL) {
         let urls = getFilesURLFromFolder(folderURL)
         if let urls = urls {
-            print("\(urls.count) images found in directory \(folderURL.lastPathComponent)")
+            //print("\(urls.count) images found in directory \(folderURL.lastPathComponent)")
             for url in urls {
                 print("\(url.lastPathComponent)")
             }

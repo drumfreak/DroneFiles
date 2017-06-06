@@ -43,7 +43,8 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     var clippedItemLoadNewItem = true
     var burstInProgress = false
     
-    
+    @IBOutlet weak var markChapterButton: NSButton!
+
     
     // Metadata
     
@@ -259,7 +260,22 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         }
     }
     
+    // Video Chapters
     
+    
+    @IBAction func markChapter(_ sender: AnyObject) {
+        
+        let chapterMarkTime = self.appDelegate.videoPlayerViewController?.player.currentTime()
+        
+        print("Chapter marked \(String(describing: chapterMarkTime))")
+        
+    }
+    
+    
+    
+    @IBAction func showVideoInfoWindow(_ sender: AnyObject) {
+            print("Show the window punk!")
+    }
     
     // Video Clipping
     func getClippedVideosIncrement(_folder: String) -> String {

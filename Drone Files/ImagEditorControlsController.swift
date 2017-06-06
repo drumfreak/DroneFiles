@@ -119,12 +119,12 @@ class ImageEditorControlsController: NSViewController {
     
     
     func catchNotification(notification:Notification) -> Void {
-        print(notification)
+       // print(notification)
         //print("Catch notification")
     }
     
     func modalEnded() {
-        print("MODAL ENDED");
+        //print("MODAL ENDED");
     }
     
     
@@ -149,7 +149,7 @@ class ImageEditorControlsController: NSViewController {
     }
     
     @IBAction func moveImage(_ sender: AnyObject) {
-        print("Hey moveImage")
+        //print("Hey moveImage")
         DispatchQueue.main.async {
             self.appDelegate.imageEditorViewController?.imageView.currentToolMode = IKToolModeMove
         }

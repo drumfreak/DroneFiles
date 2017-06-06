@@ -261,7 +261,7 @@ class RetimeBuilder: NSObject {
 
             let scaleFactor = CGAffineTransform(scaleX: scaleToFitRatio, y: scaleToFitRatio)
             
-            print("SCALE TO THIS RATIO: \(scaleToFitRatio)")
+            // print("SCALE TO THIS RATIO: \(scaleToFitRatio)")
             
             let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
             
@@ -487,15 +487,15 @@ class VideoFrameBurstBuilder: NSObject {
                success: @escaping ((URL) -> Void),
                failure: @escaping ((NSError) -> Void)) {
         
-        print("Burst assetURL: \(assetUrl.absoluteURL)")
-        print("Burst startTime: \(startTime.seconds)")
-        print("Burst interval: \(interval)")
-        print("Burst framesBefore: \(framesBefore)")
-        print("Burst framesAfter: \(framesAfter)")
-        print("Burst preserveName: \(preserveName)")
-        print("Burst preserveDate: \(preserveDate)")
-        print("Burst preserveLocation: \(preserveLocation)")
-        print("Burst outputSize: \(outputSize)")
+//        print("Burst assetURL: \(assetUrl.absoluteURL)")
+//        print("Burst startTime: \(startTime.seconds)")
+//        print("Burst interval: \(interval)")
+//        print("Burst framesBefore: \(framesBefore)")
+//        print("Burst framesAfter: \(framesAfter)")
+//        print("Burst preserveName: \(preserveName)")
+//        print("Burst preserveDate: \(preserveDate)")
+//        print("Burst preserveLocation: \(preserveLocation)")
+//        print("Burst outputSize: \(outputSize)")
         
         var times = [CMTime]()
 
@@ -565,7 +565,7 @@ class VideoFrameBurstBuilder: NSObject {
                 
             currentProgress.completedUnitCount = i
                 
-            print("UNIT COUNT  \(currentProgress.completedUnitCount)")
+            // print("UNIT COUNT  \(currentProgress.completedUnitCount)")
             
             progress(currentProgress, url)
         

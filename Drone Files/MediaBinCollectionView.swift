@@ -314,7 +314,7 @@ class MediaBinCollectionView: NSViewController {
         }
         if(self.mediaBinSlideshowTimer != nil) {
             if(self.mediaBinSlideshowTimer.isValid) {
-                print("Invalidating Timer")
+                // print("Invalidating Timer")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.mediaBinSlideshowTimer.invalidate()
                 self.appDelegate.appSettings.mediaBinSlideshowRunning = false
@@ -327,7 +327,7 @@ class MediaBinCollectionView: NSViewController {
         self.slideshowPausedForVideo = true
         if(self.mediaBinSlideshowTimer != nil) {
             if(self.mediaBinSlideshowTimer.isValid) {
-                print("Stopping Timer for Video")
+                //print("Stopping Timer for Video")
                 // RunLoop.current.add(self.whatTheFucktimer, forMode: RunLoopMode.commonModes)
                 self.mediaBinSlideshowTimer.invalidate()
                 self.mediaBinSlideshowTimer = nil
@@ -341,7 +341,7 @@ class MediaBinCollectionView: NSViewController {
         
         let count = self.collectionView.numberOfItems(inSection: 0)
         
-        print("Count: \(count)")
+        //print("Count: \(count)")
         
         if(self.currentSlide > -1 && ((self.currentSlide + 1) < self.collectionViewLimit) && ((self.currentSlide + 1) < count)) {
             if(self.currentSlide >= count) {
@@ -356,7 +356,7 @@ class MediaBinCollectionView: NSViewController {
         if(count > 0) {
             DispatchQueue.main.async {
                 
-                print("Slide: \(self.currentSlide)")
+                //print("Slide: \(self.currentSlide)")
                 
                 self.selectItemByIndex(int: self.currentSlide)
                 // self.collectionView.reloadData()

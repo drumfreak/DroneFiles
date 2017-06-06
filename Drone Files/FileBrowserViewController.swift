@@ -397,10 +397,10 @@ class FileBrowserViewController: NSViewController {
         openPanel.resolvesAliases = true
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
-                print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
+                //print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
                 
                 if(openPanel.url?.pathExtension == "dronefiles") {
-                    print ("HEY it's drone files!")
+                    //print ("HEY it's drone files!")
                     self.appDelegate.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
                     
                     self.setupProjectDirectory()
@@ -807,7 +807,7 @@ class FileBrowserViewController: NSViewController {
         
         self.appDelegate.fileManagerViewController?.fileURLs = self.selectedFileURLS
         
-        print(self.appDelegate.fileManagerViewController?.fileURLs! as Any)
+        // print(self.appDelegate.fileManagerViewController?.fileURLs! as Any)
         
         if(showTab) {
             if(!self.appDelegate.appSettings.fileManagerSplitViewIsOpen) {

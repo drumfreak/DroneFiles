@@ -119,7 +119,7 @@ class ImageFile {
             do {
                 try data.write(to: url, options: .withoutOverwriting)
                 
-                print("File saved FAILED")
+                // print("File saved FAILED")
                 
                 return frameImg
             } catch {

@@ -173,7 +173,7 @@ class ScreenShotSettingsViewController: NSViewController {
     
     @IBAction func rateSliderChanged(_ sender: NSSlider) {
         // let slider = sender as! NSSlider
-        print(sender.doubleValue)
+        //print(sender.doubleValue)
         self.appDelegate.appSettings.screenshotFramesInterval = sender.doubleValue
         
         self.frameIntervalLabel.doubleValue = sender.doubleValue
@@ -182,7 +182,7 @@ class ScreenShotSettingsViewController: NSViewController {
     
     @IBAction func setInterval(_ sender: NSTextField) {
         // let slider = sender as! NSSlider
-        print(sender.doubleValue)
+        //print(sender.doubleValue)
         
         self.frameIntervalSlider.doubleValue = sender.doubleValue
         

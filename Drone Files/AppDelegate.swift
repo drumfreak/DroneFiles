@@ -1160,14 +1160,25 @@ class FileFunctions: NSObject {
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: originalFile.path)
             let modificationDate = fileAttributes[FileAttributeKey.modificationDate] as! Date
         
-            print("OFFSET: \(offset)")
             
-            let nanoseconds = (offset * 1e+9)
-            print("NANOSECONDS \(nanoseconds)")
-            print("NANOSECONDS INT \(Int(nanoseconds))")
+            print("OFFSET: \(offset)")
+        
+            let nanoseconds = (1000000000 * offset)
+            print("Nanoseconds \(nanoseconds)")
+            print("Nanoseconds INT \(Int(nanoseconds))")
 
-            let newDate = Calendar.current.date(byAdding: .nanosecond, value: Int(nanoseconds), to: modificationDate)
-    
+            var newDate = Calendar.current.date(byAdding: .nanosecond, value: Int(nanoseconds), to: modificationDate)
+            
+            newDate = Calendar.current.date(byAdding: .second, value: Int(offset), to: newDate!)
+            
+            let dateformatter = DateFormatter()
+            
+            dateformatter.dateFormat = "HHmm.ss.SSSS"
+            
+            print("OLD DATE: \(dateformatter.string(from: modificationDate))")
+            
+            print("NEW DATE: \(dateformatter.string(from: newDate!))")
+
             return newDate!
         } catch let error {
             print("Error getting file modification attribute date: \(error.localizedDescription)")
