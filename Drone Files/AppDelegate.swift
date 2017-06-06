@@ -1154,12 +1154,20 @@ extension DispatchWorkItem {
 
 class FileFunctions: NSObject {
     
-    func getFileModificationDate(originalFile: URL!, offset: Int) -> Date {
+    func getFileModificationDate(originalFile: URL!, offset: Float64) -> Date {
         let date = Date()
         do {
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: originalFile.path)
             let modificationDate = fileAttributes[FileAttributeKey.modificationDate] as! Date
-            let newDate = Calendar.current.date(byAdding: .second, value: offset, to: modificationDate)
+        
+            print("OFFSET: \(offset)")
+            
+            let nanoseconds = (offset * 1e+9)
+            print("NANOSECONDS \(nanoseconds)")
+            print("NANOSECONDS INT \(Int(nanoseconds))")
+
+            let newDate = Calendar.current.date(byAdding: .nanosecond, value: Int(nanoseconds), to: modificationDate)
+    
             return newDate!
         } catch let error {
             print("Error getting file modification attribute date: \(error.localizedDescription)")

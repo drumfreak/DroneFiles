@@ -906,10 +906,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     // Background mode... this is the shit!
                     self.messageBoxLabel(string: "Screen Shot Burst Queued...")
                     self.messageBox(hidden: false)
-                    
-                    // print(self.appDelegate.screenshotViewController.getScreenshotPath())
-                    
-                    
+ 
                     let outputUrl = self.appDelegate.screenshotViewController.getScreenshotPath()
                     
                     let asset = AVAsset(url: (self.appDelegate.videoPlayerViewController?.nowPlayingURL)!)
@@ -975,14 +972,17 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     
                     self.messageBox(hidden: true)
                     
+                    DispatchQueue.main.async {
+                            self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                    }
+
+                    
                     func finishBurstSave(_ err: Bool, url: URL) {
                         DispatchQueue.main.async {
                             
                             if(!err) {
                                 // saveClippedFileCompleted()
-                                
                                 let notification = NSUserNotification()
-                                
                                 
                                 notification.identifier = "frameBurst\(UUID().uuidString)"
                                 notification.title = "Video Frame Burst Saved!"
@@ -1075,8 +1075,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
             })
         }
         
-        
-        
         self.trimOffset = CMTimeGetSeconds(playerTime)
         
         let newDate = getScreenShotDate(originalFile: (self.appDelegate.videoPlayerViewController?.nowPlayingURL.absoluteString)!)
@@ -1149,8 +1147,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
-        
-        
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {

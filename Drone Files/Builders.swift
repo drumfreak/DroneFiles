@@ -539,9 +539,10 @@ class VideoFrameBurstBuilder: NSObject {
             fileExtension = "jpg"
         }
         
-        let urls = self.appDelegate.screenshotViewController.getScreenshotPathsForBurst(assetUrl: assetUrl, numFiles: times.count, fileExtension: fileExtension, preserveVideoName: self.appDelegate.appSettings.screenshotPreserveVideoName, writeFile: true)
+        let urls = self.appDelegate.screenshotViewController.getScreenshotPathsForBurst(assetUrl: assetUrl, startTime: startTime, times: times, numFiles: times.count, fileExtension: fileExtension, preserveVideoName: self.appDelegate.appSettings.screenshotPreserveVideoName, writeFile: true)
         
         let currentProgress = Progress(totalUnitCount: Int64(times.count))
+        
         currentProgress.completedUnitCount = 0
         progress(currentProgress, (urls?[0])!)
         
@@ -549,6 +550,7 @@ class VideoFrameBurstBuilder: NSObject {
         self.appDelegate.screenshotViewController.generateThumbnailsForBurst(
             asset: self.asset,
             assetUrl:  assetUrl,
+            startTime: startTime,
             times: times,
             urls: urls!,
             fileExtension: fileExtension,
@@ -559,7 +561,11 @@ class VideoFrameBurstBuilder: NSObject {
             // workerItem.inProgress = true
             // workerItem.percent = (progress.fractionCompleted * 100.0)
             i += 1
-            currentProgress.completedUnitCount = (i <= Int64(times.count)) ? i : Int64(times.count)
+                
+                
+            currentProgress.completedUnitCount = i
+                
+            print("UNIT COUNT  \(currentProgress.completedUnitCount)")
             
             progress(currentProgress, url)
         
@@ -567,7 +573,7 @@ class VideoFrameBurstBuilder: NSObject {
             i += 1
                 DispatchQueue.main.async {
                     success(self.outputUrl)
-                    currentProgress.completedUnitCount = 100
+                    currentProgress.completedUnitCount = Int64(times.count)
                     progress(currentProgress, (urls?[0])!)
                 }
         }, failure: { error in
