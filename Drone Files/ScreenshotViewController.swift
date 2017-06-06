@@ -61,7 +61,7 @@ class ScreenshotViewController: NSViewController {
     
     
     
-    func takeScreenshot(asset: AVAsset, currentTime: CMTime, preview: Bool, modificationDate: Date) {
+    func takeScreenshot(asset: AVAsset, assetURL: URL!,  currentTime: CMTime, preview: Bool, modificationDate: Date) {
         self.appDelegate.appSettings.blockScreenShotTabSwitch = true
         let maxTime = asset.duration
         
@@ -88,15 +88,14 @@ class ScreenshotViewController: NSViewController {
                 self.longitude = location[1]
             }
         }
-       
-        
-        // print("Taking Screenshot")
-        
-        // print("Screen shot at: \(String(describing: currentTime))")
         
         do {
             if(currentTime >= kCMTimeZero && currentTime < maxTime) {
-                let url =  self.generateThumbnail(asset: asset, fromTime: currentTime)
+                
+                let outputURL = self.getScreenshotPath(startTime: currentTime, assetURL: assetURL)
+            
+                let url =  self.generateThumbnail(asset: asset, assetURL: assetURL, fromTime: currentTime, outputURL: outputURL!)
+                
                 self.appDelegate.appSettings.mediaBinUrls.append(url!)
                 self.appDelegate.saveProject()
                 if(self.appSettings.screenshotPreview) {
@@ -174,7 +173,7 @@ class ScreenshotViewController: NSViewController {
     
     
     // Screen shot stuff
-    func generateThumbnail(asset: AVAsset, fromTime:CMTime) -> URL! {
+    func generateThumbnail(asset: AVAsset, assetURL: URL!, fromTime:CMTime, outputURL: URL) -> URL! {
         
         let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
         
@@ -195,8 +194,8 @@ class ScreenshotViewController: NSViewController {
         }
         
         if img != nil {
-            if(saveImage(image: img!)) {
-                let url = URL(string: self.screenshotNameFullURL)
+            if(saveImage(image: img!, outputURL: outputURL, videoURL: assetURL, currentTime: fromTime)){
+                let url = outputURL
                 return url
             } else {
                 return nil
@@ -338,7 +337,7 @@ class ScreenshotViewController: NSViewController {
         return incrementer
     }
     
-    func getScreenshotPath() -> URL! {
+    func getScreenshotPath(startTime: CMTime, assetURL: URL!) -> URL! {
         
         var fileExtension = "jpg"
         
@@ -346,11 +345,22 @@ class ScreenshotViewController: NSViewController {
             fileExtension = "png"
         }
         
+        
+        do {
+            try FileManager.default.createDirectory(atPath: (URL(string: self.appDelegate.appSettings.screenShotFolder)?.path)!, withIntermediateDirectories: true, attributes: nil)
+        } catch _ as NSError {
+            print("Error while creating a folder.")
+        }
+        
         let dateformatter = DateFormatter()
         
-        dateformatter.dateFormat = "HHmm.ss"
+        dateformatter.dateFormat = "HHmm.ss.SSSS"
         
-        let now = dateformatter.string(from: self.modificationDate)
+        let offsetFloat = CMTimeGetSeconds(startTime)
+        
+        let fileDate = fileFun.getFileModificationDate(originalFile: assetURL, offset: offsetFloat)
+        
+        let now = dateformatter.string(from: fileDate)
         
         self.screenshotPathFull = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
         
@@ -424,16 +434,12 @@ class ScreenshotViewController: NSViewController {
             print("Error while creating a folder.")
         }
 
-        
-        
         var urls = [URL]()
         
         let dateformatter = DateFormatter()
         
         dateformatter.dateFormat = "HHmm.ss.SSSS"
        
-    
-        
         var screenshotName = ""
         
         var screenshotFullName = ""
@@ -459,9 +465,7 @@ class ScreenshotViewController: NSViewController {
             
             if(preserveVideoName) {
                 screenshotName = "\(tmpName) - \(now) - \(increment).\(fileExtension)"
-                
             } else {
-                
                 screenshotName = "\(self.appSettings.saveDirectoryName!) - \(now) - \(increment).\(fileExtension)"
             }
             
@@ -487,10 +491,6 @@ class ScreenshotViewController: NSViewController {
             }
             
             let screenshotURL = URL(string: screenshotNameFullURL)
-            
-            print(screenshotURL!)
-            
-            // return URL(string: self.screenshotNameFullURL)!
             if(writeFile) {
                 
                 let content = "Blank image."
@@ -564,12 +564,17 @@ class ScreenshotViewController: NSViewController {
                 data = nsImage.imagePNGRepresentation()! as Data
             }
             
-            
             if self.imageWrite(data: data as Data , to: url, options: .atomic) {
                 
                 print("Screenshot File saved")
-
-    
+                
+                if(preserveLocation) {
+                    if(self.exifWriteData(url: url, coordinates: location)) {
+                        print("Wrote exif... to \(url.path)")
+                    }
+                }
+                
+                
                 if(preserveDate) {
                     do {
                         
@@ -588,11 +593,7 @@ class ScreenshotViewController: NSViewController {
                     }
                 }
                 
-                if(preserveLocation) {
-                    if(self.exifWriteData(url: url, coordinates: location)) {
-                        print("Wrote exif... to \(url.path)")
-                    }
-                }
+              
                 
                 // self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
                 
@@ -607,7 +608,7 @@ class ScreenshotViewController: NSViewController {
 
     
     
-    func saveImage(image: CGImage) -> Bool {
+    func saveImage(image: CGImage, outputURL: URL!, videoURL: URL!, currentTime: CMTime) -> Bool {
         let context = CIContext()
         
         do {
@@ -623,23 +624,21 @@ class ScreenshotViewController: NSViewController {
             
             let dateformatter = DateFormatter()
             
-            dateformatter.dateFormat = " HH-mm-ss"
+            dateformatter.dateFormat = "HHmm.ss.SSSS"
             
-            self.screenshotPathFull = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
-            self.screenshotPath = self.screenshotPathFull.replacingOccurrences(of: "file://", with: "")
+            let offsetFloat = CMTimeGetSeconds(currentTime)
+            
+            print("Offset Float: \(offsetFloat)")
+            
+            let fileDate = fileFun.getFileModificationDate(originalFile: videoURL, offset: offsetFloat)
             
             do {
-                try FileManager.default.createDirectory(atPath: self.screenshotPath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: self.appDelegate.appSettings.screenShotFolder, withIntermediateDirectories: true, attributes: nil)
             } catch _ as NSError {
                 print("Error while creating a folder.")
             }
             
-            let _ =  self.getScreenshotPath()
-            
             let nsImage = NSImage(cgImage: cgImage!, size: (ciImage?.extent.size)!)
-            
-            
-            // let data = self.pngData(img: nsImage)
             
             var data = Data()
             
@@ -649,20 +648,36 @@ class ScreenshotViewController: NSViewController {
                 data = nsImage.imagePNGRepresentation()! as Data
             }
             
-            let surl = URL(string: (self.screenshotNameFullURL)!)
-            
-            if self.imageWrite(data: data as Data , to: surl, options: .withoutOverwriting) {
+            if self.imageWrite(data: data as Data , to: outputURL, options: .atomic) {
                 
                 print("Screenshot File saved")
-
-                if(self.appSettings.screenshotPreserveVideoDate) {
-                    self.setFileDate(originalFile: self.screenshotNameFullURL.replacingOccurrences(of: "file://", with: ""))
-                }
+                
                 if(self.appSettings.screenshotPreserveVideoLocation) {
-                    if(self.exifWriteData(url: surl!, coordinates: [self.latitude!, self.longitude!])) {
+                    if(self.exifWriteData(url: outputURL!, coordinates: [self.latitude!, self.longitude!])) {
                         print("Wrote exif data")
                     }
                 }
+
+                if(self.appSettings.screenshotPreserveVideoDate) {
+                    do {
+                        let newDate = fileDate
+                        let attributes = [
+                            FileAttributeKey.creationDate: newDate,
+                            FileAttributeKey.modificationDate: newDate
+                        ]
+                        
+                        do {
+                            try FileManager.default.setAttributes(attributes, ofItemAtPath: outputURL.path)
+                            
+                            print("\(outputURL.path)")
+                            print("File date updated...")
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                
+               
                 
                 // self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(fileName: "")
             

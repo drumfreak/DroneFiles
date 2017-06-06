@@ -31,7 +31,6 @@ class ImageEditorControlsController: NSViewController {
     var imageUTType: String = ""
     var saveOptions: IKSaveOptions = IKSaveOptions()
     
-    
     //var imageProperties;
     @IBOutlet var rotationSlider: NSSlider!
     @IBOutlet var zoomSlider: NSSlider!
@@ -64,11 +63,16 @@ class ImageEditorControlsController: NSViewController {
     
     @IBOutlet var controlsBox: NSView!
     
-    
     @IBOutlet weak var nowPlayingFile: NSTextField!
     
-    var nowPlayingURLString: String!
+    var imageLoadedUrl: URL! {
+        didSet {
+            let url = imageLoadedUrl.lastPathComponent
+            self.nowPlayingFile.stringValue = url
+        }
+    }
     
+    var nowPlayingURLString: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -256,14 +260,12 @@ class ImageEditorControlsController: NSViewController {
         let dest = CGImageDestinationCreateWithURL(self.saveUrl! as CFURL, self.saveOptions.imageUTType! as CFString, 1, nil)
         
         
-        if ((dest) != nil)
-        {
+        if ((dest) != nil) {
             CGImageDestinationAddImage(dest!, image1!, self.saveOptions.imageProperties! as CFDictionary)
             CGImageDestinationFinalize(dest!)
             
             self.appDelegate.fileBrowserViewController.reloadFilesWithSelected(url: self.saveUrl)
             self.appDelegate.imageEditorViewController?.loadImage(_url: self.saveUrl!)
-            
         }
     }
     

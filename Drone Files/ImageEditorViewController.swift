@@ -100,7 +100,7 @@ class ImageEditorViewController: NSViewController {
     func loadImage (_url: URL) {
         DispatchQueue.main.async {
             self.imageUrl = _url
-            
+            self.appDelegate.imageEditorControlsController.imageLoadedUrl = _url
             self.imageViewLoad.setImageWith(self.imageUrl!)
             if(self.imageViewLoad.image() != nil) {
                 self.preLoadedImage = self.imageViewLoad.image().takeUnretainedValue()
@@ -110,9 +110,6 @@ class ImageEditorViewController: NSViewController {
                     self.transitionNone()
                 }
             }
-            
-           
-            
        }
     }
     

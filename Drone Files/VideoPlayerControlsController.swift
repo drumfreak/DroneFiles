@@ -907,7 +907,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     self.messageBoxLabel(string: "Screen Shot Burst Queued...")
                     self.messageBox(hidden: false)
  
-                    let outputUrl = self.appDelegate.screenshotViewController.getScreenshotPath()
+                    let outputUrl = self.appDelegate.screenshotViewController.getScreenshotPath(startTime: playerTime!, assetURL: self.appDelegate.videoPlayerViewController?.nowPlayingURL)
                     
                     let asset = AVAsset(url: (self.appDelegate.videoPlayerViewController?.nowPlayingURL)!)
                     
@@ -1083,12 +1083,12 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         if(self.appSettings.screenshotPreview) {
             messageBox(hidden: false)
             
-            self.appDelegate.screenshotViewController.takeScreenshot(asset: currentAsset, currentTime: playerTime, preview: true, modificationDate: newDate)
+            self.appDelegate.screenshotViewController.takeScreenshot(asset: currentAsset, assetURL: self.appDelegate.videoPlayerViewController?.nowPlayingURL, currentTime: playerTime, preview: true, modificationDate: newDate)
             
         } else {
             // print("Screen shot at: \(String(describing: playerTime))")
             
-            self.appDelegate.screenshotViewController.takeScreenshot(asset: currentAsset, currentTime: playerTime, preview: false, modificationDate: newDate)
+            self.appDelegate.screenshotViewController.takeScreenshot(asset: currentAsset, assetURL: self.appDelegate.videoPlayerViewController?.nowPlayingURL, currentTime: playerTime, preview: false, modificationDate: newDate)
             
             messageBox(hidden: false)
             
