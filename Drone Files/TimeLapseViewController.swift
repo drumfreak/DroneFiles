@@ -327,7 +327,7 @@ class TimeLapseViewController: NSViewController, NSUserNotificationCenterDelegat
             self.appDelegate.mediaQueue.queue.append(workerItem)
 
             // print("percent = ", percent)
-            print("Worker launched... ")
+            print("Timelapse Worker launched... ")
         }
         
         self.saveTimeLapseButton.isEnabled = true

@@ -578,7 +578,7 @@ extension AppDelegate {
         if let lastchar = newPath2.characters.last {
             if ["/"].contains(lastchar) {
                 newPath2 = String(newPath2.characters.dropLast())
-                print(newPath2)
+               // print(newPath2)
             }
         }
         
@@ -594,12 +594,12 @@ extension AppDelegate {
             // Write that JSON to the file created earlier
             do {
                
-                print("Updating project file for new path: \(projectFile.absoluteString)")
+                // print("Updating project file for new path: \(projectFile.absoluteString)")
                 let toFile = projectFile.path
                 
                 try f3.write(toFile: toFile, atomically: false, encoding: String.Encoding.utf8)
                 
-                print("JSON data was written to the file successfully!")
+                // print("JSON data was written to the file successfully!")
                
                 self.readProjectFile(projectFile: projectFile.absoluteString)
                 
@@ -1161,11 +1161,11 @@ class FileFunctions: NSObject {
             let modificationDate = fileAttributes[FileAttributeKey.modificationDate] as! Date
         
             
-            print("OFFSET: \(offset)")
+            //print("OFFSET: \(offset)")
         
-            let nanoseconds = (1000000000 * offset)
-            print("Nanoseconds \(nanoseconds)")
-            print("Nanoseconds INT \(Int(nanoseconds))")
+            let nanoseconds = (offset * 1e+9)
+            //print("Nanoseconds \(nanoseconds)")
+            //print("Nanoseconds INT \(Int(nanoseconds))")
 
             var newDate = Calendar.current.date(byAdding: .nanosecond, value: Int(nanoseconds), to: modificationDate)
             
@@ -1175,9 +1175,9 @@ class FileFunctions: NSObject {
             
             dateformatter.dateFormat = "HHmm.ss.SSSS"
             
-            print("OLD DATE: \(dateformatter.string(from: modificationDate))")
+            //print("OLD DATE: \(dateformatter.string(from: modificationDate))")
             
-            print("NEW DATE: \(dateformatter.string(from: newDate!))")
+            //print("NEW DATE: \(dateformatter.string(from: newDate!))")
 
             return newDate!
         } catch let error {

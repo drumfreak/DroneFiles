@@ -43,10 +43,10 @@ class ToolBarController: NSToolbar {
         openPanel.resolvesAliases = true
         openPanel.begin(completionHandler: {(result:Int) in
             if(result == NSFileHandlingPanelOKButton) {
-                print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
+                //print("Path Extension \(String(describing: openPanel.url?.pathExtension))")
                 
                 if(openPanel.url?.pathExtension == "dronefiles") {
-                    print ("HEY it's drone files!")
+                    //print ("HEY it's drone files!")
                     self.appDelegate.readProjectFile(projectFile: (openPanel.url?.absoluteString)!)
                     
                     self.appDelegate.fileBrowserViewController?.setupProjectDirectory()
@@ -94,7 +94,7 @@ class ToolBarController: NSToolbar {
     }
     
     @IBAction func toggleFileBrowser(_ sender: AnyObject?) {
-        print("File manager toolbar item clicked.")
+        //print("File manager toolbar item clicked.")
         self.appDelegate.fileBrowserViewController.hideFileBrowser(self)
     }
     

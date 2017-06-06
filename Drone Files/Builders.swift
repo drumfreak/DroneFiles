@@ -529,9 +529,9 @@ class VideoFrameBurstBuilder: NSObject {
             i += 1
         }
 
-        times.forEach({time in
-            print("Time: \(time.seconds)")
-        })
+//        times.forEach({time in
+//            print("Time: \(time.seconds)")
+//        })
         
         // print("Times \(times)")
         var fileExtension = "png"

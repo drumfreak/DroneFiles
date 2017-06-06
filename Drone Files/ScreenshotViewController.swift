@@ -267,7 +267,7 @@ class ScreenshotViewController: NSViewController {
                     let thisFrametime = times[i]
                     let offsetFloat = CMTimeGetSeconds(thisFrametime)
                     
-                    print("offsetFloat: \(offsetFloat)")
+                    //print("offsetFloat: \(offsetFloat)")
                     
                     let fileDate = self.fileFun.getFileModificationDate(originalFile:assetUrl, offset: offsetFloat)
                     
@@ -367,15 +367,15 @@ class ScreenshotViewController: NSViewController {
         let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
         let fps = assetTrack[0].nominalFrameRate
 
-        print("FPS is \(fps)")
+        //print("FPS is \(fps)")
         
         let currentFrame = floor(Double(Float(startTime.seconds) * fps))
         
-        print("~~~~~~~~~~~~~~~    Could the frame be: \(currentFrame)")
+        //print("~~~~~~~~~~~~~~~    Could the frame be: \(currentFrame)")
         
         let nowString = formatter.string(from: NSNumber(value: currentFrame))
         
-        let now = nowString! + " - \(dateformatter.string(from: fileDate))"
+        let now = nowString!
       
         self.screenshotPathFull = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
         
@@ -390,9 +390,9 @@ class ScreenshotViewController: NSViewController {
         let tmpName = filename!.lastPathComponent
         
         if(self.appSettings.screenshotPreserveVideoName) {
-            self.screenshotName =  "\(tmpName) - \(now) - \(increment).\(fileExtension)"
+            self.screenshotName =  "\(tmpName) - \(now).\(fileExtension)"
         } else {
-            self.screenshotName = "\(self.appDelegate.appSettings.saveDirectoryName!) - \(now) - \(increment).\(fileExtension)"
+            self.screenshotName = "\(self.appDelegate.appSettings.saveDirectoryName!) - \(increment) - \(now).\(fileExtension)"
         }
         
         self.screenshotNameFull = "\(self.screenshotPathFull!)/\(self.screenshotName!)"
@@ -407,7 +407,6 @@ class ScreenshotViewController: NSViewController {
         
     
         func fileExists(path: String) -> Bool {
-            
             if(FileManager.default.fileExists(atPath: path.replacingOccurrences(of: "file://", with: ""))) {
                 return true
                 } else {
@@ -415,15 +414,16 @@ class ScreenshotViewController: NSViewController {
             }
         }
         var z = 0
+        
         while(fileExists(path: self.screenshotNameFull!)) {
-            print("File exists...looping for another round...\(z)")
+            //print("File exists...looping for another round...\(z)")
             let incrementer = formatter2.string(from: NSNumber(value: z))
             
             if(self.appSettings.screenshotPreserveVideoName) {
-                 self.screenshotName = "\(tmpName) - \(now) - \(increment) - \(incrementer!).\(fileExtension)"
+                 self.screenshotName = "\(tmpName) - \(now) - \(incrementer!).\(fileExtension)"
                 
             } else {
-                self.screenshotName = "\(self.appSettings.saveDirectoryName!) - \(now) - \(increment) - \(incrementer!).\(fileExtension)"
+                self.screenshotName = "\(self.appSettings.saveDirectoryName!) - \(increment) - \(now) - \(incrementer!).\(fileExtension)"
             }
             self.screenshotNameFull = "\(self.screenshotPathFull!)/\(self.screenshotName!)"
             
@@ -470,14 +470,12 @@ class ScreenshotViewController: NSViewController {
         
         var screenshotNameFullURL = ""
         let screenshotPath = self.appSettings.screenShotFolder.replacingOccurrences(of: "%20", with: " ")
-        
-        
-        
+    
         let asset = AVAsset(url: assetUrl)
         let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
         let fps = assetTrack[0].nominalFrameRate
         
-        print("FPS is \(fps)")
+        // print("FPS is \(fps)")
         
         
 
@@ -498,11 +496,11 @@ class ScreenshotViewController: NSViewController {
             
             let currentFrame = floor(Double(Float(times[i].seconds) * fps))
             
-            print("~~~~~~~~~~~~~~~    Could the frame be: \(currentFrame)")
+            // print("Currrent frame be: \(currentFrame)")
             
             let nowString = formatter.string(from: NSNumber(value: currentFrame))
             
-            let now = nowString! + " - \(dateformatter.string(from: fileDate))"
+            let now = nowString!
             
             let increment = getScreenShotIncrement(_folder: self.appSettings.screenShotFolder)
             
@@ -511,9 +509,9 @@ class ScreenshotViewController: NSViewController {
             let tmpName = filename.lastPathComponent
             
             if(preserveVideoName) {
-                screenshotName = "\(tmpName) - \(now) - \(increment).\(fileExtension)"
+                screenshotName = "\(tmpName) - \(now).\(fileExtension)"
             } else {
-                screenshotName = "\(self.appSettings.saveDirectoryName!) - \(now) - \(increment).\(fileExtension)"
+                screenshotName = "\(self.appSettings.saveDirectoryName!) - \(increment) - \(now).\(fileExtension)"
             }
             
             screenshotFullName = "\(screenshotPath)/\(screenshotName)"
@@ -538,23 +536,19 @@ class ScreenshotViewController: NSViewController {
                 let incrementer = formatter2.string(from: NSNumber(value: z))
 
                 if(preserveVideoName) {
-                    screenshotName = "\(tmpName) - \(now) - \(increment) - \(incrementer!).\(fileExtension)"
+                    screenshotName = "\(tmpName) - \(now) - \(incrementer!).\(fileExtension)"
                     
                 } else {
-                    screenshotName = "\(self.appSettings.saveDirectoryName!) - \(now) - \(increment) - \(incrementer!).\(fileExtension)"
+                    screenshotName = "\(self.appSettings.saveDirectoryName!) - \(increment) - \(now) - \(incrementer!).\(fileExtension)"
                 }
                 
                 screenshotFullName = "\(screenshotPath)/\(screenshotName)"
                 screenshotNameFullURL = screenshotFullName.replacingOccurrences(of: " ", with: "%20")
-             
                 z += 1
-                
-                
             }
             
             let screenshotURL = URL(string: screenshotNameFullURL)
             if(writeFile) {
-                
                 let content = "Blank image."
                 do {
                     try content.write(to: screenshotURL!, atomically: false, encoding: String.Encoding.utf8)
@@ -628,11 +622,11 @@ class ScreenshotViewController: NSViewController {
             
             if self.imageWrite(data: data as Data , to: url, options: .atomic) {
                 
-                print("Screenshot File saved")
+                // print("Screenshot File saved")
                 
                 if(preserveLocation) {
                     if(self.exifWriteData(url: url, coordinates: location)) {
-                        print("Wrote exif... to \(url.path)")
+                        // print("Wrote exif... to \(url.path)")
                     }
                 }
                 
@@ -648,7 +642,7 @@ class ScreenshotViewController: NSViewController {
                         
                         do {
                             try FileManager.default.setAttributes(attributes, ofItemAtPath: url.path)
-                            print("File date updated...")
+                            // print("File date updated...")
                         } catch {
                             print(error)
                         }
@@ -690,7 +684,7 @@ class ScreenshotViewController: NSViewController {
             
             let offsetFloat = CMTimeGetSeconds(currentTime)
             
-            print("Offset Float: \(offsetFloat)")
+           //  print("Offset Float: \(offsetFloat)")
             
             let fileDate = fileFun.getFileModificationDate(originalFile: videoURL, offset: offsetFloat)
             
@@ -712,11 +706,11 @@ class ScreenshotViewController: NSViewController {
             
             if self.imageWrite(data: data as Data , to: outputURL, options: .atomic) {
                 
-                print("Screenshot File saved")
+                //print("Screenshot File saved")
                 
                 if(self.appSettings.screenshotPreserveVideoLocation) {
                     if(self.exifWriteData(url: outputURL!, coordinates: [self.latitude!, self.longitude!])) {
-                        print("Wrote exif data")
+                        //print("Wrote exif data")
                     }
                 }
 
@@ -731,8 +725,8 @@ class ScreenshotViewController: NSViewController {
                         do {
                             try FileManager.default.setAttributes(attributes, ofItemAtPath: outputURL.path)
                             
-                            print("\(outputURL.path)")
-                            print("File date updated...")
+                            //print("\(outputURL.path)")
+                            //print("File date updated...")
                         } catch {
                             print(error)
                         }
@@ -755,7 +749,7 @@ class ScreenshotViewController: NSViewController {
     
     func exifWriteData(url: URL, coordinates: [Double?]) -> Bool {
         
-        print("Coordinates \(coordinates)")
+        // print("Coordinates \(coordinates)")
         
         var latArg = "-GPSLatitude="
         var latRefArg = "-GPSLatitudeRef="

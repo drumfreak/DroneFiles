@@ -19,9 +19,9 @@ class SlideShowController: NSViewController {
     var mSlideshow = IKSlideshow.shared()
     var mImagePaths = NSMutableArray() {
         didSet {
-            print("Reloaded mImagePaths")
+            // print("Reloaded mImagePaths")
             
-            print(self.mImagePaths)
+            // print(self.mImagePaths)
             if(self.slideshowRunning) {
                 self.mSlideshow?.reloadData()
             }

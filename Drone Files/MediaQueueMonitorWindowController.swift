@@ -78,6 +78,8 @@ class MediaQueueMonitorViewController: NSViewController {
         self.scrollView.wantsLayer = true
         self.scrollView.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         
+        self.viewIsLoaded = true
+        self.tableView.reloadData()
     }
     
     override func viewDidAppear() {

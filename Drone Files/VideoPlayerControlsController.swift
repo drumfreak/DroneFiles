@@ -196,7 +196,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
     
     @IBAction func rateSliderChanged(_ sender: NSSlider) {
         // let slider = sender as! NSSlider
-        print(sender.doubleValue)
+        // print(sender.doubleValue)
         self.appDelegate.videoPlayerViewController?.videoRate = sender.doubleValue
         
         self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
@@ -310,8 +310,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
             self.clippedVideoNameFull = self.clippedVideoPathFull + "/" + self.clippedVideoName
             self.clippedVideoNameFullURL = self.clippedVideoNameFull.replacingOccurrences(of: " ", with: "%20")
             
-        } else {
-            print("That file does not exist..")
         }
         
         self.trimmedClipNewLabel.isHidden = false
@@ -951,13 +949,13 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                             outputSize: size,
                         { progress, url in
                             
-                            print("burst progress: \(progress.fractionCompleted)")
+                            // print("burst progress: \(progress.fractionCompleted)")
                             
                             workerItem.inProgress = true
                             workerItem.percent = (progress.fractionCompleted * 100.0)
                             workerItem.outputUrl = url
                         }, success: { url in
-                            print("burst success: \(url)")
+                            //print("burst success: \(url)")
                             workerItem.outputUrl = url
                             workerItem.workerStatus = true
                             workerItem.inProgress = false
@@ -989,7 +987,11 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
                     self.messageBox(hidden: true)
                     
                     DispatchQueue.main.async {
-                            self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                        if(playerWasPlaying) {
+                           self.appDelegate.videoPlayerViewController?.playerView.player?.rate = Float((self.appDelegate.videoPlayerViewController?.videoRate)!)
+                            playerWasPlaying = false
+                        }
+                        
                     }
 
                     
