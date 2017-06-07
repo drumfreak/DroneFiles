@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 
-class VideoFile {
+class VideoFiles {
     
     fileprivate(set) var thumbnail: NSImage?
     fileprivate(set) var fileName: String

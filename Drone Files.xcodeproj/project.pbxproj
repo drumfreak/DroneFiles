@@ -117,6 +117,8 @@
 		18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */; };
 		18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */; };
 		18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */; };
+		18F398031EE7545300902C41 /* VideoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F398021EE7545300902C41 /* VideoDetailsViewController.xib */; };
+		18F398631EE79D3E00902C41 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,6 +267,9 @@
 		18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotCollectionViewItem.swift; sourceTree = "<group>"; };
 		18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotCollectionViewItem.xib; sourceTree = "<group>"; };
 		18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondWindow.xib; sourceTree = "<group>"; };
+		18F398021EE7545300902C41 /* VideoDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoDetailsViewController.xib; sourceTree = "<group>"; };
+		18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDetailsViewController.swift; path = ../../../Dronefiles/VideoDetailsViewController.swift; sourceTree = "<group>"; };
+		18F398861EE7BAA700902C41 /* Drone_Files 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +321,8 @@
 				1850D3671EDE675100B8703F /* MediaQueueMonitorTableCellViewController.xib */,
 				1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */,
 				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
+				18F398021EE7545300902C41 /* VideoDetailsViewController.xib */,
+				18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */,
 				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
 				1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */,
@@ -698,6 +705,7 @@
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				1850D3621EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib in Resources */,
 				18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */,
+				18F398031EE7545300902C41 /* VideoDetailsViewController.xib in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
 				188E28B11EE1C6AA00D729CE /* titlebarBackgroundGradient.png in Resources */,
 				18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */,
@@ -811,6 +819,7 @@
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
 				18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */,
+				18F398631EE79D3E00902C41 /* VideoDetailsViewController.swift in Sources */,
 				1836DB811EC4CB250000F749 /* MenuController.swift in Sources */,
 				186A2E061ECC14DF000FE0AB /* ThemeTables.swift in Sources */,
 				187843AC1EB4F78200BCD214 /* FileCopyProgressIndicator.swift in Sources */,
@@ -1081,6 +1090,7 @@
 		18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				18F398861EE7BAA700902C41 /* Drone_Files 2.xcdatamodel */,
 				18B001D11EA69C92003C3214 /* Drone_Files.xcdatamodel */,
 			);
 			currentVersion = 18B001D11EA69C92003C3214 /* Drone_Files.xcdatamodel */;

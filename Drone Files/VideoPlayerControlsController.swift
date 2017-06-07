@@ -267,14 +267,15 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         
         let chapterMarkTime = self.appDelegate.videoPlayerViewController?.player.currentTime()
         
+        self.appDelegate.videoDetailsViewController.addChapterMarker(url: self.currentVideoURL!, time: chapterMarkTime!)
+        
         print("Chapter marked \(String(describing: chapterMarkTime))")
         
     }
     
-    
-    
     @IBAction func showVideoInfoWindow(_ sender: AnyObject) {
             print("Show the window punk!")
+        self.appDelegate.splitViewController?.showVideoDetails()
     }
     
     // Video Clipping

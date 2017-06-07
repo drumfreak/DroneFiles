@@ -211,8 +211,6 @@ class MediaQueueMonitorViewController: NSViewController {
 
             }
             
-            
-            
             if(worker.percent >= 100.0) {
                 //print("\(i)  REMOVING WORKER - Complete \(i)")
                 self.stopTimer()

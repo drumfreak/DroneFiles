@@ -26,7 +26,9 @@ class VideoPlayerViewController: NSViewController {
     @IBOutlet var player: AVPlayer!
     var nowPlayingURL: URL! {
         didSet {
-            self.playVideo(_url: nowPlayingURL, frame:kCMTimeZero, startPlaying: self.appSettings.videoPlayerAlwaysPlay);
+            self.playVideo(_url: nowPlayingURL, frame:kCMTimeZero, startPlaying: self.appSettings.videoPlayerAlwaysPlay)
+            
+            self.appDelegate.videoDetailsViewController.videoFileUrl = nowPlayingURL
         }
     }
     

@@ -13,23 +13,48 @@ class SplitViewController: NSSplitViewController {
     @IBOutlet var mySplitView: NSSplitView!
     @IBOutlet var leftView: NSSplitViewItem!
     @IBOutlet var rightView: NSSplitViewItem!
+    @IBOutlet var videoDetailsSplitView: NSSplitViewItem!
+
     @IBOutlet weak var splitViewRightController: SplitViewRightViewController!
+    @IBOutlet weak var videoDetailsViewController: VideoDetailsViewController!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appDelegate.splitViewController = self
+        
         self.leftView = self.splitViewItem(for: self.appDelegate.fileBrowserViewController)
+        
         self.rightView = self.splitViewItem(for: self.appDelegate.rightPanelSplitViewController)
 
         self.view.wantsLayer = true
         
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         
+        self.videoDetailsSplitView = NSSplitViewItem(viewController: self.appDelegate.videoDetailsViewController)
+        
+        self.leftView.holdingPriority = 300
+        self.videoDetailsSplitView.holdingPriority = 300
+        
+        self.leftView.isCollapsed = false
+        self.videoDetailsSplitView.isCollapsed = true
+        self.insertSplitViewItem(self.videoDetailsSplitView!, at: 0)
 
-            
     }
 
+    
+    func showVideoDetails() {
+
+        // self.leftView = self.splitViewItem(for: self.appDelegate.fileBrowserViewController)
+        
+        self.videoDetailsSplitView.holdingPriority = 300
+        self.leftView.holdingPriority = 300
+
+        self.leftView.isCollapsed = !self.leftView.isCollapsed
+        self.videoDetailsSplitView.isCollapsed = !self.videoDetailsSplitView.isCollapsed
+
+        self.splitView.adjustSubviews()
+    }
     
     func goFullScreenWindow1() {
         let presOptions: NSApplicationPresentationOptions = ([.fullScreen,.autoHideMenuBar])

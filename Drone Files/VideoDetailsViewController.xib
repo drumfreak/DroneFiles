@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="VideoDetailsViewController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="splitView" destination="Oll-Qi-Hij" id="JPj-k4-xpX"/>
+                <outlet property="view" destination="c22-O7-iKe" id="BZ2-Ww-F9E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="635" height="850"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="Oll-Qi-Hij" customClass="ThemeSplitViewMain" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="635" height="850"/>
+                    <subviews>
+                        <customView fixedFrame="YES" id="FID-Ge-g4Q">
+                            <rect key="frame" x="0.0" y="0.0" width="635" height="88"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZt-h6-WNv" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="27" y="55" width="394" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Video Name" id="MSd-BR-u1F">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yh-qn-xqT" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="27" y="32.5" width="354" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Size:" id="SII-Lw-cDX">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6R-8R-Kjn" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="27" y="12.5" width="354" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date" id="DHv-tE-po9">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </customView>
+                        <customView fixedFrame="YES" id="hpW-W2-LSn" userLabel="Chapters Table SplitView" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="89" width="635" height="761"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="100" horizontalPageScroll="10" verticalLineScroll="100" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYM-Rp-olj" customClass="ThemeScrollView" customModule="Drone_Files" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="635" height="761"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <clipView key="contentView" ambiguous="YES" id="EX5-jF-rKF" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="635" height="761"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="100" rowSizeStyle="automatic" viewBased="YES" id="teL-tH-z8s">
+                                                <rect key="frame" x="0.0" y="0.0" width="635" height="761"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <color key="backgroundColor" red="0.15565052600000001" green="0.15565052600000001" blue="0.15565052600000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <tableViewGridLines key="gridStyleMask" dashed="YES"/>
+                                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                <tableColumns>
+                                                    <tableColumn width="635" minWidth="635" maxWidth="1000" id="x19-R2-Ae4">
+                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                        </tableHeaderCell>
+                                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="sbE-NZ-Cdr">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                        <prototypeCellViews>
+                                                            <tableCellView identifier="videoChapterCell" id="QFE-v9-Ffv" customClass="VideoChapterTableCellView" customModule="Drone_Files" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="635" height="100"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRL-c2-urv" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                                        <rect key="frame" x="35" y="49" width="258" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Start Time" id="kFU-fc-8BP">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gF-aa-T2C">
+                                                                        <rect key="frame" x="37" y="74" width="256" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="koo-XS-HZJ">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJg-JC-fEw">
+                                                                        <rect key="frame" x="35" y="24" width="258" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="End Time" id="3Vz-Vj-7FE">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cis-80-yVM">
+                                                                        <rect key="frame" x="569" y="26" width="48" height="48"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStatusPartiallyAvailable" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wmb-Vf-KGr">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="removeItemWithSender:" target="QFE-v9-Ffv" id="quO-9F-V73"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <connections>
+                                                                    <outlet property="chapterEndTime" destination="uJg-JC-fEw" id="KVL-bl-j9w"/>
+                                                                    <outlet property="chapterStartTime" destination="sRL-c2-urv" id="7om-DJ-mq2"/>
+                                                                    <outlet property="chapterTitle" destination="1gF-aa-T2C" id="6nv-mC-7hR"/>
+                                                                    <outlet property="removeChapterButton" destination="cis-80-yVM" id="OCm-bV-cXU"/>
+                                                                    <outlet property="textField" destination="uJg-JC-fEw" id="BdS-9z-kBN"/>
+                                                                </connections>
+                                                            </tableCellView>
+                                                        </prototypeCellViews>
+                                                    </tableColumn>
+                                                </tableColumns>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="CPF-8E-8cs" id="7oQ-Wv-pVh"/>
+                                                    <outlet property="delegate" destination="CPF-8E-8cs" id="wsp-6s-J91"/>
+                                                </connections>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.084371132429999995" green="0.084371132429999995" blue="0.084371132429999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </clipView>
+                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="jWE-D7-M8G">
+                                        <rect key="frame" x="-100" y="-100" width="0.0" height="16"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </scroller>
+                                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="v2Y-7V-hHi">
+                                        <rect key="frame" x="-100" y="-100" width="15" height="102"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </scroller>
+                                </scrollView>
+                            </subviews>
+                        </customView>
+                    </subviews>
+                    <holdingPriorities>
+                        <real value="426"/>
+                        <real value="250"/>
+                    </holdingPriorities>
+                </splitView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Oll-Qi-Hij" secondAttribute="trailing" id="5Cc-hl-MFJ"/>
+                <constraint firstItem="Oll-Qi-Hij" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="bPb-fT-oqP"/>
+                <constraint firstAttribute="bottom" secondItem="Oll-Qi-Hij" secondAttribute="bottom" id="pPC-y8-p0G"/>
+                <constraint firstItem="Oll-Qi-Hij" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="zGl-Dm-Mqk"/>
+            </constraints>
+            <point key="canvasLocation" x="316.5" y="408"/>
+        </customView>
+        <customObject id="CPF-8E-8cs" customClass="VideoChaptersTableViewController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="teL-tH-z8s" id="Fef-fd-ab8"/>
+                <outlet property="view" destination="hpW-W2-LSn" id="MpX-Qj-z4a"/>
+            </connections>
+        </customObject>
+        <customObject id="mYb-Yp-8sw" customClass="VideoInfoViewController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="fileDateLabel" destination="q6R-8R-Kjn" id="tfc-Ng-nNG"/>
+                <outlet property="fileNameLabel" destination="GZt-h6-WNv" id="6IL-qf-W0I"/>
+                <outlet property="fileSizeLabel" destination="3Yh-qn-xqT" id="H3j-ZB-djy"/>
+                <outlet property="view" destination="FID-Ge-g4Q" id="A6c-oX-Kwz"/>
+            </connections>
+        </customObject>
+    </objects>
+    <resources>
+        <image name="NSStatusPartiallyAvailable" width="16" height="16"/>
+    </resources>
+</document>

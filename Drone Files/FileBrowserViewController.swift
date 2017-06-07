@@ -19,9 +19,7 @@ class FileBrowserViewController: NSViewController {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var projectDirectoryLabel: NSTextField!
     var splitItem: NSSplitViewItem!
-
     var doSaveFavorites = false
-    
     @IBOutlet var backgroundImage: NSImageView!
     // Directories!
     var directory: Directory?
@@ -721,7 +719,6 @@ class FileBrowserViewController: NSViewController {
             }
             
             if(isMov(file:item.url)) {
-                
                 if(!self.appSettings.fileManagerIsOpen) {
                     if(!self.appDelegate.appSettings.videoSplitViewIsOpen) {
                         self.appDelegate.rightPanelSplitViewController?.showVideoSplitView()

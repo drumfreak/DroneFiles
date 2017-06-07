@@ -10,7 +10,6 @@
             <connections>
                 <outlet property="cancelTrimmedVideoButton" destination="uv6-kT-6Of" id="vzS-Fl-5tP"/>
                 <outlet property="clipFileSizeLabel" destination="t0U-jt-rQ8" id="9yO-lV-o0q"/>
-                <outlet property="clipTrimProgressBar" destination="7RP-V1-jjf" id="Jb0-Yo-Ezg"/>
                 <outlet property="currentFrameLabel" destination="yTM-3V-RMb" id="26B-Vs-8SN"/>
                 <outlet property="markChapterButton" destination="FsN-1k-L7X" id="h1v-NM-arv"/>
                 <outlet property="metadataLocationLabel" destination="fNR-SP-K2c" id="bjp-Qo-2ru"/>
@@ -152,7 +151,7 @@
                             </connections>
                         </button>
                         <button fixedFrame="YES" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03q-dU-kcg" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                            <rect key="frame" x="346" y="38" width="100" height="25"/>
+                            <rect key="frame" x="353" y="38" width="93" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" title="Grab Frame" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="08X-bw-9u3">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -204,6 +203,17 @@
                             </buttonCell>
                             <connections>
                                 <action selector="rateReset:" target="-2" id="VPG-zJ-zTn"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-7O-pQI" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="239" y="38" width="40" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="I" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="YMU-bR-4gV">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="systemBold" size="20"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showVideoInfoWindow:" target="-2" id="M1B-vq-fNP"/>
                             </connections>
                         </button>
                     </subviews>
@@ -301,10 +311,6 @@
                                 <action selector="saveTrimmedClip:" target="-2" id="d1t-LJ-W4q"/>
                             </connections>
                         </button>
-                        <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="7RP-V1-jjf">
-                            <rect key="frame" x="337" y="62" width="221" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        </progressIndicator>
                     </subviews>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFa-J2-BnQ" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">

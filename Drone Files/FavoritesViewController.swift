@@ -26,8 +26,6 @@ class FavoritesViewController: NSViewController {
     
     @IBAction func addToFavorites(_ sender : AnyObject) {
         
-        
-        
     }
     
 }
