@@ -151,8 +151,7 @@ class VideoPlayerViewController: NSViewController {
                 self.playPause()
             }
         }
-        
-       
+
         prepareToPlay(_url: _url, startTime: frame)
         
         let location = self.getLocationData(asset: self.currentAsset)
@@ -163,7 +162,6 @@ class VideoPlayerViewController: NSViewController {
     
     // Video Player Setup and Play
     func prepareToPlay(_url: URL, startTime: CMTime) {
-        
         let url = _url
         self.currentVideoURL = url
         let asset = AVAsset(url: url)

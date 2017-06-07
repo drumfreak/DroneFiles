@@ -588,7 +588,11 @@ extension AppDelegate {
         return m
     }
     
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60, (seconds % 36000) % 60)
+    }
     
+
     func updateProjectFile(projectFile: URL, newPath: URL) {
         var fileDirectory = projectFile.deletingLastPathComponent().deletingLastPathComponent().absoluteString
     
@@ -1084,6 +1088,16 @@ extension NSToolbar {
     var appSettings:AppSettings {
         return appDelegate.appSettings
     }
+}
+
+extension NSTableViewDelegate {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }    
 }
 
 

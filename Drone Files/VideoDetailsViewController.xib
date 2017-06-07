@@ -70,7 +70,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <color key="backgroundColor" red="0.15565052600000001" green="0.15565052600000001" blue="0.15565052600000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <tableViewGridLines key="gridStyleMask" dashed="YES"/>
-                                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="gridColor" red="0.35718592562651275" green="0.35718592562651275" blue="0.35718592562651275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <tableColumns>
                                                     <tableColumn width="635" minWidth="635" maxWidth="1000" id="x19-R2-Ae4">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
@@ -90,7 +90,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRL-c2-urv" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                                        <rect key="frame" x="35" y="49" width="258" height="17"/>
+                                                                        <rect key="frame" x="51" y="54" width="85" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Start Time" id="kFU-fc-8BP">
                                                                             <font key="font" metaFont="system"/>
@@ -99,39 +99,86 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gF-aa-T2C">
-                                                                        <rect key="frame" x="37" y="74" width="256" height="17"/>
+                                                                        <rect key="frame" x="51" y="74" width="256" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="koo-XS-HZJ">
-                                                                            <font key="font" metaFont="system"/>
+                                                                            <font key="font" metaFont="systemBold" size="16"/>
                                                                             <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJg-JC-fEw">
-                                                                        <rect key="frame" x="35" y="24" width="258" height="17"/>
+                                                                        <rect key="frame" x="159" y="54" width="96" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="End Time" id="3Vz-Vj-7FE">
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="End Time" id="3Vz-Vj-7FE">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8V9-qe-GbN">
+                                                                        <rect key="frame" x="135" y="54" width="22" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="-" id="RGi-B9-CtH">
                                                                             <font key="font" metaFont="system"/>
                                                                             <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cis-80-yVM">
-                                                                        <rect key="frame" x="569" y="26" width="48" height="48"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStatusPartiallyAvailable" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wmb-Vf-KGr">
+                                                                        <rect key="frame" x="581" y="45" width="31" height="31"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStatusNone" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wmb-Vf-KGr">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                    </button>
+                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l00-Xg-PgF" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                                                                        <rect key="frame" x="521" y="80" width="106" height="17"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Duration" id="OS1-dp-xeb">
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <color key="textColor" red="0.4431372583" green="0.47058823700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
+                                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HiY-bT-qmJ">
+                                                                        <rect key="frame" x="7" y="40" width="34" height="20"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="dXD-CA-Ihh">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="systemBold"/>
+                                                                        </buttonCell>
+                                                                    </button>
+                                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="syo-mx-TG0" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                                                        <rect key="frame" x="570" y="18" width="57" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="square" title="Export" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Ti4-Ep-2Hh">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
                                                                         <connections>
-                                                                            <action selector="removeItemWithSender:" target="QFE-v9-Ffv" id="quO-9F-V73"/>
+                                                                            <action selector="exportItemWithSender:" target="QFE-v9-Ffv" id="yAH-pb-kOL"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ASw-xC-sAS" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                                                                        <rect key="frame" x="510" y="18" width="57" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                                        <buttonCell key="cell" type="square" title="Remove" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="7XR-2X-Clr">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="removeItemWithSender:" target="QFE-v9-Ffv" id="1n9-eE-3Bw"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <connections>
                                                                     <outlet property="chapterEndTime" destination="uJg-JC-fEw" id="KVL-bl-j9w"/>
+                                                                    <outlet property="chapterNumber" destination="HiY-bT-qmJ" id="Ppg-aF-MT5"/>
                                                                     <outlet property="chapterStartTime" destination="sRL-c2-urv" id="7om-DJ-mq2"/>
                                                                     <outlet property="chapterTitle" destination="1gF-aa-T2C" id="6nv-mC-7hR"/>
+                                                                    <outlet property="chaptureDuration" destination="l00-Xg-PgF" id="fhX-dw-zmO"/>
                                                                     <outlet property="removeChapterButton" destination="cis-80-yVM" id="OCm-bV-cXU"/>
                                                                     <outlet property="textField" destination="uJg-JC-fEw" id="BdS-9z-kBN"/>
                                                                 </connections>
@@ -189,6 +236,7 @@
         </customObject>
     </objects>
     <resources>
-        <image name="NSStatusPartiallyAvailable" width="16" height="16"/>
+        <image name="NSStatusNone" width="16" height="16"/>
+        <image name="darkbackground" width="1200" height="1000"/>
     </resources>
 </document>
