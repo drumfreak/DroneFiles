@@ -118,6 +118,7 @@
 		18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */; };
 		18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */; };
 		18E46CAB1EE8ED7000FB7E36 /* MediaMapWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E46CAA1EE8ED7000FB7E36 /* MediaMapWindowController.xib */; };
+		18E46CAD1EE8EE4900FB7E36 /* MediaMapWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E46CAC1EE8EE4900FB7E36 /* MediaMapWindowController.swift */; };
 		18F398031EE7545300902C41 /* VideoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F398021EE7545300902C41 /* VideoDetailsViewController.xib */; };
 		18F398631EE79D3E00902C41 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -269,6 +270,7 @@
 		18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotCollectionViewItem.xib; sourceTree = "<group>"; };
 		18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondWindow.xib; sourceTree = "<group>"; };
 		18E46CAA1EE8ED7000FB7E36 /* MediaMapWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaMapWindowController.xib; sourceTree = "<group>"; };
+		18E46CAC1EE8EE4900FB7E36 /* MediaMapWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMapWindowController.swift; sourceTree = "<group>"; };
 		18F398021EE7545300902C41 /* VideoDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoDetailsViewController.xib; sourceTree = "<group>"; };
 		18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDetailsViewController.swift; path = ../../../Dronefiles/VideoDetailsViewController.swift; sourceTree = "<group>"; };
 		18F398861EE7BAA700902C41 /* Drone_Files 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */,
 				18E46CAA1EE8ED7000FB7E36 /* MediaMapWindowController.xib */,
+				18E46CAC1EE8EE4900FB7E36 /* MediaMapWindowController.swift */,
 				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 				18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
@@ -821,6 +824,7 @@
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
 				1817BBC11ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
+				18E46CAD1EE8EE4900FB7E36 /* MediaMapWindowController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
 				18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */,
 				18F398631EE79D3E00902C41 /* VideoDetailsViewController.swift in Sources */,

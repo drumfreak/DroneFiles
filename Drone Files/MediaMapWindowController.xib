@@ -7,24 +7,51 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="MediaMapWindowController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="window" destination="QvC-M9-y7g" id="lTT-5W-hjp"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="contentRect" x="196" y="240" width="865" height="627"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="865" height="627"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <mapView fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-TX-ShX">
-                        <rect key="frame" x="87" y="10" width="320" height="240"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <mapView fixedFrame="YES" mapType="hybrid" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-TX-ShX">
+                        <rect key="frame" x="0.0" y="0.0" width="865" height="599"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="NKy-qb-x1M" id="U1d-DA-Gk0"/>
+                        </connections>
                     </mapView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OnV-j9-TZ5">
+                        <rect key="frame" x="20" y="603" width="34" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="zFP-7a-Faw">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="systemBold"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
+            <connections>
+                <outlet property="initialFirstResponder" destination="EiT-Mj-1SZ" id="RAU-g5-X2H"/>
+            </connections>
+            <point key="canvasLocation" x="331.5" y="340.5"/>
         </window>
+        <customObject id="NKy-qb-x1M" customClass="MediaMapViewController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="mapView" destination="r8b-TX-ShX" id="srz-92-cwo"/>
+                <outlet property="videoCountLabel" destination="OnV-j9-TZ5" id="2FO-mc-4SR"/>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="tJ3-O4-b2O"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="7uQ-uq-Pyj"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

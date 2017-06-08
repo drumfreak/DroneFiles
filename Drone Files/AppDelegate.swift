@@ -60,6 +60,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     var fileCopyProgressView = FileCopyProgressIndicatorController()
     var fileCopyProgressViewWindowController = FileCopyProgressWindowController()
+    
+    @IBOutlet weak var mediaMapWindowController = MediaMapWindowController()
+
+    var mediaMapViewController = MediaMapViewController()
 
     
     //@IBOutlet weak var editorTabViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "editorTabViewController") as? EditorTabViewController
