@@ -45,6 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var videoControlsController = VideoPlayerControllsController()
     
     var videoDetailsViewController = VideoDetailsViewController()
+    
+    var videoInfoViewController = VideoInfoViewController()
 
     var mediaBinCollectionView = MediaBinCollectionView()
 
@@ -591,6 +593,99 @@ extension AppDelegate {
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60, (seconds % 36000) % 60)
     }
+    
+    
+    func getVideoFPS(url: URL) -> Float {
+        let asset = AVAsset(url: url)
+        let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
+        let fps = assetTrack[0].nominalFrameRate
+        return fps
+    }
+    
+    
+    func getVideoSize(url: URL) -> CGSize {
+        let asset = AVAsset(url: url)
+        let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
+        let size = assetTrack[0].naturalSize as CGSize
+        return size
+    }
+    
+    
+    func getLocationFromVideo(url: URL) -> [Double] {
+        
+        var location = ""
+        let asset = AVAsset(url: url)
+
+        
+        for metaDataItems in asset.commonMetadata {
+            
+            if metaDataItems.commonKey == "location" {
+                location = (metaDataItems.value as! NSString) as String
+                //print("Location Data: \(locationData)")
+            } else {
+                
+            }
+        }
+        
+        
+        if(location.characters.count > 0) {
+            if let range = location.range(of: "-") {
+                
+                let latFull = location[location.startIndex..<range.lowerBound]
+                
+                let longFull = location[range.lowerBound..<location.endIndex]
+                
+                let lat = latFull.replacingOccurrences(of: "+", with: "")
+                
+                var long = longFull.replacingOccurrences(of: "+", with: "")
+                
+                var longArray = long.components(separatedBy: ".")
+                
+                longArray.removeLast()
+                
+                long = longArray.joined(separator: ".")
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = NumberFormatter.Style.decimal
+                
+                let finalLong = numberFormatter.number(from: long)
+                let finalLat = numberFormatter.number(from: lat)
+                
+                //print("Long: \(finalLong as Any)")
+                //print("Lat: \(finalLat as Any)")
+                
+                let longitude = finalLong?.doubleValue
+                
+                let latitude = finalLat?.doubleValue
+                
+                var latRef = 0 // 0 for south / 1 for north
+                var longRef = 0 // 0 for West / 1 for East
+                if var lat = latitude {
+                    if lat < 0 {
+                        latRef = 0
+                        lat = -lat
+                    } else {
+                        latRef = 1
+                    }
+                }
+                
+                if var lon = longitude {
+                    if lon < 0 {
+                        longRef = 0
+                        lon = -lon
+                    } else {
+                        longRef = 1
+                    }
+                }
+                
+                return [latitude!, Double(latRef), longitude!, Double(longRef)]
+            }
+        }
+        
+        return []
+        
+    }
+
     
 
     func updateProjectFile(projectFile: URL, newPath: URL) {

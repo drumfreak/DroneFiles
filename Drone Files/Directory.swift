@@ -52,7 +52,7 @@ public struct Directory  {
         let requiredAttributes = [URLResourceKey.localizedNameKey, URLResourceKey.effectiveIconKey,
                                   URLResourceKey.typeIdentifierKey, URLResourceKey.contentModificationDateKey,
                                   URLResourceKey.fileSizeKey, URLResourceKey.isDirectoryKey,
-                                  URLResourceKey.isPackageKey]
+                                  URLResourceKey.isPackageKey, URLResourceKey.thumbnailKey]
         if let enumerator = FileManager.default.enumerator(at: folderURL,
                                                            includingPropertiesForKeys: requiredAttributes,
                                                            options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants],
@@ -74,14 +74,14 @@ public struct Directory  {
                     //                 icon = NSImage.init(contentsOf: url)!
                     //
                     //            } else {
-                    if(properties[URLResourceKey.customIconKey] != nil) {
-                        icon = properties[URLResourceKey.customIconKey] as? NSImage ?? NSImage()
+                    if(properties[URLResourceKey.thumbnailKey] != nil) {
+                        icon = properties[URLResourceKey.thumbnailKey] as? NSImage ?? NSImage()
                         // print("This didn't happen")
                         
                     } else if( properties[URLResourceKey.effectiveIconKey] != nil) {
                         icon = properties[URLResourceKey.effectiveIconKey] as? NSImage ?? NSImage()
                         
-                        // print("This fucking happen")
+                       // print("This fucking happen")
                         
                     }
                     //
