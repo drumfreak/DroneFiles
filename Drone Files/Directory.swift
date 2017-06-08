@@ -37,6 +37,10 @@ public func ==(lhs: Metadata, rhs: Metadata) -> Bool {
 
 public struct Directory  {
     
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
     fileprivate var files: [Metadata] = []
     let url: URL
     
@@ -98,6 +102,11 @@ public struct Directory  {
                                             color: NSColor(),
                                            favorite: isFavorite
                                           ))
+                    
+                    if(self.appDelegate.isMov(file: url)) {
+                       let _ = self.appDelegate.getVideoFile(url:url)
+                    }
+
                 }
                 catch {
                     print("Error reading file attributes")

@@ -54,6 +54,8 @@
 		187843A71EB3CE6F00BCD214 /* VideoPlayerControlsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */; };
 		187843AA1EB3E26100BCD214 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843A91EB3E26100BCD214 /* VideoPlayerController.swift */; };
 		187843AC1EB4F78200BCD214 /* FileCopyProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */; };
+		18808A4C1EE9FDB700F67E7F /* VideoChaptersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18808A4B1EE9FDB700F67E7F /* VideoChaptersTableViewController.swift */; };
+		18808A4E1EE9FE3700F67E7F /* VideoChaptersTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18808A4D1EE9FE3700F67E7F /* VideoChaptersTableViewController.xib */; };
 		188272141EC9E19800EE50D0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272131EC9E19800EE50D0 /* AppSettings.swift */; };
 		188272161ECA5FD300EE50D0 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272151ECA5FD300EE50D0 /* Document.swift */; };
 		188272181ECA61F000EE50D0 /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188272171ECA61F000EE50D0 /* DocumentController.swift */; };
@@ -109,6 +111,9 @@
 		18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */; };
 		18BC321B1EE1E4460039104F /* VideoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BC32191EE1E4460039104F /* VideoFile.swift */; };
 		18BC321C1EE1E4460039104F /* VideoFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BC321A1EE1E4460039104F /* VideoFile.xib */; };
+		18BF61CF1EE9FAC700C5EC33 /* VideoInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BF61CD1EE9FAC700C5EC33 /* VideoInfoViewController.swift */; };
+		18BF61D21EE9FBC400C5EC33 /* VideoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BF61D11EE9FBC400C5EC33 /* VideoDetailsViewController.xib */; };
+		18BF61D41EE9FC0200C5EC33 /* VideoInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BF61D31EE9FC0200C5EC33 /* VideoInfoViewController.xib */; };
 		18C3A3D11EAE9068002F4CB5 /* FileManagerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */; };
 		18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F501ECE1CDE008E9E02 /* messagewindow.png */; };
 		18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */; };
@@ -117,9 +122,9 @@
 		18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */; };
 		18DD9F5C1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */; };
 		18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */; };
-		18E46CAB1EE8ED7000FB7E36 /* MediaMapWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E46CAA1EE8ED7000FB7E36 /* MediaMapWindowController.xib */; };
-		18E46CAD1EE8EE4900FB7E36 /* MediaMapWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E46CAC1EE8EE4900FB7E36 /* MediaMapWindowController.swift */; };
-		18F398031EE7545300902C41 /* VideoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F398021EE7545300902C41 /* VideoDetailsViewController.xib */; };
+		18E46CAB1EE8ED7000FB7E36 /* MediaMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E46CAA1EE8ED7000FB7E36 /* MediaMapViewController.xib */; };
+		18E46CAD1EE8EE4900FB7E36 /* MediaMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E46CAC1EE8EE4900FB7E36 /* MediaMapViewController.swift */; };
+		18F07B521EE9B61C00889D18 /* FavoriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F07B511EE9B61C00889D18 /* FavoriteManager.swift */; };
 		18F398631EE79D3E00902C41 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -200,6 +205,8 @@
 		187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerControlsController.swift; sourceTree = "<group>"; };
 		187843A91EB3E26100BCD214 /* VideoPlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
 		187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCopyProgressIndicator.swift; sourceTree = "<group>"; };
+		18808A4B1EE9FDB700F67E7F /* VideoChaptersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoChaptersTableViewController.swift; sourceTree = "<group>"; };
+		18808A4D1EE9FE3700F67E7F /* VideoChaptersTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoChaptersTableViewController.xib; sourceTree = "<group>"; };
 		188272131EC9E19800EE50D0 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		188272151ECA5FD300EE50D0 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		188272171ECA61F000EE50D0 /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
@@ -261,6 +268,9 @@
 		18BAABAA1EADBDDD00EE5434 /* FileManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 		18BC32191EE1E4460039104F /* VideoFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFile.swift; sourceTree = "<group>"; };
 		18BC321A1EE1E4460039104F /* VideoFile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoFile.xib; sourceTree = "<group>"; };
+		18BF61CD1EE9FAC700C5EC33 /* VideoInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInfoViewController.swift; sourceTree = "<group>"; };
+		18BF61D11EE9FBC400C5EC33 /* VideoDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoDetailsViewController.xib; sourceTree = "<group>"; };
+		18BF61D31EE9FC0200C5EC33 /* VideoInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoInfoViewController.xib; sourceTree = "<group>"; };
 		18C3A3D01EAE9068002F4CB5 /* FileManagerList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerList.swift; sourceTree = "<group>"; };
 		18DD9F501ECE1CDE008E9E02 /* messagewindow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = messagewindow.png; path = ../../../Dronefiles/messagewindow.png; sourceTree = "<group>"; };
 		18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshotSettingsController.swift; sourceTree = "<group>"; };
@@ -269,9 +279,11 @@
 		18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotCollectionViewItem.swift; sourceTree = "<group>"; };
 		18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotCollectionViewItem.xib; sourceTree = "<group>"; };
 		18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondWindow.xib; sourceTree = "<group>"; };
-		18E46CAA1EE8ED7000FB7E36 /* MediaMapWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaMapWindowController.xib; sourceTree = "<group>"; };
-		18E46CAC1EE8EE4900FB7E36 /* MediaMapWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMapWindowController.swift; sourceTree = "<group>"; };
-		18F398021EE7545300902C41 /* VideoDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoDetailsViewController.xib; sourceTree = "<group>"; };
+		18E46CAA1EE8ED7000FB7E36 /* MediaMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MediaMapViewController.xib; sourceTree = "<group>"; };
+		18E46CAC1EE8EE4900FB7E36 /* MediaMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMapViewController.swift; sourceTree = "<group>"; };
+		18E46CAE1EE9A13500FB7E36 /* Drone_Files 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 3.xcdatamodel"; sourceTree = "<group>"; };
+		18F07B501EE9B3EE00889D18 /* Drone_Files 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 4.xcdatamodel"; sourceTree = "<group>"; };
+		18F07B511EE9B61C00889D18 /* FavoriteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteManager.swift; sourceTree = "<group>"; };
 		18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoDetailsViewController.swift; path = ../../../Dronefiles/VideoDetailsViewController.swift; sourceTree = "<group>"; };
 		18F398861EE7BAA700902C41 /* Drone_Files 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -319,31 +331,35 @@
 				18B001D51EA69C92003C3214 /* Main.storyboard */,
 				184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */,
 				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
-				1850D3611EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib */,
-				1850D3631EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift */,
-				1850D3651EDE672D00B8703F /* MediaQueueMonitorTableCellViewController.swift */,
-				1850D3671EDE675100B8703F /* MediaQueueMonitorTableCellViewController.xib */,
 				1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */,
 				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
-				18F398021EE7545300902C41 /* VideoDetailsViewController.xib */,
-				18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */,
 				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
 				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
 				1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */,
 				1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */,
 				18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */,
 				184AD80E1ED736BC001209F5 /* MediaBinCollectionView.xib */,
+				18E46CAA1EE8ED7000FB7E36 /* MediaMapViewController.xib */,
+				18E46CAC1EE8EE4900FB7E36 /* MediaMapViewController.swift */,
+				1850D3611EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib */,
+				1850D3631EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift */,
+				1850D3651EDE672D00B8703F /* MediaQueueMonitorTableCellViewController.swift */,
+				1850D3671EDE675100B8703F /* MediaQueueMonitorTableCellViewController.xib */,
 				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
 				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
 				184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */,
-				18E46CAA1EE8ED7000FB7E36 /* MediaMapWindowController.xib */,
-				18E46CAC1EE8EE4900FB7E36 /* MediaMapWindowController.swift */,
 				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 				18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
 				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
 				1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */,
 				18590E351ED7E55100305E68 /* VideoPlayerView.xib */,
+				18BF61CD1EE9FAC700C5EC33 /* VideoInfoViewController.swift */,
+				18BF61D31EE9FC0200C5EC33 /* VideoInfoViewController.xib */,
+				18808A4B1EE9FDB700F67E7F /* VideoChaptersTableViewController.swift */,
+				18808A4D1EE9FE3700F67E7F /* VideoChaptersTableViewController.xib */,
+				18BF61D11EE9FBC400C5EC33 /* VideoDetailsViewController.xib */,
+				18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */,
 				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
 				1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */,
 			);
@@ -518,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
+				18F07B531EE9B6C400889D18 /* Database Objects */,
 				188272131EC9E19800EE50D0 /* AppSettings.swift */,
 				184AD8101ED737FE001209F5 /* Interfaces */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
@@ -585,6 +602,14 @@
 				18B001FA1EA6A09D003C3214 /* WindowController.swift */,
 			);
 			name = "Window Controllers";
+			sourceTree = "<group>";
+		};
+		18F07B531EE9B6C400889D18 /* Database Objects */ = {
+			isa = PBXGroup;
+			children = (
+				18F07B511EE9B61C00889D18 /* FavoriteManager.swift */,
+			);
+			name = "Database Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -711,7 +736,6 @@
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				1850D3621EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib in Resources */,
 				18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */,
-				18F398031EE7545300902C41 /* VideoDetailsViewController.xib in Resources */,
 				188272211ECA704F00EE50D0 /* appicon-1024px.png in Resources */,
 				188E28B11EE1C6AA00D729CE /* titlebarBackgroundGradient.png in Resources */,
 				18A3ADA71ED55D5000F09727 /* FileManagerSplitViewController.xib in Resources */,
@@ -724,7 +748,7 @@
 				188272241ECA704F00EE50D0 /* appicon-128px.png in Resources */,
 				188272201ECA704F00EE50D0 /* appicon-64px.png in Resources */,
 				1817BBD01EDBC2A10003A7D2 /* blankClip.mp4 in Resources */,
-				18E46CAB1EE8ED7000FB7E36 /* MediaMapWindowController.xib in Resources */,
+				18E46CAB1EE8ED7000FB7E36 /* MediaMapViewController.xib in Resources */,
 				18590E361ED7E55100305E68 /* VideoPlayerView.xib in Resources */,
 				1850D3681EDE675100B8703F /* MediaQueueMonitorTableCellViewController.xib in Resources */,
 				184BB2381ED78BBC00D73B8A /* FileCopyProgressWindow.xib in Resources */,
@@ -737,6 +761,8 @@
 				18A3ADA21ED5402500F09727 /* heart-table-inactive.png in Resources */,
 				184AD8121ED739E6001209F5 /* NewProjectWindow.xib in Resources */,
 				1860F0151ED0C6FC00928FD7 /* heart-inactive.png in Resources */,
+				18808A4E1EE9FE3700F67E7F /* VideoChaptersTableViewController.xib in Resources */,
+				18BF61D21EE9FBC400C5EC33 /* VideoDetailsViewController.xib in Resources */,
 				18A323A81ED8E4470025D309 /* backgroundDarkGray.png in Resources */,
 				188272521ECB9B2D00EE50D0 /* tablerow-dark.png in Resources */,
 				18B001D41EA69C92003C3214 /* Assets.xcassets in Resources */,
@@ -745,6 +771,7 @@
 				18DD9F611ECEBB72008E9E02 /* SecondWindow.xib in Resources */,
 				1869FBEB1ED88C8800EC639E /* VideoPlayerControllsController.xib in Resources */,
 				188272481ECB897E00EE50D0 /* darkbrownbackground-light.png in Resources */,
+				18BF61D41EE9FC0200C5EC33 /* VideoInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,6 +800,7 @@
 				1817BBC71ED9B8240003A7D2 /* ThemeButton.swift in Sources */,
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
 				18DD9F581ECE8E2E008E9E02 /* MediaBinLoader.swift in Sources */,
+				18808A4C1EE9FDB700F67E7F /* VideoChaptersTableViewController.swift in Sources */,
 				18DD9F5B1ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift in Sources */,
 				18BAABA91EADAF0200EE5434 /* SplitViewRightViewController.swift in Sources */,
 				18B001FB1EA6A09D003C3214 /* WindowController.swift in Sources */,
@@ -784,6 +812,7 @@
 				186DB0391EE06A5900B7FAD4 /* VideoClipRetimeViewController.swift in Sources */,
 				18976E051ED08CF700A04CD2 /* CameraBrowserController.swift in Sources */,
 				18DD9F551ECE8E08008E9E02 /* ImageFile.swift in Sources */,
+				18F07B521EE9B61C00889D18 /* FavoriteManager.swift in Sources */,
 				18BAABA51EAD98CC00EE5434 /* FileBrowserViewController.swift in Sources */,
 				18740B731ECE06A3003803B4 /* VideoPlayerMessageBox.swift in Sources */,
 				189D40BC1EC244F000E1298C /* ImagEditorControlsController.swift in Sources */,
@@ -824,8 +853,9 @@
 				1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */,
 				1817BBC11ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift in Sources */,
 				1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */,
-				18E46CAD1EE8EE4900FB7E36 /* MediaMapWindowController.swift in Sources */,
+				18E46CAD1EE8EE4900FB7E36 /* MediaMapViewController.swift in Sources */,
 				185F4C301EB038D40046C452 /* FileManagerOptionsCopyController.swift in Sources */,
+				18BF61CF1EE9FAC700C5EC33 /* VideoInfoViewController.swift in Sources */,
 				18DD9F531ECE2ACD008E9E02 /* ScreenshotSettingsController.swift in Sources */,
 				18F398631EE79D3E00902C41 /* VideoDetailsViewController.swift in Sources */,
 				1836DB811EC4CB250000F749 /* MenuController.swift in Sources */,
@@ -1098,6 +1128,8 @@
 		18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				18F07B501EE9B3EE00889D18 /* Drone_Files 4.xcdatamodel */,
+				18E46CAE1EE9A13500FB7E36 /* Drone_Files 3.xcdatamodel */,
 				18F398861EE7BAA700902C41 /* Drone_Files 2.xcdatamodel */,
 				18B001D11EA69C92003C3214 /* Drone_Files.xcdatamodel */,
 			);

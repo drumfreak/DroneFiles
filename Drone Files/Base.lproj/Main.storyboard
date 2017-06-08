@@ -1058,7 +1058,7 @@
             <objects>
                 <splitViewController title="Drone Files" id="0tx-kD-7nM" customClass="SplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="255" behavior="contentList" id="V7H-nq-pY6"/>
+                        <splitViewItem holdingPriority="300" behavior="contentList" id="V7H-nq-pY6"/>
                         <splitViewItem id="fDd-oZ-ppC"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" id="5pU-Fa-0yg" customClass="ThemeSplitViewMain" customModule="Drone_Files" customModuleProvider="target">

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MediaQueueMonitorWindowController" customModule="Drone_Files" customModuleProvider="target"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="MediaQueueMonitorWindowController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="window" destination="QvC-M9-y7g" id="m1L-wt-cOz"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Media Queue" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="MediaQueueMonitorWindow" customModule="Drone_Files" customModuleProvider="target">
@@ -164,7 +168,7 @@
                 <outlet property="queuePercentLabel" destination="dk6-5U-IDp" id="zYw-Fu-KZl"/>
                 <outlet property="scrollView" destination="lUL-eH-R8L" id="w0c-EW-v6v"/>
                 <outlet property="tableView" destination="Lkr-KN-GzT" id="FHA-Xp-eJa"/>
-                <outlet property="view" destination="EiT-Mj-1SZ" id="toC-RQ-3NA"/>
+                <outlet property="view" destination="EiT-Mj-1SZ" id="w3I-RS-Grh"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="Hl5-aQ-lkt"/>
             </connections>
         </customObject>

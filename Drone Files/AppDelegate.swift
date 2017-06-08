@@ -38,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet weak var imageEditorSplitViewController: ImageEditorSplitViewController!
     @IBOutlet weak var rightPanelSplitViewController: RightPanelSplitViewController!
     
+    
     @IBOutlet weak var toolBarController: ToolBarController!
     
     var imageEditorControlsController = ImageEditorControlsController()
@@ -46,6 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     var videoDetailsViewController = VideoDetailsViewController()
     
+    var videoChaptersTableViewController = VideoChaptersTableViewController()
+
     var videoInfoViewController = VideoInfoViewController()
 
     var mediaBinCollectionView = MediaBinCollectionView()
@@ -172,9 +175,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             }
         })
         
-        print("DATABASE SHIT")
-        
-        print(container.persistentStoreDescriptions)
+        // print("DATABASE SHIT")
+        // print(container.persistentStoreDescriptions)
         return container
     }()
     
@@ -639,9 +641,9 @@ extension AppDelegate {
                 
                 let longFull = location[range.lowerBound..<location.endIndex]
                 
-                let lat = latFull.replacingOccurrences(of: "+", with: "")
+                let lat = latFull.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "\\", with: "")
                 
-                var long = longFull.replacingOccurrences(of: "+", with: "")
+                var long = longFull.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "\\", with: "")
                 
                 var longArray = long.components(separatedBy: ".")
                 
@@ -682,7 +684,12 @@ extension AppDelegate {
                     }
                 }
                 
-                return [latitude!, Double(latRef), longitude!, Double(longRef)]
+                if(latitude == nil || longitude == nil) {
+                    return []
+                } else {
+                    return [latitude!, Double(latRef), longitude!, Double(longRef)]
+                }
+                
             }
         }
         
@@ -734,8 +741,76 @@ extension AppDelegate {
         } catch let error {
             print(error.localizedDescription)
         }
-        
     }
+    
+    func getVideoFile(url: URL) -> VideoFile {
+        
+        let managedObjectContext = self.persistentContainer.viewContext
+
+        let videoFile = self.videoDetailsViewController.getVideoFileObjectForURL(url: url)
+        
+        if(videoFile.fileSystemFileNumber < 1) {
+            // it's not been processed.
+            
+            let location = self.getLocationFromVideo(url: url)
+            
+            let playerItem = AVPlayerItem(url: url)
+            
+            let videoLength = playerItem.duration.seconds
+            
+            let size = self.getVideoSize(url: url)
+            
+            let fps = self.getVideoFPS(url: url)
+            
+            var fileSize : UInt64
+            var fileSystemFileNumber : UInt64
+            
+            do {
+                //return [FileAttributeKey : Any]
+                let attr = try FileManager.default.attributesOfItem(atPath: url.path)
+                fileSize = attr[FileAttributeKey.size] as! UInt64
+                let date = attr[FileAttributeKey.modificationDate] as! NSDate
+                fileSystemFileNumber = attr[FileAttributeKey.systemFileNumber] as! UInt64
+                
+                
+                //if you convert to NSDictionary, you can get file size old way as well.
+                let dict = attr as NSDictionary
+                fileSize = dict.fileSize()
+                
+                videoFile.videoFPS = fps
+                videoFile.videoWidth = Float(size.width)
+                videoFile.videoHeight = Float(size.height)
+                videoFile.videoLength = videoLength
+                if(location.count > 1) {
+                    videoFile.videoLocationLat = location[0]
+                    videoFile.videoLocationLatRef = (location[1] == 0) ? "N" : "S"
+                    videoFile.videoLocationLong = location[2]
+                    videoFile.videoLocationLongRef = (location[3] == 0) ? "W" : "E"
+                    videoFile.videoLocation = "\(location[0]) \(videoFile.videoLocationLatRef!),\(location[2]) \(videoFile.videoLocationLongRef!)"
+                }
+                
+                videoFile.fileDate = date
+                videoFile.fileSize = Int64(fileSize)
+                videoFile.fileSystemFileNumber = Int64(fileSystemFileNumber)
+                
+                // 4
+                do {
+                    try managedObjectContext.save()
+                    return videoFile
+                } catch let error as NSError {
+                    print("Could not save VideoFile. \(error), \(error.userInfo)")
+                    return VideoFile()
+                }
+                
+                //print(dict)
+            } catch {
+                print("Read File Attributes Error: \(error)")
+                 return VideoFile()
+            }
+        }
+        return videoFile
+    }
+
     
     func readProjectFile(projectFile: String) {
         let path = URL(string: projectFile)

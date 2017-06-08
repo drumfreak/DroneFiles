@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="VideoChapter" representedClassName="VideoChapter" syncable="YES" codeGenerationType="class">
+        <attribute name="chapterActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="chapterEndTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="chapterLength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="chapterName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="chapterRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="chapterStartTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="videoComp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoComp" inverseName="chapters" inverseEntity="VideoComp" syncable="YES"/>
+    </entity>
+    <entity name="VideoComp" representedClassName="VideoComp" syncable="YES" codeGenerationType="class">
+        <attribute name="videoCompName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="chapters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoChapter" inverseName="videoComp" inverseEntity="VideoChapter" syncable="YES"/>
+        <relationship name="videoFile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoFile" inverseName="videoComp" inverseEntity="VideoFile" syncable="YES"/>
+    </entity>
+    <entity name="VideoFile" representedClassName="VideoFile" syncable="YES" codeGenerationType="class">
+        <attribute name="fileDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fileSystemFileNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fileSystemNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fileTags" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fileUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoFPS" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="videoHeight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="videoLength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="videoLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoLocationLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="videoLocationLatRef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoLocationLong" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="videoLocationLongRef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="videoComp" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoComp" inverseName="videoFile" inverseEntity="VideoComp" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="fileSystemFileNumber"/>
+            </uniquenessConstraint>
+            <uniquenessConstraint>
+                <constraint value="fileSystemNumber"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="VideoProject" representedClassName="VideoProject" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="VideoChapter" positionX="-11" positionY="363" width="128" height="148"/>
+        <element name="VideoComp" positionX="-225" positionY="279" width="128" height="88"/>
+        <element name="VideoFile" positionX="-18" positionY="90" width="128" height="313"/>
+        <element name="VideoProject" positionX="-225" positionY="81" width="128" height="75"/>
+    </elements>
+</model>

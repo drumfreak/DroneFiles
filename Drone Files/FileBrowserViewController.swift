@@ -283,33 +283,36 @@ class FileBrowserViewController: NSViewController {
     @IBAction func hideFileBrowser (_ sender : AnyObject) {
         // print("Fuck")
         // self.view.isHidden = true
+        
+        
         self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
+        
+        
         if(self.splitItem != nil) {
             if(self.splitItem.isCollapsed) {
-                self.tableView.reloadData()
-                self.unHideView()
+                    self.tableView.reloadData()
+                self.appDelegate.splitViewController.toggleFileBrowser()
             } else {
-                self.hideView()
+               self.appDelegate.splitViewController.toggleFileBrowser()
             }
         }
     }
     
-    func hideView() {
-        self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
-        self.splitItem.isCollapsed = true
-        // self.splitItem.holdingPriority = 250
-        // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
-        
-    }
-    
-    func unHideView() {
-        self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
-
-        self.splitItem.isCollapsed = false
-        self.splitItem.holdingPriority = 150
-        self.appDelegate.splitViewController?.splitView.adjustSubviews()
-        
-    }
+//    func hideView() {
+//                self.splitItem.isCollapsed = true
+//        // self.splitItem.holdingPriority = 250
+//        // self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
+//        
+//    }
+//    
+//    func unHideView() {
+//        self.splitItem = self.appDelegate.splitViewController?.splitViewItem(for: self)!
+//
+//        self.splitItem.isCollapsed = false
+//        self.splitItem.holdingPriority = 150
+//        self.appDelegate.splitViewController?.splitView.adjustSubviews()
+//        
+//    }
 
     
     func openLastFile() {
@@ -1050,8 +1053,7 @@ extension FileBrowserViewController: NSTableViewDelegate {
 }
 
 extension FileBrowserViewController: NSPathControlDelegate {
-    
-    
+
     public func pathControl(_ pathControl: NSPathControl, shouldDrag pathItem: NSPathControlItem, with pasteboard: NSPasteboard) -> Bool {
         
         return false

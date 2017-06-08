@@ -34,6 +34,8 @@ class SplitViewController: NSSplitViewController {
         self.videoDetailsSplitView = NSSplitViewItem(viewController: self.appDelegate.videoDetailsViewController)
         
         self.leftView.holdingPriority = 300
+        self.rightView.holdingPriority = 200
+
         self.videoDetailsSplitView.holdingPriority = 300
         
         self.leftView.isCollapsed = false
@@ -42,6 +44,22 @@ class SplitViewController: NSSplitViewController {
 
     }
 
+    func toggleFileBrowser() {
+        
+        self.videoDetailsSplitView.holdingPriority = 300
+        self.leftView.holdingPriority = 300
+        self.rightView.holdingPriority = 200
+        
+        self.leftView.isCollapsed = !self.leftView.isCollapsed
+        
+        if(!self.videoDetailsSplitView.isCollapsed) {
+             self.videoDetailsSplitView.isCollapsed = true
+        }
+       
+        
+        self.splitView.adjustSubviews()
+        
+    }
     
     func showVideoDetails() {
 
@@ -49,6 +67,7 @@ class SplitViewController: NSSplitViewController {
         
         self.videoDetailsSplitView.holdingPriority = 300
         self.leftView.holdingPriority = 300
+        self.rightView.holdingPriority = 700
 
         self.leftView.isCollapsed = !self.leftView.isCollapsed
         self.videoDetailsSplitView.isCollapsed = !self.videoDetailsSplitView.isCollapsed

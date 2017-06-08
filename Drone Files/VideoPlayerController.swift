@@ -28,7 +28,7 @@ class VideoPlayerViewController: NSViewController {
         didSet {
             self.playVideo(_url: nowPlayingURL, frame:kCMTimeZero, startPlaying: self.appSettings.videoPlayerAlwaysPlay)
             
-            self.appDelegate.videoDetailsViewController.videoFileUrl = nowPlayingURL
+            self.appDelegate.videoDetailsViewController.loadVideo(url: nowPlayingURL)
         }
     }
     
