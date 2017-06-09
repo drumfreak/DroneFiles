@@ -24,11 +24,14 @@ class VideoPlayerViewController: NSViewController {
     var currentVideoURL: URL!
     @IBOutlet var originalPlayerItem: AVPlayerItem!
     @IBOutlet var player: AVPlayer!
+    var reloadMap = true
     var nowPlayingURL: URL! {
         didSet {
             self.playVideo(_url: nowPlayingURL, frame:kCMTimeZero, startPlaying: self.appSettings.videoPlayerAlwaysPlay)
             
-            self.appDelegate.videoDetailsViewController.loadVideo(url: nowPlayingURL)
+            self.appDelegate.videoDetailsViewController.loadVideo(url: nowPlayingURL, reloadMap: self.reloadMap)
+
+            self.reloadMap = true
         }
     }
     
@@ -84,6 +87,10 @@ class VideoPlayerViewController: NSViewController {
         
     }
     
+    func loadVideoFromMap(url: URL) {
+        self.reloadMap = false
+        self.nowPlayingURL = url
+    }
     
     func playPause() {
         if(self.player.isPlaying) {

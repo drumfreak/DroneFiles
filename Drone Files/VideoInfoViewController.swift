@@ -48,6 +48,10 @@ class VideoInfoViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        if(self.appDelegate.videoPlayerViewController?.currentVideoURL == nil) {
+            return
+        }
+        
         loadFile(url: (self.appDelegate.videoPlayerViewController?.currentVideoURL!)!)
     }
     

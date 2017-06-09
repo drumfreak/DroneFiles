@@ -36,7 +36,9 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
     var fecthVideoFileRequest = NSFetchRequest<NSManagedObject>(entityName: "VideoFile")
     var currentVideoUrl: URL?
     var currentVideoItem: VideoMapItem!
-
+    var viewIsOpen = false
+    var clickedItem: VideoMapItem!
+    var videoItems = [VideoMapItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,12 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.viewIsOpen = true
+        if(self.currentVideoUrl != nil) {
+
+            self.loadVideos(currentURL: self.currentVideoUrl!)
+            
+        }
 //        
 //        self.window?.titleVisibility = NSWindowTitleVisibility.hidden
 //        self.window.backgroundColor = self.appSettings.tableRowActiveBackGroundColor
@@ -71,8 +79,15 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
 
     }
     
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.viewIsOpen = false
+    }
+
+    
     
     func loadVideos(currentURL: URL) {
+        self.currentVideoUrl = currentURL
         managedObjectContext = self.appDelegate.persistentContainer.viewContext
 
         let fetch = self.fecthVideoFileRequest
@@ -83,9 +98,9 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
             let videos = try managedObjectContext.fetch(fetch)
             
             self.videoCountLabel?.title = "\(videos.count)"
+            self.videoItems = [VideoMapItem]()
             
             if(videos.count > 0) {
-                
                 var i = 0
                 videos.forEach({ v in
                     i += 1
@@ -104,10 +119,12 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                     let videoItem = VideoMapItem(title: dateLabel,
                                                  locationName: video.fileName!,
                                                  discipline: "Video",
-                                                 coordinate: CLLocationCoordinate2D(latitude: video.videoLocationLat, longitude: video.videoLocationLong))
+                                                 coordinate: CLLocationCoordinate2D(latitude: video.videoLocationLat, longitude: video.videoLocationLong), url: URL(string: video.fileUrl!)!)
+                    
                     
                    
-
+                    self.videoItems.append(videoItem)
+                    
                     self.mapView.addAnnotation(videoItem)
 
                     if(URL(string: video.fileUrl!) == currentURL) {
@@ -121,7 +138,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
                     
                     // here code perfomed with delay
-                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.5, longitudeDelta: 0.5))
+                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.9, longitudeDelta: 0.5))
                     
                     self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
                     
@@ -146,17 +163,12 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
                     
                     // here code perfomed with delay
-                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.008, longitudeDelta: 0.008))
+                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.9, longitudeDelta: 0.9))
                     
                     self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
                     
                     self.mapView.setRegion(region, animated: true)
-                    
                 }
-
-                
-               
-                
             }
             
         } catch let error as NSError {
@@ -169,7 +181,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "Capital"
-        
+        // var i = 0
         //if annotation is Capital {
             if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
                 annotationView.annotation = annotation
@@ -178,8 +190,12 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 let annotationView = MKPinAnnotationView(annotation:annotation, reuseIdentifier:identifier)
                 annotationView.isEnabled = true
                 annotationView.canShowCallout = true
+                let item = annotation as! VideoMapItem
+                let btn = annoButton(title: "View", target: self, action: #selector(self.openVideoFromCallout))
+                //let btnTag = ()
                 
-                let btn = NSButton(title: "View", target: self, action: #selector(self.openVideoFromCallout))
+                btn.url = item.url
+                
                 
                 annotationView.rightCalloutAccessoryView = btn
                 return annotationView
@@ -189,8 +205,70 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
         // return nil
     }
     
-    func openVideoFromCallout() {
+   
+    
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
+        let viewItem = view.annotation as! VideoMapItem
+        
+        guard let url = viewItem.url else {
+            print("something went wrong, element. Name can not be cast to String")
+            return
+        }
+        
+       //  print(url)
+        
+//        if(url != self.currentVideoUrl) {
+//            
+//            // self.appDelegate.videoPlayerViewController.
+//            
+//            
+//            self.appDelegate.videoPlayerViewController?.loadVideoFromMap(url: url)
+//            self.appDelegate.videoControlsController.currentVideoURL = url
+//            self.appDelegate.videoControlsController.nowPlayingURLString = url.absoluteString
+//            self.appDelegate.videoControlsController.nowPlayingFile.stringValue = url.lastPathComponent
+//            self.appDelegate.appSettings.lastFileOpened = url.absoluteString
+//            self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url)
+//            self.appDelegate.saveProject()
+//            
+//        }
+
+        
+    }
+    
+  
+    
+    
+    @IBAction func openVideoFromCallout(sender: annoButton) {
+      
+        // print("SENDER: \(sender.url)")
+        
+        if(sender.url == nil) {
+            return
+        }
+        
+        guard let url = sender.url else {
+            print("something went wrong, element. Name can not be cast to String")
+            return
+        }
+        
+        print(url)
+
+        if(url != self.currentVideoUrl) {
+            
+                // self.appDelegate.videoPlayerViewController.
+            
+            
+            self.appDelegate.videoPlayerViewController?.loadVideoFromMap(url: url)
+            self.appDelegate.videoControlsController.currentVideoURL = url
+            self.appDelegate.videoControlsController.nowPlayingURLString = url.absoluteString
+            self.appDelegate.videoControlsController.nowPlayingFile.stringValue = url.lastPathComponent
+            self.appDelegate.appSettings.lastFileOpened = url.absoluteString
+            self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url)
+            self.appDelegate.saveProject()
+        
+        }
         
     }
     
@@ -198,17 +276,26 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
 }
 
 
+class annoButton: NSButton {
+    var url: URL!
+    
+    
+    
+}
+
 class VideoMapItem: NSObject, MKAnnotation {
     let title: String?
     let locationName: String
     let discipline: String
     let coordinate: CLLocationCoordinate2D
-    
-    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
+    let url: URL!
+
+    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, url: URL) {
         self.title = title
         self.locationName = locationName
         self.discipline = discipline
         self.coordinate = coordinate
+        self.url = url
         
         
         super.init()
