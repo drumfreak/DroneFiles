@@ -682,6 +682,12 @@
                                                 <action selector="videoLoopADWithSender:" target="Voe-Tx-rLC" id="i1z-Q6-CCV"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Add Chapter Mark" keyEquivalent="m" id="0HI-RP-cuK">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="addVideoChapterMarkWithSender:" target="Voe-Tx-rLC" id="6NO-AX-Dro"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Auto Advance" keyEquivalent="a" id="brk-EF-TS8">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                             <connections>

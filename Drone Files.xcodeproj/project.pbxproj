@@ -158,6 +158,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		180EAB141EEB3408001DBD36 /* Drone_Files 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 5.xcdatamodel"; sourceTree = "<group>"; };
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
@@ -1128,6 +1129,7 @@
 		18B001D01EA69C92003C3214 /* Drone_Files.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				180EAB141EEB3408001DBD36 /* Drone_Files 5.xcdatamodel */,
 				18F07B501EE9B3EE00889D18 /* Drone_Files 4.xcdatamodel */,
 				18E46CAE1EE9A13500FB7E36 /* Drone_Files 3.xcdatamodel */,
 				18F398861EE7BAA700902C41 /* Drone_Files 2.xcdatamodel */,

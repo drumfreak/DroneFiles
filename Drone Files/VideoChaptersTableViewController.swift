@@ -46,6 +46,10 @@ class VideoChaptersTableViewController: NSViewController {
     }
     
     func selectCurrentChapter() {
+        
+        if(!(self.appDelegate.videoPlayerViewController?.playerIsReady)!) {
+            return
+        }
         if(self.viewIsOpen) {
             let s = Double((self.appDelegate.videoPlayerViewController?.player.currentTime().seconds)!)
             
@@ -112,8 +116,27 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                     
                 }
                 
-                cell.removeChapterButton.tag = row
+                if(chapter.isFavorite) {
+                    cell.favoriteButton?.image = NSImage.init(named: "heart-table-active.png")
+                } else {
+                    cell.favoriteButton?.image = NSImage.init(named: "heart-table-inactive.png")
+                }
                 
+                if(chapter.chapterEnabled) {
+                   // cell.enableDisableButton?.image = NSImage.init(named: "heart-table-active.png")
+                    cell.enableDisableButton.state = 1
+                } else {
+                    // cell.enableDisableButton?.image = NSImage.init(named: "heart-table-inactive.png")
+                    cell.enableDisableButton.state = 0
+
+                }
+                
+                
+                cell.removeChapterButton.tag = row
+                cell.favoriteButton.tag = row
+                cell.enableDisableButton.tag = row
+                cell.exportButton.tag = row
+
                 // cell.queueOverAllProgressIndicator?.doubleValue = 0.0
                 
                 return cell
@@ -126,7 +149,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         
-        print("Selected: \(self.tableView.selectedRow)")
+        // print("Selected: \(self.tableView.selectedRow)")
         
         self.appDelegate.videoDetailsViewController.blockChapterLoad = true
     
@@ -146,7 +169,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 }
                 
                 self.blockPlayerSeek = false
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                     self.appDelegate.videoDetailsViewController.blockChapterLoad = false
                 }
 
@@ -155,12 +178,16 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
                     self.appDelegate.videoPlayerViewController?.player.play()
                 }
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                     self.appDelegate.videoDetailsViewController.blockChapterLoad = false
                 }
-
             }
-            print("Chapter... \(chapter)")
+            var scroll = self.tableView.selectedRow
+            if(self.tableView.selectedRow > 8 && (self.tableView.numberOfRows > self.tableView.selectedRow + 1)) {
+                scroll = self.tableView.selectedRow + 1
+            }
+            self.tableView.scrollRowToVisible(scroll)
+            //print("Chapter... \(chapter)")
             
         }
     }
@@ -176,23 +203,40 @@ class VideoChapterTableCellView: NSTableCellView {
     @IBOutlet var chapterStartTime: NSTextField!
     @IBOutlet var chapterEndTime: NSTextField!
     @IBOutlet var chaptureDuration: NSTextField!
+    
     @IBOutlet var removeChapterButton: NSButton!
     @IBOutlet var chapterNumber: NSButton!
+    @IBOutlet var favoriteButton: NSButton!
+    @IBOutlet var enableDisableButton: NSButton!
+    @IBOutlet var exportButton: NSButton!
     
+    @IBOutlet var chapterThumbnail: NSImageView!
+
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
     @IBAction func removeItem(sender: AnyObject) {
-        Swift.print("remove ... \(sender.tag)")
+        Swift.print("REMOVE ... \(sender.tag)")
         self.appDelegate.videoDetailsViewController.removeChapter(index: sender.tag)
-        
+    }
+    
+    
+    @IBAction func addRemoveFavorite(sender: AnyObject) {
+        Swift.print("FAVORITE ... \(sender.tag)")
+     self.appDelegate.videoDetailsViewController.addRemoveFavoriteChapter(index: sender.tag)
     }
     
     @IBAction func exportItem(sender: AnyObject) {
-        Swift.print("export... \(sender.tag)")
+        Swift.print("EXPORT... \(sender.tag)")
         self.appDelegate.videoDetailsViewController.exportChapter(index: sender.tag)
+    }
+    
+    @IBAction func enableDisableChapter(sender: AnyObject) {
+        Swift.print("ENABLE/DISABLE ... \(sender.tag)")
+        self.appDelegate.videoDetailsViewController.enableDisableChapter(index: sender.tag)
     }
     
 }

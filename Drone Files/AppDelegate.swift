@@ -540,6 +540,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         self.fileBrowserViewController.selectNextItem()
     }
     
+    @IBAction func addVideoChapterMark(sender: AnyObject) {
+        self.videoControlsController.markChapter(self)
+    }
+    
     
     //    func validateUserInterfaceItem(anItem: NSValidatedUserInterfaceItem) -> Bool {
     //        return true

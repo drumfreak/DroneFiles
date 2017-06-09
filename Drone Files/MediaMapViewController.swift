@@ -87,6 +87,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
     
     
     func loadVideos(currentURL: URL) {
+        self.currentVideoItem = nil
         self.currentVideoUrl = currentURL
         managedObjectContext = self.appDelegate.persistentContainer.viewContext
 
@@ -142,7 +143,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
                     
                     // here code perfomed with delay
-                    guard let _ = self.currentVideoItem  else {
+                    guard let _ = self.currentVideoItem.title  else {
                         return
                     }
                     
@@ -172,7 +173,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
                     
                     // here code perfomed with delay
-                    guard let _ = self.currentVideoItem  else {
+                    guard let _ = self.currentVideoItem.title  else {
                         return
                     }
                     let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.005, longitudeDelta: 0.005))

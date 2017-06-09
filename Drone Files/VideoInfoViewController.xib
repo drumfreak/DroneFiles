@@ -62,7 +62,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUv-JG-QXR" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="388" y="74" width="198" height="17"/>
+                    <rect key="frame" x="370" y="74" width="198" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Length" id="0gA-Md-ENT">
                         <font key="font" metaFont="smallSystemBold"/>
@@ -71,7 +71,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WfW-Lh-tXK" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="408" y="54" width="114" height="17"/>
+                    <rect key="frame" x="382" y="54" width="114" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Resolution" id="2G1-5z-tEA">
                         <font key="font" metaFont="system" size="10"/>
@@ -80,7 +80,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-nq-ghu" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="493" y="54" width="93" height="17"/>
+                    <rect key="frame" x="502" y="54" width="66" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="FPS" id="Jtl-IZ-VLH">
                         <font key="font" metaFont="system" size="10"/>
@@ -89,7 +89,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="arU-DC-QMl">
-                    <rect key="frame" x="597" y="64" width="30" height="30"/>
+                    <rect key="frame" x="586" y="64" width="25" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="heart-inactive" imagePosition="only" alignment="center" alternateImage="heart-active" refusesFirstResponder="YES" imageScaling="proportionallyUpOrDown" inset="2" id="yeq-G2-4do">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

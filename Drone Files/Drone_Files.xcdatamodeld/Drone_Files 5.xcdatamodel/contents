@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Thumbnail" representedClassName="Thumbnail" syncable="YES" codeGenerationType="class">
-        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
-        <relationship name="chapterThumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoChapter" inverseName="thumbnail" inverseEntity="VideoChapter" syncable="YES"/>
-        <relationship name="videoThumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoFile" inverseName="thumbnail" inverseEntity="VideoFile" syncable="YES"/>
-    </entity>
     <entity name="VideoChapter" representedClassName="VideoChapter" syncable="YES" codeGenerationType="class">
         <attribute name="chapterEnabled" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="chapterEndTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -17,10 +11,10 @@
         <attribute name="compositionLength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="compositionStartTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thumbnail" inverseName="chapterThumbnail" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="videoComp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoComp" inverseName="chapters" inverseEntity="VideoComp" syncable="YES"/>
     </entity>
     <entity name="VideoComp" representedClassName="VideoComp" syncable="YES" codeGenerationType="class">
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoCompName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="chapters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoChapter" inverseName="videoComp" inverseEntity="VideoChapter" syncable="YES"/>
         <relationship name="videoFile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoFile" inverseName="videoComp" inverseEntity="VideoFile" syncable="YES"/>
@@ -34,6 +28,7 @@
         <attribute name="fileSystemNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="fileTags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="fileUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoFPS" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoHeight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoLength" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -43,18 +38,17 @@
         <attribute name="videoLocationLong" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoLocationLongRef" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thumbnail" inverseName="videoThumbnail" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="videoComp" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoComp" inverseName="videoFile" inverseEntity="VideoComp" syncable="YES"/>
     </entity>
     <entity name="VideoProject" representedClassName="VideoProject" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="VideoChapter" positionX="-11" positionY="363" width="128" height="225"/>
-        <element name="VideoComp" positionX="-225" positionY="279" width="128" height="88"/>
+        <element name="VideoChapter" positionX="-11" positionY="363" width="128" height="210"/>
+        <element name="VideoComp" positionX="-225" positionY="279" width="128" height="105"/>
         <element name="VideoFile" positionX="-18" positionY="90" width="128" height="330"/>
-        <element name="VideoProject" positionX="-225" positionY="81" width="128" height="75"/>
-        <element name="Thumbnail" positionX="-117" positionY="234" width="128" height="105"/>
+        <element name="VideoProject" positionX="-225" positionY="81" width="128" height="90"/>
     </elements>
 </model>
