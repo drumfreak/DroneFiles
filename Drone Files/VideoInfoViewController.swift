@@ -95,4 +95,9 @@ class VideoInfoViewController: NSViewController {
         print("open map")
     }
     
+    @IBAction func removeChapters(sender: AnyObject) {
+        self.appDelegate.videoDetailsViewController.removeAllChapters()
+    }
+    
+    
 }

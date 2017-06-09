@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var appSettings = AppSettings()
     var documentController = NSDocumentController.shared()
     
+    var fileFun = FileFunctions()
+    
     // TODO: Eventually load all these view controllers from storyboard
   
     @IBOutlet var splitViewController: SplitViewController!
@@ -144,10 +146,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
         return true
     }
-    
-    
-    
-    
     
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -871,7 +869,7 @@ extension AppDelegate {
                     self.appSettings.thumbnailDirectory = dictionary["projectDirectory"] as! String
                 }
                 
-                if(checkFolderAndCreate(folderPath: self.appSettings.thumbnailDirectory)) {
+                if(self.fileFun.checkFolderAndCreate(folderPath: self.appSettings.thumbnailDirectory)) {
                     // print("Created thumbnail directory")
                 }
                 
@@ -1066,7 +1064,7 @@ extension AppDelegate {
 
         // var foo = false
     
-        if(checkFolderAndCreate(folderPath: projectPath)) {
+        if(self.fileFun.checkFolderAndCreate(folderPath: projectPath)) {
             //print("CREATING DRONE FILES PROJECT")
             
             let documentsDirectoryPath = NSURL(string: projectPath)!
@@ -1174,16 +1172,21 @@ extension AppDelegate {
     }
     
     
-    func checkFolderAndCreate(folderPath: String) -> Bool {
-        do {
-            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
-            // print("Created Directory... " + folderPath)
-            return true
-        } catch _ as NSError {
-            print("Error while creating a folder.")
-            return false
+    
+    
+    
+    func showAlert(text: String, body: String, showCancel: Bool, messageType: String) {
+        let myPopup: NSAlert = NSAlert()
+        myPopup.messageText = text
+        myPopup.informativeText = body
+        myPopup.alertStyle = NSAlertStyle.warning
+        myPopup.addButton(withTitle: "OK")
+        if(showCancel) {
+            myPopup.addButton(withTitle: "Cancel")
         }
+        myPopup.runModal()
     }
+    
     
 }
 extension Array {
@@ -1424,6 +1427,18 @@ class FileFunctions: NSObject {
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    
+    func checkFolderAndCreate(folderPath: String) -> Bool {
+        do {
+            try FileManager.default.createDirectory(at: URL(string: folderPath)!, withIntermediateDirectories: true, attributes: nil)
+            // print("Created Directory... " + folderPath)
+            return true
+        } catch _ as NSError {
+            print("Error while creating a folder.")
+            return false
         }
     }
 

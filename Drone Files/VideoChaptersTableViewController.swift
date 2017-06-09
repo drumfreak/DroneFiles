@@ -50,18 +50,19 @@ class VideoChaptersTableViewController: NSViewController {
             let s = Double((self.appDelegate.videoPlayerViewController?.player.currentTime().seconds)!)
             
             let chap = self.appDelegate.videoDetailsViewController.chapters.first(where: {
-                $0.chapterStartTime <= s && ($0.chapterEndTime >=  s)
+                $0.chapterStartTime <= s && (($0.chapterEndTime) >=  s)
             })
             
             guard let _ = chap?.chapterName! else {
                 return
             }
             
+            self.blockPlayerSeek = true
+            self.appDelegate.videoDetailsViewController.blockChapterLoad = true
             let i =  self.appDelegate.videoDetailsViewController.chapters.index(of: chap!)
             
             let f = IndexSet.init(integer: i!)
             
-            self.blockPlayerSeek = true
             self.tableView.selectRowIndexes(f, byExtendingSelection: false)
         }
 
@@ -127,16 +128,40 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
         
         print("Selected: \(self.tableView.selectedRow)")
         
+        self.appDelegate.videoDetailsViewController.blockChapterLoad = true
+    
+        if(self.appDelegate.videoPlayerViewController?.player.isPlaying)! {
+            self.appDelegate.videoPlayerViewController?.player.pause()
+        }
+        
         if(tableView.selectedRow >= 0) {
             let chapter = self.appDelegate.videoDetailsViewController.chapters[self.tableView.selectedRow]
-            
-                print("Chapter... \(chapter)")
-            
+            self.appDelegate.videoDetailsViewController.currentChapter = chapter
+
             if(!self.blockPlayerSeek) {
-                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: chapter.chapterStartTime, preferredTimescale: CMTimeScale(29.97)))
+                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: (chapter.chapterStartTime), preferredTimescale: CMTimeScale((chapter.videoComp?.videoFile?.videoFPS)!)))
+                
+                if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
+                    self.appDelegate.videoPlayerViewController?.player.play()
+                }
+                
+                self.blockPlayerSeek = false
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+                    self.appDelegate.videoDetailsViewController.blockChapterLoad = false
+                }
+
             } else {
                 self.blockPlayerSeek = false
+                if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
+                    self.appDelegate.videoPlayerViewController?.player.play()
+                }
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+                    self.appDelegate.videoDetailsViewController.blockChapterLoad = false
+                }
+
             }
+            print("Chapter... \(chapter)")
+            
         }
     }
     

@@ -107,15 +107,23 @@
                         <action selector="openMapWithSender:" target="-2" id="NYc-dk-xXg"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LnD-DM-nxv" userLabel="Map Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LnD-DM-nxv" userLabel="Details Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                     <rect key="frame" x="511" y="21" width="57" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="Details" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="D5l-wX-2sp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gIe-46-p9I" userLabel="Remove Chapters Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="416" y="21" width="90" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Remove Chapters" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="vyP-G0-HJe">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
                     <connections>
-                        <action selector="openMapWithSender:" target="-2" id="vjj-wD-jaQ"/>
+                        <action selector="removeChaptersWithSender:" target="-2" id="Wgg-MI-ZcV"/>
                     </connections>
                 </button>
             </subviews>
