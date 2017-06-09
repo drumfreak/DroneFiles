@@ -31,7 +31,9 @@ class VideoChaptersTableViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         self.viewIsOpen = true
-        self.reloadContents()
+        DispatchQueue.main.async {
+            self.reloadContents()
+        }
     }
     
     
@@ -128,7 +130,13 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 } else {
                     // cell.enableDisableButton?.image = NSImage.init(named: "heart-table-inactive.png")
                     cell.enableDisableButton.state = 0
+                }
+                
+                if((chapter.thumbnail) != nil) {
+                    cell.chapterThumbnail.image = NSImage.init(data: (chapter.thumbnail?.data! as Data?)!)
+                } else {
 
+                    cell.chapterThumbnail.isHidden = true
                 }
                 
                 
@@ -154,7 +162,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
         self.appDelegate.videoDetailsViewController.blockChapterLoad = true
     
         if(self.appDelegate.videoPlayerViewController?.player.isPlaying)! {
-            self.appDelegate.videoPlayerViewController?.player.pause()
+            self.appDelegate.videoPlayerViewController?.playPause()
         }
         
         if(tableView.selectedRow >= 0) {
@@ -165,7 +173,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: (chapter.chapterStartTime), preferredTimescale: CMTimeScale((chapter.videoComp?.videoFile?.videoFPS)!)))
                 
                 if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
-                    self.appDelegate.videoPlayerViewController?.player.play()
+                    self.appDelegate.videoPlayerViewController?.playPause()
                 }
                 
                 self.blockPlayerSeek = false
@@ -176,7 +184,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
             } else {
                 self.blockPlayerSeek = false
                 if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
-                    self.appDelegate.videoPlayerViewController?.player.play()
+                    self.appDelegate.videoPlayerViewController?.playPause()
                 }
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                     self.appDelegate.videoDetailsViewController.blockChapterLoad = false

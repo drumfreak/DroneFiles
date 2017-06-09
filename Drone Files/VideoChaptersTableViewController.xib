@@ -18,21 +18,21 @@
             <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="99" horizontalPageScroll="10" verticalLineScroll="99" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnd-bV-Vra" customClass="ThemeScrollView" customModule="Drone_Files" customModuleProvider="target">
+                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="99" horizontalPageScroll="10" verticalLineScroll="99" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnd-bV-Vra" customClass="ThemeScrollView" customModule="Drone_Files" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <clipView key="contentView" ambiguous="YES" id="PMc-9Z-IJC" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
+                    <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="PMc-9Z-IJC" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="99" rowSizeStyle="automatic" viewBased="YES" id="6Go-IZ-KlZ">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="99" rowSizeStyle="automatic" viewBased="YES" id="6Go-IZ-KlZ">
                                 <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.15565052600000001" green="0.15565052600000001" blue="0.15565052600000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableViewGridLines key="gridStyleMask" dashed="YES"/>
                                 <color key="gridColor" red="0.35718592560000001" green="0.35718592560000001" blue="0.35718592560000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <tableColumns>
-                                    <tableColumn width="635" minWidth="300" maxWidth="1000" id="7G7-xp-L7R">
+                                    <tableColumn editable="NO" width="635" minWidth="300" maxWidth="1000" id="7G7-xp-L7R">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -50,7 +50,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbD-Qh-V4e" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
-                                                        <rect key="frame" x="71" y="53" width="85" height="17"/>
+                                                        <rect key="frame" x="95" y="53" width="85" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Start Time" id="m5L-nH-jLs">
                                                             <font key="font" metaFont="system"/>
@@ -59,7 +59,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnG-wc-sdN">
-                                                        <rect key="frame" x="71" y="73" width="256" height="17"/>
+                                                        <rect key="frame" x="95" y="73" width="256" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="bth-Dc-qY2">
                                                             <font key="font" metaFont="systemBold" size="16"/>
@@ -68,7 +68,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pu-Ms-Uuz">
-                                                        <rect key="frame" x="179" y="53" width="96" height="17"/>
+                                                        <rect key="frame" x="203" y="53" width="96" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="End Time" id="3Vw-a7-TjA">
                                                             <font key="font" metaFont="system"/>
@@ -77,7 +77,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dc4-J9-1mn">
-                                                        <rect key="frame" x="155" y="53" width="22" height="17"/>
+                                                        <rect key="frame" x="179" y="53" width="22" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="-" id="3XO-yU-IoR">
                                                             <font key="font" metaFont="system"/>
@@ -86,7 +86,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-Gf-7La">
-                                                        <rect key="frame" x="522" y="45" width="31" height="31"/>
+                                                        <rect key="frame" x="523" y="45" width="31" height="31"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gFm-zt-JU5">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -105,14 +105,6 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hHT-f4-bR4">
-                                                        <rect key="frame" x="15" y="71" width="34" height="20"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="HbC-9d-axZ">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="systemBold"/>
-                                                        </buttonCell>
-                                                    </button>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHR-Ey-nAE" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
                                                         <rect key="frame" x="570" y="17" width="57" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
@@ -147,10 +139,18 @@
                                                         </connections>
                                                     </button>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udf-is-blh">
-                                                        <rect key="frame" x="9" y="16" width="48" height="48"/>
+                                                        <rect key="frame" x="9" y="31" width="80" height="60"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="appicon-1024px" id="omN-7O-8nW"/>
                                                     </imageView>
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hHT-f4-bR4">
+                                                        <rect key="frame" x="32" y="51" width="34" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" state="on" borderStyle="border" sound="Morse" inset="2" id="HbC-9d-axZ">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="systemBold"/>
+                                                        </buttonCell>
+                                                    </button>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="chapterEndTime" destination="0pu-Ms-Uuz" id="T1v-ew-b48"/>
@@ -182,7 +182,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="bFQ-UK-0jw">
-                        <rect key="frame" x="-16" y="0.0" width="16" height="0.0"/>
+                        <rect key="frame" x="-100" y="-100" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
@@ -194,5 +194,6 @@
         <image name="darkbackground" width="1200" height="1000"/>
         <image name="heart-active" width="30" height="30"/>
         <image name="heart-inactive" width="30" height="30"/>
+        <sound name="Morse"/>
     </resources>
 </document>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180EAB171EEB4929001DBD36 /* VideoTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180EAB161EEB4929001DBD36 /* VideoTools.swift */; };
+		180EAB191EEB4937001DBD36 /* FileFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180EAB181EEB4937001DBD36 /* FileFunctions.swift */; };
 		1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267A1EA9B450004CA3E5 /* EditorViewController.swift */; };
 		1814267D1EA9BD69004CA3E5 /* EditorTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */; };
 		1814267F1EA9CB2F004CA3E5 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */; };
@@ -159,6 +161,8 @@
 
 /* Begin PBXFileReference section */
 		180EAB141EEB3408001DBD36 /* Drone_Files 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drone_Files 5.xcdatamodel"; sourceTree = "<group>"; };
+		180EAB161EEB4929001DBD36 /* VideoTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTools.swift; sourceTree = "<group>"; };
+		180EAB181EEB4937001DBD36 /* FileFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFunctions.swift; sourceTree = "<group>"; };
 		1814267A1EA9B450004CA3E5 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorTabViewController.swift; sourceTree = "<group>"; };
 		1814267E1EA9CB2F004CA3E5 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +318,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180EAB151EEB4910001DBD36 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				180EAB161EEB4929001DBD36 /* VideoTools.swift */,
+				180EAB181EEB4937001DBD36 /* FileFunctions.swift */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		1817BBC81EDA219D0003A7D2 /* TimeLapse */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,6 +552,7 @@
 				188272131EC9E19800EE50D0 /* AppSettings.swift */,
 				184AD8101ED737FE001209F5 /* Interfaces */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
+				180EAB151EEB4910001DBD36 /* Tools */,
 				1814267A1EA9B450004CA3E5 /* EditorViewController.swift */,
 				1836DB801EC4CB250000F749 /* MenuController.swift */,
 				1850908D1ED66456007933FC /* Toolbar */,
@@ -821,6 +835,7 @@
 				18740B6C1ECD3F30003803B4 /* ImageEditorSplitViewController.swift in Sources */,
 				1817BBC61ED9B8240003A7D2 /* ThemeTabViewItem.swift in Sources */,
 				188272311ECA939300EE50D0 /* ThemePathControl.swift in Sources */,
+				180EAB191EEB4937001DBD36 /* FileFunctions.swift in Sources */,
 				18A3ADA61ED55D5000F09727 /* FileManagerSplitViewController.swift in Sources */,
 				18BAABAB1EADBDDE00EE5434 /* FileManagerViewController.swift in Sources */,
 				1817BBD41EDDC7420003A7D2 /* VideoClipMergeViewController.swift in Sources */,
@@ -830,6 +845,7 @@
 				1850D3641EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift in Sources */,
 				1817BBCB1EDA21D70003A7D2 /* TimeLapseViewController.swift in Sources */,
 				188272351ECAA50100EE50D0 /* ThemeView.swift in Sources */,
+				180EAB171EEB4929001DBD36 /* VideoTools.swift in Sources */,
 				187843A51EB3CB1D00BCD214 /* VideoSplitViewController.swift in Sources */,
 				1850D3661EDE672D00B8703F /* MediaQueueMonitorTableCellViewController.swift in Sources */,
 				1817BBC51ED9B8240003A7D2 /* ThemeCheckbox.swift in Sources */,
