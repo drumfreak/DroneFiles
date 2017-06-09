@@ -19,7 +19,7 @@ class VideoChaptersTableViewController: NSViewController {
     
     @IBOutlet var tableView: NSTableView!
     var viewIsOpen = false
-    
+    var blockPlayerSeek = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appDelegate.videoChaptersTableViewController = self
@@ -27,20 +27,45 @@ class VideoChaptersTableViewController: NSViewController {
         // Do view setup here
     }
     
-    func reloadContents() {
-        self.tableView?.reloadData()
-    }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         self.viewIsOpen = true
-        self.tableView.reloadData()
+        self.reloadContents()
     }
     
     
     override func viewDidDisappear() {
         super.viewDidAppear()
         self.viewIsOpen = false
+    }
+    
+    func reloadContents() {
+        self.tableView?.reloadData()
+        self.selectCurrentChapter()
+    }
+    
+    func selectCurrentChapter() {
+        if(self.viewIsOpen) {
+            let s = Double((self.appDelegate.videoPlayerViewController?.player.currentTime().seconds)!)
+            
+            let chap = self.appDelegate.videoDetailsViewController.chapters.first(where: {
+                $0.chapterStartTime <= s && ($0.chapterEndTime >=  s)
+            })
+            
+            guard let _ = chap?.chapterName! else {
+                return
+            }
+            
+            let i =  self.appDelegate.videoDetailsViewController.chapters.index(of: chap!)
+            
+            let f = IndexSet.init(integer: i!)
+            
+            self.blockPlayerSeek = true
+            self.tableView.selectRowIndexes(f, byExtendingSelection: false)
+        }
+
+        
     }
 }
 
@@ -105,8 +130,13 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
         if(tableView.selectedRow >= 0) {
             let chapter = self.appDelegate.videoDetailsViewController.chapters[self.tableView.selectedRow]
             
-            print("Chapter... \(chapter)")
-            self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: chapter.chapterStartTime, preferredTimescale: CMTimeScale(29.97)))
+                print("Chapter... \(chapter)")
+            
+            if(!self.blockPlayerSeek) {
+                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: chapter.chapterStartTime, preferredTimescale: CMTimeScale(29.97)))
+            } else {
+                self.blockPlayerSeek = false
+            }
         }
     }
     

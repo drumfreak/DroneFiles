@@ -182,6 +182,8 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         
         let durationSeconds = CMTimeGetSeconds((cur)!)
         
+        self.appDelegate.videoDetailsViewController.chapterListen(seconds: durationSeconds)
+        
         let (h,m,s,_) = self.secondsToHoursMinutesSeconds(seconds: Int((durationSeconds)))
         
         DispatchQueue.main.async {

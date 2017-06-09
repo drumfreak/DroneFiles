@@ -1396,6 +1396,17 @@ class FileFunctions: NSObject {
     }
     
     
+    func fileExists(url: URL) -> Bool {
+        let fileManager = FileManager.default
+        var isDirectory: ObjCBool = false
+        
+        if !fileManager.fileExists(atPath: (url.path), isDirectory: &isDirectory) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     func setFileDate(originalFile: String, modificationDate: Date) {
         
         var original = originalFile.replacingOccurrences(of: "file://", with: "");

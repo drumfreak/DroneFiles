@@ -31,8 +31,30 @@
                         <font key="font" metaFont="systemBold"/>
                     </buttonCell>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E7C-h1-WxV" customClass="ThemeCheckbox" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="439" y="216" width="75" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Autoplay" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="YsY-f0-hRF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggleAutoPlayWithSender:" target="-2" id="LwC-oM-3hQ"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEr-i7-NpG" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="518" y="211" width="100" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Open Window" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="sxR-KL-xm9">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <point key="canvasLocation" x="422.5" y="853"/>
         </view>
     </objects>
+    <resources>
+        <image name="darkbackground" width="1200" height="1000"/>
+    </resources>
 </document>

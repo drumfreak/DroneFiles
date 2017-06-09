@@ -11,7 +11,8 @@ import Cocoa
 
 class ImageEditorSplitViewController: NSSplitViewController {
     // @IBOutlet weak var splitViewRightController: SplitViewRightViewController!
-    @IBOutlet var imageEditorControlsSplitView: NSSplitViewItem!
+    @IBOutlet var imageEditorControlsSplitViewItem: NSSplitViewItem!
+    @IBOutlet var imageEditorSplitViewItem: NSSplitViewItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,18 +23,35 @@ class ImageEditorSplitViewController: NSSplitViewController {
         
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         
-        self.imageEditorControlsSplitView = NSSplitViewItem.init(viewController: self.appDelegate.imageEditorControlsController)
+        self.imageEditorSplitViewItem = self.splitViewItem(for: self.appDelegate.imageEditorViewController!)
         
-        self.imageEditorControlsSplitView.holdingPriority = 40
+        self.imageEditorControlsSplitViewItem = NSSplitViewItem.init(viewController: self.appDelegate.imageEditorControlsController)
         
+        self.imageEditorSplitViewItem.holdingPriority = 10
 
+        self.imageEditorControlsSplitViewItem.holdingPriority = 30
         
-        self.addSplitViewItem(self.imageEditorControlsSplitView)
+        self.splitView.setPosition(CGFloat(434.0), ofDividerAt: 0)
+
+        self.addSplitViewItem(self.imageEditorControlsSplitViewItem)
         
         self.splitView.adjustSubviews()
         
 
         // self.appDelegate.rightPanelSplitViewController?.splitView.adjustSubviews()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        //self.imageEditorSplitViewItem.holdingPriority = 10
+        //self.imageEditorControlsSplitViewItem.holdingPriority = 10
+
+        
+        self.splitView.setPosition(CGFloat(434.0), ofDividerAt: 0)
+        
+        self.splitView.adjustSubviews()
+
     }
     
 }

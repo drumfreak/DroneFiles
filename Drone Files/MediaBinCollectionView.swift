@@ -393,7 +393,7 @@ class MediaBinCollectionView: NSViewController {
     func unHideMediaBin() {
         self.splitItem = self.appDelegate.rightPanelSplitViewController?.splitViewItem(for: self)!
         self.splitItem.isCollapsed = false
-        self.splitItem.holdingPriority = 250
+        self.splitItem.holdingPriority = 100
         self.appDelegate.rightPanelSplitViewController.splitView.adjustSubviews()
         
     }

@@ -1058,7 +1058,7 @@
             <objects>
                 <splitViewController title="Drone Files" id="0tx-kD-7nM" customClass="SplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="300" behavior="contentList" id="V7H-nq-pY6"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="V7H-nq-pY6"/>
                         <splitViewItem id="fDd-oZ-ppC"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" id="5pU-Fa-0yg" customClass="ThemeSplitViewMain" customModule="Drone_Files" customModuleProvider="target">
@@ -1585,7 +1585,7 @@
             <objects>
                 <splitViewController title="Video Editor" storyboardIdentifier="videoSplitViewController" id="Ree-Ez-cKD" customClass="VideoSplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="100" id="Fn6-7k-a9w"/>
+                        <splitViewItem holdingPriority="350" id="Fn6-7k-a9w"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" arrangesAllSubviews="NO" dividerStyle="thin" id="CMf-he-Wrs">
                         <rect key="frame" x="0.0" y="0.0" width="760" height="1172"/>
@@ -1655,11 +1655,11 @@
             <objects>
                 <splitViewController storyboardIdentifier="imageEditorSplitViewController" id="QRC-NX-MOR" customClass="ImageEditorSplitViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem id="Fuq-VN-3QC"/>
+                        <splitViewItem holdingPriority="350" id="Fuq-VN-3QC"/>
                     </splitViewItems>
                     <splitView key="splitView" misplaced="YES" arrangesAllSubviews="NO" autosaveName="ImageEditorSplitView" dividerStyle="thin" id="Oal-AJ-cvn">
-                        <rect key="frame" x="0.0" y="0.0" width="760" height="1174"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="1172"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     </splitView>
                     <connections>
                         <segue destination="396-wX-C6I" kind="relationship" relationship="splitItems" id="NPX-nd-y2p"/>
@@ -2572,22 +2572,22 @@
             <objects>
                 <viewController storyboardIdentifier="imageEditorViewController" id="396-wX-C6I" customClass="ImageEditorViewController" customModule="Drone_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="OkA-ZN-JiK">
-                        <rect key="frame" x="0.0" y="0.0" width="760" height="430"/>
+                        <rect key="frame" x="0.0" y="0.0" width="760" height="440"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="32T-ds-Veb">
-                                <rect key="frame" x="0.0" y="0.0" width="760" height="430"/>
+                                <rect key="frame" x="0.0" y="0.0" width="760" height="440"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="47z-VB-8Kv">
-                                    <rect key="frame" x="0.0" y="0.0" width="760" height="430"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="760" height="440"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KCv-MI-ady">
-                                            <rect key="frame" x="0.0" y="0.0" width="760" height="430"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="440"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="n3j-ea-Bma">
-                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="430"/>
+                                                <ikImageView wantsLayer="YES" fixedFrame="YES" zoomFactor="0.0" editable="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3j-ea-Bma">
+                                                    <rect key="frame" x="0.0" y="0.0" width="760" height="440"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="0.50002289" green="0.50002289" blue="0.50002289" alpha="1" colorSpace="deviceRGB"/>
                                                     <connections>

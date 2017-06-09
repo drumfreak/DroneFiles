@@ -28,16 +28,16 @@ class RightPanelSplitViewController: NSSplitViewController {
         
         self.mediaBinSplitView = NSSplitViewItem.init(viewController: self.appDelegate.mediaBinCollectionView)
       
-        self.addSplitViewItem(self.mediaBinSplitView)
-        
-        self.appDelegate.mediaBinCollectionView.reloadContents()
+        self.mediaBinSplitView.holdingPriority = 700
     
         self.videoSplitview =  self.splitViewItem(for: self.appDelegate.videoSplitViewController!)!
-        
+        self.videoSplitview.holdingPriority = 20
         self.fileManagerSplitView =  self.splitViewItem(for: self.appDelegate.fileManagerViewController!)!
         
         self.imageEditorSplitView =  self.splitViewItem(for: self.appDelegate.imageEditorSplitViewController!)!
-        
+        self.imageEditorSplitView.holdingPriority = 20
+        self.addSplitViewItem(self.mediaBinSplitView)
+        self.appDelegate.mediaBinCollectionView.reloadContents()
         self.showVideoSplitView()
         self.splitView.adjustSubviews()
     }
@@ -46,11 +46,12 @@ class RightPanelSplitViewController: NSSplitViewController {
     func showVideoSplitView() {
         if(self.appDelegate.appSettings.videoSplitViewIsOpen == false) {
             self.appDelegate.appSettings.videoSplitViewIsOpen = true
+            self.videoSplitview.isCollapsed = false
+
             self.fileManagerSplitView.isCollapsed = true
             self.imageEditorSplitView.isCollapsed = true
-            self.videoSplitview.isCollapsed = false
-            self.appDelegate.videoSplitViewController?.splitView.setPosition(CGFloat(464.0), ofDividerAt:0)
-           // self.splitView.adjustSubviews()
+            self.appDelegate.videoSplitViewController?.splitView.setPosition(CGFloat(434.0), ofDividerAt:0)
+           self.splitView.adjustSubviews()
         }
         self.appDelegate.appSettings.imageEditorSplitViewIsOpen = false
         self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false
@@ -64,8 +65,8 @@ class RightPanelSplitViewController: NSSplitViewController {
             self.imageEditorSplitView.isCollapsed = false
             self.videoSplitview.isCollapsed = true
             //self.splitView.setPosition(CGFloat(464), ofDividerAt:1)
-            self.appDelegate.imageEditorSplitViewController?.splitView.setPosition(CGFloat(464.0), ofDividerAt:0)
-           // self.splitView.adjustSubviews()
+            self.appDelegate.imageEditorSplitViewController?.splitView.setPosition(CGFloat(434.0), ofDividerAt:0)
+            self.splitView.adjustSubviews()
         }
         self.appDelegate.appSettings.videoSplitViewIsOpen = false
         self.appDelegate.appSettings.fileManagerSplitViewIsOpen = false

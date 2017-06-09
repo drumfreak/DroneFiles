@@ -38,9 +38,11 @@ class SplitViewController: NSSplitViewController {
 
         self.videoDetailsSplitView.holdingPriority = 300
         
-        self.leftView.isCollapsed = false
         self.videoDetailsSplitView.isCollapsed = true
         self.insertSplitViewItem(self.videoDetailsSplitView!, at: 0)
+        self.leftView.isCollapsed = false
+
+        self.splitView.adjustSubviews()
 
     }
 

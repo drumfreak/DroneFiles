@@ -13,7 +13,6 @@ import CoreData
 
 class MediaMapWindowController: NSWindowController {
     @IBOutlet weak var toolBar: NSToolbar!
-
     override var windowNibName: String? {
         return "MediaMapWindowController" // no extension .xib here
     }
@@ -39,7 +38,8 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
     var viewIsOpen = false
     var clickedItem: VideoMapItem!
     var videoItems = [VideoMapItem]()
-    
+    var fileFun = FileFunctions()
+    var autoPlay = true
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -104,33 +104,37 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 var i = 0
                 videos.forEach({ v in
                     i += 1
+                
                     
                     let video = v as! VideoFile
-                    // show artwork on map
                     
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateStyle = .medium
-                    dateFormatter.timeStyle = .medium
-                    let dateLabel = "\(dateFormatter.string(from: video.fileDate! as Date))"
-                    
-            
-                    
-                    let videoItem = VideoMapItem(title: dateLabel,
-                                                 locationName: video.fileName!,
-                                                 discipline: "Video",
-                                                 coordinate: CLLocationCoordinate2D(latitude: video.videoLocationLat, longitude: video.videoLocationLong), url: URL(string: video.fileUrl!)!)
-                    
-                    
-                   
-                    self.videoItems.append(videoItem)
-                    
-                    self.mapView.addAnnotation(videoItem)
-
-                    if(URL(string: video.fileUrl!) == currentURL) {
-                        self.currentVideoItem = videoItem
-                    
+                    if(self.fileFun.fileExists(url: URL(string: video.fileUrl!)!)) {
+                        // show artwork on map
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateStyle = .medium
+                        dateFormatter.timeStyle = .medium
+                        let dateLabel = "\(dateFormatter.string(from: video.fileDate! as Date))"
+                        
+                        
+                        
+                        let videoItem = VideoMapItem(title: dateLabel,
+                                                     locationName: video.fileName!,
+                                                     discipline: "Video",
+                                                     coordinate: CLLocationCoordinate2D(latitude: video.videoLocationLat, longitude: video.videoLocationLong), url: URL(string: video.fileUrl!)!)
+                        
+                        
+                        
+                        self.videoItems.append(videoItem)
+                        
+                        self.mapView.addAnnotation(videoItem)
+                        
+                        if(URL(string: video.fileUrl!) == currentURL) {
+                            self.currentVideoItem = videoItem
+                            
+                        }
+                        
                     }
+                    
                 })
                 
 
@@ -138,6 +142,11 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
                     
                     // here code perfomed with delay
+                    guard let _ = self.currentVideoItem  else {
+                        return
+                    }
+                    
+                    
                     let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.9, longitudeDelta: 0.5))
                     
                     self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
@@ -163,7 +172,10 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
                     
                     // here code perfomed with delay
-                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.9, longitudeDelta: 0.9))
+                    guard let _ = self.currentVideoItem  else {
+                        return
+                    }
+                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.005, longitudeDelta: 0.005))
                     
                     self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
                     
@@ -177,7 +189,10 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
         }
     }
     
-    
+    @IBAction func toggleAutoPlay(sender: AnyObject) {
+        self.autoPlay = !self.autoPlay
+    }
+
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "Capital"
@@ -210,30 +225,31 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        let viewItem = view.annotation as! VideoMapItem
-        
-        guard let url = viewItem.url else {
-            print("something went wrong, element. Name can not be cast to String")
-            return
+        if(self.autoPlay) {
+            let viewItem = view.annotation as! VideoMapItem
+            
+            guard let url = viewItem.url else {
+                print("something went wrong, element. Name can not be cast to String")
+                return
+            }
+            
+            print(url)
+            
+            if(url != self.currentVideoUrl) {
+                
+                // self.appDelegate.videoPlayerViewController.
+                self.appDelegate.videoPlayerViewController?.loadVideoFromMap(url: url)
+                self.appDelegate.videoControlsController.currentVideoURL = url
+                self.appDelegate.videoControlsController.nowPlayingURLString = url.absoluteString
+                self.appDelegate.videoControlsController.nowPlayingFile.stringValue = url.lastPathComponent
+                self.appDelegate.appSettings.lastFileOpened = url.absoluteString
+                self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url)
+                self.appDelegate.saveProject()
+                
+            }
+            
         }
         
-       //  print(url)
-        
-//        if(url != self.currentVideoUrl) {
-//            
-//            // self.appDelegate.videoPlayerViewController.
-//            
-//            
-//            self.appDelegate.videoPlayerViewController?.loadVideoFromMap(url: url)
-//            self.appDelegate.videoControlsController.currentVideoURL = url
-//            self.appDelegate.videoControlsController.nowPlayingURLString = url.absoluteString
-//            self.appDelegate.videoControlsController.nowPlayingFile.stringValue = url.lastPathComponent
-//            self.appDelegate.appSettings.lastFileOpened = url.absoluteString
-//            self.appDelegate.secondaryDisplayMediaViewController?.loadVideo(videoUrl: url)
-//            self.appDelegate.saveProject()
-//            
-//        }
-
         
     }
     
@@ -253,7 +269,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
             return
         }
         
-        print(url)
+        // print(url)
 
         if(url != self.currentVideoUrl) {
             

@@ -267,7 +267,6 @@ extension FavoritesCollectionViewController : NSCollectionViewDataSource {
 extension FavoritesCollectionViewController : NSCollectionViewDelegate {
     // 1
     
-    
     internal func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {
             return

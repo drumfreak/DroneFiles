@@ -11,6 +11,7 @@ import Cocoa
 
 class VideoSplitViewController: NSSplitViewController {
     @IBOutlet var videoControlsSplitView: NSSplitViewItem!
+    @IBOutlet var videoPlayerSplitView: NSSplitViewItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +23,10 @@ class VideoSplitViewController: NSSplitViewController {
         self.view.layer?.backgroundColor = self.appSettings.appViewBackgroundColor.cgColor
         
         self.videoControlsSplitView = NSSplitViewItem.init(viewController: self.appDelegate.videoControlsController)
+        
+        //self.videoPlayerSplitView = NSSplitViewItem.init(viewController: self.appDelegate.videoControlsController)
     
-        self.videoControlsSplitView.holdingPriority = 10
+        self.videoControlsSplitView.holdingPriority = 300
 
         self.splitView.setPosition(CGFloat(464.0), ofDividerAt: 0)
         
