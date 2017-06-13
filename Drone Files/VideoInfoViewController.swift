@@ -30,7 +30,7 @@ class VideoInfoViewController: NSViewController {
     var managedObjectContext: NSManagedObjectContext!
     var mediaMapWindowController: MediaMapWindowController!
     var currentVideoFile: VideoFile!
-    
+    var videoManager = VideoFileManager()
     
     
     var currentFile: URL? {
@@ -58,7 +58,7 @@ class VideoInfoViewController: NSViewController {
     func loadFile(url: URL) {
         // print("URL LOADFILE \(url)")
         
-        let videoFile = self.appDelegate.getVideoFile(url: url)
+        let videoFile = self.videoManager.getVideoFile(url: url)
         
         self.currentVideoFile = videoFile
         print(videoFile)

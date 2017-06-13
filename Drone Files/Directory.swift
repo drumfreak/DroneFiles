@@ -52,6 +52,7 @@ public struct Directory  {
     }
     
     public init(folderURL: URL) {
+        let videoManager = VideoFileManager()
         url = folderURL
         let requiredAttributes = [URLResourceKey.localizedNameKey, URLResourceKey.effectiveIconKey,
                                   URLResourceKey.typeIdentifierKey, URLResourceKey.contentModificationDateKey,
@@ -104,7 +105,7 @@ public struct Directory  {
                                           ))
                     
                     if(self.appDelegate.isMov(file: url)) {
-                       let _ = self.appDelegate.getVideoFile(url:url)
+                       let _ = videoManager.getVideoFile(url:url)
                     }
 
                 }

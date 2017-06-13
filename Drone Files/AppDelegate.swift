@@ -83,14 +83,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     @IBOutlet weak var videoSplitViewController = NSStoryboard.init(name: "Main", bundle: nil).instantiateController(withIdentifier: "videoSplitViewController") as? VideoSplitViewController
 
-    
-    
     @IBOutlet weak var secondWindowController = SecondWindowController()
     @IBOutlet weak var secondaryDisplayMediaViewController = SecondaryDisplayMediaViewController()
     
     @IBOutlet weak var mediaQueueMonitorViewController = MediaQueueMonitorViewController()
    
     var mediaQueue = MediaQueue()
+    
+    var project: Project!
     
     var slideShowWindowController: SlideShowWindowController?
     
@@ -602,104 +602,6 @@ extension AppDelegate {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60, (seconds % 36000) % 60)
     }
     
-    
-    func getVideoFPS(url: URL) -> Float {
-        let asset = AVAsset(url: url)
-        let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
-        let fps = assetTrack[0].nominalFrameRate
-        return fps
-    }
-    
-    
-    func getVideoSize(url: URL) -> CGSize {
-        let asset = AVAsset(url: url)
-        let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
-        let size = assetTrack[0].naturalSize as CGSize
-        return size
-    }
-    
-    
-    func getLocationFromVideo(url: URL) -> [Double] {
-        
-        var location = ""
-        let asset = AVAsset(url: url)
-
-        
-        for metaDataItems in asset.commonMetadata {
-            
-            if metaDataItems.commonKey == "location" {
-                location = (metaDataItems.value as! NSString) as String
-                //print("Location Data: \(locationData)")
-            } else {
-                
-            }
-        }
-        
-        
-        if(location.characters.count > 0) {
-            if let range = location.range(of: "-") {
-                
-                let latFull = location[location.startIndex..<range.lowerBound]
-                
-                let longFull = location[range.lowerBound..<location.endIndex]
-                
-                let lat = latFull.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "\\", with: "")
-                
-                var long = longFull.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "\\", with: "")
-                
-                var longArray = long.components(separatedBy: ".")
-                
-                longArray.removeLast()
-                
-                long = longArray.joined(separator: ".")
-                
-                let numberFormatter = NumberFormatter()
-                numberFormatter.numberStyle = NumberFormatter.Style.decimal
-                
-                let finalLong = numberFormatter.number(from: long)
-                let finalLat = numberFormatter.number(from: lat)
-                
-                //print("Long: \(finalLong as Any)")
-                //print("Lat: \(finalLat as Any)")
-                
-                let longitude = finalLong?.doubleValue
-                
-                let latitude = finalLat?.doubleValue
-                
-                var latRef = 0 // 0 for south / 1 for north
-                var longRef = 0 // 0 for West / 1 for East
-                if var lat = latitude {
-                    if lat < 0 {
-                        latRef = 0
-                        lat = -lat
-                    } else {
-                        latRef = 1
-                    }
-                }
-                
-                if var lon = longitude {
-                    if lon < 0 {
-                        longRef = 0
-                        lon = -lon
-                    } else {
-                        longRef = 1
-                    }
-                }
-                
-                if(latitude == nil || longitude == nil) {
-                    return []
-                } else {
-                    return [latitude!, Double(latRef), longitude!, Double(longRef)]
-                }
-                
-            }
-        }
-        
-        return []
-        
-    }
-
-    
 
     func updateProjectFile(projectFile: URL, newPath: URL) {
         var fileDirectory = projectFile.deletingLastPathComponent().deletingLastPathComponent().absoluteString
@@ -745,73 +647,7 @@ extension AppDelegate {
         }
     }
     
-    func getVideoFile(url: URL) -> VideoFile {
-        
-        let managedObjectContext = self.persistentContainer.viewContext
-
-        let videoFile = self.videoDetailsViewController.getVideoFileObjectForURL(url: url)
-        
-        if(videoFile.fileSystemFileNumber < 1) {
-            // it's not been processed.
-            
-            let location = self.getLocationFromVideo(url: url)
-            
-            let playerItem = AVPlayerItem(url: url)
-            
-            let videoLength = playerItem.duration.seconds
-            
-            let size = self.getVideoSize(url: url)
-            
-            let fps = self.getVideoFPS(url: url)
-            
-            var fileSize : UInt64
-            var fileSystemFileNumber : UInt64
-            
-            do {
-                //return [FileAttributeKey : Any]
-                let attr = try FileManager.default.attributesOfItem(atPath: url.path)
-                fileSize = attr[FileAttributeKey.size] as! UInt64
-                let date = attr[FileAttributeKey.modificationDate] as! NSDate
-                fileSystemFileNumber = attr[FileAttributeKey.systemFileNumber] as! UInt64
-                
-                
-                //if you convert to NSDictionary, you can get file size old way as well.
-                let dict = attr as NSDictionary
-                fileSize = dict.fileSize()
-                
-                videoFile.videoFPS = fps
-                videoFile.videoWidth = Float(size.width)
-                videoFile.videoHeight = Float(size.height)
-                videoFile.videoLength = videoLength
-                if(location.count > 1) {
-                    videoFile.videoLocationLat = location[0]
-                    videoFile.videoLocationLatRef = (location[1] == 0) ? "N" : "S"
-                    videoFile.videoLocationLong = location[2]
-                    videoFile.videoLocationLongRef = (location[3] == 0) ? "W" : "E"
-                    videoFile.videoLocation = "\(location[0]) \(videoFile.videoLocationLatRef!),\(location[2]) \(videoFile.videoLocationLongRef!)"
-                }
-                
-                videoFile.fileDate = date
-                videoFile.fileSize = Int64(fileSize)
-                videoFile.fileSystemFileNumber = Int64(fileSystemFileNumber)
-                
-                // 4
-                do {
-                    try managedObjectContext.save()
-                    return videoFile
-                } catch let error as NSError {
-                    print("Could not save VideoFile. \(error), \(error.userInfo)")
-                    return VideoFile()
-                }
-                
-                //print(dict)
-            } catch {
-                print("Read File Attributes Error: \(error)")
-                 return VideoFile()
-            }
-        }
-        return videoFile
-    }
+    
 
     
     func readProjectFile(projectFile: String) {
@@ -861,10 +697,19 @@ extension AppDelegate {
                     return
                 }
                 
-                if(dictionary["projectDirectory"] != nil) {
-                    self.appSettings.projectFolder = dictionary["projectDirectory"] as! String
+                
+                if(dictionary["projectName"] != nil) {
+                    self.appSettings.fileSequenceName = dictionary["projectName"] as! String
                 }
                 
+                if(dictionary["projectDirectory"] != nil) {
+                    self.appSettings.projectFolder = dictionary["projectDirectory"] as! String
+                    
+                    let pm = ProjectManager()
+                    
+                    self.project = pm.getProject(url: URL(string: self.appSettings.projectFolder), projectName: self.appSettings.fileSequenceName)
+                    
+                }
                 
                 // Keep this guy at the top...
                 if(dictionary["thumbnailDirectory"] != nil) {
@@ -901,10 +746,7 @@ extension AppDelegate {
                     self.mediaBinCollectionView.reloadContents()
                 }
                 
-                
-                if(dictionary["projectName"] != nil) {
-                    self.appSettings.fileSequenceName = dictionary["projectName"] as! String
-                }
+              
                 
                 if(dictionary["outputDirectory"] != nil) {
                     self.appSettings.outputDirectory = dictionary["outputDirectory"] as! String
@@ -991,9 +833,6 @@ extension AppDelegate {
                 }
                 
                
-                
-                
-                
                 if(dictionary["screenshotPreserveVideoDate"] != nil) {
                     self.appSettings.screenshotPreserveVideoDate = dictionary["screenshotPreserveVideoDate"] as! Bool
                 }
@@ -1037,6 +876,9 @@ extension AppDelegate {
                 if(dictionary["createProjectSubDirectories"] != nil) {
                     self.appSettings.createProjectSubDirectories = dictionary["createProjectSubDirectories"] as! Bool
                 }
+                
+                
+                self.fileBrowserViewController.setupProjectDirectory()
                 
                 if(dictionary["lastFolderOpened"] != nil) {
                     self.appSettings.lastFolderOpened = dictionary["lastFolderOpened"] as! String
@@ -1141,6 +983,14 @@ extension AppDelegate {
             
             dic.setValue(self.appSettings.lastProjectfileOpened, forKey: "lastProjectfileOpened")
             
+            // Project info here.
+            
+            let pm = ProjectManager()
+            
+            self.project = pm.getProject(url: URL(string: self.appSettings.projectFolder), projectName: self.appSettings.fileSequenceName)
+            
+            dic.setValue(self.project.objectID.uriRepresentation().path, forKey: "project")
+            
             
             var jsonData: Data!
             
@@ -1174,10 +1024,6 @@ extension AppDelegate {
             return
         }
     }
-    
-    
-    
-    
     
     func showAlert(text: String, body: String, showCancel: Bool, messageType: String) {
         let myPopup: NSAlert = NSAlert()

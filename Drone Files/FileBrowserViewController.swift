@@ -28,6 +28,7 @@ class FileBrowserViewController: NSViewController {
         didSet {
             if let url = sourceFolderOpened {
                 // print("Source Folder Opened: \(url)")
+                
                 directory = Directory(folderURL: url)
             
                 self.reloadFileList()
@@ -100,34 +101,34 @@ class FileBrowserViewController: NSViewController {
         dateformatter.dateFormat = "MM-dd-YYYY"
         let now = dateformatter.string(from: NSDate() as Date)
         
-        self.appDelegate.appSettings.fileSequenceName = now + " - " + self.appDelegate.appSettings.fileSequenceNameTag
+ //       self.appDelegate.appSettings.fileSequenceName = now + " - " + self.appDelegate.appSettings.fileSequenceNameTag
         
-        let defaults = UserDefaults.standard
+ //       let defaults = UserDefaults.standard
 
         
         
-        if(defaults.value(forKey: "lastFolderOpened") != nil) {
-            self.sourceFolderOpened =  URL(string: defaults.value(forKey: "lastFolderOpened") as! String)
-        }
+//        if(defaults.value(forKey: "lastFolderOpened") != nil) {
+//            self.sourceFolderOpened =  URL(string: defaults.value(forKey: "lastFolderOpened") as! String)
+//        }
         
         
-        self.appDelegate.appSettings.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
-        self.appDelegate.appSettings.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
-        
-        
-        self.appDelegate.appSettings.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
-        
-        // self.appDelegate.appSettings.sourceFolder)
-        
-        self.appDelegate.appSettings.fileSequenceName = self.appDelegate.appSettings.fileSequenceNameTag
-        
+//        self.appDelegate.appSettings.sourceFolder = defaults.value(forKey: "sourceDirectory") as! String
+//        self.appDelegate.appSettings.outputDirectory = defaults.value(forKey: "outputDirectory") as! String
+//        
+//        
+//        self.appDelegate.appSettings.fileSequenceNameTag = defaults.value(forKey: "fileSequenceNameTag") as! String
+//        
+//        // self.appDelegate.appSettings.sourceFolder)
+//        
+//        self.appDelegate.appSettings.fileSequenceName = self.appDelegate.appSettings.fileSequenceNameTag
+//        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         DispatchQueue.main.async {
             self.statusLabel.stringValue = "0 Items Selected"
             // self.fileSequenceNameTextField.stringValue = self.appDelegate.appSettings.fileSequenceName
-            self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
+ //           self.appDelegate.appSettings.saveDirectoryName = self.appDelegate.appSettings.fileSequenceName
         }
         
         self.tableView.target = self
@@ -135,8 +136,7 @@ class FileBrowserViewController: NSViewController {
         
         self.currentFolderPathControl.delegate = self
         
-        setupProjectDirectory()
-        
+        // setupProjectDirectory()
         
         let descriptorName = NSSortDescriptor(key: Directory.FileOrder.Name.rawValue, ascending: true)
         let descriptorDate = NSSortDescriptor(key: Directory.FileOrder.Date.rawValue, ascending: true)
