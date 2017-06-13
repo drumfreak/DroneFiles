@@ -105,7 +105,7 @@ public struct Directory  {
                                           ))
                     
                     if(self.appDelegate.isMov(file: url)) {
-                       let _ = videoManager.getVideoFile(url:url)
+                        let _ = videoManager.getVideoFile(url:url, project: self.appDelegate.project)
                     }
 
                 }

@@ -33,12 +33,7 @@ class VideoInfoViewController: NSViewController {
     var videoManager = VideoFileManager()
     
     
-    var currentFile: URL? {
-        didSet {
-            guard let currentFile = currentFile else { return }
-            print("CURRENT URL: \(currentFile)")
-        }
-    }
+    var currentFile: URL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,10 +53,10 @@ class VideoInfoViewController: NSViewController {
     func loadFile(url: URL) {
         // print("URL LOADFILE \(url)")
         
-        let videoFile = self.videoManager.getVideoFile(url: url)
+        let videoFile = self.videoManager.getVideoFile(url: url,  project: self.appDelegate.project)
         
         self.currentVideoFile = videoFile
-        print(videoFile)
+        //print(videoFile)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -75,7 +70,7 @@ class VideoInfoViewController: NSViewController {
         
         if(videoFile.videoLocation != nil) {
             locationLabel = videoFile.videoLocation!
-            print("Location bitches! \(videoFile.videoLocation!)")
+            // print("Location bitches! \(videoFile.videoLocation!)")
         }
         self.videoLocationLabel?.stringValue = "Location: \(locationLabel)"
         
@@ -85,10 +80,7 @@ class VideoInfoViewController: NSViewController {
             self.videoDurationLabel?.stringValue = "Length: " + String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
             
         }
-       
-        
-        
-        
+    
         self.videoSizeLabel?.stringValue = "Size: \(String(format: "%.0f", videoFile.videoWidth)) x \(String(format: "%.0f", videoFile.videoHeight))"
         
         self.videoFrameRateLabel?.stringValue = "FPS: \(videoFile.videoFPS)"
@@ -96,7 +88,7 @@ class VideoInfoViewController: NSViewController {
     
     @IBAction func openMap(sender: AnyObject) {
         self.appDelegate.videoDetailsViewController.showMap(url: self.currentFile!)
-        print("open map")
+        // print("open map")
     }
     
     @IBAction func removeChapters(sender: AnyObject) {

@@ -33,11 +33,8 @@ class ProjectManager: NSObject {
     }
     
     override init() {
-        
+        super.init()
     }
-    
-    
-    
     
     func getProject(url: URL!, projectName: String) -> Project {
         
@@ -65,6 +62,7 @@ class ProjectManager: NSObject {
                 project.created = NSDate()
                 project.lastOpened = NSDate()
                 project.projectPath = url.path
+                project.projectUrl = url.absoluteString
                 project.projectName = projectName
                 
                 // 4

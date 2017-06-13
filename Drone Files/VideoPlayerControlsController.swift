@@ -572,7 +572,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         self.exportSession = AVAssetExportSession(asset: (self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.asset)!, presetName: AVAssetExportPresetHighestQuality)!
         
         self.exportSession.outputFileType = AVFileTypeQuickTimeMovie
-        self.exportSession.outputURL = URL(string: self.clippedVideoNameFullURL)// Output URL
         
         let startTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime
         let endTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime
@@ -587,6 +586,10 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         DispatchQueue.main.async {
             self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
         }
+        
+      
+        
+        
     }
     
     @IBAction func saveTrimmedClip(_ sender: AnyObject?) {
@@ -595,141 +598,12 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
         self.saveTrimmedVideoButton.isEnabled = false
         self.cancelTrimmedVideoButton.isEnabled = true
         
-        do {
-            try FileManager.default.createDirectory(atPath: self.clippedVideoPath, withIntermediateDirectories: true, attributes: nil)
-        } catch _ as NSError {
-            print("Error while creating a folder.")
-        }
-        
-        
-        func finishSave(_ err: Bool, url: URL) {
-            DispatchQueue.main.async {
-                
-                if(!err) {
-                    saveClippedFileCompleted()
-                    
-                    let notification = NSUserNotification()
-                    
-                    notification.identifier = "clipTrim\(UUID().uuidString)"
-                    notification.title = "Video Clip Trim Saved!"
-                    notification.informativeText = url.lastPathComponent.replacingOccurrences(of: "%20", with: " ")
-                    
-                    notification.soundName = NSUserNotificationDefaultSoundName
-                    notification.notificationUrl = url.absoluteString
-                    notification.hasActionButton = true
-                    notification.actionButtonTitle = "View"
-                    
-                    notification.setValue(true, forKey: "_showsButtons")
-                    
-                    var actions = [NSUserNotificationAction]()
-                    
-                    let action1 = NSUserNotificationAction(identifier: "viewNow", title: url.absoluteString)
-                    
-                    let action2 = NSUserNotificationAction(identifier: "openInFinder", title: "Open in Quicktime")
-                    
-                    actions.append(action1)
-                    actions.append(action2)
-                    
-                    notification.additionalActions = actions
-                    
-                    self.notificationCenter.deliver(notification)
-  
-                } else {
-                    saveClippedFileFailed()
-                    let myPopup: NSAlert = NSAlert()
-                    DispatchQueue.main.async {
-                        myPopup.messageText = "Clip Trim Failed"
-                        myPopup.informativeText = "Something went wrong. Dispatching Monkeys to find out why."
-                        myPopup.alertStyle = NSAlertStyle.warning
-                        myPopup.addButton(withTitle: "OK")
-                        myPopup.runModal()
-                    }
-                }
-            }
-        }
-        
-        func saveClippedFileCompleted() {
-            print("Session Completed")
-            self.saveTrimmedVideoButton.isHidden = true
-            self.trimmedClipNewLabel.isHidden = true
-            self.trimmedClipNewLabel.stringValue = ""
-            self.cancelTrimmedVideoButton.isHidden = true
-            
-            if(self.clippedItemPreserveFileDates) {
-                self.setFileDate(originalFile: (self.appDelegate.videoPlayerViewController?.nowPlayingURL.path)!, newFile: self.clippedVideoNameFull.replacingOccurrences(of: "file://", with: ""))
-            }
-            
-            DispatchQueue.main.async {
-                self.isTrimming = false
-            }
-            
-            self.appDelegate.appSettings.mediaBinUrls.append(URL(string: self.clippedVideoNameFullURL)!)
-            self.appDelegate.saveProject()
-        }
-        
-        func saveClippedFileFailed() {
-            print("Session FAILED")
-            DispatchQueue.main.async {
-                self.saveTrimmedVideoButton.isEnabled = true
-            }
-        }
-        
-        func saveClippedFileUnknown() {
-            print("I don't know..");
-        }
-        
-        let outputUrl = URL(string: (self.clippedVideoNameFullURL.copy() as! String))
-        let asset = AVAsset(url: (self.appDelegate.videoPlayerViewController?.nowPlayingURL)!)
-        
         let startTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.reversePlaybackEndTime
         let endTime = self.appDelegate.videoPlayerViewController?.playerView.player?.currentItem?.forwardPlaybackEndTime
-        let timeRange = CMTimeRangeFromTimeToTime(startTime!, endTime!)
+
+        let videoFileManager = VideoFileManager()
         
-        let workerItem: MediaQueueWorkerItem!
-        workerItem = MediaQueueWorkerItem()
-        
-        let clipTrimWorkerItem = DispatchWorkItem {
-            workerItem.inProgress = true
-            workerItem.outputUrl = outputUrl
-            workerItem.title = "Video Clip Trim In Progress!"
-            
-            let builder = ClipTrimBuilder(asset: asset, url: outputUrl!)
-            
-            let framerate = self.appSettings.frameRates[5]
-            let size = self.appSettings.videoSizes[7]
-            
-            builder.build(timeRange: timeRange, frameRate: Int32(framerate), outputSize: size, { progress in
-                workerItem.inProgress = true
-                workerItem.percent = (progress.fractionCompleted * 100.0)
-            }, success: { url in
-                workerItem.outputUrl = url
-                workerItem.workerStatus = true
-                workerItem.inProgress = false
-                DispatchQueue.main.async {
-                    finishSave(false, url: url)
-                }
-            }, failure: { error in
-                print("ERROR \(error)")
-                workerItem.workerStatus = false
-                workerItem.inProgress = false
-                workerItem.failed = true
-                DispatchQueue.main.async {
-                    finishSave(true, url: outputUrl!)
-                }
-            })
-        }
-        
-        let queue = DispatchQueue.global(qos: self.appSettings.dispatchQueue)
-        
-        self.appDelegate.mediaQueue.queue.append(workerItem)
-        
-        queue.async(execute: clipTrimWorkerItem)
-        
-        clipTrimWorkerItem.notify(queue: DispatchQueue.main) {
-            
-            // print("percent = ", percent)
-            print("Worker launched... ")
-        }
+        videoFileManager.exportVideoClip(url: URL(string: self.nowPlayingURLString)!, startTime: startTime!, endTime: endTime!)
         
         self.saveTrimmedVideoButton.isHidden = true
         self.trimmedClipNewLabel.isHidden = true

@@ -5,6 +5,7 @@
         <attribute name="lastOpened" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="projectName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="projectPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="projectUrl" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoFile" inverseName="project" inverseEntity="VideoFile" syncable="YES"/>
     </entity>
     <entity name="Thumbnail" representedClassName="Thumbnail" syncable="YES" codeGenerationType="class">
@@ -27,12 +28,15 @@
         <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thumbnail" inverseName="chapterThumbnail" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="videoComp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoComp" inverseName="chapters" inverseEntity="VideoComp" syncable="YES"/>
     </entity>
+    <entity name="VideoClip" representedClassName="VideoClip" syncable="YES" codeGenerationType="class"/>
     <entity name="VideoComp" representedClassName="VideoComp" syncable="YES" codeGenerationType="class">
         <attribute name="videoCompName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="chapters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoChapter" inverseName="videoComp" inverseEntity="VideoChapter" syncable="YES"/>
         <relationship name="videoFile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VideoFile" inverseName="videoComp" inverseEntity="VideoFile" syncable="YES"/>
     </entity>
     <entity name="VideoFile" representedClassName="VideoFile" syncable="YES" codeGenerationType="class">
+        <attribute name="clipEndTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="clipStartTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="fileDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="fileId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,6 +54,7 @@
         <attribute name="videoLocationLong" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="videoLocationLongRef" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoWidth" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="clips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoFile" inverseName="clips" inverseEntity="VideoFile" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="videos" inverseEntity="Project" syncable="YES"/>
         <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thumbnail" inverseName="videoThumbnail" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="videoComp" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VideoComp" inverseName="videoFile" inverseEntity="VideoComp" syncable="YES"/>
@@ -58,7 +63,8 @@
         <element name="Thumbnail" positionX="-117" positionY="234" width="128" height="105"/>
         <element name="VideoChapter" positionX="-11" positionY="363" width="128" height="225"/>
         <element name="VideoComp" positionX="-225" positionY="279" width="128" height="90"/>
-        <element name="VideoFile" positionX="-18" positionY="90" width="128" height="345"/>
-        <element name="Project" positionX="-117" positionY="234" width="128" height="120"/>
+        <element name="VideoFile" positionX="-18" positionY="90" width="128" height="390"/>
+        <element name="Project" positionX="-117" positionY="234" width="128" height="135"/>
+        <element name="VideoClip" positionX="-108" positionY="252" width="128" height="45"/>
     </elements>
 </model>

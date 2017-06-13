@@ -361,6 +361,9 @@ class ClipTrimBuilder: NSObject {
     var timeRange: CMTimeRange!
     var asset: AVAsset!
     
+    var exportSession: AVAssetExportSession!
+
+    
     var appDelegate:AppDelegate {
         return NSApplication.shared().delegate as! AppDelegate
     }
@@ -375,24 +378,25 @@ class ClipTrimBuilder: NSObject {
     func getProgress() -> Double {
         return 0.1
     }
-    func build(timeRange: CMTimeRange, frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
-        
-        // print("OUTPUT URL \(self.outputUrl)")
-        
-        let exportSession = AVAssetExportSession(asset: self.asset, presetName: AVAssetExportPresetHighestQuality)!
+    
+    func build(asset: AVAsset, timeRange: CMTimeRange, frameRate: Int32, outputSize: CGSize,_ progress: @escaping ((Progress) -> Void), success: @escaping ((URL) -> Void), failure: @escaping ((NSError) -> Void)) {
+    
+        self.exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality)!
         
         // self.exportSession.videoComposition = videoComposition
-        exportSession.outputFileType = AVFileTypeQuickTimeMovie
-        exportSession.outputURL = self.outputUrl // Output URL
-        exportSession.timeRange = timeRange
-        
+        self.exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        self.exportSession.outputURL = self.outputUrl // Output URL
+        self.exportSession.timeRange = timeRange
+        print("TIME RANGE: \(timeRange)")
+        print("OUTPUT URL \(String(describing: self.exportSession.outputURL))")
+
         let currentProgress = Progress(totalUnitCount: 100)
         currentProgress.completedUnitCount = 0
         progress(currentProgress)
         var isComplete = false
         // progress
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
+        self.exportSession.exportAsynchronously {
+            switch self.exportSession.status {
             case .exporting:
                 // print("~~~~~~~~~ EXPORTING")
                 break
@@ -405,8 +409,8 @@ class ClipTrimBuilder: NSObject {
                 break
             case .failed:
                 DispatchQueue.main.async {
-                    failure(exportSession.error! as NSError)
-                    print(exportSession.error!)
+                    failure(self.exportSession.error! as NSError)
+                    print(self.exportSession.error!)
                     
                     // self.clipTrimTimer.invalidate()
                     currentProgress.completedUnitCount = 0
@@ -416,7 +420,7 @@ class ClipTrimBuilder: NSObject {
             default:
                 DispatchQueue.main.async {
                     // self.clipTrimTimer.invalidate()
-                    failure(exportSession.error! as NSError)
+                    failure(self.exportSession.error! as NSError)
                     currentProgress.completedUnitCount = 0
                     progress(currentProgress)
                 }
@@ -426,11 +430,11 @@ class ClipTrimBuilder: NSObject {
         
         var i = 0
         
-        while exportSession.status == .waiting || exportSession.status == .exporting {
+        while self.exportSession.status == .waiting || self.exportSession.status == .exporting {
             
             if(i < 100) {
                 // print("Progress: \(exportSession.progress * 100.0)%.")
-                currentProgress.completedUnitCount = Int64(exportSession.progress * 100.0)
+                currentProgress.completedUnitCount = Int64(self.exportSession.progress * 100.0)
                 progress(currentProgress)
                 i = i + 1
                 
@@ -438,7 +442,7 @@ class ClipTrimBuilder: NSObject {
                 i = 0
             }
             
-            if(exportSession.progress == 1 && isComplete == false) {
+            if(self.exportSession.progress == 1 && isComplete == false) {
                 if(!isComplete) {
                     success(self.outputUrl)
                     isComplete = true

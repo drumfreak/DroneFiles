@@ -99,7 +99,7 @@ class FileBrowserViewController: NSViewController {
         
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM-dd-YYYY"
-        let now = dateformatter.string(from: NSDate() as Date)
+//        let now = dateformatter.string(from: NSDate() as Date)
         
  //       self.appDelegate.appSettings.fileSequenceName = now + " - " + self.appDelegate.appSettings.fileSequenceNameTag
         

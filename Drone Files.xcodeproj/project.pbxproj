@@ -22,7 +22,7 @@
 		1817BBD21EDBEBDA0003A7D2 /* Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBD11EDBEBDA0003A7D2 /* Builders.swift */; };
 		1817BBD41EDDC7420003A7D2 /* VideoClipMergeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBD31EDDC7420003A7D2 /* VideoClipMergeViewController.swift */; };
 		182233EC1EF0462600AACC1B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182233EB1EF0462600AACC1B /* ProjectManager.swift */; };
-		182233EE1EF04EC000AACC1B /* VideoFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182233ED1EF04EC000AACC1B /* VideoFileManager.swift */; };
+		182233F01EF0A35A00AACC1B /* VideoFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182233EF1EF0A35A00AACC1B /* VideoFileManager.swift */; };
 		18326AF11ED163BB00469EDD /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */; };
 		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
 		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
@@ -178,7 +178,7 @@
 		1817BBD11EDBEBDA0003A7D2 /* Builders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Builders.swift; sourceTree = "<group>"; };
 		1817BBD31EDDC7420003A7D2 /* VideoClipMergeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoClipMergeViewController.swift; sourceTree = "<group>"; };
 		182233EB1EF0462600AACC1B /* ProjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
-		182233ED1EF04EC000AACC1B /* VideoFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFileManager.swift; sourceTree = "<group>"; };
+		182233EF1EF0A35A00AACC1B /* VideoFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoFileManager.swift; path = ../../../Dronefiles/VideoFileManager.swift; sourceTree = "<group>"; };
 		18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
@@ -628,7 +628,7 @@
 			children = (
 				18F07B511EE9B61C00889D18 /* FavoriteManager.swift */,
 				182233EB1EF0462600AACC1B /* ProjectManager.swift */,
-				182233ED1EF04EC000AACC1B /* VideoFileManager.swift */,
+				182233EF1EF0A35A00AACC1B /* VideoFileManager.swift */,
 			);
 			name = "Database Objects";
 			sourceTree = "<group>";
@@ -817,7 +817,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				182233EE1EF04EC000AACC1B /* VideoFileManager.swift in Sources */,
+				182233F01EF0A35A00AACC1B /* VideoFileManager.swift in Sources */,
 				1814267B1EA9B450004CA3E5 /* EditorViewController.swift in Sources */,
 				1817BBC71ED9B8240003A7D2 /* ThemeButton.swift in Sources */,
 				185F4C341EB0398F0046C452 /* FileManagerOptionsDeleteController.swift in Sources */,
