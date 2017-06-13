@@ -28,14 +28,14 @@ class RightPanelSplitViewController: NSSplitViewController {
         
         self.mediaBinSplitView = NSSplitViewItem.init(viewController: self.appDelegate.mediaBinCollectionView)
       
-        self.mediaBinSplitView.holdingPriority = 700
+        self.mediaBinSplitView.holdingPriority = 300
     
         self.videoSplitview =  self.splitViewItem(for: self.appDelegate.videoSplitViewController!)!
-        self.videoSplitview.holdingPriority = 20
+        self.videoSplitview.holdingPriority = 250
         self.fileManagerSplitView =  self.splitViewItem(for: self.appDelegate.fileManagerViewController!)!
         
         self.imageEditorSplitView =  self.splitViewItem(for: self.appDelegate.imageEditorSplitViewController!)!
-        self.imageEditorSplitView.holdingPriority = 20
+        self.imageEditorSplitView.holdingPriority = 250
         self.addSplitViewItem(self.mediaBinSplitView)
         self.appDelegate.mediaBinCollectionView.reloadContents()
         self.showVideoSplitView()

@@ -52,16 +52,14 @@ class VideoFileManager: NSObject {
             if(videos.count > 0) {
                 let videoFile = videos[0] as! VideoFile
                 print("Video Found: \(String(describing: videoFile.fileName))")
-                
-                
                 print("VIDEO SIZE: \(String(describing: videoFile.fileSize))")
                 print("VIDEO Date: \(String(describing: videoFile.fileDate))")
                 print("VIDEO URL: \(String(describing: videoFile.fileUrl))")
                 print("VIDEO PROJECT: \(String(describing: videoFile.project))")
                 print("VIDEO PROJECT Videos: \(String(describing: videoFile.project?.videos))")
 
-                
                 return videoFile
+                
             } else {
                 let entity =
                     NSEntityDescription.entity(forEntityName: "VideoFile",
@@ -75,9 +73,10 @@ class VideoFileManager: NSObject {
                 
                 let location = self.getLocationFromVideo(url: url)
                 
-                let playerItem = AVPlayerItem(url: url)
+                let videoLength = self.getVideoDuration(url: url)
                 
-                let videoLength = playerItem.duration.seconds
+                print("Video Length \(videoLength)")
+                
                 
                 let size = self.getVideoSize(url: url)
                 
@@ -162,6 +161,18 @@ class VideoFileManager: NSObject {
         let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)
         let size = assetTrack[0].naturalSize as CGSize
         return size
+    }
+    
+    
+    func getVideoDuration(url: URL) -> Double {
+        print("VIDEO LENGTH URL \(url)")
+        
+        // let playerItem = AVPlayerItem(url: url)
+        let asset = AVURLAsset(url: url)
+        let videoLength = asset.duration.seconds
+        print("VIDEO LENGTH: \(videoLength)")
+        
+        return videoLength
     }
     
     

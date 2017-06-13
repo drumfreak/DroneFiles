@@ -79,10 +79,14 @@ class VideoInfoViewController: NSViewController {
         }
         self.videoLocationLabel?.stringValue = "Location: \(locationLabel)"
         
+        if(videoFile.videoLength > 0) {
+             let (h,m,s,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(videoFile.videoLength)))
+            
+            self.videoDurationLabel?.stringValue = "Length: " + String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
+            
+        }
+       
         
-        let (h,m,s,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(videoFile.videoLength)))
-        
-        self.videoDurationLabel?.stringValue = "Length: " + String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
         
         
         self.videoSizeLabel?.stringValue = "Size: \(String(format: "%.0f", videoFile.videoWidth)) x \(String(format: "%.0f", videoFile.videoHeight))"

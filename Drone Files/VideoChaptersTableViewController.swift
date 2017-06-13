@@ -24,6 +24,7 @@ class VideoChaptersTableViewController: NSViewController {
         super.viewDidLoad()
         self.appDelegate.videoChaptersTableViewController = self
         self.tableView.delegate = self
+        self.tableView.backgroundColor = self.appSettings.tableRowBackGroundColor
         // Do view setup here
     }
     
@@ -196,9 +197,44 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
             }
             self.tableView.scrollRowToVisible(scroll)
             //print("Chapter... \(chapter)")
+        }
+        
+        // Table row colors
+        var i = Int(0)
+        
+        while(i < self.tableView.numberOfRows) {
+            if(i < 0) {
+                return
+            }
+            let rowView = self.tableView.rowView(atRow: i, makeIfNecessary: true)
+            let f = self.tableView.selectedRowIndexes.index(of: i)
+            if((f) != nil) {
+                rowView?.backgroundColor = self.appDelegate.appSettings.tableRowSelectedBackGroundColor
+            } else {
+                if(i % 2 == 0) {
+                    rowView?.backgroundColor = self.appDelegate.appSettings.tableRowBackGroundColor
+                } else {
+                    rowView?.backgroundColor = self.appDelegate.appSettings.tableViewAlternatingRowColor
+                }
+            }
             
+            i += 1
+        }
+        
+        if(self.tableView.selectedRow >= 0) {
+            let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: true)
+            
+            // Current row selected color
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
         }
     }
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return ThemeTableRowView()
+    }
+    
+    
+
     
 }
 
@@ -220,10 +256,8 @@ class VideoChapterTableCellView: NSTableCellView {
     
     @IBOutlet var chapterThumbnail: NSImageView!
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     @IBAction func removeItem(sender: AnyObject) {
@@ -234,7 +268,14 @@ class VideoChapterTableCellView: NSTableCellView {
     
     @IBAction func addRemoveFavorite(sender: AnyObject) {
         Swift.print("FAVORITE ... \(sender.tag)")
-     self.appDelegate.videoDetailsViewController.addRemoveFavoriteChapter(index: sender.tag)
+        
+        if(self.appDelegate.videoDetailsViewController.addRemoveFavoriteChapter(index: sender.tag) == true) {
+        
+            self.favoriteButton?.image = NSImage.init(named: "heart-table-active.png")
+        } else {
+            self.favoriteButton?.image = NSImage.init(named: "heart-table-inactive.png")
+        }
+        
     }
     
     @IBAction func exportItem(sender: AnyObject) {
