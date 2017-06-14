@@ -95,6 +95,7 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
         fetch.predicate = NSPredicate(format: "videoLocation != %@",
         "")
         
+        var zoomInOnVideo = false
         do {
             let videos = try managedObjectContext.fetch(fetch)
             
@@ -108,79 +109,75 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                 
                     
                     let video = v as! VideoFile
+                    print("VIDEO \(video)")
                     
                     if(self.fileFun.fileExists(url: URL(string: video.fileUrl!)!)) {
-                        // show artwork on map
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateStyle = .medium
-                        dateFormatter.timeStyle = .medium
-                        let dateLabel = "\(dateFormatter.string(from: video.fileDate! as Date))"
+                     
+                        if(video.videoLocationLat < 0 || video.videoLocationLat > 0) {
+                            // show artwork on map
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateStyle = .medium
+                            dateFormatter.timeStyle = .medium
+                            let dateLabel = "\(dateFormatter.string(from: video.fileDate! as Date))"
                         
-                        
-                        
-                        let videoItem = VideoMapItem(title: dateLabel,
-                                                     locationName: video.fileName!,
-                                                     discipline: "Video",
-                                                     coordinate: CLLocationCoordinate2D(latitude: video.videoLocationLat, longitude: video.videoLocationLong), url: URL(string: video.fileUrl!)!)
-                        
-                        
-                        
-                        self.videoItems.append(videoItem)
-                        
-                        self.mapView.addAnnotation(videoItem)
-                        
-                        if(URL(string: video.fileUrl!) == currentURL) {
-                            self.currentVideoItem = videoItem
+                            
+                            let videoItem = VideoMapItem(title: dateLabel,
+                                                         locationName: video.fileName!,
+                                                         discipline: "Video",
+                                                         coordinate: CLLocationCoordinate2D(latitude: video.videoLocationLat, longitude: video.videoLocationLong), url: URL(string: video.fileUrl!)!)
+                            
+                            self.videoItems.append(videoItem)
+                            
+                            self.mapView.addAnnotation(videoItem)
+                            
+                            if(URL(string: video.fileUrl!) == currentURL) {
+                                self.currentVideoItem = videoItem
+                                zoomInOnVideo = true
+                            }
+
                             
                         }
+                        
                         
                     }
                     
                 })
                 
 
-                var delayInSeconds = 0.0
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-                    
-                    // here code perfomed with delay
-                    guard let _ = self.currentVideoItem.title  else {
-                        return
+                if(zoomInOnVideo) {
+                    var delayInSeconds = 0.0
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+                        
+                        // here code perfomed with delay
+                        let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.9, longitudeDelta: 0.5))
+                        
+                        self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
+                        
+                        self.mapView.setRegion(region, animated: true)
+                        
                     }
                     
-                    
-                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.9, longitudeDelta: 0.5))
-                    
-                    self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
-                    
-                    self.mapView.setRegion(region, animated: true)
-                    
-                }
-                
-                
-//                delayInSeconds = 2.0
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-//                    
-//                    // here code perfomed with delay
-//                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.05, longitudeDelta: 0.05))
-//                    
-//                    self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
-//                    
-//                    self.mapView.setRegion(region, animated: true)
-//                    
-//                }
+                    //                delayInSeconds = 2.0
+                    //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+                    //                    
+                    //                    // here code perfomed with delay
+                    //                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.05, longitudeDelta: 0.05))
+                    //                    
+                    //                    self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
+                    //                    
+                    //                    self.mapView.setRegion(region, animated: true)
+                    //                    
+                    //                }
 
-                delayInSeconds = 2.5
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-                    
-                    // here code perfomed with delay
-                    guard let _ = self.currentVideoItem.title  else {
-                        return
+                    delayInSeconds = 1.5
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
+
+                        let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.005, longitudeDelta: 0.005))
+                        
+                        self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
+                        
+                        self.mapView.setRegion(region, animated: true)
                     }
-                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.005, longitudeDelta: 0.005))
-                    
-                    self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
-                    
-                    self.mapView.setRegion(region, animated: true)
                 }
             }
             

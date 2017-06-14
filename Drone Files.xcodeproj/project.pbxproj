@@ -343,34 +343,68 @@
 			name = TimeLapse;
 			sourceTree = "<group>";
 		};
-		184AD8101ED737FE001209F5 /* Interfaces */ = {
+		182233F11EF0CAC200AACC1B /* Media Queue */ = {
 			isa = PBXGroup;
 			children = (
-				18B001D51EA69C92003C3214 /* Main.storyboard */,
-				184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */,
-				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
-				1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */,
-				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
-				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
-				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
-				1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */,
-				1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */,
-				18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */,
-				184AD80E1ED736BC001209F5 /* MediaBinCollectionView.xib */,
-				18E46CAA1EE8ED7000FB7E36 /* MediaMapViewController.xib */,
-				18E46CAC1EE8EE4900FB7E36 /* MediaMapViewController.swift */,
 				1850D3611EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib */,
 				1850D3631EDE1B2D00B8703F /* MediaQueueMonitorWindowController.swift */,
 				1850D3651EDE672D00B8703F /* MediaQueueMonitorTableCellViewController.swift */,
 				1850D3671EDE675100B8703F /* MediaQueueMonitorTableCellViewController.xib */,
-				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
-				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
+			);
+			name = "Media Queue";
+			sourceTree = "<group>";
+		};
+		182233F21EF0CAD500AACC1B /* Media Map */ = {
+			isa = PBXGroup;
+			children = (
+				18E46CAA1EE8ED7000FB7E36 /* MediaMapViewController.xib */,
+				18E46CAC1EE8EE4900FB7E36 /* MediaMapViewController.swift */,
+			);
+			name = "Media Map";
+			sourceTree = "<group>";
+		};
+		182233F31EF0CAE100AACC1B /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				1869FBE81ED884A800EC639E /* FavoritesCollectionView.xib */,
+				1860F0181ED0C7FD00928FD7 /* FavoritesViewController.swift */,
+				18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */,
+			);
+			name = Favorites;
+			sourceTree = "<group>";
+		};
+		182233F41EF0CAED00AACC1B /* Image Editor */ = {
+			isa = PBXGroup;
+			children = (
+				189D40BB1EC244F000E1298C /* ImagEditorControlsController.swift */,
+				1869FBEC1ED8A0F500EC639E /* ImageEditorControlsController.xib */,
+			);
+			name = "Image Editor";
+			sourceTree = "<group>";
+		};
+		182233F51EF0CAF600AACC1B /* Media Bin */ = {
+			isa = PBXGroup;
+			children = (
+				18740B6E1ECD5522003803B4 /* MediaBinCollectionView.swift */,
+				184AD80E1ED736BC001209F5 /* MediaBinCollectionView.xib */,
+			);
+			name = "Media Bin";
+			sourceTree = "<group>";
+		};
+		182233F61EF0CB0000AACC1B /* Screen Shot Settings */ = {
+			isa = PBXGroup;
+			children = (
 				184BB2351ED77AE300D73B8A /* ScreenshotSettingsWindow.xib */,
 				18DD9F521ECE2ACD008E9E02 /* ScreenshotSettingsController.swift */,
 				18DD9F591ECE9158008E9E02 /* ScreenShotCollectionViewItem.swift */,
 				18DD9F5A1ECE9158008E9E02 /* ScreenShotCollectionViewItem.xib */,
-				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
-				1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */,
+			);
+			name = "Screen Shot Settings";
+			sourceTree = "<group>";
+		};
+		182233F71EF0CB0D00AACC1B /* Video Info */ = {
+			isa = PBXGroup;
+			children = (
 				18590E351ED7E55100305E68 /* VideoPlayerView.xib */,
 				18BF61CD1EE9FAC700C5EC33 /* VideoInfoViewController.swift */,
 				18BF61D31EE9FC0200C5EC33 /* VideoInfoViewController.xib */,
@@ -378,6 +412,36 @@
 				18808A4D1EE9FE3700F67E7F /* VideoChaptersTableViewController.xib */,
 				18BF61D11EE9FBC400C5EC33 /* VideoDetailsViewController.xib */,
 				18F398621EE79D3E00902C41 /* VideoDetailsViewController.swift */,
+			);
+			name = "Video Info";
+			sourceTree = "<group>";
+		};
+		182233F81EF0CB1500AACC1B /* Secondary Display */ = {
+			isa = PBXGroup;
+			children = (
+				18DD9F601ECEBB72008E9E02 /* SecondWindow.xib */,
+				1817BBC01ED9B7DE0003A7D2 /* SecondaryDisplayMediaViewController.swift */,
+			);
+			name = "Secondary Display";
+			sourceTree = "<group>";
+		};
+		184AD8101ED737FE001209F5 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				18B001D51EA69C92003C3214 /* Main.storyboard */,
+				184BB2371ED78BBC00D73B8A /* FileCopyProgressWindow.xib */,
+				187843AB1EB4F78200BCD214 /* FileCopyProgressIndicator.swift */,
+				182233F31EF0CAE100AACC1B /* Favorites */,
+				182233F41EF0CAED00AACC1B /* Image Editor */,
+				1869FBEE1ED8B64C00EC639E /* FileManagerOptionsViewController.xib */,
+				182233F51EF0CAF600AACC1B /* Media Bin */,
+				182233F21EF0CAD500AACC1B /* Media Map */,
+				182233F11EF0CAC200AACC1B /* Media Queue */,
+				184AD8111ED739E6001209F5 /* NewProjectWindow.xib */,
+				188272551ECBFAE800EE50D0 /* NewProjectController.swift */,
+				182233F61EF0CB0000AACC1B /* Screen Shot Settings */,
+				182233F81EF0CB1500AACC1B /* Secondary Display */,
+				182233F71EF0CB0D00AACC1B /* Video Info */,
 				187843A61EB3CE6F00BCD214 /* VideoPlayerControlsController.swift */,
 				1869FBEA1ED88C8800EC639E /* VideoPlayerControllsController.xib */,
 			);

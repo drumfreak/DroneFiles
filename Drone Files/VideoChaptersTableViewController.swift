@@ -268,9 +268,7 @@ class VideoChapterTableCellView: NSTableCellView {
     
     @IBAction func addRemoveFavorite(sender: AnyObject) {
         Swift.print("FAVORITE ... \(sender.tag)")
-        
         if(self.appDelegate.videoDetailsViewController.addRemoveFavoriteChapter(index: sender.tag) == true) {
-        
             self.favoriteButton?.image = NSImage.init(named: "heart-table-active.png")
         } else {
             self.favoriteButton?.image = NSImage.init(named: "heart-table-inactive.png")
@@ -281,6 +279,9 @@ class VideoChapterTableCellView: NSTableCellView {
     @IBAction func exportItem(sender: AnyObject) {
         Swift.print("EXPORT... \(sender.tag)")
         self.appDelegate.videoDetailsViewController.exportChapter(index: sender.tag)
+        
+        
+        
     }
     
     @IBAction func enableDisableChapter(sender: AnyObject) {
