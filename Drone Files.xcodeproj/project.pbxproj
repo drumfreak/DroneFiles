@@ -23,6 +23,7 @@
 		1817BBD41EDDC7420003A7D2 /* VideoClipMergeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817BBD31EDDC7420003A7D2 /* VideoClipMergeViewController.swift */; };
 		182233EC1EF0462600AACC1B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182233EB1EF0462600AACC1B /* ProjectManager.swift */; };
 		182233F01EF0A35A00AACC1B /* VideoFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182233EF1EF0A35A00AACC1B /* VideoFileManager.swift */; };
+		182233FA1EF0E05D00AACC1B /* tablerowDarkBlueBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 182233F91EF0E05D00AACC1B /* tablerowDarkBlueBackground.png */; };
 		18326AF11ED163BB00469EDD /* FavoritesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */; };
 		1836DB811EC4CB250000F749 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB801EC4CB250000F749 /* MenuController.swift */; };
 		1836DB831EC80B720000F749 /* SlideShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836DB821EC80B720000F749 /* SlideShowController.swift */; };
@@ -179,6 +180,7 @@
 		1817BBD31EDDC7420003A7D2 /* VideoClipMergeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoClipMergeViewController.swift; sourceTree = "<group>"; };
 		182233EB1EF0462600AACC1B /* ProjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		182233EF1EF0A35A00AACC1B /* VideoFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoFileManager.swift; path = ../../../Dronefiles/VideoFileManager.swift; sourceTree = "<group>"; };
+		182233F91EF0E05D00AACC1B /* tablerowDarkBlueBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tablerowDarkBlueBackground.png; path = "../../../../Graphics/Drone Files/tablerowDarkBlueBackground.png"; sourceTree = "<group>"; };
 		18326AF01ED163BB00469EDD /* FavoritesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionView.swift; sourceTree = "<group>"; };
 		1836DB801EC4CB250000F749 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		1836DB821EC80B720000F749 /* SlideShowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideShowController.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				188272531ECB9BB100EE50D0 /* tablerow-black.png */,
 				1882724D1ECB9A3000EE50D0 /* tablerow-blue.png */,
 				18DD9F501ECE1CDE008E9E02 /* messagewindow.png */,
+				182233F91EF0E05D00AACC1B /* tablerowDarkBlueBackground.png */,
 				1882721C1ECA704F00EE50D0 /* appicon-256px.png */,
 				18A323A31ED8E40D0025D309 /* backgroundSoftBlack.png */,
 				188272291ECA74C300EE50D0 /* darkbackground.png */,
@@ -616,8 +619,8 @@
 			isa = PBXGroup;
 			children = (
 				18B001CC1EA69C92003C3214 /* AppDelegate.swift */,
-				18F07B531EE9B6C400889D18 /* Database Objects */,
 				188272131EC9E19800EE50D0 /* AppSettings.swift */,
+				18F07B531EE9B6C400889D18 /* Database Objects */,
 				184AD8101ED737FE001209F5 /* Interfaces */,
 				1814267C1EA9BD69004CA3E5 /* EditorTabViewController.swift */,
 				180EAB151EEB4910001DBD36 /* Tools */,
@@ -818,6 +821,7 @@
 				188272231ECA704F00EE50D0 /* appicon-256px.png in Resources */,
 				18BAABA71EADA2CB00EE5434 /* Shutter.aif in Resources */,
 				188272501ECB9ABC00EE50D0 /* tablerow-lightgray.png in Resources */,
+				182233FA1EF0E05D00AACC1B /* tablerowDarkBlueBackground.png in Resources */,
 				18DD9F511ECE1CDE008E9E02 /* messagewindow.png in Resources */,
 				1850D3621EDE1ACF00B8703F /* MediaQueueMonitorWindowController.xib in Resources */,
 				18A323A71ED8E4470025D309 /* backgroundLightGray.png in Resources */,

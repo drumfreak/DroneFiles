@@ -99,7 +99,6 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
         do {
             let videos = try managedObjectContext.fetch(fetch)
             
-            self.videoCountLabel?.title = "\(videos.count)"
             self.videoItems = [VideoMapItem]()
             
             if(videos.count > 0) {
@@ -134,8 +133,10 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                                 self.currentVideoItem = videoItem
                                 zoomInOnVideo = true
                             }
-
                             
+                            self.videoCountLabel?.title = "\(self.videoItems.count)"
+                            
+
                         }
                         
                         

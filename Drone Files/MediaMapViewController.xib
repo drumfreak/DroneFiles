@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MediaMapViewController" customModule="Drone_Files" customModuleProvider="target">
             <connections>
                 <outlet property="mapView" destination="ldX-jV-r4G" id="c2n-dl-Jas"/>
+                <outlet property="videoCountLabel" destination="KX4-uY-9VE" id="WUC-eF-CGg"/>
                 <outlet property="view" destination="hnz-MG-9SZ" id="hOD-Cw-2Bp"/>
             </connections>
         </customObject>

@@ -331,6 +331,12 @@ struct AppSettings {
     // Active row
     var tableRowActiveBackGroundColor =  NSColor.init(patternImage: NSImage(named: "tablerow-blue.png")!)
     
+    var tableRowActiveDarkBlueBackGroundColor =  NSColor.init(patternImage: NSImage(named: "tablerowDarkBlueBackground.png")!)
+
+    
+    
+    
+    
     // tableHeaderRow
     var tableHeaderRowBackground =  NSColor.init(patternImage: NSImage(named: "tablerow-dark.png")!)
     

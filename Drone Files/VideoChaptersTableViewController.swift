@@ -225,7 +225,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
             let rowView = self.tableView.rowView(atRow: self.tableView.selectedRow, makeIfNecessary: true)
             
             // Current row selected color
-            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveBackGroundColor
+            rowView?.backgroundColor = self.appDelegate.appSettings.tableRowActiveDarkBlueBackGroundColor
         }
     }
     
