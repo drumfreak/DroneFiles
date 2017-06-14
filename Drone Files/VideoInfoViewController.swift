@@ -107,7 +107,6 @@ class VideoInfoViewController: NSViewController {
         if(self.appDelegate.videoChaptersTableViewController.viewIsOpen) {
             self.appDelegate.videoChaptersTableViewController.tableView.reloadData()
         }
-
         
     }
     

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="VideoCompositionSelectionViewController" customModule="Drone_Files" customModuleProvider="target">
+            <connections>
+                <outlet property="compositionSelectMenu" destination="7NU-4J-pkS" id="ey0-yc-DSk"/>
+                <outlet property="exportCompositionButton" destination="Khb-uV-xoQ" id="d8S-pN-vDw"/>
+                <outlet property="newCompositionButton" destination="c2d-u1-XpK" id="qVK-SE-fjU"/>
+                <outlet property="removeCompositionButton" destination="F5b-GL-hZh" id="NVr-YS-czE"/>
+                <outlet property="view" destination="iJO-VP-hKc" id="Hm6-Gh-ZEc"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="iJO-VP-hKc" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="635" height="57"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKV-iu-EsW" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="20" y="20" width="88" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Composition: " id="A04-KW-q8V">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7NU-4J-pkS">
+                    <rect key="frame" x="112" y="14" width="226" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="xAI-H0-HOq" customClass="ThemeSelectMenuCell" customModule="Drone_Files" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="2HQ-Ol-I8d"/>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F5b-GL-hZh" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="506" y="16" width="57" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Remove" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="jig-EW-rVz">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2d-u1-XpK" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="566" y="16" width="57" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="Export" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="KX7-xm-Kgx">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="exportCompositionWithSender:" target="-2" id="Fg9-Ez-9N8"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Khb-uV-xoQ" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="446" y="16" width="57" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="cqI-fe-BxL">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+        </customView>
+    </objects>
+    <resources>
+        <image name="darkbackground" width="1200" height="1000"/>
+    </resources>
+</document>

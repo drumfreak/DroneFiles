@@ -59,6 +59,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     var videoClipRetimeController = VideoClipRetimeViewController()
 
+    
+    var videoCompositionSelectionViewController = VideoCompositionSelectionViewController()
+    
+    
     @IBOutlet weak var favoritesCollectionViewController: FavoritesCollectionViewController!
     
     @IBOutlet weak var favoritesViewController: FavoritesViewController!
@@ -1096,6 +1100,17 @@ extension NSView {
         return appDelegate.appSettings
     }
 }
+
+extension NSPopUpButtonCell {
+    var appDelegate:AppDelegate {
+        return NSApplication.shared().delegate as! AppDelegate
+    }
+    
+    var appSettings:AppSettings {
+        return appDelegate.appSettings
+    }
+}
+
 
 extension NSTableHeaderCell {
     var appDelegate:AppDelegate {

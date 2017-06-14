@@ -199,6 +199,8 @@ class VideoPlayerViewController: NSViewController {
         
         let composition = videoManager.getVideoComposition(videoFile: videoFile)
         
+        self.appDelegate.videoDetailsViewController.composition = composition
+        
         
         let pi = AVPlayerItem(asset: composition,
                                       automaticallyLoadedAssetKeys: assetKeys)

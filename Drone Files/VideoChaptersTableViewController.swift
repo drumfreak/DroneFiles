@@ -100,24 +100,24 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 
                 if(!chapter.chapterEnabled) {
                     self.disabledOffset += chapter.chapterLength
-                    print("")
-                    print("")
-                    print("DISABLED OFFSET IS NOW: \(self.disabledOffset)")
-                    print("")
-                    print("")
+//                    print("")
+//                    print("")
+//                    print("DISABLED OFFSET IS NOW: \(self.disabledOffset)")
+//                    print("")
+//                    print("")
                 }
                 
                 cell.chapterTitle?.stringValue = "Chapter \(row + 1)"
                 
                 cell.chapterNumber?.title = "\(row + 1)"
                 
-                let (h,m,s,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.compositionStartTime)))
+                let (h,m,s,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.chapterStartTime)))
                 
                 cell.chapterStartTime?.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
                 
                 
                 if(chapter.chapterEndTime > -1) {
-                    let (h1,m1,s1,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.compositionEndTime)))
+                    let (h1,m1,s1,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.chapterEndTime)))
                     
                     cell.chapterEndTime?.stringValue = String(format: "%02d", h1) + "h:" + String(format: "%02d", m1) + "m:" + String(format: "%02d", s1) + "s"
                     
@@ -127,6 +127,21 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                     let (h2,m2,s2,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.chapterLength)))
                     
                     cell.chaptureDuration?.stringValue = String(format: "%02d", h2) + "h:" + String(format: "%02d", m2) + "m:" + String(format: "%02d", s2) + "s"
+                    
+                }
+                
+                
+                
+                
+                
+                let (h3,m3,s3,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.compositionStartTime)))
+                
+                cell.compositionStartTime?.stringValue = String(format: "%02d", h3) + "h:" + String(format: "%02d", m3) + "m:" + String(format: "%02d", s3) + "s"
+                
+                if(chapter.compositionEndTime > -1) {
+                    let (h4,m4,s4,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.compositionEndTime)))
+                    
+                    cell.compositionEndTime?.stringValue = String(format: "%02d", h4) + "h:" + String(format: "%02d", m4) + "m:" + String(format: "%02d", s4) + "s"
                     
                 }
                 
@@ -263,10 +278,6 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return ThemeTableRowView()
     }
-    
-    
-
-    
 }
 
 
@@ -277,8 +288,13 @@ class VideoChapterTableCellView: NSTableCellView {
     @IBOutlet var chapterTitle: NSTextField!
     @IBOutlet var chapterStartTime: NSTextField!
     @IBOutlet var chapterEndTime: NSTextField!
-    @IBOutlet var chaptureDuration: NSTextField!
     
+    
+    @IBOutlet var compositionStartTime: NSTextField!
+    @IBOutlet var compositionEndTime: NSTextField!
+    
+    
+    @IBOutlet var chaptureDuration: NSTextField!
     @IBOutlet var removeChapterButton: NSButton!
     @IBOutlet var chapterNumber: NSButton!
     @IBOutlet var favoriteButton: NSButton!
