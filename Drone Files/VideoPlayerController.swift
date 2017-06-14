@@ -194,9 +194,15 @@ class VideoPlayerViewController: NSViewController {
         ]
         
         self.currentAsset = asset
+        let videoManager = VideoFileManager()
+        let videoFile = videoManager.getVideoFile(url: url, project: self.appDelegate.project)
         
-        let pi = AVPlayerItem(asset: asset,
+        let composition = videoManager.getVideoComposition(videoFile: videoFile)
+        
+        
+        let pi = AVPlayerItem(asset: composition,
                                       automaticallyLoadedAssetKeys: assetKeys)
+        
         
         pi.reversePlaybackEndTime = kCMTimeZero
         pi.forwardPlaybackEndTime = pi.duration

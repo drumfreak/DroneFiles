@@ -157,19 +157,6 @@ class MediaMapViewController: NSViewController, MKMapViewDelegate {
                         self.mapView.setRegion(region, animated: true)
                         
                     }
-                    
-                    //                delayInSeconds = 2.0
-                    //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-                    //                    
-                    //                    // here code perfomed with delay
-                    //                    let region = MKCoordinateRegion(center: self.currentVideoItem.coordinate, span: MKCoordinateSpan(latitudeDelta:0.05, longitudeDelta: 0.05))
-                    //                    
-                    //                    self.mapView.selectAnnotation(self.currentVideoItem, animated: false)
-                    //                    
-                    //                    self.mapView.setRegion(region, animated: true)
-                    //                    
-                    //                }
-
                     delayInSeconds = 1.5
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
 

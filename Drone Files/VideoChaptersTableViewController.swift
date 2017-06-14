@@ -20,6 +20,8 @@ class VideoChaptersTableViewController: NSViewController {
     @IBOutlet var tableView: NSTableView!
     var viewIsOpen = false
     var blockPlayerSeek = false
+    var disabledOffset = 0.00
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appDelegate.videoChaptersTableViewController = self
@@ -96,6 +98,15 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 
                 let chapter = self.appDelegate.videoDetailsViewController.chapters[row]
                 
+                if(!chapter.chapterEnabled) {
+                    self.disabledOffset += chapter.chapterLength
+                    print("")
+                    print("")
+                    print("DISABLED OFFSET IS NOW: \(self.disabledOffset)")
+                    print("")
+                    print("")
+                }
+                
                 cell.chapterTitle?.stringValue = "Chapter \(row + 1)"
                 
                 cell.chapterNumber?.title = "\(row + 1)"
@@ -140,7 +151,6 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                     cell.chapterThumbnail.isHidden = true
                 }
                 
-                
                 cell.removeChapterButton.tag = row
                 cell.favoriteButton.tag = row
                 cell.enableDisableButton.tag = row
@@ -168,10 +178,34 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
         
         if(tableView.selectedRow >= 0) {
             let chapter = self.appDelegate.videoDetailsViewController.chapters[self.tableView.selectedRow]
+            if(chapter.chapterEnabled == false) {
+                return
+            }
+            
             self.appDelegate.videoDetailsViewController.currentChapter = chapter
 
             if(!self.blockPlayerSeek) {
-                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: (chapter.chapterStartTime), preferredTimescale: CMTimeScale((chapter.videoComp?.videoFile?.videoFPS)!)))
+                
+                var i = 0
+                var offset = 0.00
+                
+                
+                self.appDelegate.videoDetailsViewController.chapters.forEach({ chap in
+                    if(i <= self.tableView.selectedRow) {
+                        
+                        if(!chap.chapterEnabled) {
+                            offset += chap.chapterLength
+
+                        }
+                    }
+                    i += 1
+                })
+                
+                print("OFFSET: \(offset)")
+                
+                
+                
+                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: (chapter.chapterStartTime - offset), preferredTimescale: CMTimeScale((chapter.videoComp?.videoFile?.videoFPS)!)))
                 
                 if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
                     self.appDelegate.videoPlayerViewController?.playPause()
