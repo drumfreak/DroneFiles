@@ -59,7 +59,7 @@ class VideoChaptersTableViewController: NSViewController {
             let s = Double((self.appDelegate.videoPlayerViewController?.player.currentTime().seconds)!)
             
             let chap = self.appDelegate.videoDetailsViewController.chapters.first(where: {
-                $0.chapterStartTime <= s && (($0.chapterEndTime) >=  s)
+                $0.compositionStartTime <= s && (($0.compositionEndTime) >=  s)
             })
             
             guard let _ = chap?.chapterName! else {
@@ -111,13 +111,13 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 
                 cell.chapterNumber?.title = "\(row + 1)"
                 
-                let (h,m,s,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.chapterStartTime)))
+                let (h,m,s,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.compositionStartTime)))
                 
                 cell.chapterStartTime?.stringValue = String(format: "%02d", h) + "h:" + String(format: "%02d", m) + "m:" + String(format: "%02d", s) + "s"
                 
                 
                 if(chapter.chapterEndTime > -1) {
-                    let (h1,m1,s1,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.chapterEndTime)))
+                    let (h1,m1,s1,_) = self.appDelegate.secondsToHoursMinutesSeconds(seconds: Int(round(chapter.compositionEndTime)))
                     
                     cell.chapterEndTime?.stringValue = String(format: "%02d", h1) + "h:" + String(format: "%02d", m1) + "m:" + String(format: "%02d", s1) + "s"
                     
@@ -189,7 +189,6 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 var i = 0
                 var offset = 0.00
                 
-                
                 self.appDelegate.videoDetailsViewController.chapters.forEach({ chap in
                     if(i <= self.tableView.selectedRow) {
                         
@@ -203,9 +202,7 @@ extension VideoChaptersTableViewController: NSTableViewDelegate {
                 
                 print("OFFSET: \(offset)")
                 
-                
-                
-                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: (chapter.chapterStartTime - offset), preferredTimescale: CMTimeScale((chapter.videoComp?.videoFile?.videoFPS)!)))
+                self.appDelegate.videoPlayerViewController?.player.seek(to: CMTime(seconds: (chapter.compositionStartTime - offset), preferredTimescale: CMTimeScale((chapter.videoComp?.videoFile?.videoFPS)!)))
                 
                 if(!(self.appDelegate.videoPlayerViewController?.player.isPlaying)!) {
                     self.appDelegate.videoPlayerViewController?.playPause()
@@ -313,9 +310,6 @@ class VideoChapterTableCellView: NSTableCellView {
     @IBAction func exportItem(sender: AnyObject) {
         Swift.print("EXPORT... \(sender.tag)")
         self.appDelegate.videoDetailsViewController.exportChapter(index: sender.tag)
-        
-        
-        
     }
     
     @IBAction func enableDisableChapter(sender: AnyObject) {

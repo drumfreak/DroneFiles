@@ -52,8 +52,9 @@ public struct Directory  {
     }
     
     public init(folderURL: URL) {
-        let videoManager = VideoFileManager()
         url = folderURL
+        var videoUrls = [URL]()
+        
         let requiredAttributes = [URLResourceKey.localizedNameKey, URLResourceKey.effectiveIconKey,
                                   URLResourceKey.typeIdentifierKey, URLResourceKey.contentModificationDateKey,
                                   URLResourceKey.fileSizeKey, URLResourceKey.isDirectoryKey,
@@ -105,7 +106,7 @@ public struct Directory  {
                                           ))
                     
                     if(self.appDelegate.isMov(file: url)) {
-                        let _ = videoManager.getVideoFile(url:url, project: self.appDelegate.project)
+                      videoUrls.append(url)
                     }
 
                 }
@@ -113,9 +114,18 @@ public struct Directory  {
                     print("Error reading file attributes")
                 }
             }
+            
+            if(self.appDelegate.project != nil) {
+                let videoManager = VideoFileManager()
+                videoManager.getVideoFilesForUrls(urls: videoUrls)
+            }
+            
         }
     }
     
+    func getObjects() {
+        
+    }
     
     func contentsOrderedBy(_ orderedBy: FileOrder, ascending: Bool) -> [Metadata] {
         let sortedFiles: [Metadata]

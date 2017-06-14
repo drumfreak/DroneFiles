@@ -53,7 +53,7 @@ class VideoInfoViewController: NSViewController {
     func loadFile(url: URL) {
         // print("URL LOADFILE \(url)")
         
-        let videoFile = self.videoManager.getVideoFile(url: url,  project: self.appDelegate.project)
+        let videoFile = self.videoManager.getVideoFile(url: url,  project: self.appDelegate.project, _noContext: false)
         
         self.currentVideoFile = videoFile
         //print(videoFile)
@@ -72,6 +72,7 @@ class VideoInfoViewController: NSViewController {
             locationLabel = videoFile.videoLocation!
             // print("Location bitches! \(videoFile.videoLocation!)")
         }
+        
         self.videoLocationLabel?.stringValue = "Location: \(locationLabel)"
         
         if(videoFile.videoLength > 0) {
@@ -93,6 +94,21 @@ class VideoInfoViewController: NSViewController {
     
     @IBAction func removeChapters(sender: AnyObject) {
         self.appDelegate.videoDetailsViewController.removeAllChapters()
+    }
+    
+    @IBAction func showHiddenChapters(sender: AnyObject) {
+    
+        self.appDelegate.videoDetailsViewController.showDisabledChapters = !self.appDelegate.videoDetailsViewController.showDisabledChapters
+        
+         let _ = self.appDelegate.videoDetailsViewController.getChapters(composition: self.appDelegate.videoDetailsViewController.videoComp)
+        
+        self.appDelegate.videoDetailsViewController.sequenceChapters()
+        
+        if(self.appDelegate.videoChaptersTableViewController.viewIsOpen) {
+            self.appDelegate.videoChaptersTableViewController.tableView.reloadData()
+        }
+
+        
     }
     
     

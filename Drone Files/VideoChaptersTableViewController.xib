@@ -15,18 +15,18 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="635" height="872"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="99" horizontalPageScroll="10" verticalLineScroll="99" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnd-bV-Vra" customClass="ThemeScrollView" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
+                    <rect key="frame" x="0.0" y="0.0" width="635" height="816"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="PMc-9Z-IJC" customClass="ThemeClipView" customModule="Drone_Files" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="635" height="816"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="99" rowSizeStyle="automatic" viewBased="YES" id="6Go-IZ-KlZ">
-                                <rect key="frame" x="0.0" y="0.0" width="635" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="635" height="816"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.15565052600000001" green="0.15565052600000001" blue="0.15565052600000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableViewGridLines key="gridStyleMask" dashed="YES"/>
@@ -186,7 +186,65 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wie-mC-5fO" customClass="ThemeViewDark" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="815" width="635" height="57"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhh-h3-tZc" customClass="ThemeLabel" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="20" y="20" width="88" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Composition: " id="RcI-ax-4wz">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J3t-le-AeA">
+                            <rect key="frame" x="112" y="14" width="226" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="e0x-bY-K01">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" id="3dS-Ew-YnU"/>
+                            </popUpButtonCell>
+                        </popUpButton>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mUc-bV-Hqf" userLabel="New" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="506" y="16" width="57" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Remove" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="w2X-Az-bXt">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="removeItemWithSender:" target="Q6q-do-qpq" id="Vpy-Ba-UMf"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ll0-xP-il1" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="566" y="16" width="57" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="Export" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="2B8-PA-26V">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="removeItemWithSender:" target="Q6q-do-qpq" id="a5B-MF-Ofq"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZA-KH-GIZ" userLabel="Export" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                            <rect key="frame" x="446" y="16" width="57" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" title="New" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="kHg-7h-bwY">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="removeItemWithSender:" target="Q6q-do-qpq" id="7eX-Km-Q4F"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </customView>
             </subviews>
+            <point key="canvasLocation" x="139.5" y="302"/>
         </customView>
     </objects>
     <resources>

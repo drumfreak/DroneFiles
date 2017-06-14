@@ -195,7 +195,7 @@ class VideoPlayerViewController: NSViewController {
         
         self.currentAsset = asset
         let videoManager = VideoFileManager()
-        let videoFile = videoManager.getVideoFile(url: url, project: self.appDelegate.project)
+        let videoFile = videoManager.getVideoFile(url: url, project: self.appDelegate.project, _noContext: false)
         
         let composition = videoManager.getVideoComposition(videoFile: videoFile)
         

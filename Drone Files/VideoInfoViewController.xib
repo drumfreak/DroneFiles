@@ -108,22 +108,33 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LnD-DM-nxv" userLabel="Details Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="511" y="21" width="57" height="25"/>
+                    <rect key="frame" x="531" y="21" width="35" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Details" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="D5l-wX-2sp">
+                    <buttonCell key="cell" type="square" title="I" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="D5l-wX-2sp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gIe-46-p9I" userLabel="Remove Chapters Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
-                    <rect key="frame" x="416" y="21" width="90" height="25"/>
+                    <rect key="frame" x="492" y="21" width="35" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Remove Chapters" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="vyP-G0-HJe">
+                    <buttonCell key="cell" type="square" title="D" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="vyP-G0-HJe">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
                         <action selector="removeChaptersWithSender:" target="-2" id="Wgg-MI-ZcV"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9V-Fq-mfh" userLabel="Remove Chapters Button" customClass="ThemeButton" customModule="Drone_Files" customModuleProvider="target">
+                    <rect key="frame" x="451" y="21" width="35" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="H" bezelStyle="shadowlessSquare" image="darkbackground" imagePosition="overlaps" alignment="center" refusesFirstResponder="YES" borderStyle="border" inset="2" id="Tc9-1t-Au4">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showHiddenChaptersWithSender:" target="-2" id="yaO-wa-e1K"/>
                     </connections>
                 </button>
             </subviews>
