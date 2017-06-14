@@ -587,9 +587,6 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
             self.clipFileSizeLabel.stringValue = String(format: "%2d", self.clipFileSizeVar);
         }
         
-      
-        
-        
     }
     
     @IBAction func saveTrimmedClip(_ sender: AnyObject?) {
@@ -603,7 +600,7 @@ class VideoPlayerControllsController: NSViewController, NSUserNotificationCenter
 
         let videoFileManager = VideoFileManager()
         
-        videoFileManager.exportVideoClip(url: URL(string: self.nowPlayingURLString)!, startTime: startTime!, endTime: endTime!)
+        videoFileManager.exportVideoClip(url: (self.appDelegate.videoPlayerViewController?.nowPlayingURL!)!, startTime: startTime!, endTime: endTime!)
         
         self.saveTrimmedVideoButton.isHidden = true
         self.trimmedClipNewLabel.isHidden = true
